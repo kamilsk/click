@@ -1,5 +1,5 @@
 > # Click! [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Referral%20Platform%20as%20a%20Service&url=https://github.com/kamilsk/click&via=ikamilsk&hashtags=go,service,referral-platform)
-> [![Analytics](https://ga-beacon.appspot.com/UA-109817251-20/click/readme?pixel)](https://github.com/igrigorik/ga-beacon)
+> [![Analytics](https://ga-beacon.appspot.com/UA-109817251-20/click/readme?pixel)](https://github.com/kamilsk/click)
 > Referral Platform as a Service.
 
 [![Patreon](https://img.shields.io/badge/patreon-donate-orange.svg)](https://www.patreon.com/octolab)

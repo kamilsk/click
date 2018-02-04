@@ -1,7 +1,12 @@
 OPEN_BROWSER       =
-SUPPORTED_VERSIONS = 1.9
+SUPPORTED_VERSIONS = 1.9 latest
 
 include makes/env.mk
+include makes/local.mk
+include makes/docker.mk
+include cmd/Makefile
+include env/docker.mk
+include env/docker-compose.mk
 
 .PHONY: pull-github-tpl
 pull-github-tpl:
