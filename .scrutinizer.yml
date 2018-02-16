@@ -1,0 +1,21 @@
+build:
+  dependencies:
+    override:
+    - make deps generate
+
+  environment:
+    go: go1.9
+
+  nodes:
+    analysis:
+      tests:
+        override:
+        - go-scrutinizer-run
+        - golint-run
+
+  tests:
+    override:
+    - make test
+
+checks:
+  go: true
