@@ -49,7 +49,7 @@ func init() {
 		v.SetDefault("idle_timeout", time.Duration(0))
 	}
 	{
-		runCmd.Flags().Int("cpus", v.GetInt("max_procs"),
+		runCmd.Flags().Int("cpus", v.GetInt("max_cpus"),
 			"maximum number of CPUs that can be executing simultaneously")
 		runCmd.Flags().String("bind", v.GetString("bind"),
 			"interface to which the server will bind")
