@@ -62,7 +62,7 @@ func init() {
 		runCmd.Flags().Duration("write-timeout", v.GetDuration("write_timeout"),
 			"maximum duration before timing out writes of the response")
 		runCmd.Flags().Duration("idle-timeout", v.GetDuration("idle_timeout"),
-			"maximum amount of time to wait for the next request when keep-alives are enabled")
+			"maximum amount of time to wait for the next request when keep-alive is enabled")
 		runCmd.Flags().Bool("with-profiler", false,
 			"enable pprof on /debug/pprof")
 	}
