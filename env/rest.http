@@ -1,0 +1,63 @@
+### API v1
+
+GET http://localhost:8080/
+
+###
+
+GET http://localhost:8080/github/click
+
+###
+
+GET http://localhost:8080/github/forma
+
+###
+
+GET http://localhost:8080/github/retry
+
+###
+
+GET http://localhost:8080/github/passport
+
+###
+
+GET http://localhost:8080/github/semaphore
+
+### Profiling
+
+GET http://admin:admin@localhost:8080/debug/pprof/cmdline
+
+###
+
+GET http://admin:admin@localhost:8080/debug/pprof/profile
+
+###
+
+GET http://admin:admin@localhost:8080/debug/pprof/symbol
+
+###
+
+GET http://admin:admin@localhost:8080/debug/pprof/trace
+
+###
+
+GET http://admin:admin@localhost:8080/debug/pprof
+
+###
+
+GET http://admin:admin@localhost:8080/debug/pprof/goroutine
+
+###
+
+GET http://admin:admin@localhost:8080/debug/pprof/threadcreate
+
+###
+
+GET http://admin:admin@localhost:8080/debug/pprof/heap
+
+###
+
+GET http://admin:admin@localhost:8080/debug/pprof/block
+
+###
+
+GET http://admin:admin@localhost:8080/debug/pprof/mutex
