@@ -4,7 +4,7 @@ GET http://localhost:8080/
 
 ###
 
-GET http://localhost:8080/github/click
+GET http://localhost:8080/github/click!
 
 ###
 
