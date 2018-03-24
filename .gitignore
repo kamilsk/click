@@ -21,3 +21,6 @@ vendor/
 # environment
 *.env
 !/env/.example.env
+
+# Material Kit template
+/template/

@@ -1,0 +1,9 @@
+img { max-width: 100%; }
+
+footer .fa-heart { color: red; }
+
+#header { border-radius: 0; margin-bottom: 0; }
+#header .navbar-brand img { height: 30px; }
+#header .ribbon img       { position: absolute; top: 0; right: 0; }
+
+#hero { background: url('../img/octopus.png') top center; }

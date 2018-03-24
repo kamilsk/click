@@ -1,5 +1,5 @@
 OPEN_BROWSER       =
-SUPPORTED_VERSIONS = 1.9 latest
+SUPPORTED_VERSIONS = 1.9 1.10 latest
 
 include makes/env.mk
 include makes/local.mk
@@ -7,6 +7,7 @@ include makes/docker.mk
 include env/cmd.make
 include env/docker.make
 include env/docker-compose.make
+include env/tools.make
 
 .PHONY: code-quality-check
 code-quality-check: ARGS = \
@@ -57,8 +58,7 @@ pull-github-tpl:
 	git clone git@github.com:kamilsk/shared.git .github
 	( \
 	  cd .github && \
-	  git checkout github-tpl-go-v1 && \
-	  git branch -d master && \
+	  git checkout github-tpl-go && \
 	  echo '- ' $$(cat README.md | head -n1 | awk '{print $$3}') 'at revision' $$(git rev-parse HEAD) \
 	)
 	rm -rf .github/.git .github/README.md
@@ -69,8 +69,24 @@ pull-makes:
 	git clone git@github.com:kamilsk/shared.git makes
 	( \
 	  cd makes && \
-	  git checkout makefile-go-v1 && \
-	  git branch -d master && \
+	  git checkout makefile-go && \
 	  echo '- ' $$(cat README.md | head -n1 | awk '{print $$3}') 'at revision' $$(git rev-parse HEAD) \
 	)
 	rm -rf makes/.git
+
+
+.PHONY: pull-template
+pull-template:
+	rm -rf template
+	git clone git@bitbucket.org:octotpl/materialkit.git template
+	( \
+	  cd template && \
+	  git checkout 2.x && \
+	  git describe --tags \
+	)
+	( \
+	  cp -n template/Template/assets/css/material-kit.min.css docs/assets/css/ && \
+	  cp -n template/Template/assets/js/bootstrap-material-design.min.js docs/assets/js/ \
+	  cp -n template/Template/assets/js/material-kit.min.js docs/assets/js/ \
+	)
+	rm -rf template/.git
