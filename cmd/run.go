@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"expvar"
 	"log"
 	"net/http"
+	"net/http/pprof"
 	"runtime"
 	"time"
 
@@ -17,7 +19,15 @@ var runCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		runtime.GOMAXPROCS(asInt(cmd.Flag("cpus").Value))
 		addr := cmd.Flag("bind").Value.String() + ":" + cmd.Flag("port").Value.String()
-		handler := chi.NewRouter(nil, asBool(cmd.Flag("with-profiler").Value))
+
+		if asBool(cmd.Flag("with-profiler").Value) {
+			go startProfiler()
+		}
+		if asBool(cmd.Flag("with-monitoring").Value) {
+			go startMonitoring()
+		}
+
+		handler := chi.NewRouter(nil)
 		srv := &http.Server{Addr: addr, Handler: handler,
 			ReadTimeout:       asDuration(cmd.Flag("read-timeout").Value),
 			ReadHeaderTimeout: asDuration(cmd.Flag("read-header-timeout").Value),
@@ -64,7 +74,26 @@ func init() {
 		runCmd.Flags().Duration("idle-timeout", v.GetDuration("idle_timeout"),
 			"maximum amount of time to wait for the next request when keep-alive is enabled")
 		runCmd.Flags().Bool("with-profiler", false,
-			"enable pprof on /debug/pprof")
+			"enable pprof on /pprof")
+		runCmd.Flags().Bool("with-monitoring", false,
+			"enable expvar on /expvar")
 	}
 	db(runCmd)
+}
+
+func startProfiler() {
+	mux := &http.ServeMux{}
+	mux.HandleFunc("/pprof/cmdline", pprof.Cmdline)
+	mux.HandleFunc("/pprof/profile", pprof.Profile)
+	mux.HandleFunc("/pprof/symbol", pprof.Symbol)
+	mux.HandleFunc("/pprof/trace", pprof.Trace)
+	mux.HandleFunc("/pprof/", pprof.Index)
+	_ = http.ListenAndServe(":8090", mux)
+}
+
+func startMonitoring() {
+	mux := &http.ServeMux{}
+	expvar.Handler()
+	mux.Handle("/expvar", expvar.Handler())
+	_ = http.ListenAndServe(":8091", mux)
 }
