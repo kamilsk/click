@@ -6,64 +6,96 @@
 
 ### API v1
 
-GET http://localhost:8080/
+GET http://localhost/
 
 ###
 
-GET http://localhost:8080/github/click!
+GET http://localhost/github/click!
 
 ###
 
-GET http://localhost:8080/github/forma
+GET http://localhost/api/v1/a382922d-b615-4227-b598-6d3633c397aa
 
 ###
 
-GET http://localhost:8080/github/retry
+GET http://localhost/github/egg
 
 ###
 
-GET http://localhost:8080/github/passport
+GET http://localhost/api/v1/09579e02-e076-489a-9741-f4cf2a67ad40
 
 ###
 
-GET http://localhost:8080/github/semaphore
+GET http://localhost/github/forma
+
+###
+
+GET http://localhost/api/v1/0d49a516-abea-430c-87a3-17992b8c6e45
+
+###
+
+GET http://localhost/github/retry
+
+###
+
+GET http://localhost/api/v1/19ac200a-ca74-48ca-8086-511f23d0c43e
+
+###
+
+GET http://localhost/github/passport
+
+###
+
+GET http://localhost/api/v1/4b1f1033-dd7c-452d-94bc-fe78591b7e66
+
+###
+
+GET http://localhost/github/semaphore
+
+###
+
+GET http://localhost/api/v1/7f9b8b84-977f-4fdb-a4df-fb17919fa897
 
 ### Profiling
 
-GET http://admin:admin@localhost:8080/debug/pprof/cmdline
+GET http://localhost:8090/pprof/cmdline
 
 ###
 
-GET http://admin:admin@localhost:8080/debug/pprof/profile
+GET http://localhost:8090/pprof/profile
 
 ###
 
-GET http://admin:admin@localhost:8080/debug/pprof/symbol
+GET http://localhost:8090/pprof/symbol
 
 ###
 
-GET http://admin:admin@localhost:8080/debug/pprof/trace
+GET http://localhost:8090/pprof/trace
 
 ###
 
-GET http://admin:admin@localhost:8080/debug/pprof
+GET http://localhost:8090/pprof
 
 ###
 
-GET http://admin:admin@localhost:8080/debug/pprof/goroutine
+GET http://localhost:8090/pprof/goroutine
 
 ###
 
-GET http://admin:admin@localhost:8080/debug/pprof/threadcreate
+GET http://localhost:8090/pprof/threadcreate
 
 ###
 
-GET http://admin:admin@localhost:8080/debug/pprof/heap
+GET http://localhost:8090/pprof/heap
 
 ###
 
-GET http://admin:admin@localhost:8080/debug/pprof/block
+GET http://localhost:8090/pprof/block
 
 ###
 
-GET http://admin:admin@localhost:8080/debug/pprof/mutex
+GET http://localhost:8090/pprof/mutex
+
+### Monitoring
+
+GET http://localhost:8091/expvar

@@ -20,7 +20,6 @@
   - [ ] v1: MVP
   - [ ] v2: CRUD
   - [ ] v3: GUI
-  - [ ] v4: Extensibility
   - [ ] Click!, SaaS
 - tested on Go 1.9 and 1.10
 - made with ❤️ by [OctoLab](https://www.octolab.org/)

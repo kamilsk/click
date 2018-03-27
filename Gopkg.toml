@@ -3,9 +3,25 @@
   version = "^3.3.0"
 
 [[constraint]]
+  name = "github.com/golang/mock"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/lib/pq"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/rubenv/sql-migrate"
+  branch = "master"
+
+[[constraint]]
   name = "github.com/spf13/cobra"
   version = "*"
 
 [[constraint]]
   name = "github.com/spf13/viper"
   version = "^1.0.0"
+
+[[constraint]]
+  name = "github.com/stretchr/testify"
+  version = "^1.1.4"

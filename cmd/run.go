@@ -42,7 +42,7 @@ func init() {
 	{
 		v.SetDefault("max_cpus", 1)
 		v.SetDefault("bind", "127.0.0.1")
-		v.SetDefault("port", 8080)
+		v.SetDefault("port", 80)
 		v.SetDefault("read_timeout", time.Duration(0))
 		v.SetDefault("read_header_timeout", time.Duration(0))
 		v.SetDefault("write_timeout", time.Duration(0))
@@ -66,4 +66,5 @@ func init() {
 		runCmd.Flags().Bool("with-profiler", false,
 			"enable pprof on /debug/pprof")
 	}
+	db(runCmd)
 }

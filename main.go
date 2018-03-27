@@ -6,6 +6,8 @@ import (
 	"os"
 	"runtime"
 
+	_ "github.com/lib/pq"
+
 	"github.com/kamilsk/click/cmd"
 	"github.com/spf13/cobra"
 )
