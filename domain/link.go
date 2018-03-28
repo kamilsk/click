@@ -1,0 +1,14 @@
+package domain
+
+import "database/sql"
+
+// Link represents a "redirect entity".
+type Link struct {
+	ID        string         `json:"id"`
+	Name      string         `json:"name"`
+	Status    string         `json:"status"`
+	CreatedAt string         `json:"-"`
+	UpdatedAt sql.NullString `json:"-"`
+	Aliases   []Alias        `json:"aliases"`
+	Targets   []Target       `json:"targets"`
+}

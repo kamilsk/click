@@ -4,6 +4,7 @@ import (
 	"database/sql"
 
 	"github.com/kamilsk/click/dao/postgres"
+	"github.com/kamilsk/click/domain"
 )
 
 // Must returns a new instance of the Storage or panics if it cannot configure it.
@@ -53,4 +54,14 @@ func (l *Storage) Connection() *sql.DB {
 // Dialect returns supported database dialect.
 func (l *Storage) Dialect() string {
 	return postgres.Dialect()
+}
+
+// Link returns the Link with its Aliases and Targets by provided ID.
+func (l *Storage) Link(id domain.UUID) (domain.Link, error) {
+	return postgres.Link(l.conn, id)
+}
+
+// LinkByAlias returns the Link with its Targets and the single Alias defined by Namespace and URN.
+func (l *Storage) LinkByAlias(alias domain.Alias) (domain.Link, error) {
+	return postgres.LinkByAlias(l.conn, alias)
 }

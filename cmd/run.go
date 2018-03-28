@@ -8,7 +8,10 @@ import (
 	"runtime"
 	"time"
 
+	"github.com/kamilsk/click/dao"
+	"github.com/kamilsk/click/server"
 	"github.com/kamilsk/click/server/router/chi"
+	"github.com/kamilsk/click/service"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -27,7 +30,11 @@ var runCmd = &cobra.Command{
 			go startMonitoring()
 		}
 
-		handler := chi.NewRouter(nil)
+		handler := chi.NewRouter(
+			server.New(
+				service.New(dao.Must(dao.Connection(dsn(cmd)))),
+			),
+		)
 		srv := &http.Server{Addr: addr, Handler: handler,
 			ReadTimeout:       asDuration(cmd.Flag("read-timeout").Value),
 			ReadHeaderTimeout: asDuration(cmd.Flag("read-header-timeout").Value),
@@ -76,7 +83,7 @@ func init() {
 		runCmd.Flags().Bool("with-profiler", false,
 			"enable pprof on /pprof")
 		runCmd.Flags().Bool("with-monitoring", false,
-			"enable expvar on /expvar")
+			"enable expvar on /vars")
 	}
 	db(runCmd)
 }
@@ -87,13 +94,13 @@ func startProfiler() {
 	mux.HandleFunc("/pprof/profile", pprof.Profile)
 	mux.HandleFunc("/pprof/symbol", pprof.Symbol)
 	mux.HandleFunc("/pprof/trace", pprof.Trace)
-	mux.HandleFunc("/pprof/", pprof.Index)
+	mux.HandleFunc("/debug/pprof/", pprof.Index) // net/http/pprof.handler.ServeHTTP specificity
 	_ = http.ListenAndServe(":8090", mux)
 }
 
 func startMonitoring() {
 	mux := &http.ServeMux{}
 	expvar.Handler()
-	mux.Handle("/expvar", expvar.Handler())
+	mux.Handle("/vars", expvar.Handler())
 	_ = http.ListenAndServe(":8091", mux)
 }
