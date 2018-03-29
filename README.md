@@ -8,12 +8,6 @@
 [![GoDoc](https://godoc.org/github.com/kamilsk/click?status.svg)](https://godoc.org/github.com/kamilsk/click)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-## Feedback
-
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kamilsk/click)
-[![@kamilsk](https://img.shields.io/badge/author-%40kamilsk-blue.svg)](https://twitter.com/ikamilsk)
-[![@octolab](https://img.shields.io/badge/sponsor-%40octolab-blue.svg)](https://twitter.com/octolab_inc)
-
 ## Notes
 
 - brief roadmap
@@ -22,4 +16,11 @@
   - [ ] v3: GUI
   - [ ] Click!, SaaS
 - tested on Go 1.9 and 1.10
-- made with ❤️ by [OctoLab](https://www.octolab.org/)
+
+---
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kamilsk/click)
+[![@kamilsk](https://img.shields.io/badge/author-%40kamilsk-blue.svg)](https://twitter.com/ikamilsk)
+[![@octolab](https://img.shields.io/badge/sponsor-%40octolab-blue.svg)](https://twitter.com/octolab_inc)
+
+made with ❤️ by [OctoLab](https://www.octolab.org/)
