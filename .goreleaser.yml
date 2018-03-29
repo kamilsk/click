@@ -19,7 +19,7 @@ brew:
   commit_author:
     name:  Kamil Samigullin
     email: kamil@samigullin.info
-  description: Referral Platform as a Service.
+  description: Link Manager as a Service.
   folder: Formula
   github:
     name:  homebrew-tap

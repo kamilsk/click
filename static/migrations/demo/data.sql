@@ -11,7 +11,7 @@ DECLARE   demoUser  UUID := uuid_generate_v4();
   DECLARE semaphore UUID := '7f9b8b84-977f-4fdb-a4df-fb17919fa897';
 BEGIN
   INSERT INTO "link" ("user", "id", "name") VALUES
-    (demoUser, click, 'Click! - Referral Platform as a Service'),
+    (demoUser, click, 'Click! - Link Manager as a Service'),
     (demoUser, egg, 'egg - extended go get - alternative for standard "go get" with a few little but useful features'),
     (demoUser, forma, 'Forma - Data Collector as a Service'),
     (demoUser, retry, 'Functional mechanism based on channels to perform actions repetitively until successful'),
