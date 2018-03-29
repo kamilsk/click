@@ -10,5 +10,5 @@ type Service interface {
 	// HandleGetV1 handles an input request.
 	HandleGetV1(v1.GetRequest) v1.GetResponse
 	// HandleRedirect handles an input request.
-	HandleRedirect(request transfer.RedirectRequest) transfer.RedirectResponse
+	HandleRedirect(transfer.RedirectRequest) transfer.RedirectResponse
 }
