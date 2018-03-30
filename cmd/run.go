@@ -32,7 +32,9 @@ var runCmd = &cobra.Command{
 
 		handler := chi.NewRouter(
 			server.New(
-				service.New(dao.Must(dao.Connection(dsn(cmd)))),
+				service.New(
+					dao.Must(dao.Connection(dsn(cmd))),
+				),
 			),
 		)
 		srv := &http.Server{Addr: addr, Handler: handler,
