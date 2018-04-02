@@ -45,8 +45,11 @@ func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
 
 // Redirect is responsible for `GET /{Alias}` request handling.
 func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
+	var (
+		ns = fallback(req.Header.Get("X-Click-Namespace"), "global")
+	)
 	response := s.service.HandleRedirect(transfer.RedirectRequest{
-		Namespace: "global",
+		Namespace: ns,
 		URN:       strings.Trim(req.URL.Path, "/"),
 	})
 	if response.Error != nil {
@@ -75,4 +78,15 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 
 	rw.Header().Set("Location", response.Target.URI)
 	rw.WriteHeader(statusCode)
+}
+
+func fallback(value string, fallbackValues ...string) string {
+	if value == "" {
+		for _, value := range fallbackValues {
+			if value != "" {
+				return value
+			}
+		}
+	}
+	return value
 }

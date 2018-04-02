@@ -9,6 +9,7 @@ GET http://localhost:8080/api/v1/a382922d-b615-4227-b598-6d3633c397aa
 ###
 
 GET http://localhost:8080/github/click!
+X-Click-Namespace: global
 
 ###
 
@@ -17,6 +18,7 @@ GET http://localhost:8080/api/v1/09579e02-e076-489a-9741-f4cf2a67ad40
 ###
 
 GET http://localhost:8080/github/egg
+X-Click-Namespace: global
 
 ###
 
@@ -25,6 +27,7 @@ GET http://localhost:8080/api/v1/0d49a516-abea-430c-87a3-17992b8c6e45
 ###
 
 GET http://localhost:8080/github/forma
+X-Click-Namespace: global
 
 ###
 
@@ -33,6 +36,7 @@ GET http://localhost:8080/api/v1/19ac200a-ca74-48ca-8086-511f23d0c43e
 ###
 
 GET http://localhost:8080/github/retry
+X-Click-Namespace: global
 
 ###
 
@@ -41,6 +45,7 @@ GET http://localhost:8080/api/v1/4b1f1033-dd7c-452d-94bc-fe78591b7e66
 ###
 
 GET http://localhost:8080/github/passport
+X-Click-Namespace: global
 
 ###
 
@@ -49,6 +54,7 @@ GET http://localhost:8080/api/v1/7f9b8b84-977f-4fdb-a4df-fb17919fa897
 ###
 
 GET http://localhost:8080/github/semaphore
+X-Click-Namespace: global
 
 ### Profiling
 
