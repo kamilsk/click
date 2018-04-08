@@ -89,13 +89,13 @@ $ docker pull kamilsk/click:latest
 ### From source code
 
 ```bash
-$ egg github.com/kamilsk/click@^1.0.0 -- make generate test install
+$ egg github.com/kamilsk/click@^1.0.0 -- make test install
 ```
 
 #### Mirror
 
 ```bash
-$ egg bitbucket.org/kamilsk/click@^1.0.0 -- make generate test install
+$ egg bitbucket.org/kamilsk/click@^1.0.0 -- make test install
 ```
 
 > [egg](https://github.com/kamilsk/egg) is an `extended go get`.

@@ -4,9 +4,6 @@
 # go test and code quality report
 *.out
 
-# mockgen
-/**/mock_*.go
-
 # database
 /static/migrations/*
 !/static/migrations/1_initial.sql

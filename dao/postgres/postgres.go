@@ -11,6 +11,11 @@ import (
 
 const dialect = "postgres"
 
+const (
+	avgCount   = 4
+	pct95Count = 2
+)
+
 // Dialect returns supported database dialect.
 func Dialect() string {
 	return dialect
@@ -55,7 +60,7 @@ func Link(db *sql.DB, id domain.UUID) (domain.Link, error) {
 
 // Aliases returns aliases of the Link with specified ID.
 func Aliases(db *sql.DB, linkID domain.UUID) ([]domain.Alias, error) {
-	aliases := make([]domain.Alias, 0, 2)
+	aliases := make([]domain.Alias, 0, avgCount)
 	rows, err := db.Query(
 		`SELECT "id", "namespace", "urn", "created_at", "deleted_at" FROM "alias" WHERE "link_id" = $1`, linkID)
 	if err != nil {
@@ -74,7 +79,7 @@ func Aliases(db *sql.DB, linkID domain.UUID) ([]domain.Alias, error) {
 
 // Targets returns targets of the Link with specified ID.
 func Targets(db *sql.DB, linkID domain.UUID) ([]domain.Target, error) {
-	targets := make([]domain.Target, 0, 2)
+	targets := make([]domain.Target, 0, avgCount)
 	rows, err := db.Query(
 		`SELECT "id", "uri", "rule", "created_at", "updated_at" FROM "target" WHERE "link_id" = $1`, linkID)
 	if err != nil {

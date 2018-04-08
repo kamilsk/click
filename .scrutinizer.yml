@@ -1,8 +1,4 @@
 build:
-  dependencies:
-    override:
-    - make generate
-
   environment:
     go: go1.9
 

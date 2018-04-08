@@ -26,24 +26,24 @@ BEGIN
     (semaphore, 'github/semaphore');
   INSERT INTO "target" ("link_id", "uri", "rule") VALUES
     (click, 'https://github.com/kamilsk/click', '{
-      "description": "Project location"
+      "description": "Project location", "tags": ["src"]
     }'),
     (click, 'https://kamilsk.github.io/click/', '{
-      "description": "Promotion page"
+      "description": "Promotion page", "tags": ["promo"]
     }'),
     (egg, 'https://github.com/kamilsk/egg', NULL),
     (forma, 'https://github.com/kamilsk/form-api', '{
-      "description": "Project location"
+      "description": "Project location", "tags": ["src"]
     }'),
     (forma, 'https://kamilsk.github.io/form-api/', '{
-      "description": "Promotion page"
+      "description": "Promotion page", "tags": ["promo"]
     }'),
     (retry, 'https://github.com/kamilsk/retry', NULL),
     (passport, 'https://github.com/kamilsk/passport', '{
-      "description": "Project location"
+      "description": "Project location", "tags": ["src"]
     }'),
     (passport, 'https://kamilsk.github.io/passport/', '{
-      "description": "Promotion page"
+      "description": "Promotion page", "tags": ["promo"]
     }'),
     (semaphore, 'https://github.com/kamilsk/semaphore', NULL);
 END;

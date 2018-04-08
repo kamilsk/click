@@ -3,6 +3,7 @@ package domain
 import "database/sql"
 
 // Link represents a "redirect entity".
+//go:generate easyjson -all
 type Link struct {
 	ID        string         `json:"id"`
 	Name      string         `json:"name"`
