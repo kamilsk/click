@@ -2,7 +2,6 @@ package postgres
 
 import (
 	"database/sql"
-	"encoding/json"
 	"sync"
 
 	"github.com/kamilsk/click/domain"
@@ -12,8 +11,7 @@ import (
 const dialect = "postgres"
 
 const (
-	avgCount   = 4
-	pct95Count = 2
+	avgCount = 4
 )
 
 // Dialect returns supported database dialect.
@@ -96,7 +94,7 @@ func Targets(db *sql.DB, linkID domain.UUID) ([]domain.Target, error) {
 			return nil, errors.Database(errors.ServerErrorMessage, err, "trying to populate target of link %q", linkID)
 		}
 		if len(raw) > 0 {
-			if err := json.Unmarshal(raw, &target.Rule); err != nil {
+			if err := (&target.Rule).UnmarshalJSON(raw); err != nil {
 				return nil, errors.Serialization(errors.NeutralMessage, err,
 					"trying to unmarshal rule of target %d of link %q", target.ID, linkID)
 			}
@@ -106,52 +104,21 @@ func Targets(db *sql.DB, linkID domain.UUID) ([]domain.Target, error) {
 	return targets, nil
 }
 
-// LinkByAlias returns the Link with its Targets and the single Alias defined by Namespace and URN.
-func LinkByAlias(db *sql.DB, alias domain.Alias) (domain.Link, error) {
+// LinkByAlias returns the Link with its set of Alias and set of Target defined by provided namespace and URN.
+func LinkByAlias(db *sql.DB, namespace, urn string) (domain.Link, error) {
 	var (
-		link domain.Link
+		aliasID uint64
+		linkID  domain.UUID
 	)
 	row := db.QueryRow(
-		`SELECT "id", "link_id", "created_at", "deleted_at" FROM "alias" WHERE "namespace" = $1 AND "urn" = $2`,
-		alias.Namespace, alias.URN)
-	if err := row.Scan(&alias.ID, &alias.LinkID, &alias.CreatedAt, &alias.DeletedAt); err != nil {
+		`SELECT "id", "link_id" FROM "alias" WHERE "namespace" = $1 AND "urn" = $2`, namespace, urn)
+	if err := row.Scan(&aliasID, &linkID); err != nil {
 		if err == sql.ErrNoRows {
-			return link, errors.NotFound(errors.LinkNotFoundMessage, err,
-				"link with alias {%s:%s} not found", alias.Namespace, alias.URN)
+			return domain.Link{}, errors.NotFound(errors.LinkNotFoundMessage, err,
+				"link with alias {%s:%s} not found", namespace, urn)
 		}
-		return link, errors.Database(errors.ServerErrorMessage, err,
-			"trying to populate link by alias {%s:%s}", alias.Namespace, alias.URN)
+		return domain.Link{}, errors.Database(errors.ServerErrorMessage, err,
+			"trying to populate link by alias {%s:%s}", namespace, urn)
 	}
-	link.ID, link.Aliases = alias.LinkID, append(link.Aliases, alias)
-
-	{
-		var errLink, errTarget error
-		wg := &sync.WaitGroup{}
-		wg.Add(2)
-		go func() {
-			defer wg.Done()
-			row := db.QueryRow(
-				`SELECT "name", "status", "created_at", "updated_at" FROM "link" WHERE "id" = $1`, link.ID)
-			if err := row.Scan(&link.Name, &link.Status, &link.CreatedAt, &link.UpdatedAt); err != nil {
-				if err == sql.ErrNoRows {
-					errLink = errors.NotFound(errors.LinkNotFoundMessage, err, "link %q not found", link.ID)
-					return
-				}
-				errLink = errors.Database(errors.ServerErrorMessage, err, "trying to populate link %q", link.ID)
-			}
-		}()
-		go func() {
-			defer wg.Done()
-			link.Targets, errTarget = Targets(db, domain.UUID(alias.LinkID))
-		}()
-		wg.Wait()
-		if errLink != nil {
-			return link, errLink
-		}
-		if errTarget != nil {
-			return link, errTarget
-		}
-	}
-
-	return link, nil
+	return Link(db, linkID)
 }

@@ -1,7 +1,3 @@
-# TODO
-# - https://github.com/avelino/awesome-go#utilities  - click.octolab.net/github/retry
-# - https://github.com/avelino/awesome-go#goroutines - click.octolab.net/github/semaphore
-
 ### API v1
 
 GET http://localhost:8080/api/v1/a382922d-b615-4227-b598-6d3633c397aa
@@ -10,6 +6,15 @@ GET http://localhost:8080/api/v1/a382922d-b615-4227-b598-6d3633c397aa
 
 GET http://localhost:8080/github/click!
 X-Click-Namespace: global
+
+###
+
+GET http://localhost:8080/github/click
+X-Click-Namespace: global
+
+###
+
+GET http://localhost:8080/github/click?tag=promo
 
 ###
 
@@ -31,6 +36,21 @@ X-Click-Namespace: global
 
 ###
 
+GET http://localhost:8080/github/forma?tag=src
+X-Click-Namespace: global
+
+###
+
+GET http://localhost:8080/github/forma?tag=promo
+X-Click-Namespace: global
+
+###
+
+GET http://localhost:8080/github/forma?type=promo
+X-Click-Namespace: global
+
+###
+
 GET http://localhost:8080/api/v1/19ac200a-ca74-48ca-8086-511f23d0c43e
 
 ###
@@ -45,6 +65,11 @@ GET http://localhost:8080/api/v1/4b1f1033-dd7c-452d-94bc-fe78591b7e66
 ###
 
 GET http://localhost:8080/github/passport
+X-Click-Namespace: global
+
+###
+
+GET http://localhost:8080/github/passport?tag=promo
 X-Click-Namespace: global
 
 ###

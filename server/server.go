@@ -51,6 +51,7 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	response := s.service.HandleRedirect(transfer.RedirectRequest{
 		Namespace: ns,
 		URN:       strings.Trim(req.URL.Path, "/"),
+		Query:     req.URL.Query(),
 	})
 	if response.Error != nil {
 		if err, is := response.Error.(errors.ApplicationError); is {

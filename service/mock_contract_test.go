@@ -47,14 +47,14 @@ func (mr *MockStorageMockRecorder) Link(arg0 interface{}) *gomock.Call {
 }
 
 // LinkByAlias mocks base method
-func (m *MockStorage) LinkByAlias(arg0 domain.Alias) (domain.Link, error) {
-	ret := m.ctrl.Call(m, "LinkByAlias", arg0)
+func (m *MockStorage) LinkByAlias(arg0, arg1 string) (domain.Link, error) {
+	ret := m.ctrl.Call(m, "LinkByAlias", arg0, arg1)
 	ret0, _ := ret[0].(domain.Link)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // LinkByAlias indicates an expected call of LinkByAlias
-func (mr *MockStorageMockRecorder) LinkByAlias(arg0 interface{}) *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkByAlias", reflect.TypeOf((*MockStorage)(nil).LinkByAlias), arg0)
+func (mr *MockStorageMockRecorder) LinkByAlias(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkByAlias", reflect.TypeOf((*MockStorage)(nil).LinkByAlias), arg0, arg1)
 }

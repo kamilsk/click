@@ -6,6 +6,7 @@ import "github.com/kamilsk/click/domain"
 type RedirectRequest struct {
 	Namespace string
 	URN       string
+	Query     map[string][]string
 }
 
 // RedirectResponse represents `GET /{Alias}` response.

@@ -40,7 +40,7 @@ func easyjsonF1a92ff2DecodeGithubComKamilskClickDomain(in *jlexer.Lexer, out *Ru
 			out.Description = string(in.String())
 		case "alias":
 			out.AliasID = uint64(in.Uint64())
-		case "tag":
+		case "tags":
 			if in.IsNull() {
 				in.Skip()
 				out.Tags = nil
@@ -120,7 +120,7 @@ func easyjsonF1a92ff2EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in R
 		out.Uint64(uint64(in.AliasID))
 	}
 	{
-		const prefix string = ",\"tag\":"
+		const prefix string = ",\"tags\":"
 		if first {
 			first = false
 			out.RawString(prefix[1:])

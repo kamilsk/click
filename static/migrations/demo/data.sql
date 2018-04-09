@@ -40,11 +40,11 @@ BEGIN
       "description": "Project location", "tags": ["src"]
     }'),
     (forma, 'https://kamilsk.github.io/form-api/', '{
-      "description": "Promotion page", "tags": ["promo"], "conditions": {"type": "promo"}, "match": 1
+      "description": "Promotion page", "conditions": {"type": "promo"}
     }'),
     (retry, 'https://github.com/kamilsk/retry', NULL),
     (passport, 'https://github.com/kamilsk/passport', '{
-      "description": "Project location", "tags": ["src"]
+      "description": "Project location"
     }'),
     (passport, 'https://kamilsk.github.io/passport/', '{
       "description": "Promotion page", "tags": ["promo"]

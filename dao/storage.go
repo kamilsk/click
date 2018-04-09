@@ -61,7 +61,7 @@ func (l *Storage) Link(id domain.UUID) (domain.Link, error) {
 	return postgres.Link(l.conn, id)
 }
 
-// LinkByAlias returns the Link with its Targets and the single Alias defined by Namespace and URN.
-func (l *Storage) LinkByAlias(alias domain.Alias) (domain.Link, error) {
-	return postgres.LinkByAlias(l.conn, alias)
+// LinkByAlias returns the Link with its set of Alias and set of Target defined by provided namespace and URN.
+func (l *Storage) LinkByAlias(namespace, urn string) (domain.Link, error) {
+	return postgres.LinkByAlias(l.conn, namespace, urn)
 }

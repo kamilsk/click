@@ -10,6 +10,6 @@ type Link struct {
 	Status    string         `json:"status"`
 	CreatedAt string         `json:"-"`
 	UpdatedAt sql.NullString `json:"-"`
-	Aliases   []Alias        `json:"aliases"`
-	Targets   []Target       `json:"targets"`
+	Aliases   Aliases        `json:"aliases"`
+	Targets   Targets        `json:"targets"`
 }

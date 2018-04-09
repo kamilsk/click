@@ -1,7 +1,6 @@
 package service
 
 import (
-	"github.com/kamilsk/click/domain"
 	"github.com/kamilsk/click/transfer"
 	"github.com/kamilsk/click/transfer/api/v1"
 )
@@ -26,17 +25,12 @@ func (s *Click) HandleGetV1(request v1.GetRequest) v1.GetResponse {
 // HandleRedirect handles an input request.
 func (s *Click) HandleRedirect(request transfer.RedirectRequest) transfer.RedirectResponse {
 	var response transfer.RedirectResponse
-	link, err := s.dao.LinkByAlias(domain.Alias{Namespace: request.Namespace, URN: request.URN})
+	link, err := s.dao.LinkByAlias(request.Namespace, request.URN)
 	if err != nil {
 		response.Error = err
 		return response
 	}
-
-	// simple logic now
-	response.Alias = link.Aliases[0]
-	if len(link.Targets) > 0 {
-		response.Target = link.Targets[0]
-	}
-
+	response.Alias = link.Aliases.Find(request.Namespace, request.URN)
+	response.Target = link.Targets.Find(response.Alias, request.Query)
 	return response
 }
