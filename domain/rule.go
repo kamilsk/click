@@ -12,11 +12,11 @@ const (
 // Rule represents a rule of the Target.
 //go:generate easyjson -all
 type Rule struct {
-	Description string            `json:"description"`
-	AliasID     uint64            `json:"alias"`
-	Tags        []string          `json:"tags"`
-	Conditions  map[string]string `json:"conditions"`
-	Match       byte              `json:"match"`
+	Description string            `json:"description,omitempty"`
+	AliasID     uint64            `json:"alias,omitempty"`
+	Tags        []string          `json:"tags,omitempty"`
+	Conditions  map[string]string `json:"conditions,omitempty"`
+	Match       byte              `json:"match,omitempty"`
 }
 
 // Calculate calculates weight of Rule's Target.

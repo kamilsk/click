@@ -99,7 +99,7 @@ func easyjsonF1a92ff2EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in R
 	out.RawByte('{')
 	first := true
 	_ = first
-	{
+	if in.Description != "" {
 		const prefix string = ",\"description\":"
 		if first {
 			first = false
@@ -109,7 +109,7 @@ func easyjsonF1a92ff2EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in R
 		}
 		out.String(string(in.Description))
 	}
-	{
+	if in.AliasID != 0 {
 		const prefix string = ",\"alias\":"
 		if first {
 			first = false
@@ -119,7 +119,7 @@ func easyjsonF1a92ff2EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in R
 		}
 		out.Uint64(uint64(in.AliasID))
 	}
-	{
+	if len(in.Tags) != 0 {
 		const prefix string = ",\"tags\":"
 		if first {
 			first = false
@@ -127,9 +127,7 @@ func easyjsonF1a92ff2EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in R
 		} else {
 			out.RawString(prefix)
 		}
-		if in.Tags == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
-			out.RawString("null")
-		} else {
+		{
 			out.RawByte('[')
 			for v3, v4 := range in.Tags {
 				if v3 > 0 {
@@ -140,7 +138,7 @@ func easyjsonF1a92ff2EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in R
 			out.RawByte(']')
 		}
 	}
-	{
+	if len(in.Conditions) != 0 {
 		const prefix string = ",\"conditions\":"
 		if first {
 			first = false
@@ -148,9 +146,7 @@ func easyjsonF1a92ff2EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in R
 		} else {
 			out.RawString(prefix)
 		}
-		if in.Conditions == nil && (out.Flags&jwriter.NilMapAsEmpty) == 0 {
-			out.RawString(`null`)
-		} else {
+		{
 			out.RawByte('{')
 			v5First := true
 			for v5Name, v5Value := range in.Conditions {
@@ -166,7 +162,7 @@ func easyjsonF1a92ff2EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in R
 			out.RawByte('}')
 		}
 	}
-	{
+	if in.Match != 0 {
 		const prefix string = ",\"match\":"
 		if first {
 			first = false

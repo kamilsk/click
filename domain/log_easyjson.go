@@ -49,7 +49,7 @@ func easyjsonB6915918DecodeGithubComKamilskClickDomain(in *jlexer.Lexer, out *Lo
 		case "code":
 			out.Code = int8(in.Int8())
 		case "context":
-			easyjsonB6915918Decode(in, &out.Context)
+			(out.Context).UnmarshalEasyJSON(in)
 		case "created_at":
 			out.CreatedAt = string(in.String())
 		default:
@@ -134,7 +134,7 @@ func easyjsonB6915918EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in L
 		} else {
 			out.RawString(prefix)
 		}
-		easyjsonB6915918Encode(out, in.Context)
+		(in.Context).MarshalEasyJSON(out)
 	}
 	{
 		const prefix string = ",\"created_at\":"
@@ -172,10 +172,7 @@ func (v *Log) UnmarshalJSON(data []byte) error {
 func (v *Log) UnmarshalEasyJSON(l *jlexer.Lexer) {
 	easyjsonB6915918DecodeGithubComKamilskClickDomain(l, v)
 }
-func easyjsonB6915918Decode(in *jlexer.Lexer, out *struct {
-	Cookie map[string]string   `json:"cookie"`
-	Header map[string][]string `json:"header"`
-}) {
+func easyjsonB6915918DecodeGithubComKamilskClickDomain1(in *jlexer.Lexer, out *EventContext) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -265,14 +262,11 @@ func easyjsonB6915918Decode(in *jlexer.Lexer, out *struct {
 		in.Consumed()
 	}
 }
-func easyjsonB6915918Encode(out *jwriter.Writer, in struct {
-	Cookie map[string]string   `json:"cookie"`
-	Header map[string][]string `json:"header"`
-}) {
+func easyjsonB6915918EncodeGithubComKamilskClickDomain1(out *jwriter.Writer, in EventContext) {
 	out.RawByte('{')
 	first := true
 	_ = first
-	{
+	if len(in.Cookie) != 0 {
 		const prefix string = ",\"cookie\":"
 		if first {
 			first = false
@@ -280,9 +274,7 @@ func easyjsonB6915918Encode(out *jwriter.Writer, in struct {
 		} else {
 			out.RawString(prefix)
 		}
-		if in.Cookie == nil && (out.Flags&jwriter.NilMapAsEmpty) == 0 {
-			out.RawString(`null`)
-		} else {
+		{
 			out.RawByte('{')
 			v4First := true
 			for v4Name, v4Value := range in.Cookie {
@@ -298,7 +290,7 @@ func easyjsonB6915918Encode(out *jwriter.Writer, in struct {
 			out.RawByte('}')
 		}
 	}
-	{
+	if len(in.Header) != 0 {
 		const prefix string = ",\"header\":"
 		if first {
 			first = false
@@ -306,9 +298,7 @@ func easyjsonB6915918Encode(out *jwriter.Writer, in struct {
 		} else {
 			out.RawString(prefix)
 		}
-		if in.Header == nil && (out.Flags&jwriter.NilMapAsEmpty) == 0 {
-			out.RawString(`null`)
-		} else {
+		{
 			out.RawByte('{')
 			v5First := true
 			for v5Name, v5Value := range in.Header {
@@ -336,4 +326,28 @@ func easyjsonB6915918Encode(out *jwriter.Writer, in struct {
 		}
 	}
 	out.RawByte('}')
+}
+
+// MarshalJSON supports json.Marshaler interface
+func (v EventContext) MarshalJSON() ([]byte, error) {
+	w := jwriter.Writer{}
+	easyjsonB6915918EncodeGithubComKamilskClickDomain1(&w, v)
+	return w.Buffer.BuildBytes(), w.Error
+}
+
+// MarshalEasyJSON supports easyjson.Marshaler interface
+func (v EventContext) MarshalEasyJSON(w *jwriter.Writer) {
+	easyjsonB6915918EncodeGithubComKamilskClickDomain1(w, v)
+}
+
+// UnmarshalJSON supports json.Unmarshaler interface
+func (v *EventContext) UnmarshalJSON(data []byte) error {
+	r := jlexer.Lexer{Data: data}
+	easyjsonB6915918DecodeGithubComKamilskClickDomain1(&r, v)
+	return r.Error()
+}
+
+// UnmarshalEasyJSON supports easyjson.Unmarshaler interface
+func (v *EventContext) UnmarshalEasyJSON(l *jlexer.Lexer) {
+	easyjsonB6915918DecodeGithubComKamilskClickDomain1(l, v)
 }
