@@ -57,15 +57,17 @@ $ curl http://localhost:8080/api/v1/a382922d-b615-4227-b598-6d3633c397aa
 #     }
 #   ]
 # }
-$ curl -v http://localhost:8080/github/click!
+$ curl -v --cookie "token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4" http://localhost:8080/github/click!
 # > GET /github/click! HTTP/1.1
 # > Host: localhost:8080
 # > User-Agent: curl/7.54.0
 # > Accept: */*
+# > Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
 # >
 # < HTTP/1.1 302 Found
 # < Location: https://kamilsk.github.io/click/
-# < Date: Tue, 10 Apr 2018 12:01:43 GMT
+# < Set-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4; Path=/; HttpOnly; Secure
+# < Date: Wed, 11 Apr 2018 17:37:48 GMT
 # < Content-Length: 0
 # <
 $

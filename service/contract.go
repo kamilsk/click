@@ -8,4 +8,6 @@ type Storage interface {
 	Link(domain.UUID) (domain.Link, error)
 	// LinkByAlias returns the Link with its set of Alias and set of Target defined by provided namespace and URN.
 	LinkByAlias(namespace, urn string) (domain.Link, error)
+	// UUID returns a new generated unique identifier.
+	UUID() (domain.UUID, error)
 }

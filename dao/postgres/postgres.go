@@ -38,11 +38,11 @@ func Link(db *sql.DB, id domain.UUID) (domain.Link, error) {
 		wg.Add(2)
 		go func() {
 			defer wg.Done()
-			link.Aliases, errAlias = Aliases(db, id)
+			link.Aliases, errAlias = aliases(db, id)
 		}()
 		go func() {
 			defer wg.Done()
-			link.Targets, errTarget = Targets(db, id)
+			link.Targets, errTarget = targets(db, id)
 		}()
 		wg.Wait()
 		if errAlias != nil {
@@ -56,8 +56,36 @@ func Link(db *sql.DB, id domain.UUID) (domain.Link, error) {
 	return link, nil
 }
 
-// Aliases returns aliases of the Link with specified ID.
-func Aliases(db *sql.DB, linkID domain.UUID) ([]domain.Alias, error) {
+// LinkByAlias returns the Link with its set of Alias and set of Target defined by provided namespace and URN.
+func LinkByAlias(db *sql.DB, namespace, urn string) (domain.Link, error) {
+	var (
+		aliasID uint64
+		linkID  domain.UUID
+	)
+	row := db.QueryRow(
+		`SELECT "id", "link_id" FROM "alias" WHERE "namespace" = $1 AND "urn" = $2`, namespace, urn)
+	if err := row.Scan(&aliasID, &linkID); err != nil {
+		if err == sql.ErrNoRows {
+			return domain.Link{}, errors.NotFound(errors.LinkNotFoundMessage, err,
+				"link with alias {%s:%s} not found", namespace, urn)
+		}
+		return domain.Link{}, errors.Database(errors.ServerErrorMessage, err,
+			"trying to populate link by alias {%s:%s}", namespace, urn)
+	}
+	return Link(db, linkID)
+}
+
+// UUID returns a new generated unique identifier.
+func UUID(db *sql.DB) (domain.UUID, error) {
+	var id domain.UUID
+	row := db.QueryRow(`SELECT uuid_generate_v4()`)
+	if err := row.Scan(&id); err != nil {
+		return id, errors.Database(errors.ServerErrorMessage, err, "trying to populate UUID")
+	}
+	return id, nil
+}
+
+func aliases(db *sql.DB, linkID domain.UUID) ([]domain.Alias, error) {
 	aliases := make([]domain.Alias, 0, avgCount)
 	rows, err := db.Query(
 		`SELECT "id", "namespace", "urn", "created_at", "deleted_at" FROM "alias" WHERE "link_id" = $1`, linkID)
@@ -75,8 +103,7 @@ func Aliases(db *sql.DB, linkID domain.UUID) ([]domain.Alias, error) {
 	return aliases, nil
 }
 
-// Targets returns targets of the Link with specified ID.
-func Targets(db *sql.DB, linkID domain.UUID) ([]domain.Target, error) {
+func targets(db *sql.DB, linkID domain.UUID) ([]domain.Target, error) {
 	targets := make([]domain.Target, 0, avgCount)
 	rows, err := db.Query(
 		`SELECT "id", "uri", "rule", "created_at", "updated_at" FROM "target" WHERE "link_id" = $1`, linkID)
@@ -102,23 +129,4 @@ func Targets(db *sql.DB, linkID domain.UUID) ([]domain.Target, error) {
 		targets = append(targets, target)
 	}
 	return targets, nil
-}
-
-// LinkByAlias returns the Link with its set of Alias and set of Target defined by provided namespace and URN.
-func LinkByAlias(db *sql.DB, namespace, urn string) (domain.Link, error) {
-	var (
-		aliasID uint64
-		linkID  domain.UUID
-	)
-	row := db.QueryRow(
-		`SELECT "id", "link_id" FROM "alias" WHERE "namespace" = $1 AND "urn" = $2`, namespace, urn)
-	if err := row.Scan(&aliasID, &linkID); err != nil {
-		if err == sql.ErrNoRows {
-			return domain.Link{}, errors.NotFound(errors.LinkNotFoundMessage, err,
-				"link with alias {%s:%s} not found", namespace, urn)
-		}
-		return domain.Link{}, errors.Database(errors.ServerErrorMessage, err,
-			"trying to populate link by alias {%s:%s}", namespace, urn)
-	}
-	return Link(db, linkID)
 }

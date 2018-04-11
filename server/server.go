@@ -12,6 +12,12 @@ import (
 	"github.com/kamilsk/click/transfer/api/v1"
 )
 
+const (
+	globalNS    = "global"
+	globalNSKey = "X-Click-Namespace"
+	tokenKey    = "token"
+)
+
 // New returns a new instance of Click! server.
 func New(service Service) *Server {
 	return &Server{service: service}
@@ -46,12 +52,18 @@ func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
 // Redirect is responsible for `GET /{Alias}` request handling.
 func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	var (
-		ns = fallback(req.Header.Get("X-Click-Namespace"), "global")
+		ns = fallback(req.Header.Get(globalNSKey), globalNS)
 	)
+	cookie, err := req.Cookie(tokenKey)
+	if err != nil {
+		cookie = &http.Cookie{Name: tokenKey}
+	}
+
 	response := s.service.HandleRedirect(transfer.RedirectRequest{
-		Namespace: ns,
-		URN:       strings.Trim(req.URL.Path, "/"),
-		Query:     req.URL.Query(),
+		EncryptedMarker: cookie.Value,
+		Namespace:       ns,
+		URN:             strings.Trim(req.URL.Path, "/"),
+		Query:           req.URL.Query(),
 	})
 	if response.Error != nil {
 		if err, is := response.Error.(errors.ApplicationError); is {
@@ -65,7 +77,6 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	var statusCode int
-
 	{ // domain logic
 		switch {
 		case response.Target.URI == "":
@@ -77,6 +88,9 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 		}
 	}
 
+	cookie.MaxAge, cookie.Path, cookie.Value = 0, "/", response.EncryptedMarker
+	cookie.Secure, cookie.HttpOnly = true, true
+	http.SetCookie(rw, cookie)
 	rw.Header().Set("Location", response.Target.URI)
 	rw.WriteHeader(statusCode)
 }

@@ -65,3 +65,8 @@ func (l *Storage) Link(id domain.UUID) (domain.Link, error) {
 func (l *Storage) LinkByAlias(namespace, urn string) (domain.Link, error) {
 	return postgres.LinkByAlias(l.conn, namespace, urn)
 }
+
+// UUID returns a new generated unique identifier.
+func (l *Storage) UUID() (domain.UUID, error) {
+	return postgres.UUID(l.conn)
+}

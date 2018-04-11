@@ -1,6 +1,7 @@
 package service
 
 import (
+	"github.com/kamilsk/click/domain"
 	"github.com/kamilsk/click/transfer"
 	"github.com/kamilsk/click/transfer/api/v1"
 )
@@ -25,6 +26,18 @@ func (s *Click) HandleGetV1(request v1.GetRequest) v1.GetResponse {
 // HandleRedirect handles an input request.
 func (s *Click) HandleRedirect(request transfer.RedirectRequest) transfer.RedirectResponse {
 	var response transfer.RedirectResponse
+
+	{ // TODO encrypt/decrypt marker
+		marker := domain.UUID(request.EncryptedMarker)
+		if !marker.IsValid() {
+			marker, response.Error = s.dao.UUID()
+			if response.Error != nil {
+				return response
+			}
+		}
+		response.EncryptedMarker = string(marker)
+	}
+
 	link, err := s.dao.LinkByAlias(request.Namespace, request.URN)
 	if err != nil {
 		response.Error = err
