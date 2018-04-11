@@ -66,6 +66,11 @@ func (l *Storage) LinkByAlias(namespace, urn string) (domain.Link, error) {
 	return postgres.LinkByAlias(l.conn, namespace, urn)
 }
 
+// Log stores a "redirect event".
+func (l *Storage) Log(event domain.Log) (domain.Log, error) {
+	return postgres.Log(l.conn, event)
+}
+
 // UUID returns a new generated unique identifier.
 func (l *Storage) UUID() (domain.UUID, error) {
 	return postgres.UUID(l.conn)

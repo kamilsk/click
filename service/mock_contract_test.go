@@ -59,6 +59,19 @@ func (mr *MockStorageMockRecorder) LinkByAlias(arg0, arg1 interface{}) *gomock.C
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkByAlias", reflect.TypeOf((*MockStorage)(nil).LinkByAlias), arg0, arg1)
 }
 
+// Log mocks base method
+func (m *MockStorage) Log(arg0 domain.Log) (domain.Log, error) {
+	ret := m.ctrl.Call(m, "Log", arg0)
+	ret0, _ := ret[0].(domain.Log)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// Log indicates an expected call of Log
+func (mr *MockStorageMockRecorder) Log(arg0 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Log", reflect.TypeOf((*MockStorage)(nil).Log), arg0)
+}
+
 // UUID mocks base method
 func (m *MockStorage) UUID() (domain.UUID, error) {
 	ret := m.ctrl.Call(m, "UUID")

@@ -17,162 +17,7 @@ var (
 	_ easyjson.Marshaler
 )
 
-func easyjsonB6915918DecodeGithubComKamilskClickDomain(in *jlexer.Lexer, out *Log) {
-	isTopLevel := in.IsStart()
-	if in.IsNull() {
-		if isTopLevel {
-			in.Consumed()
-		}
-		in.Skip()
-		return
-	}
-	in.Delim('{')
-	for !in.IsDelim('}') {
-		key := in.UnsafeString()
-		in.WantColon()
-		if in.IsNull() {
-			in.Skip()
-			in.WantComma()
-			continue
-		}
-		switch key {
-		case "id":
-			out.ID = uint64(in.Uint64())
-		case "link_id":
-			out.LinkID = string(in.String())
-		case "alias_id":
-			out.AliasID = uint64(in.Uint64())
-		case "target_id":
-			out.TargetID = uint64(in.Uint64())
-		case "uri":
-			out.URI = string(in.String())
-		case "code":
-			out.Code = int8(in.Int8())
-		case "context":
-			(out.Context).UnmarshalEasyJSON(in)
-		case "created_at":
-			out.CreatedAt = string(in.String())
-		default:
-			in.SkipRecursive()
-		}
-		in.WantComma()
-	}
-	in.Delim('}')
-	if isTopLevel {
-		in.Consumed()
-	}
-}
-func easyjsonB6915918EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in Log) {
-	out.RawByte('{')
-	first := true
-	_ = first
-	{
-		const prefix string = ",\"id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.Uint64(uint64(in.ID))
-	}
-	{
-		const prefix string = ",\"link_id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.LinkID))
-	}
-	{
-		const prefix string = ",\"alias_id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.Uint64(uint64(in.AliasID))
-	}
-	{
-		const prefix string = ",\"target_id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.Uint64(uint64(in.TargetID))
-	}
-	{
-		const prefix string = ",\"uri\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.URI))
-	}
-	{
-		const prefix string = ",\"code\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.Int8(int8(in.Code))
-	}
-	{
-		const prefix string = ",\"context\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		(in.Context).MarshalEasyJSON(out)
-	}
-	{
-		const prefix string = ",\"created_at\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.CreatedAt))
-	}
-	out.RawByte('}')
-}
-
-// MarshalJSON supports json.Marshaler interface
-func (v Log) MarshalJSON() ([]byte, error) {
-	w := jwriter.Writer{}
-	easyjsonB6915918EncodeGithubComKamilskClickDomain(&w, v)
-	return w.Buffer.BuildBytes(), w.Error
-}
-
-// MarshalEasyJSON supports easyjson.Marshaler interface
-func (v Log) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjsonB6915918EncodeGithubComKamilskClickDomain(w, v)
-}
-
-// UnmarshalJSON supports json.Unmarshaler interface
-func (v *Log) UnmarshalJSON(data []byte) error {
-	r := jlexer.Lexer{Data: data}
-	easyjsonB6915918DecodeGithubComKamilskClickDomain(&r, v)
-	return r.Error()
-}
-
-// UnmarshalEasyJSON supports easyjson.Unmarshaler interface
-func (v *Log) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjsonB6915918DecodeGithubComKamilskClickDomain(l, v)
-}
-func easyjsonB6915918DecodeGithubComKamilskClickDomain1(in *jlexer.Lexer, out *EventContext) {
+func easyjsonB6915918DecodeGithubComKamilskClickDomain(in *jlexer.Lexer, out *Metadata) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -262,7 +107,7 @@ func easyjsonB6915918DecodeGithubComKamilskClickDomain1(in *jlexer.Lexer, out *E
 		in.Consumed()
 	}
 }
-func easyjsonB6915918EncodeGithubComKamilskClickDomain1(out *jwriter.Writer, in EventContext) {
+func easyjsonB6915918EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in Metadata) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -329,25 +174,180 @@ func easyjsonB6915918EncodeGithubComKamilskClickDomain1(out *jwriter.Writer, in 
 }
 
 // MarshalJSON supports json.Marshaler interface
-func (v EventContext) MarshalJSON() ([]byte, error) {
+func (v Metadata) MarshalJSON() ([]byte, error) {
+	w := jwriter.Writer{}
+	easyjsonB6915918EncodeGithubComKamilskClickDomain(&w, v)
+	return w.Buffer.BuildBytes(), w.Error
+}
+
+// MarshalEasyJSON supports easyjson.Marshaler interface
+func (v Metadata) MarshalEasyJSON(w *jwriter.Writer) {
+	easyjsonB6915918EncodeGithubComKamilskClickDomain(w, v)
+}
+
+// UnmarshalJSON supports json.Unmarshaler interface
+func (v *Metadata) UnmarshalJSON(data []byte) error {
+	r := jlexer.Lexer{Data: data}
+	easyjsonB6915918DecodeGithubComKamilskClickDomain(&r, v)
+	return r.Error()
+}
+
+// UnmarshalEasyJSON supports easyjson.Unmarshaler interface
+func (v *Metadata) UnmarshalEasyJSON(l *jlexer.Lexer) {
+	easyjsonB6915918DecodeGithubComKamilskClickDomain(l, v)
+}
+func easyjsonB6915918DecodeGithubComKamilskClickDomain1(in *jlexer.Lexer, out *Log) {
+	isTopLevel := in.IsStart()
+	if in.IsNull() {
+		if isTopLevel {
+			in.Consumed()
+		}
+		in.Skip()
+		return
+	}
+	in.Delim('{')
+	for !in.IsDelim('}') {
+		key := in.UnsafeString()
+		in.WantColon()
+		if in.IsNull() {
+			in.Skip()
+			in.WantComma()
+			continue
+		}
+		switch key {
+		case "id":
+			out.ID = uint64(in.Uint64())
+		case "link_id":
+			out.LinkID = string(in.String())
+		case "alias_id":
+			out.AliasID = uint64(in.Uint64())
+		case "target_id":
+			out.TargetID = uint64(in.Uint64())
+		case "uri":
+			out.URI = string(in.String())
+		case "code":
+			out.Code = int(in.Int())
+		case "context":
+			(out.Context).UnmarshalEasyJSON(in)
+		case "created_at":
+			out.CreatedAt = string(in.String())
+		default:
+			in.SkipRecursive()
+		}
+		in.WantComma()
+	}
+	in.Delim('}')
+	if isTopLevel {
+		in.Consumed()
+	}
+}
+func easyjsonB6915918EncodeGithubComKamilskClickDomain1(out *jwriter.Writer, in Log) {
+	out.RawByte('{')
+	first := true
+	_ = first
+	{
+		const prefix string = ",\"id\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.Uint64(uint64(in.ID))
+	}
+	{
+		const prefix string = ",\"link_id\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.LinkID))
+	}
+	{
+		const prefix string = ",\"alias_id\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.Uint64(uint64(in.AliasID))
+	}
+	{
+		const prefix string = ",\"target_id\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.Uint64(uint64(in.TargetID))
+	}
+	{
+		const prefix string = ",\"uri\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.URI))
+	}
+	{
+		const prefix string = ",\"code\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.Int(int(in.Code))
+	}
+	{
+		const prefix string = ",\"context\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		(in.Context).MarshalEasyJSON(out)
+	}
+	{
+		const prefix string = ",\"created_at\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.CreatedAt))
+	}
+	out.RawByte('}')
+}
+
+// MarshalJSON supports json.Marshaler interface
+func (v Log) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
 	easyjsonB6915918EncodeGithubComKamilskClickDomain1(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
-func (v EventContext) MarshalEasyJSON(w *jwriter.Writer) {
+func (v Log) MarshalEasyJSON(w *jwriter.Writer) {
 	easyjsonB6915918EncodeGithubComKamilskClickDomain1(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
-func (v *EventContext) UnmarshalJSON(data []byte) error {
+func (v *Log) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
 	easyjsonB6915918DecodeGithubComKamilskClickDomain1(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
-func (v *EventContext) UnmarshalEasyJSON(l *jlexer.Lexer) {
+func (v *Log) UnmarshalEasyJSON(l *jlexer.Lexer) {
 	easyjsonB6915918DecodeGithubComKamilskClickDomain1(l, v)
 }

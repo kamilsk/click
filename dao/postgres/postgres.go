@@ -75,6 +75,25 @@ func LinkByAlias(db *sql.DB, namespace, urn string) (domain.Link, error) {
 	return Link(db, linkID)
 }
 
+// Log stores a "redirect event".
+func Log(db *sql.DB, event domain.Log) (domain.Log, error) {
+	encoded, err := event.Context.MarshalJSON()
+	if err != nil {
+		return event, errors.Serialization(errors.ServerErrorMessage, err,
+			"trying to marshal a redirect event context `%#v` into JSON", event)
+	}
+	err = db.QueryRow(`
+INSERT INTO "log" ("link_id", "alias_id", "target_id", "uri", "code", "context")
+VALUES ($1, $2, $3, $4, $5, $6)
+RETURNING "id", "created_at"`,
+		event.LinkID, event.AliasID, event.TargetID, event.URI, event.Code, encoded).Scan(&event.ID, &event.CreatedAt)
+	if err != nil {
+		return event, errors.Database(errors.ServerErrorMessage, err,
+			"trying to insert a redirect event `%#v`", event)
+	}
+	return event, nil
+}
+
 // UUID returns a new generated unique identifier.
 func UUID(db *sql.DB) (domain.UUID, error) {
 	var id domain.UUID

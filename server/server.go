@@ -93,6 +93,35 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	http.SetCookie(rw, cookie)
 	rw.Header().Set("Location", response.Target.URI)
 	rw.WriteHeader(statusCode)
+
+	go func() {
+		cookie := make(map[string]string, len(req.Cookies())+1)
+		for _, c := range req.Cookies() {
+			if c.HttpOnly {
+				cookie[c.Name] = c.Value
+			}
+		}
+		cookie[tokenKey] = response.EncryptedMarker
+		header := make(map[string][]string, len(req.Header))
+		for key, values := range req.Header {
+			switch {
+			case key == "Accept":
+				continue
+			case key == "Cookie":
+				continue
+			default:
+				header[key] = values
+			}
+		}
+		s.service.LogRedirectEvent(domain.Log{
+			LinkID:   response.Alias.LinkID,
+			AliasID:  response.Alias.ID,
+			TargetID: response.Target.ID,
+			URI:      response.Target.URI,
+			Code:     statusCode,
+			Context:  domain.Metadata{Cookie: cookie, Header: header},
+		})
+	}()
 }
 
 func fallback(value string, fallbackValues ...string) string {

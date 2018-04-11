@@ -1,6 +1,7 @@
 package server
 
 import (
+	"github.com/kamilsk/click/domain"
 	"github.com/kamilsk/click/transfer"
 	"github.com/kamilsk/click/transfer/api/v1"
 )
@@ -11,4 +12,7 @@ type Service interface {
 	HandleGetV1(v1.GetRequest) v1.GetResponse
 	// HandleRedirect handles an input request.
 	HandleRedirect(transfer.RedirectRequest) transfer.RedirectResponse
+
+	// LogRedirectEvent stores a "redirect event".
+	LogRedirectEvent(event domain.Log)
 }

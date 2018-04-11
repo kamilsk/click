@@ -6,6 +6,7 @@ package server_test
 
 import (
 	gomock "github.com/golang/mock/gomock"
+	domain "github.com/kamilsk/click/domain"
 	transfer "github.com/kamilsk/click/transfer"
 	v1 "github.com/kamilsk/click/transfer/api/v1"
 	reflect "reflect"
@@ -56,4 +57,14 @@ func (m *MockService) HandleRedirect(arg0 transfer.RedirectRequest) transfer.Red
 // HandleRedirect indicates an expected call of HandleRedirect
 func (mr *MockServiceMockRecorder) HandleRedirect(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HandleRedirect", reflect.TypeOf((*MockService)(nil).HandleRedirect), arg0)
+}
+
+// LogRedirectEvent mocks base method
+func (m *MockService) LogRedirectEvent(arg0 domain.Log) {
+	m.ctrl.Call(m, "LogRedirectEvent", arg0)
+}
+
+// LogRedirectEvent indicates an expected call of LogRedirectEvent
+func (mr *MockServiceMockRecorder) LogRedirectEvent(arg0 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LogRedirectEvent", reflect.TypeOf((*MockService)(nil).LogRedirectEvent), arg0)
 }

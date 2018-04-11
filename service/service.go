@@ -45,5 +45,11 @@ func (s *Click) HandleRedirect(request transfer.RedirectRequest) transfer.Redire
 	}
 	response.Alias = link.Aliases.Find(request.Namespace, request.URN)
 	response.Target = link.Targets.Find(response.Alias, request.Query)
+	response.Alias.LinkID, response.Target.LinkID = link.ID, link.ID
 	return response
+}
+
+// LogRedirectEvent stores a "redirect event".
+func (s *Click) LogRedirectEvent(event domain.Log) {
+	_, _ = s.dao.Log(event)
 }

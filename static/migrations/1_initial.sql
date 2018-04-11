@@ -64,7 +64,7 @@ CREATE TABLE "log" (
   "alias_id"   INTEGER       NOT NULL,
   "target_id"  INTEGER       NOT NULL,
   "uri"        VARCHAR(1024) NOT NULL,
-  "code"       SMALLINT      NOT NULL,
+  "code"       INTEGER       NOT NULL,
   "context"    JSONB         NOT NULL,
   "created_at" TIMESTAMP     NOT NULL DEFAULT now()
 );
