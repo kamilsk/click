@@ -20,17 +20,55 @@ env_server_1    /bin/sh -c envsubst '$SERV ...   Up      80/tcp, 0.0.0.0:80->808
 env_service_1   click run --with-profile - ...   Up      0.0.0.0:8080->80/tcp, 0.0.0.0:8090->8090/tcp, 0.0.0.0:8091->8091/tcp
 
 $ curl http://localhost:8080/api/v1/a382922d-b615-4227-b598-6d3633c397aa
+# {
+#   "id": "a382922d-b615-4227-b598-6d3633c397aa",
+#   "name": "Click! - Link Manager as a Service",
+#   "status": "active",
+#   "aliases": [
+#     {
+#       "id": 1,
+#       "namespace": "global",
+#       "urn": "github/click"
+#     },
+#     {
+#       "id": 7,
+#       "namespace": "global",
+#       "urn": "github/click!"
+#     }
+#   ],
+#   "targets": [
+#     {
+#       "id": 1,
+#       "uri": "https://github.com/kamilsk/click",
+#       "rule": {
+#         "description": "Project location",
+#         "tags": ["src"]
+#       }
+#     },
+#     {
+#       "id": 2,
+#       "uri": "https://kamilsk.github.io/click/",
+#       "rule": {
+#         "description": "Promotion page",
+#         "alias": 7,
+#         "tags": ["promo"],
+#         "match": 1
+#       }
+#     }
+#   ]
+# }
 $ curl -v http://localhost:8080/github/click!
-> GET /github/click! HTTP/1.1
-> Host: localhost:8080
-> User-Agent: curl/7.54.0
-> Accept: */*
->
-< HTTP/1.1 302 Found
-< Location: https://github.com/kamilsk/click
-< Date: Sat, 31 Mar 2018 20:40:42 GMT
-< Content-Length: 0
-<
+# > GET /github/click! HTTP/1.1
+# > Host: localhost:8080
+# > User-Agent: curl/7.54.0
+# > Accept: */*
+# >
+# < HTTP/1.1 302 Found
+# < Location: https://kamilsk.github.io/click/
+# < Date: Tue, 10 Apr 2018 12:01:43 GMT
+# < Content-Length: 0
+# <
+$
 ```
 
 ## Specification
@@ -111,8 +149,8 @@ $ egg bitbucket.org/kamilsk/click@^1.0.0 -- make test install
 
 - brief roadmap
   - [x] v1: MVP
-  - [ ] v2: ...
-  - [ ] v3: ...
+  - [ ] v2: URL Shortener
+  - [ ] v3: DSL for rules
   - [ ] v4: CRUD
   - [ ] v5: GUI
   - [ ] Click!, SaaS

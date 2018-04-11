@@ -61,7 +61,10 @@ CREATE TRIGGER "target_updated"
 CREATE TABLE "log" (
   "id"         BIGSERIAL PRIMARY KEY,
   "link_id"    UUID          NOT NULL,
+  "alias_id"   INTEGER       NOT NULL,
+  "target_id"  INTEGER       NOT NULL,
   "uri"        VARCHAR(1024) NOT NULL,
+  "code"       SMALLINT      NOT NULL,
   "context"    JSONB         NOT NULL,
   "created_at" TIMESTAMP     NOT NULL DEFAULT now()
 );
