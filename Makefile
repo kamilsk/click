@@ -24,6 +24,9 @@ code-quality-check: docker-tool-gometalinter
 code-quality-report:
 	time make code-quality-check | tail +7 | tee report.out | pbcopy
 
+.PHONY: dev-up
+dev-up: up demo stop-server stop-service clear status dev-server
+
 
 .PHONY: pull-github-tpl
 pull-github-tpl:

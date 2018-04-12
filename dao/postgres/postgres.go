@@ -2,10 +2,10 @@ package postgres
 
 import (
 	"database/sql"
-	"sync"
 
 	"github.com/kamilsk/click/domain"
 	"github.com/kamilsk/click/errors"
+	"golang.org/x/sync/errgroup"
 )
 
 const dialect = "postgres"
@@ -31,28 +31,20 @@ func Link(db *sql.DB, id domain.UUID) (domain.Link, error) {
 		}
 		return link, errors.Database(errors.ServerErrorMessage, err, "trying to populate link %q", id)
 	}
-
-	{
-		var errAlias, errTarget error
-		wg := &sync.WaitGroup{}
-		wg.Add(2)
-		go func() {
-			defer wg.Done()
-			link.Aliases, errAlias = aliases(db, id)
-		}()
-		go func() {
-			defer wg.Done()
-			link.Targets, errTarget = targets(db, id)
-		}()
-		wg.Wait()
-		if errAlias != nil {
-			return link, errAlias
-		}
-		if errTarget != nil {
-			return link, errTarget
-		}
+	g := &errgroup.Group{}
+	g.Go(func() error {
+		var err error
+		link.Aliases, err = aliases(db, id)
+		return err
+	})
+	g.Go(func() error {
+		var err error
+		link.Targets, err = targets(db, id)
+		return err
+	})
+	if err := g.Wait(); err != nil {
+		return link, err
 	}
-
 	return link, nil
 }
 

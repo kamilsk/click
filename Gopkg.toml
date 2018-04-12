@@ -33,3 +33,7 @@
 [[constraint]]
   name = "github.com/mailru/easyjson"
   branch = "master"
+
+[[constraint]]
+  name = "golang.org/x/sync"
+  branch = "master"
