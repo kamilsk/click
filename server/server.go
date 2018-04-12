@@ -104,12 +104,7 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 		cookie[tokenKey] = response.EncryptedMarker
 		header := make(map[string][]string, len(req.Header))
 		for key, values := range req.Header {
-			switch {
-			case key == "Accept":
-				continue
-			case key == "Cookie":
-				continue
-			default:
+			if key != "Cookie" {
 				header[key] = values
 			}
 		}

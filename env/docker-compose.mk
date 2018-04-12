@@ -3,8 +3,12 @@ DC_FILE := -f env/docker-compose.yml
 
 .PHONY: env
 env:
-	cp -n env/.example.env env/.env || true # for containers
-	cp -n env/.env .env             || true # for docker compose file, https://docs.docker.com/compose/env-file/
+	cp -n env/.env{.example,} || true # for containers
+	cp -n env/.env .env       || true # for docker compose file, https://docs.docker.com/compose/env-file/
+
+.PHONY: rm-env
+rm-env:
+	find . -name .env | xargs rm -f || true
 
 
 .PHONY: up
