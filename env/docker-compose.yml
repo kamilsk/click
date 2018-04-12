@@ -5,7 +5,7 @@ services:
     image: postgres:10-alpine
     env_file: .env
     ports:
-    - 5432:5432
+    - ${LOCAL_DB_PORT}:5432
     restart: always
     volumes:
     - pgdata:${PGDATA}
@@ -30,9 +30,9 @@ services:
     env_file: .env
     restart: always
     ports:
-    - 8080:${PORT}
-    - 8090:8090
-    - 8091:8091
+    - ${LOCAL_SERVICE_HTTP_PORT}:${PORT}
+    - ${LOCAL_SERVICE_PROFILING_PORT}:8090
+    - ${LOCAL_SERVICE_MONITORING_PORT}:8091
 
   server: # https://hub.docker.com/r/kamilsk/nginx/
     image: kamilsk/nginx:alpine
@@ -45,7 +45,7 @@ services:
                   && /entrypoint.sh"
     env_file: .env
     ports:
-    - 80:${DOMAIN_PORT}
+    - ${LOCAL_SERVER_HTTP_PORT}:${DOMAIN_PORT}
     restart: always
     volumes:
     - ./etc/nginx.conf:/etc/nginx/nginx.conf:ro
