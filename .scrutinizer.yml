@@ -1,4 +1,8 @@
 build:
+  dependencies:
+    override:
+    - echo "nothing is needed"
+
   environment:
     go: go1.9
 

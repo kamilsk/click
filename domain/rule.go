@@ -1,7 +1,9 @@
 package domain
 
 const (
+	// AND used by rules as `&&`.
 	AND byte = iota
+	// OR used by rules as `||`.
 	OR
 )
 
