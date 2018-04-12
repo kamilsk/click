@@ -17,4 +17,5 @@ type Log struct {
 type Metadata struct {
 	Cookie map[string]string   `json:"cookie,omitempty"`
 	Header map[string][]string `json:"header,omitempty"`
+	Query  map[string][]string `json:"query,omitempty"`
 }

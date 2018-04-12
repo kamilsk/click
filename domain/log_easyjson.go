@@ -97,6 +97,47 @@ func easyjsonB6915918DecodeGithubComKamilskClickDomain(in *jlexer.Lexer, out *Me
 				}
 				in.Delim('}')
 			}
+		case "query":
+			if in.IsNull() {
+				in.Skip()
+			} else {
+				in.Delim('{')
+				if !in.IsDelim('}') {
+					out.Query = make(map[string][]string)
+				} else {
+					out.Query = nil
+				}
+				for !in.IsDelim('}') {
+					key := string(in.String())
+					in.WantColon()
+					var v4 []string
+					if in.IsNull() {
+						in.Skip()
+						v4 = nil
+					} else {
+						in.Delim('[')
+						if v4 == nil {
+							if !in.IsDelim(']') {
+								v4 = make([]string, 0, 4)
+							} else {
+								v4 = []string{}
+							}
+						} else {
+							v4 = (v4)[:0]
+						}
+						for !in.IsDelim(']') {
+							var v5 string
+							v5 = string(in.String())
+							v4 = append(v4, v5)
+							in.WantComma()
+						}
+						in.Delim(']')
+					}
+					(out.Query)[key] = v4
+					in.WantComma()
+				}
+				in.Delim('}')
+			}
 		default:
 			in.SkipRecursive()
 		}
@@ -121,16 +162,16 @@ func easyjsonB6915918EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in M
 		}
 		{
 			out.RawByte('{')
-			v4First := true
-			for v4Name, v4Value := range in.Cookie {
-				if v4First {
-					v4First = false
+			v6First := true
+			for v6Name, v6Value := range in.Cookie {
+				if v6First {
+					v6First = false
 				} else {
 					out.RawByte(',')
 				}
-				out.String(string(v4Name))
+				out.String(string(v6Name))
 				out.RawByte(':')
-				out.String(string(v4Value))
+				out.String(string(v6Value))
 			}
 			out.RawByte('}')
 		}
@@ -145,24 +186,59 @@ func easyjsonB6915918EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in M
 		}
 		{
 			out.RawByte('{')
-			v5First := true
-			for v5Name, v5Value := range in.Header {
-				if v5First {
-					v5First = false
+			v7First := true
+			for v7Name, v7Value := range in.Header {
+				if v7First {
+					v7First = false
 				} else {
 					out.RawByte(',')
 				}
-				out.String(string(v5Name))
+				out.String(string(v7Name))
 				out.RawByte(':')
-				if v5Value == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
+				if v7Value == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
 					out.RawString("null")
 				} else {
 					out.RawByte('[')
-					for v6, v7 := range v5Value {
-						if v6 > 0 {
+					for v8, v9 := range v7Value {
+						if v8 > 0 {
 							out.RawByte(',')
 						}
-						out.String(string(v7))
+						out.String(string(v9))
+					}
+					out.RawByte(']')
+				}
+			}
+			out.RawByte('}')
+		}
+	}
+	if len(in.Query) != 0 {
+		const prefix string = ",\"query\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		{
+			out.RawByte('{')
+			v10First := true
+			for v10Name, v10Value := range in.Query {
+				if v10First {
+					v10First = false
+				} else {
+					out.RawByte(',')
+				}
+				out.String(string(v10Name))
+				out.RawByte(':')
+				if v10Value == nil && (out.Flags&jwriter.NilSliceAsEmpty) == 0 {
+					out.RawString("null")
+				} else {
+					out.RawByte('[')
+					for v11, v12 := range v10Value {
+						if v11 > 0 {
+							out.RawByte(',')
+						}
+						out.String(string(v12))
 					}
 					out.RawByte(']')
 				}

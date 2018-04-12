@@ -77,29 +77,13 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 	rw.Header().Set("Location", to)
 	rw.WriteHeader(http.StatusFound)
 
-	go func() {
-		cookie := make(map[string]string, len(req.Cookies())+1)
-		for _, c := range req.Cookies() {
-			if c.HttpOnly {
-				cookie[c.Name] = c.Value
-			}
-		}
-		cookie[tokenKey] = response.EncryptedMarker
-		header := make(map[string][]string, len(req.Header))
-		for key, values := range req.Header {
-			if key != "Cookie" {
-				header[key] = values
-			}
-		}
-		s.service.LogRedirectEvent(domain.Log{
-			LinkID:   string(domain.EmptyUUID),
-			AliasID:  0,
-			TargetID: 0,
-			URI:      to,
-			Code:     http.StatusFound,
-			Context:  domain.Metadata{Cookie: cookie, Header: header},
-		})
-	}()
+	go log(s.service.LogRedirectEvent, req, response.EncryptedMarker, domain.Log{
+		LinkID:   string(domain.EmptyUUID),
+		AliasID:  0,
+		TargetID: 0,
+		URI:      to,
+		Code:     http.StatusFound,
+	})
 }
 
 // Redirect is responsible for `GET /{Alias.URN}` request handling.
@@ -150,29 +134,13 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	rw.Header().Set("Location", response.Target.URI)
 	rw.WriteHeader(statusCode)
 
-	go func() {
-		cookie := make(map[string]string, len(req.Cookies())+1)
-		for _, c := range req.Cookies() {
-			if c.HttpOnly {
-				cookie[c.Name] = c.Value
-			}
-		}
-		cookie[tokenKey] = response.EncryptedMarker
-		header := make(map[string][]string, len(req.Header))
-		for key, values := range req.Header {
-			if key != "Cookie" {
-				header[key] = values
-			}
-		}
-		s.service.LogRedirectEvent(domain.Log{
-			LinkID:   response.Alias.LinkID,
-			AliasID:  response.Alias.ID,
-			TargetID: response.Target.ID,
-			URI:      response.Target.URI,
-			Code:     statusCode,
-			Context:  domain.Metadata{Cookie: cookie, Header: header},
-		})
-	}()
+	go log(s.service.LogRedirectEvent, req, response.EncryptedMarker, domain.Log{
+		LinkID:   response.Alias.LinkID,
+		AliasID:  response.Alias.ID,
+		TargetID: response.Target.ID,
+		URI:      response.Target.URI,
+		Code:     statusCode,
+	})
 }
 
 func fallback(value string, fallbackValues ...string) string {
@@ -184,4 +152,42 @@ func fallback(value string, fallbackValues ...string) string {
 		}
 	}
 	return value
+}
+
+func log(handle func(event domain.Log), req *http.Request, token string, event domain.Log) {
+	var (
+		cookie map[string]string
+		header map[string][]string
+		query  map[string][]string
+	)
+	{
+		origin := req.Cookies()
+		cookie = make(map[string]string, len(origin))
+		for _, c := range origin {
+			if c.HttpOnly {
+				cookie[c.Name] = c.Value
+			}
+		}
+		cookie[tokenKey] = token
+	}
+	{
+		origin := req.Header
+		header = make(map[string][]string, len(origin))
+		for key, values := range origin {
+			if key != "Cookie" {
+				header[key] = values
+			}
+		}
+	}
+	{
+		origin := req.URL.Query()
+		query = make(map[string][]string, len(origin))
+		for key, values := range origin {
+			if key != passKey {
+				query[key] = values
+			}
+		}
+	}
+	event.Context = domain.Metadata{Cookie: cookie, Header: header, Query: query}
+	handle(event)
 }
