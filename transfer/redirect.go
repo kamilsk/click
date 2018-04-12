@@ -2,7 +2,7 @@ package transfer
 
 import "github.com/kamilsk/click/domain"
 
-// RedirectRequest represents `GET /{Alias}` request.
+// RedirectRequest represents `GET /{Alias.URN}` request.
 type RedirectRequest struct {
 	EncryptedMarker string
 	Namespace       string
@@ -10,7 +10,7 @@ type RedirectRequest struct {
 	Query           map[string][]string
 }
 
-// RedirectResponse represents `GET /{Alias}` response.
+// RedirectResponse represents `GET /{Alias.URN}` response.
 type RedirectResponse struct {
 	EncryptedMarker string
 	Alias           domain.Alias

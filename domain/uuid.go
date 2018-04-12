@@ -2,6 +2,11 @@ package domain
 
 import "regexp"
 
+const (
+	// EmptyUUID represents empty UUID compatible with RFC 4122.
+	EmptyUUID = UUID("00000000-0000-4000-8000-000000000000")
+)
+
 // [4] means that supported only v4.
 var uuid = regexp.MustCompile(`(?i:^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$)`)
 

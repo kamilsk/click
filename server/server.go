@@ -15,6 +15,7 @@ import (
 const (
 	globalNS    = "global"
 	globalNSKey = "X-Click-Namespace"
+	passKey     = "url"
 	tokenKey    = "token"
 )
 
@@ -28,7 +29,7 @@ type Server struct {
 	service Service
 }
 
-// GetV1 is responsible for `GET /api/v1/{UUID}` request handling.
+// GetV1 is responsible for `GET /api/v1/{Link.ID}` request handling.
 func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
 	var (
 		id = req.Context().Value(middleware.LinkKey{}).(domain.UUID)
@@ -49,11 +50,65 @@ func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
 	json.NewEncoder(rw).Encode(response.Link)
 }
 
-// Redirect is responsible for `GET /{Alias}` request handling.
+// Pass is responsible for `GET /pass?url={URI}` request handling.
+func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
+	to := req.URL.Query().Get(passKey)
+	if to == "" {
+		rw.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	// TODO: move to middleware layer
+	cookie, err := req.Cookie(tokenKey)
+	if err != nil {
+		cookie = &http.Cookie{Name: tokenKey}
+	}
+
+	response := s.service.HandlePass(transfer.PassRequest{EncryptedMarker: cookie.Value})
+	if response.Error != nil {
+		rw.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	// TODO: move to middleware layer
+	cookie.MaxAge, cookie.Path, cookie.Value = 0, "/", response.EncryptedMarker
+	cookie.Secure, cookie.HttpOnly = true, true
+	http.SetCookie(rw, cookie)
+	rw.Header().Set("Location", to)
+	rw.WriteHeader(http.StatusFound)
+
+	go func() {
+		cookie := make(map[string]string, len(req.Cookies())+1)
+		for _, c := range req.Cookies() {
+			if c.HttpOnly {
+				cookie[c.Name] = c.Value
+			}
+		}
+		cookie[tokenKey] = response.EncryptedMarker
+		header := make(map[string][]string, len(req.Header))
+		for key, values := range req.Header {
+			if key != "Cookie" {
+				header[key] = values
+			}
+		}
+		s.service.LogRedirectEvent(domain.Log{
+			LinkID:   string(domain.EmptyUUID),
+			AliasID:  0,
+			TargetID: 0,
+			URI:      to,
+			Code:     http.StatusFound,
+			Context:  domain.Metadata{Cookie: cookie, Header: header},
+		})
+	}()
+}
+
+// Redirect is responsible for `GET /{Alias.URN}` request handling.
 func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	var (
 		ns = fallback(req.Header.Get(globalNSKey), globalNS)
 	)
+
+	// TODO: move to middleware layer
 	cookie, err := req.Cookie(tokenKey)
 	if err != nil {
 		cookie = &http.Cookie{Name: tokenKey}
@@ -88,6 +143,7 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 		}
 	}
 
+	// TODO: move to middleware layer
 	cookie.MaxAge, cookie.Path, cookie.Value = 0, "/", response.EncryptedMarker
 	cookie.Secure, cookie.HttpOnly = true, true
 	http.SetCookie(rw, cookie)

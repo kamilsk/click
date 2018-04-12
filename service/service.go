@@ -23,6 +23,24 @@ func (s *Click) HandleGetV1(request v1.GetRequest) v1.GetResponse {
 	return response
 }
 
+// HandlePass handles an input request.
+func (s *Click) HandlePass(request transfer.PassRequest) transfer.PassResponse {
+	var response transfer.PassResponse
+
+	{ // TODO encrypt/decrypt marker
+		marker := domain.UUID(request.EncryptedMarker)
+		if !marker.IsValid() {
+			marker, response.Error = s.dao.UUID()
+			if response.Error != nil {
+				return response
+			}
+		}
+		response.EncryptedMarker = string(marker)
+	}
+
+	return response
+}
+
 // HandleRedirect handles an input request.
 func (s *Click) HandleRedirect(request transfer.RedirectRequest) transfer.RedirectResponse {
 	var response transfer.RedirectResponse

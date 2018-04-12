@@ -43,6 +43,16 @@ func (mr *MockServerMockRecorder) GetV1(arg0, arg1 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetV1", reflect.TypeOf((*MockServer)(nil).GetV1), arg0, arg1)
 }
 
+// Pass mocks base method
+func (m *MockServer) Pass(arg0 http.ResponseWriter, arg1 *http.Request) {
+	m.ctrl.Call(m, "Pass", arg0, arg1)
+}
+
+// Pass indicates an expected call of Pass
+func (mr *MockServerMockRecorder) Pass(arg0, arg1 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Pass", reflect.TypeOf((*MockServer)(nil).Pass), arg0, arg1)
+}
+
 // Redirect mocks base method
 func (m *MockServer) Redirect(arg0 http.ResponseWriter, arg1 *http.Request) {
 	m.ctrl.Call(m, "Redirect", arg0, arg1)

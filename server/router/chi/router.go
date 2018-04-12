@@ -31,6 +31,7 @@ func NewRouter(api router.Server) http.Handler {
 		})
 	})
 
+	r.Get("/pass", api.Pass)
 	r.Get("/*", api.Redirect)
 
 	return r

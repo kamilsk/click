@@ -47,6 +47,18 @@ func (mr *MockServiceMockRecorder) HandleGetV1(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HandleGetV1", reflect.TypeOf((*MockService)(nil).HandleGetV1), arg0)
 }
 
+// HandlePass mocks base method
+func (m *MockService) HandlePass(arg0 transfer.PassRequest) transfer.PassResponse {
+	ret := m.ctrl.Call(m, "HandlePass", arg0)
+	ret0, _ := ret[0].(transfer.PassResponse)
+	return ret0
+}
+
+// HandlePass indicates an expected call of HandlePass
+func (mr *MockServiceMockRecorder) HandlePass(arg0 interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HandlePass", reflect.TypeOf((*MockService)(nil).HandlePass), arg0)
+}
+
 // HandleRedirect mocks base method
 func (m *MockService) HandleRedirect(arg0 transfer.RedirectRequest) transfer.RedirectResponse {
 	ret := m.ctrl.Call(m, "HandleRedirect", arg0)
