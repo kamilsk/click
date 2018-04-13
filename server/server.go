@@ -164,7 +164,7 @@ func log(handle func(event domain.Log), req *http.Request, token string, event d
 		origin := req.Cookies()
 		cookie = make(map[string]string, len(origin))
 		for _, c := range origin {
-			if c.HttpOnly {
+			if c.HttpOnly && c.Secure {
 				cookie[c.Name] = c.Value
 			}
 		}
