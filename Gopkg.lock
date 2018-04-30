@@ -26,7 +26,7 @@
   branch = "master"
   name = "github.com/golang/mock"
   packages = ["gomock"]
-  revision = "8b2eeeb0ca5f56c78bec5efde9c4a21d9201126c"
+  revision = "87f106fccd7e3ced294a19e86bebd7846911690a"
 
 [[projects]]
   branch = "master"
@@ -140,8 +140,8 @@
 [[projects]]
   name = "github.com/spf13/pflag"
   packages = ["."]
-  revision = "e57e3eeb33f795204c1ca35f56c44f83227c6e66"
-  version = "v1.0.0"
+  revision = "583c0c0531f06d5278b7d917446061adc344b5cd"
+  version = "v1.0.1"
 
 [[projects]]
   name = "github.com/spf13/viper"
@@ -150,8 +150,17 @@
   version = "v1.0.2"
 
 [[projects]]
+  name = "github.com/stretchr/objx"
+  packages = ["."]
+  revision = "facf9a85c22f48d2f52f2380e4efce1768749a89"
+  version = "v0.1"
+
+[[projects]]
   name = "github.com/stretchr/testify"
-  packages = ["assert"]
+  packages = [
+    "assert",
+    "mock"
+  ]
   revision = "12b6f73e6084dad08a7c6e575284b177ecafbc71"
   version = "v1.2.1"
 
@@ -159,7 +168,7 @@
   branch = "master"
   name = "golang.org/x/net"
   packages = ["context"]
-  revision = "61147c48b25b599e5b561d2e9c4f3e1ef489ca41"
+  revision = "5f9ae10d9af5b1c89ae6904293b14b064d4ada23"
 
 [[projects]]
   branch = "master"
@@ -171,7 +180,7 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "3b87a42e500a6dc65dae1a55d0b641295971163e"
+  revision = "f67ecc163a74fbeea4cb1db0a101dcd07201464a"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -201,6 +210,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "ddffe6c20132172ee60fc24bb1c097ee8aaf13e0530f7362280c3d3795d84bf8"
+  inputs-digest = "92c8dcff3497006a7af9aaaef3156ceb72cc1aa2f51d376d566a4f0972ef34a5"
   solver-name = "gps-cdcl"
   solver-version = 1
