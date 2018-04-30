@@ -5,5 +5,6 @@ footer .fa-heart { color: red; }
 #header { border-radius: 0; margin-bottom: 0; }
 #header .navbar-brand img { height: 30px; }
 #header .ribbon img       { position: absolute; top: 0; right: 0; }
+#hero   { background: url('../img/bg.png') top center; }
 
-#hero { background: url('../img/octopus.png') top center; }
+.features.saas .info { max-width: none; margin: 0 auto; padding: 10px 0 0; }
