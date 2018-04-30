@@ -17,7 +17,7 @@ var migrateCmd = &cobra.Command{
 	Use:   "migrate",
 	Short: "Apply database migration",
 	Args:  cobra.RangeArgs(0, 2),
-	Run: func(cmd *cobra.Command, args []string) {
+	RunE: func(cmd *cobra.Command, args []string) error {
 		direction, limit := chooseDirectionAndLimit(args)
 		{
 			migrate.SetTable(cmd.Flag("table").Value.String())
@@ -41,7 +41,7 @@ var migrateCmd = &cobra.Command{
 		if asBool(cmd.Flag("dry-run").Value) {
 			runner = dryRun
 		}
-		runner(layer.Connection(), layer.Dialect(), src, direction, limit)
+		return runner(layer.Connection(), layer.Dialect(), src, direction, limit)
 	},
 }
 
@@ -93,10 +93,10 @@ func chooseDirectionAndLimit(args []string) (migrate.MigrationDirection, int) {
 	return direction, limit
 }
 
-func dryRun(conn *sql.DB, dialect string, src migrate.MigrationSource, direction migrate.MigrationDirection, limit int) {
+func dryRun(conn *sql.DB, dialect string, src migrate.MigrationSource, direction migrate.MigrationDirection, limit int) error {
 	plan, _, err := migrate.PlanMigration(conn, dialect, src, direction, limit)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	for _, m := range plan {
 		var queries []string
@@ -111,14 +111,16 @@ func dryRun(conn *sql.DB, dialect string, src migrate.MigrationSource, direction
 			log.Println(query)
 		}
 	}
+	return nil
 }
 
-func run(conn *sql.DB, dialect string, src migrate.MigrationSource, direction migrate.MigrationDirection, limit int) {
+func run(conn *sql.DB, dialect string, src migrate.MigrationSource, direction migrate.MigrationDirection, limit int) error {
 	count, err := migrate.ExecMax(conn, dialect, src, direction, limit)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	log.Printf("Applied %d migration(s)! \n", count)
+	return nil
 }
 
 type migrations []migrate.MigrationSource

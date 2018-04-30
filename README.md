@@ -10,6 +10,13 @@
 
 ## Quick start
 
+Requirements: 
+
+- Docker 17.09.0-ce or above
+- Docker Compose 1.16.1 or above
+- Go 1.9.2 or above
+- GNU Make 3.81 or above
+
 ```bash
 $ make up demo status
 
@@ -87,18 +94,19 @@ $ click --help
 Click!
 
 Usage:
-   [command]
+  click [command]
 
 Available Commands:
+  completion  Print Bash or Zsh completion
   help        Help about any command
   migrate     Apply database migration
   run         Start HTTP server
   version     Show application version
 
 Flags:
-  -h, --help   help for this command
+  -h, --help   help for click
 
-Use " [command] --help" for more information about a command.
+Use "click [command] --help" for more information about a command.
 ```
 
 ## Installation
@@ -140,12 +148,15 @@ $ egg bitbucket.org/kamilsk/click@^1.0.0 -- make test install
 
 > [egg](https://github.com/kamilsk/egg) is an `extended go get`.
 
-#### Requirements
+### Bash and Zsh completions
 
-- Docker 17.09.0-ce or above
-- Docker Compose 1.16.1 or above
-- Go 1.9.2 or above
-- GNU Make 3.81 or above
+You can find completion files [here](https://github.com/kamilsk/shared/tree/dotfiles/bash_completion.d) or
+build your own using these commands
+
+```bash
+$ click completion bash > /path/to/bash_completion.d/click.sh
+$ click completion zsh  > /path/to/zsh-completions/_click.zsh
+```
 
 ## Notes
 
