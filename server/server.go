@@ -13,10 +13,11 @@ import (
 )
 
 const (
-	globalNS    = "global"
-	globalNSKey = "X-Click-Namespace"
-	passKey     = "url"
-	tokenKey    = "token"
+	globalNS        = "global"
+	namespaceHeader = "X-Click-Namespace"
+	optionsHeader   = "X-Click-Options"
+	passQueryParam  = "url"
+	tokenCookieName = "token"
 )
 
 // New returns a new instance of Click! server.
@@ -52,16 +53,16 @@ func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
 
 // Pass is responsible for `GET /pass?url={URI}` request handling.
 func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
-	to := req.URL.Query().Get(passKey)
+	to := req.URL.Query().Get(passQueryParam)
 	if to == "" {
 		rw.WriteHeader(http.StatusBadRequest)
 		return
 	}
 
 	// TODO: move to middleware layer
-	cookie, err := req.Cookie(tokenKey)
+	cookie, err := req.Cookie(tokenCookieName)
 	if err != nil {
-		cookie = &http.Cookie{Name: tokenKey}
+		cookie = &http.Cookie{Name: tokenCookieName}
 	}
 
 	response := s.service.HandlePass(transfer.PassRequest{EncryptedMarker: cookie.Value})
@@ -89,13 +90,13 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 // Redirect is responsible for `GET /{Alias.URN}` request handling.
 func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	var (
-		ns = fallback(req.Header.Get(globalNSKey), globalNS)
+		ns = fallback(req.Header.Get(namespaceHeader), globalNS)
 	)
 
 	// TODO: move to middleware layer
-	cookie, err := req.Cookie(tokenKey)
+	cookie, err := req.Cookie(tokenCookieName)
 	if err != nil {
-		cookie = &http.Cookie{Name: tokenKey}
+		cookie = &http.Cookie{Name: tokenCookieName}
 	}
 
 	response := s.service.HandleRedirect(transfer.RedirectRequest{
@@ -168,7 +169,7 @@ func log(handle func(event domain.Log), req *http.Request, token string, event d
 				cookie[c.Name] = c.Value
 			}
 		}
-		cookie[tokenKey] = token
+		cookie[tokenCookieName] = token
 	}
 	{
 		origin := req.Header
@@ -183,7 +184,7 @@ func log(handle func(event domain.Log), req *http.Request, token string, event d
 		origin := req.URL.Query()
 		query = make(map[string][]string, len(origin))
 		for key, values := range origin {
-			if key != passKey {
+			if key != passQueryParam {
 				query[key] = values
 			}
 		}
