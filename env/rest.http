@@ -8,6 +8,13 @@ GET http://localhost:8080/github/click!
 Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
 X-Click-Namespace: global
 
+### anonymously
+
+GET http://localhost:8080/github/click!
+Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
+X-Click-Namespace: global
+X-Click-Options: anonym; nolog
+
 ###
 
 GET http://localhost:8080/github/click

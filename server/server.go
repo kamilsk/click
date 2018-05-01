@@ -60,6 +60,9 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	// TODO: move to middleware layer
+	// TODO: support opts.Anonymously()
+	var opts options
+	opts.From(req.Header.Get(optionsHeader))
 	cookie, err := req.Cookie(tokenCookieName)
 	if err != nil {
 		cookie = &http.Cookie{Name: tokenCookieName}
@@ -72,28 +75,32 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	// TODO: move to middleware layer
+	// TODO: support opts.Anonymously()
 	cookie.MaxAge, cookie.Path, cookie.Value = 0, "/", response.EncryptedMarker
 	cookie.Secure, cookie.HttpOnly = true, true
 	http.SetCookie(rw, cookie)
 	rw.Header().Set("Location", to)
 	rw.WriteHeader(http.StatusFound)
 
-	go log(s.service.LogRedirectEvent, req, response.EncryptedMarker, domain.Log{
-		LinkID:   string(domain.EmptyUUID),
-		AliasID:  0,
-		TargetID: 0,
-		URI:      to,
-		Code:     http.StatusFound,
-	})
+	if !opts.NoLog() {
+		go log(s.service.LogRedirectEvent, req, response.EncryptedMarker, domain.Log{
+			LinkID:   string(domain.EmptyUUID),
+			AliasID:  0,
+			TargetID: 0,
+			URI:      to,
+			Code:     http.StatusFound,
+		})
+	}
 }
 
 // Redirect is responsible for `GET /{Alias.URN}` request handling.
 func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
-	var (
-		ns = fallback(req.Header.Get(namespaceHeader), globalNS)
-	)
+	var ns = fallback(req.Header.Get(namespaceHeader), globalNS)
 
 	// TODO: move to middleware layer
+	// TODO: support opts.Anonymously()
+	var opts options
+	opts.From(req.Header.Get(optionsHeader))
 	cookie, err := req.Cookie(tokenCookieName)
 	if err != nil {
 		cookie = &http.Cookie{Name: tokenCookieName}
@@ -129,19 +136,53 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	}
 
 	// TODO: move to middleware layer
+	// TODO: support opts.Anonymously()
 	cookie.MaxAge, cookie.Path, cookie.Value = 0, "/", response.EncryptedMarker
 	cookie.Secure, cookie.HttpOnly = true, true
 	http.SetCookie(rw, cookie)
 	rw.Header().Set("Location", response.Target.URI)
 	rw.WriteHeader(statusCode)
 
-	go log(s.service.LogRedirectEvent, req, response.EncryptedMarker, domain.Log{
-		LinkID:   response.Alias.LinkID,
-		AliasID:  response.Alias.ID,
-		TargetID: response.Target.ID,
-		URI:      response.Target.URI,
-		Code:     statusCode,
-	})
+	if !opts.NoLog() {
+		go log(s.service.LogRedirectEvent, req, response.EncryptedMarker, domain.Log{
+			LinkID:   response.Alias.LinkID,
+			AliasID:  response.Alias.ID,
+			TargetID: response.Target.ID,
+			URI:      response.Target.URI,
+			Code:     statusCode,
+		})
+	}
+}
+
+type options []string
+
+func (opts *options) From(str string) {
+	s := strings.Split(str, ";")
+	*opts = make([]string, 0, len(s))
+	for _, str := range s {
+		*opts = append(*opts, strings.ToLower(strings.TrimSpace(str)))
+	}
+}
+
+func (opts options) Anonymously() bool {
+	return opts.find("anonym")
+}
+
+func (opts options) Debug() bool {
+	return opts.find("debug")
+}
+
+func (opts options) NoLog() bool {
+	return opts.find("nolog")
+}
+
+func (opts options) find(str string) bool {
+	for _, opt := range opts {
+		if opt == str {
+			return true
+		}
+	}
+	return false
 }
 
 func fallback(value string, fallbackValues ...string) string {
