@@ -6,8 +6,14 @@ build:
   environment:
     go: go1.9
 
-    postgresql: false
-    redis:      false
+    elasticsearch: false
+    memcached:     false
+    mongodb:       false
+    mysql:         false
+    neo4j:         false
+    postgresql:    false
+    rabbitmq:      false
+    redis:         false
 
   tests:
     override:
