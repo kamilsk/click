@@ -47,6 +47,12 @@ Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
 
 ###
 
+GET http://localhost:8080/github/click
+Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
+X-Click-Namespace: issue
+
+###
+
 GET http://localhost:8080/pass?url=https://github.com/kamilsk/click
 Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
 

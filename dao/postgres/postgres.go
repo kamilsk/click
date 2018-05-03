@@ -49,21 +49,29 @@ func Link(db *sql.DB, id domain.UUID) (domain.Link, error) {
 }
 
 // LinkByAlias returns the Link with its set of Alias and set of Target defined by provided namespace and URN.
-func LinkByAlias(db *sql.DB, namespace, urn string) (domain.Link, error) {
+func LinkByAlias(db *sql.DB, ns, urn string) (domain.Link, error) {
 	var (
-		aliasID uint64
-		linkID  domain.UUID
+		aliasID   uint64
+		linkID    domain.UUID
+		namespace string
 	)
-	row := db.QueryRow(
-		`SELECT "id", "link_id" FROM "alias" WHERE "namespace" = $1 AND "urn" = $2`, namespace, urn)
-	if err := row.Scan(&aliasID, &linkID); err != nil {
-		if err == sql.ErrNoRows {
-			return domain.Link{}, errors.NotFound(errors.LinkNotFoundMessage, err,
-				"link with alias {%s:%s} not found", namespace, urn)
-		}
+	rows, err := db.Query(
+		`SELECT "id", "link_id", "namespace" FROM "alias" WHERE "namespace" IN ($1, 'global') AND "urn" = $2`, ns, urn)
+	if err != nil {
 		return domain.Link{}, errors.Database(errors.ServerErrorMessage, err,
-			"trying to populate link by alias {%s:%s}", namespace, urn)
+			"trying to populate link by alias {%s:%s}", ns, urn)
 	}
+	for rows.Next() {
+		if err := rows.Scan(&aliasID, &linkID, &namespace); err != nil {
+			rows.Close()
+			return domain.Link{}, errors.Database(errors.ServerErrorMessage, err,
+				"trying to populate link by alias {%s:%s}", ns, urn)
+		}
+		if namespace != "global" {
+			break
+		}
+	}
+	rows.Close()
 	return Link(db, linkID)
 }
 

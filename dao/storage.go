@@ -62,8 +62,8 @@ func (l *Storage) Link(id domain.UUID) (domain.Link, error) {
 }
 
 // LinkByAlias returns the Link with its set of Alias and set of Target defined by provided namespace and URN.
-func (l *Storage) LinkByAlias(namespace, urn string) (domain.Link, error) {
-	return postgres.LinkByAlias(l.conn, namespace, urn)
+func (l *Storage) LinkByAlias(ns, urn string) (domain.Link, error) {
+	return postgres.LinkByAlias(l.conn, ns, urn)
 }
 
 // Log stores a "redirect event".
