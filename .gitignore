@@ -7,10 +7,7 @@
 !/static/migrations/demo
 /static/migrations/demo/*
 !/static/migrations/demo/data.sql
-/env/backup.sql
+/env/backup.db
 
 # environment
 *.env
-
-# Material Kit template
-/template/

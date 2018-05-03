@@ -61,15 +61,19 @@ log-db: env
 psql: env
 	$(COMPOSE) exec db /bin/sh -c 'su - postgres -c psql'
 
-.PHONY: backup
-backup: env
-	$(COMPOSE) exec db \
-	  /bin/sh -c 'su - postgres -c "pg_dump --clean $${POSTGRES_DB}"' > ./env/backup.sql
+.PHONY: backup-db
+backup-db: env
+	$(COMPOSE) exec db /bin/sh -c 'su - postgres -c "pg_dump --format=custom --file=/tmp/backup.db $${POSTGRES_DB}"'
+	docker cp $$(make status | tail +3 | awk '{print $$1}' | grep _db_ | head -1):/tmp/backup.db ./env/
+	$(COMPOSE) exec db rm /tmp/backup.db
 
-.PHONY: restore
-restore:
-	cat ./env/backup.sql | docker exec -i $$(make status | tail +3 | awk '{print $$1}' | grep _db_ | head -1) \
-	  /bin/sh -c 'cat > /tmp/backup.sql && su - postgres -c "psql $${POSTGRES_DB} < /tmp/backup.sql"'
+.PHONY: restore-db
+restore-db:
+	docker cp ./env/clean.sql $$(make status | tail +3 | awk '{print $$1}' | grep _db_ | head -1):/tmp/
+	docker cp ./env/backup.db $$(make status | tail +3 | awk '{print $$1}' | grep _db_ | head -1):/tmp/
+	$(COMPOSE) exec db /bin/sh -c 'su - postgres -c "psql $${POSTGRES_DB} < /tmp/clean.sql"'
+	$(COMPOSE) exec db /bin/sh -c 'su - postgres -c "pg_restore -c -Fc -d $${POSTGRES_DB} /tmp/backup.db"'
+	$(COMPOSE) exec db rm /tmp/backup.db /tmp/clean.sql
 
 
 .PHONY: up-migration
