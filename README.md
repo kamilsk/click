@@ -1,6 +1,7 @@
 > # Click! [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Link%20Manager%20as%20a%20Service&url=https://kamilsk.github.io/click/&via=ikamilsk&hashtags=go,service,link-manager,link-storage,link-shortener)
 > [![Analytics](https://ga-beacon.appspot.com/UA-109817251-20/click/readme?pixel)](https://kamilsk.github.io/click/)
-> Link Manager as a Service.
+> Link Manager as a Service
+> > &mdash; your personal link storage and URL shortener
 
 [![Patreon](https://img.shields.io/badge/patreon-donate-orange.svg)](https://www.patreon.com/octolab)
 [![Build Status](https://travis-ci.org/kamilsk/click.svg?branch=master)](https://travis-ci.org/kamilsk/click)
