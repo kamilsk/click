@@ -13,6 +13,20 @@ X-Click-Namespace: global
 GET http://localhost:8080/github/click!
 Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
 X-Click-Namespace: global
+X-Click-Options: anonym
+
+### no logging
+
+GET http://localhost:8080/github/click!
+Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
+X-Click-Namespace: global
+X-Click-Options: nolog
+
+### combining
+
+GET http://localhost:8080/github/click!
+Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
+X-Click-Namespace: global
 X-Click-Options: anonym; nolog
 
 ###
@@ -28,77 +42,8 @@ Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
 
 ###
 
-GET http://localhost:8080/api/v1/09579e02-e076-489a-9741-f4cf2a67ad40
-
-###
-
-GET http://localhost:8080/github/egg
+GET http://localhost:8080/github/click?tag=src
 Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-
-###
-
-GET http://localhost:8080/api/v1/0d49a516-abea-430c-87a3-17992b8c6e45
-
-###
-
-GET http://localhost:8080/github/forma
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-
-###
-
-GET http://localhost:8080/github/forma?tag=src
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-
-###
-
-GET http://localhost:8080/github/forma?tag=promo
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-
-###
-
-GET http://localhost:8080/github/forma?type=promo
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-
-###
-
-GET http://localhost:8080/api/v1/19ac200a-ca74-48ca-8086-511f23d0c43e
-
-###
-
-GET http://localhost:8080/github/retry
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-
-###
-
-GET http://localhost:8080/api/v1/4b1f1033-dd7c-452d-94bc-fe78591b7e66
-
-###
-
-GET http://localhost:8080/github/passport
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-
-###
-
-GET http://localhost:8080/github/passport?tag=promo
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-
-###
-
-GET http://localhost:8080/api/v1/7f9b8b84-977f-4fdb-a4df-fb17919fa897
-
-###
-
-GET http://localhost:8080/github/semaphore
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
 
 ###
 

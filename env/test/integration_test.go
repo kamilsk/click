@@ -1,3 +1,3 @@
 // +build integration
 
-package main
+package test

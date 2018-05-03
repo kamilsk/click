@@ -2,7 +2,9 @@ package cmd
 
 import (
 	"database/sql"
+	"io/ioutil"
 	"log"
+	"os"
 	"strconv"
 	"strings"
 
@@ -24,24 +26,31 @@ var migrateCmd = &cobra.Command{
 			migrate.SetSchema(cmd.Flag("schema").Value.String())
 		}
 		layer := dao.Must(dao.Connection(dsn(cmd)))
-		src := make(migrations, 0, 2)
-		src = append(src, &migrate.AssetMigrationSource{
+		src := &migrate.AssetMigrationSource{
 			Asset:    static.Asset,
 			AssetDir: static.AssetDir,
 			Dir:      "static/migrations",
-		})
-		if asBool(cmd.Flag("with-demo").Value) {
-			src = append(src, &migrate.AssetMigrationSource{
-				Asset:    static.Asset,
-				AssetDir: static.AssetDir,
-				Dir:      "static/migrations/demo",
-			})
 		}
 		var runner = run
 		if asBool(cmd.Flag("dry-run").Value) {
 			runner = dryRun
 		}
-		return runner(layer.Connection(), layer.Dialect(), src, direction, limit)
+		if err := runner(layer.Connection(), layer.Dialect(), src, direction, limit); err != nil {
+			return err
+		}
+		if direction == migrate.Up && asBool(cmd.Flag("with-demo").Value) {
+			raw, err := ioutil.ReadFile("env/test/fixtures/demo.sql")
+			switch {
+			case err == nil:
+				result, err := layer.Connection().Exec(string(raw))
+				log.Printf("demo: %#+v : %#+v", result, err)
+			case os.IsNotExist(err):
+				log.Println("demo is available only during development")
+			default:
+				return err
+			}
+		}
+		return nil
 	},
 }
 
@@ -121,18 +130,4 @@ func run(conn *sql.DB, dialect string, src migrate.MigrationSource, direction mi
 	}
 	log.Printf("Applied %d migration(s)! \n", count)
 	return nil
-}
-
-type migrations []migrate.MigrationSource
-
-func (b migrations) FindMigrations() ([]*migrate.Migration, error) {
-	var all []*migrate.Migration
-	for _, src := range b {
-		found, err := src.FindMigrations()
-		if err != nil {
-			return nil, err
-		}
-		all = append(all, found...)
-	}
-	return all, nil
 }

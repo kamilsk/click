@@ -47,7 +47,7 @@ func TestAssetDir(t *testing.T) {
 		expected []string
 	}{
 		{"root", "static", []string{"migrations"}},
-		{"migrations", "static/migrations", []string{"1_initial.sql", "demo"}},
+		{"migrations", "static/migrations", []string{"1_initial.sql"}},
 		{"not found", "static/migrations/unknown", nil},
 	}
 

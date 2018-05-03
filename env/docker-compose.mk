@@ -72,7 +72,7 @@ restore-db:
 	docker cp ./env/clean.sql $$(make status | tail +3 | awk '{print $$1}' | grep _db_ | head -1):/tmp/
 	docker cp ./env/backup.db $$(make status | tail +3 | awk '{print $$1}' | grep _db_ | head -1):/tmp/
 	$(COMPOSE) exec db /bin/sh -c 'su - postgres -c "psql $${POSTGRES_DB} < /tmp/clean.sql"'
-	$(COMPOSE) exec db /bin/sh -c 'su - postgres -c "pg_restore -c -Fc -d $${POSTGRES_DB} /tmp/backup.db"'
+	$(COMPOSE) exec db /bin/sh -c 'su - postgres -c "pg_restore -Fc -d $${POSTGRES_DB} /tmp/backup.db"'
 	$(COMPOSE) exec db rm /tmp/backup.db /tmp/clean.sql
 
 
@@ -104,10 +104,6 @@ stop-service: env
 .PHONY: log-service
 log-service: env
 	$(COMPOSE) logs -f service
-
-.PHONY: demo
-demo: env
-	$(COMPOSE) exec service click migrate up --with-demo
 
 
 .PHONY: up-server
