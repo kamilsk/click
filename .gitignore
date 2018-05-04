@@ -4,9 +4,6 @@
 # database
 /static/migrations/*
 !/static/migrations/1_initial.sql
-!/static/migrations/demo
-/static/migrations/demo/*
-!/static/migrations/demo/data.sql
 /env/backup.db
 
 # environment
