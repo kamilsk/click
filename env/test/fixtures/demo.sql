@@ -1,5 +1,8 @@
 DO $$
-DECLARE click "link"."id"%TYPE := 'a382922d-b615-4227-b598-6d3633c397aa';
+DECLARE   demoUser "link"."user"%TYPE := uuid_generate_v4();
+  DECLARE click    "link"."id"%TYPE := 'a382922d-b615-4227-b598-6d3633c397aa';
+  DECLARE promo    "alias"."id"%TYPE;
+  DECLARE issue    "alias"."id"%TYPE;
 BEGIN
   DELETE FROM "log"
   WHERE "link_id" = click;
@@ -12,15 +15,7 @@ BEGIN
 
   DELETE FROM "link"
   WHERE "id" = click;
-END;
-$$;
 
-DO $$
-DECLARE   demoUser "link"."user"%TYPE := uuid_generate_v4();
-  DECLARE click    "link"."id"%TYPE := 'a382922d-b615-4227-b598-6d3633c397aa';
-  DECLARE promo    "alias"."id"%TYPE;
-  DECLARE issue    "alias"."id"%TYPE;
-BEGIN
   INSERT INTO "link" ("id", "user", "name")
   VALUES (click, demoUser, 'Click! - Link Manager as a Service');
 
