@@ -167,6 +167,7 @@ $ click completion zsh  > /path/to/zsh-completions/_click.zsh
   - [ ] v4: CRUD
   - [ ] v5: GUI
   - [ ] Click!, SaaS
+- [research](../../tree/research)
 - tested on Go 1.9 and 1.10
 
 ---
