@@ -170,6 +170,12 @@ $ click completion zsh  > /path/to/zsh-completions/_click.zsh
 - [research](../../tree/research)
 - tested on Go 1.9 and 1.10
 
+### Update
+
+This application is in a state of [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product) and under active
+development. [SemVer](https://semver.org/) is used for releases, and you can easily be updated within minor versions,
+but major versions can be not [BC](https://en.wikipedia.org/wiki/Backward_compatibility)-safe.
+
 ---
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kamilsk/click)
