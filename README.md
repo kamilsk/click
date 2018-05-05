@@ -20,11 +20,11 @@ Requirements:
 ```bash
 $ make up demo status
 
-    Name                     Command               State                                  Ports
+     Name                    Command               State                                  Ports
 -------------------------------------------------------------------------------------------------------------------------------
 click_db_1        docker-entrypoint.sh postgres    Up      0.0.0.0:5432->5432/tcp
 click_server_1    /bin/sh -c envsubst '$SERV ...   Up      80/tcp, 0.0.0.0:80->8080/tcp
-click_service_1   click run --with-profile - ...   Up      0.0.0.0:8080->80/tcp, 0.0.0.0:8090->8090/tcp, 0.0.0.0:8091->8091/tcp
+click_service_1   click run --with-profiler  ...   Up      0.0.0.0:8080->80/tcp, 0.0.0.0:8090->8090/tcp, 0.0.0.0:8091->8091/tcp
 
 $ curl http://localhost:8080/api/v1/a382922d-b615-4227-b598-6d3633c397aa
 # {
