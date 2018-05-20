@@ -1,5 +1,5 @@
 DO $$
-DECLARE   demoUser "link"."user"%TYPE := uuid_generate_v4();
+DECLARE   demoUser "link"."user"%TYPE := '00000000-0000-4000-8000-000000000000';
   DECLARE click    "link"."id"%TYPE := 'a382922d-b615-4227-b598-6d3633c397aa';
   DECLARE promo    "alias"."id"%TYPE;
   DECLARE issue    "alias"."id"%TYPE;

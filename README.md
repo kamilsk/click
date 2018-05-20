@@ -77,7 +77,6 @@ $ curl -v --cookie "token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4" http://localhost
 # < Date: Wed, 11 Apr 2018 17:37:48 GMT
 # < Content-Length: 0
 # <
-$
 ```
 
 ## Specification
@@ -131,7 +130,7 @@ $ tar xf click.tar.gz -C "${GOPATH}"/bin/ && rm click.tar.gz
 ### Docker Hub
 
 ```bash
-$ docker pull kamilsk/click:latest
+$ docker pull kamilsk/click:1.x
 ```
 
 ### From source code
