@@ -5,6 +5,8 @@ docker-build:
 	docker build -f env/Dockerfile \
 	             -t kamilsk/click:$(IMAGE_VERSION) \
 	             -t kamilsk/click:latest \
+	             -t quay.io/kamilsk/click:$(IMAGE_VERSION) \
+	             -t quay.io/kamilsk/click:latest \
 	             --force-rm --no-cache --pull --rm \
 	             .
 
@@ -12,6 +14,8 @@ docker-build:
 docker-push:
 	docker push kamilsk/click:$(IMAGE_VERSION)
 	docker push kamilsk/click:latest
+	docker push quay.io/kamilsk/click:$(IMAGE_VERSION)
+	docker push quay.io/kamilsk/click:latest
 
 .PHONY: docker-refresh
 docker-refresh:
