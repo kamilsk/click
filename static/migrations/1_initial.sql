@@ -50,7 +50,8 @@ CREATE TABLE "target" (
   "uri"        VARCHAR(1024) NOT NULL,
   "rule"       JSONB         NULL     DEFAULT NULL,
   "created_at" TIMESTAMP     NOT NULL DEFAULT now(),
-  "updated_at" TIMESTAMP     NULL     DEFAULT NULL
+  "updated_at" TIMESTAMP     NULL     DEFAULT NULL,
+  UNIQUE ("link_id", "uri")
 );
 
 CREATE TRIGGER "target_updated"
