@@ -59,10 +59,11 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	// TODO: move to middleware layer
-	// TODO: support opts.Anonymously()
 	var opts options
 	opts.From(req.Header.Get(optionsHeader))
+
+	// TODO: move to middleware layer
+	// TODO: support opts.Anonymously()
 	cookie, err := req.Cookie(tokenCookieName)
 	if err != nil {
 		cookie = &http.Cookie{Name: tokenCookieName}
@@ -79,6 +80,7 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 	cookie.MaxAge, cookie.Path, cookie.Value = 0, "/", response.EncryptedMarker
 	cookie.Secure, cookie.HttpOnly = true, true
 	http.SetCookie(rw, cookie)
+
 	rw.Header().Set("Location", to)
 	rw.WriteHeader(http.StatusFound)
 
@@ -97,10 +99,11 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	var ns = fallback(req.Header.Get(namespaceHeader), globalNS)
 
-	// TODO: move to middleware layer
-	// TODO: support opts.Anonymously()
 	var opts options
 	opts.From(req.Header.Get(optionsHeader))
+
+	// TODO: move to middleware layer
+	// TODO: support opts.Anonymously()
 	cookie, err := req.Cookie(tokenCookieName)
 	if err != nil {
 		cookie = &http.Cookie{Name: tokenCookieName}
@@ -112,6 +115,13 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 		URN:             strings.Trim(req.URL.Path, "/"),
 		Query:           req.URL.Query(),
 	})
+
+	// TODO: move to middleware layer
+	// TODO: support opts.Anonymously()
+	cookie.MaxAge, cookie.Path, cookie.Value = 0, "/", response.EncryptedMarker
+	cookie.Secure, cookie.HttpOnly = true, true
+	http.SetCookie(rw, cookie)
+
 	if response.Error != nil {
 		if err, is := response.Error.(errors.ApplicationError); is {
 			if _, is := err.IsClientError(); is {
@@ -135,11 +145,6 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 		}
 	}
 
-	// TODO: move to middleware layer
-	// TODO: support opts.Anonymously()
-	cookie.MaxAge, cookie.Path, cookie.Value = 0, "/", response.EncryptedMarker
-	cookie.Secure, cookie.HttpOnly = true, true
-	http.SetCookie(rw, cookie)
 	rw.Header().Set("Location", response.Target.URI)
 	rw.WriteHeader(statusCode)
 
