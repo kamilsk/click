@@ -1,0 +1,7 @@
+[[constraint]]
+  name = "github.com/pantrif/url-shortener"
+  branch = "master"
+
+[prune]
+  go-tests = true
+  unused-packages = true
