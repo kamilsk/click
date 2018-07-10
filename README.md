@@ -5,6 +5,12 @@
 [![Patreon](https://img.shields.io/badge/patreon-donate-orange.svg)](https://www.patreon.com/octolab)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+## Review
+
+### URL shortener
+
+- [ ] [github.com/pantrif/url-shortener](https://github.com/pantrif/url-shortener/)
+
 ---
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kamilsk/click)
