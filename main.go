@@ -10,7 +10,7 @@ import (
 	_ "github.com/lib/pq"
 
 	"github.com/kamilsk/click/cmd"
-	"github.com/kamilsk/click/errors"
+	"github.com/kamilsk/click/pkg/errors"
 	"github.com/spf13/cobra"
 )
 

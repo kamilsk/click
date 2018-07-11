@@ -8,10 +8,10 @@ import (
 	"runtime"
 	"time"
 
-	"github.com/kamilsk/click/dao"
-	"github.com/kamilsk/click/server"
-	"github.com/kamilsk/click/server/router/chi"
-	"github.com/kamilsk/click/service"
+	"github.com/kamilsk/click/pkg/dao"
+	"github.com/kamilsk/click/pkg/server"
+	"github.com/kamilsk/click/pkg/server/router/chi"
+	"github.com/kamilsk/click/pkg/service"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )

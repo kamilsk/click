@@ -17,7 +17,7 @@ var (
 	_ easyjson.Marshaler
 )
 
-func easyjsonD6888903DecodeGithubComKamilskClickDomain(in *jlexer.Lexer, out *Target) {
+func easyjsonD6888903DecodeGithubComKamilskClickPkgDomain(in *jlexer.Lexer, out *Target) {
 	isTopLevel := in.IsStart()
 	if in.IsNull() {
 		if isTopLevel {
@@ -52,7 +52,7 @@ func easyjsonD6888903DecodeGithubComKamilskClickDomain(in *jlexer.Lexer, out *Ta
 		in.Consumed()
 	}
 }
-func easyjsonD6888903EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in Target) {
+func easyjsonD6888903EncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, in Target) {
 	out.RawByte('{')
 	first := true
 	_ = first
@@ -92,23 +92,23 @@ func easyjsonD6888903EncodeGithubComKamilskClickDomain(out *jwriter.Writer, in T
 // MarshalJSON supports json.Marshaler interface
 func (v Target) MarshalJSON() ([]byte, error) {
 	w := jwriter.Writer{}
-	easyjsonD6888903EncodeGithubComKamilskClickDomain(&w, v)
+	easyjsonD6888903EncodeGithubComKamilskClickPkgDomain(&w, v)
 	return w.Buffer.BuildBytes(), w.Error
 }
 
 // MarshalEasyJSON supports easyjson.Marshaler interface
 func (v Target) MarshalEasyJSON(w *jwriter.Writer) {
-	easyjsonD6888903EncodeGithubComKamilskClickDomain(w, v)
+	easyjsonD6888903EncodeGithubComKamilskClickPkgDomain(w, v)
 }
 
 // UnmarshalJSON supports json.Unmarshaler interface
 func (v *Target) UnmarshalJSON(data []byte) error {
 	r := jlexer.Lexer{Data: data}
-	easyjsonD6888903DecodeGithubComKamilskClickDomain(&r, v)
+	easyjsonD6888903DecodeGithubComKamilskClickPkgDomain(&r, v)
 	return r.Error()
 }
 
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *Target) UnmarshalEasyJSON(l *jlexer.Lexer) {
-	easyjsonD6888903DecodeGithubComKamilskClickDomain(l, v)
+	easyjsonD6888903DecodeGithubComKamilskClickPkgDomain(l, v)
 }

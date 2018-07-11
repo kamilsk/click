@@ -10,7 +10,7 @@ mocks:
 .PHONY: tools
 tools:
 	if ! command -v easyjson > /dev/null; then \
-	    go get github.com/mailru/easyjson; \
+	    go get github.com/mailru/easyjson/...; \
 	fi
 	if ! command -v go-bindata > /dev/null; then \
 	    go get -d github.com/a-urth/go-bindata/go-bindata; \
