@@ -3,11 +3,11 @@ package chi
 import (
 	"net/http"
 
-	common "github.com/kamilsk/click/server/middleware"
+	common "github.com/kamilsk/click/pkg/server/middleware"
 
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
-	"github.com/kamilsk/click/server/router"
+	"github.com/kamilsk/click/pkg/server/router"
 )
 
 // NewRouter returns configured `github.com/go-chi/chi` router.
