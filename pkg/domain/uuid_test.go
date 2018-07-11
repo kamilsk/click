@@ -3,7 +3,7 @@ package domain_test
 import (
 	"testing"
 
-	"github.com/kamilsk/click/domain"
+	"github.com/kamilsk/click/pkg/domain"
 	"github.com/stretchr/testify/assert"
 )
 
