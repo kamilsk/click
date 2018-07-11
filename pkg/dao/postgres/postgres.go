@@ -3,8 +3,8 @@ package postgres
 import (
 	"database/sql"
 
-	"github.com/kamilsk/click/domain"
-	"github.com/kamilsk/click/errors"
+	"github.com/kamilsk/click/pkg/domain"
+	"github.com/kamilsk/click/pkg/errors"
 	"golang.org/x/sync/errgroup"
 )
 

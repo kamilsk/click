@@ -3,8 +3,8 @@ package dao
 import (
 	"database/sql"
 
-	"github.com/kamilsk/click/dao/postgres"
-	"github.com/kamilsk/click/domain"
+	"github.com/kamilsk/click/pkg/dao/postgres"
+	"github.com/kamilsk/click/pkg/domain"
 )
 
 // Must returns a new instance of the Storage or panics if it cannot configure it.
