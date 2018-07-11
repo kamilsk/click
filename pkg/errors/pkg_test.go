@@ -6,7 +6,7 @@ import (
 
 	deep "github.com/pkg/errors"
 
-	"github.com/kamilsk/click/errors"
+	"github.com/kamilsk/click/pkg/errors"
 	"github.com/stretchr/testify/assert"
 )
 
