@@ -1,6 +1,6 @@
 package transfer
 
-import "github.com/kamilsk/click/domain"
+import "github.com/kamilsk/click/pkg/domain"
 
 // RedirectRequest represents `GET /{Alias.URN}` request.
 type RedirectRequest struct {

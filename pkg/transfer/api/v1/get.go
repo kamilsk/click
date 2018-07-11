@@ -1,6 +1,6 @@
 package v1
 
-import "github.com/kamilsk/click/domain"
+import "github.com/kamilsk/click/pkg/domain"
 
 // GetRequest represents `GET /api/v1/{Link.ID}` request.
 type GetRequest struct {
