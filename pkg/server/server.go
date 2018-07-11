@@ -5,11 +5,11 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/kamilsk/click/domain"
-	"github.com/kamilsk/click/errors"
-	"github.com/kamilsk/click/server/middleware"
-	"github.com/kamilsk/click/transfer"
-	"github.com/kamilsk/click/transfer/api/v1"
+	"github.com/kamilsk/click/pkg/domain"
+	"github.com/kamilsk/click/pkg/errors"
+	"github.com/kamilsk/click/pkg/server/middleware"
+	"github.com/kamilsk/click/pkg/transfer"
+	"github.com/kamilsk/click/pkg/transfer/api/v1"
 )
 
 const (

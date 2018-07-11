@@ -1,9 +1,9 @@
 package server
 
 import (
-	"github.com/kamilsk/click/domain"
-	"github.com/kamilsk/click/transfer"
-	"github.com/kamilsk/click/transfer/api/v1"
+	"github.com/kamilsk/click/pkg/domain"
+	"github.com/kamilsk/click/pkg/transfer"
+	"github.com/kamilsk/click/pkg/transfer/api/v1"
 )
 
 // Service defines the behavior of Click! service.
