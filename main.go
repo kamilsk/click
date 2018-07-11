@@ -5,6 +5,7 @@ import (
 	"io"
 	"os"
 	"runtime"
+	"time"
 
 	_ "github.com/lib/pq"
 
@@ -16,6 +17,12 @@ import (
 const (
 	success = 0
 	failed  = 1
+)
+
+var (
+	commit  = "none"
+	date    = time.Now().Format(time.UnixDate)
+	version = "dev"
 )
 
 func main() { application{Cmd: cmd.RootCmd, Output: os.Stderr, Shutdown: os.Exit}.Run() }
