@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/kamilsk/click/domain"
+	"github.com/kamilsk/click/pkg/domain"
 )
 
 // Link validates the passed Link ID and injects it to the request context.

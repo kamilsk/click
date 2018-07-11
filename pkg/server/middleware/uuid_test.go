@@ -5,8 +5,8 @@ import (
 	"net/http/httptest"
 	"testing"
 
-	"github.com/kamilsk/click/domain"
-	"github.com/kamilsk/click/server/middleware"
+	"github.com/kamilsk/click/pkg/domain"
+	"github.com/kamilsk/click/pkg/server/middleware"
 	"github.com/stretchr/testify/assert"
 )
 
