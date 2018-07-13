@@ -7,6 +7,10 @@
   branch = "master"
 
 [[constraint]]
+  name = "github.com/golang/protobuf"
+  version = "^1.1.0"
+
+[[constraint]]
   name = "github.com/lib/pq"
   branch = "master"
 
@@ -37,3 +41,11 @@
 [[constraint]]
   name = "golang.org/x/sync"
   branch = "master"
+
+[[constraint]]
+  name = "google.golang.org/grpc"
+  version = "^1.13.0"
+
+[[constraint]]
+  name = "gopkg.in/yaml.v2"
+  branch = "v2"

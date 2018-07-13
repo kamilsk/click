@@ -29,6 +29,18 @@
   revision = "22bbf0ddf08105dfa364d0a2fa619dfa71014af5"
 
 [[projects]]
+  name = "github.com/golang/protobuf"
+  packages = [
+    "proto",
+    "ptypes",
+    "ptypes/any",
+    "ptypes/duration",
+    "ptypes/timestamp"
+  ]
+  revision = "b4deda0973fb4c70b50d226b1af49f3da59f5265"
+  version = "v1.1.0"
+
+[[projects]]
   branch = "master"
   name = "github.com/hashicorp/hcl"
   packages = [
@@ -58,13 +70,13 @@
     ".",
     "oid"
   ]
-  revision = "d34b9ff171c21ad295489235aec8b6626023cd04"
+  revision = "90697d60dd844d5ef6ff15135d0203f65d2f53b8"
 
 [[projects]]
   name = "github.com/magiconair/properties"
   packages = ["."]
-  revision = "c3beff4c2358b44d0493c7dda585e7db7ff28ae6"
-  version = "v1.7.6"
+  revision = "c2353362d570a7bfa228149c62842019201cfb71"
+  version = "v1.8.0"
 
 [[projects]]
   branch = "master"
@@ -75,19 +87,19 @@
     "jlexer",
     "jwriter"
   ]
-  revision = "8b799c424f57fa123fc63a99d6383bc6e4c02578"
+  revision = "3fdea8d05856a0c8df22ed4bc71b3219245e4485"
 
 [[projects]]
   branch = "master"
   name = "github.com/mitchellh/mapstructure"
   packages = ["."]
-  revision = "00c29f56e2386353d58c599509e8dc3801b0d716"
+  revision = "bb74f1db0675b241733089d5a1faa5dd8b0ef57b"
 
 [[projects]]
   name = "github.com/pelletier/go-toml"
   packages = ["."]
-  revision = "acdc4509485b587f5e675510c4f2c63e90ff68a8"
-  version = "v1.1.0"
+  revision = "c01d1270ff3e442a8a57cddc1c92dc1138598194"
+  version = "v1.2.0"
 
 [[projects]]
   name = "github.com/pkg/errors"
@@ -108,7 +120,7 @@
     ".",
     "sqlparse"
   ]
-  revision = "081fe17d19ff4e2dd9f5a0c1158e6bcf74da6906"
+  revision = "3f452fc0ebebbb784fdab91f7bc79a31dcacab5c"
 
 [[projects]]
   name = "github.com/spf13/afero"
@@ -116,8 +128,8 @@
     ".",
     "mem"
   ]
-  revision = "63644898a8da0bc22138abf860edaf5277b6102e"
-  version = "v1.1.0"
+  revision = "787d034dfe70e44075ccc060d346146ef53270ad"
+  version = "v1.1.1"
 
 [[projects]]
   name = "github.com/spf13/cast"
@@ -128,8 +140,8 @@
 [[projects]]
   name = "github.com/spf13/cobra"
   packages = ["."]
-  revision = "a1f051bc3eba734da4772d60e2d677f47cf93ef4"
-  version = "v0.0.2"
+  revision = "ef82de70bb3f60c65fb8eebacbb2d122ef517385"
+  version = "v0.0.3"
 
 [[projects]]
   branch = "master"
@@ -152,8 +164,8 @@
 [[projects]]
   name = "github.com/stretchr/objx"
   packages = ["."]
-  revision = "facf9a85c22f48d2f52f2380e4efce1768749a89"
-  version = "v0.1"
+  revision = "477a77ecc69700c7cdeb1fa9e129548e1c1c393c"
+  version = "v0.1.1"
 
 [[projects]]
   name = "github.com/stretchr/testify"
@@ -161,14 +173,22 @@
     "assert",
     "mock"
   ]
-  revision = "12b6f73e6084dad08a7c6e575284b177ecafbc71"
-  version = "v1.2.1"
+  revision = "f35b8ab0b5a2cef36673838d662e249dd9c94686"
+  version = "v1.2.2"
 
 [[projects]]
   branch = "master"
   name = "golang.org/x/net"
-  packages = ["context"]
-  revision = "640f4622ab692b87c2f3a94265e6f579fe38263d"
+  packages = [
+    "context",
+    "http/httpguts",
+    "http2",
+    "http2/hpack",
+    "idna",
+    "internal/timeseries",
+    "trace"
+  ]
+  revision = "d0887baf81f4598189d4e12a37c6da86f0bba4d0"
 
 [[projects]]
   branch = "master"
@@ -180,20 +200,66 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "78d5f264b493f125018180c204871ecf58a2dce1"
+  revision = "1b2967e3c290b7c545b3db0deeda16e9be4f98a2"
 
 [[projects]]
   name = "golang.org/x/text"
   packages = [
+    "collate",
+    "collate/build",
+    "internal/colltab",
     "internal/gen",
+    "internal/tag",
     "internal/triegen",
     "internal/ucd",
+    "language",
+    "secure/bidirule",
     "transform",
+    "unicode/bidi",
     "unicode/cldr",
-    "unicode/norm"
+    "unicode/norm",
+    "unicode/rangetable"
   ]
   revision = "f21a4dfb5e38f5895301dc265a8def02365cc3d0"
   version = "v0.3.0"
+
+[[projects]]
+  branch = "master"
+  name = "google.golang.org/genproto"
+  packages = ["googleapis/rpc/status"]
+  revision = "e92b116572682a5b432ddd840aeaba2a559eeff1"
+
+[[projects]]
+  name = "google.golang.org/grpc"
+  packages = [
+    ".",
+    "balancer",
+    "balancer/base",
+    "balancer/roundrobin",
+    "codes",
+    "connectivity",
+    "credentials",
+    "encoding",
+    "encoding/proto",
+    "grpclog",
+    "internal",
+    "internal/backoff",
+    "internal/channelz",
+    "internal/grpcrand",
+    "keepalive",
+    "metadata",
+    "naming",
+    "peer",
+    "resolver",
+    "resolver/dns",
+    "resolver/passthrough",
+    "stats",
+    "status",
+    "tap",
+    "transport"
+  ]
+  revision = "168a6198bcb0ef175f7dacec0b8691fc141dc9b8"
+  version = "v1.13.0"
 
 [[projects]]
   name = "gopkg.in/gorp.v1"
@@ -210,6 +276,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "92c8dcff3497006a7af9aaaef3156ceb72cc1aa2f51d376d566a4f0972ef34a5"
+  inputs-digest = "3a96a77d34a1527bdd361bf7f9318f6d7e7f9e0d5c6fcf57ae46d161b76b3af9"
   solver-name = "gps-cdcl"
   solver-version = 1
