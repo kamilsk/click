@@ -1,5 +1,15 @@
 -- +migrate Up
 
+CREATE TABLE "namespace" (
+  "id"         UUID        NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  "account_id" UUID        NOT NULL,
+  "name"       VARCHAR(32) NOT NULL,
+  "created_at" TIMESTAMP   NOT NULL             DEFAULT now(),
+  "updated_at" TIMESTAMP   NULL                 DEFAULT NULL,
+  "deleted_at" TIMESTAMP   NULL                 DEFAULT NULL,
+  UNIQUE ("account_id", "name")
+);
+
 CREATE TABLE "link" (
   "id"         UUID         NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   "account_id" UUID         NOT NULL,
@@ -33,6 +43,11 @@ CREATE TABLE "target" (
   UNIQUE ("link_id", "uri")
 );
 
+CREATE TRIGGER "namespace_updated"
+  BEFORE UPDATE
+  ON "namespace"
+  FOR EACH ROW EXECUTE PROCEDURE update_timestamp();
+
 CREATE TRIGGER "link_updated"
   BEFORE UPDATE
   ON "link"
@@ -61,8 +76,13 @@ ON "alias";
 DROP TRIGGER "link_updated"
 ON "link";
 
+DROP TRIGGER "namespace_updated"
+ON "namespace";
+
 DROP TABLE "target";
 
 DROP TABLE "alias";
 
 DROP TABLE "link";
+
+DROP TABLE "namespace";

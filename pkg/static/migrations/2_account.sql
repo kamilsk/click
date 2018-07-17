@@ -8,16 +8,6 @@ CREATE TABLE "account" (
   "deleted_at" TIMESTAMP    NULL                 DEFAULT NULL
 );
 
-CREATE TABLE "namespace" (
-  "id"         UUID        NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
-  "account_id" UUID        NOT NULL,
-  "name"       VARCHAR(32) NOT NULL,
-  "created_at" TIMESTAMP   NOT NULL             DEFAULT now(),
-  "updated_at" TIMESTAMP   NULL                 DEFAULT NULL,
-  "deleted_at" TIMESTAMP   NULL                 DEFAULT NULL,
-  UNIQUE ("account_id", "name")
-);
-
 CREATE TABLE "user" (
   "id"         UUID         NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
   "account_id" UUID         NOT NULL,
@@ -37,11 +27,6 @@ CREATE TABLE "token" (
 CREATE TRIGGER "account_updated"
   BEFORE UPDATE
   ON "account"
-  FOR EACH ROW EXECUTE PROCEDURE update_timestamp();
-
-CREATE TRIGGER "namespace_updated"
-  BEFORE UPDATE
-  ON "namespace"
   FOR EACH ROW EXECUTE PROCEDURE update_timestamp();
 
 CREATE TRIGGER "user_updated"
@@ -64,16 +49,11 @@ ON "token";
 DROP TRIGGER "user_updated"
 ON "user";
 
-DROP TRIGGER "namespace_updated"
-ON "namespace";
-
 DROP TRIGGER "account_updated"
 ON "account";
 
 DROP TABLE "token";
 
 DROP TABLE "user";
-
-DROP TABLE "namespace";
 
 DROP TABLE "account";
