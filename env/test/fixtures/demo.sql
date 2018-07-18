@@ -67,14 +67,14 @@ BEGIN
     (click, 'https://github.com/kamilsk/click', '{
       "description": "Project''s source code",
       "tags": ["src"]
-    }' :: JSONB, convert_to('{tag} in [src]', 'SQL_ASCII')),
+    }' :: JSONB, convert_to('{tag} in ["src"]', 'UTF8')),
     (click, 'https://kamilsk.github.io/click/', ('{
       "description": "Project''s promo page",
       "tags": ["promo"], "alias": "' || promo || '", "match": 1
-    }') :: JSONB, convert_to('{tag} in [promo] or {alias} is "' || promo || '"', 'SQL_ASCII')),
+    }') :: JSONB, convert_to('{tag} in ["promo"] or {alias} is "' || promo || '"', 'UTF8')),
     (click, 'https://github.com/kamilsk/click/issues/new', ('{
       "description": "Project''s bug tracker",
       "alias": "' || issue || '"
-    }') :: JSONB, convert_to('{alias} is "' || issue || '"', 'SQL_ASCII'));
+    }') :: JSONB, convert_to('{alias} is "' || issue || '"', 'UTF8'));
 END;
 $$;
