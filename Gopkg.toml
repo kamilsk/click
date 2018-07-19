@@ -15,12 +15,20 @@
   branch = "master"
 
 [[constraint]]
-  name = "github.com/rubenv/sql-migrate"
+  name = "github.com/mailru/easyjson"
   branch = "master"
 
 [[constraint]]
   name = "github.com/pkg/errors"
-  version = "*"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/prometheus/client_golang"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/rubenv/sql-migrate"
+  branch = "master"
 
 [[constraint]]
   name = "github.com/spf13/cobra"
@@ -33,10 +41,6 @@
 [[constraint]]
   name = "github.com/stretchr/testify"
   version = "^1.2.0"
-
-[[constraint]]
-  name = "github.com/mailru/easyjson"
-  branch = "master"
 
 [[constraint]]
   name = "golang.org/x/sync"
