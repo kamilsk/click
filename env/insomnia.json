@@ -117,7 +117,7 @@
       "metaSortKey": -1523527863250,
       "method": "GET",
       "modified": 1523527963129,
-      "name": "/pass",
+      "name": "/api/v1/pass",
       "parameters": [],
       "parentId": "fld_6787a907ad3a4fd7b02ea443742252a8",
       "settingDisableRenderRequestBody": false,
@@ -125,7 +125,7 @@
       "settingRebuildPath": true,
       "settingSendCookies": false,
       "settingStoreCookies": false,
-      "url": "{{schema}}://{{host}}/pass?url=https://github.com/kamilsk/click",
+      "url": "{{schema}}://{{host}}/api/v1/pass?url=https://github.com/kamilsk/click",
       "_type": "request"
     },
     {

@@ -29,9 +29,10 @@ func NewRouter(api router.Server) http.Handler {
 			r.Get("/", api.GetV1)
 			r.Put("/", notImplemented)
 		})
+
+		r.Get("/pass", api.Pass)
 	})
 
-	r.Get("/pass", api.Pass)
 	r.Get("/*", api.Redirect)
 
 	return r
