@@ -1,60 +1,70 @@
 ### API v1
 
 GET http://localhost:8080/api/v1/a382922d-b615-4227-b598-6d3633c397aa
+Authorization: Bearer 10000000-2000-4000-8000-160000000004
 
-###
+### Redirect API
 
-GET http://localhost:8080/github/click!
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-
-### anonymously
-
-GET http://localhost:8080/github/click!
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-X-Click-Options: anonym
-
-### no logging
-
-GET http://localhost:8080/github/click!
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-X-Click-Options: nolog
-
-### combining
-
-GET http://localhost:8080/github/click!
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
-X-Click-Options: anonym; nolog
+GET http://localhost:8080/api/v1/pass?url=https://github.com/kamilsk/click
+Cookie: identifier=10000000-2000-4000-8000-160000000000
 
 ###
 
 GET http://localhost:8080/github/click
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: global
+Cookie: identifier=10000000-2000-4000-8000-160000000000
+X-Click-Namespace: 10000000-2000-4000-8000-160000000001
+
+###
+
+GET http://localhost:8080/github/click
+Cookie: identifier=10000000-2000-4000-8000-160000000000
+X-Click-Namespace: 10000000-2000-4000-8000-160000000002
+
+###
+
+GET http://localhost:8080/github/click
+Cookie: identifier=10000000-2000-4000-8000-160000000000
+X-Click-Account: 10000000-2000-4000-8000-160000000002
+X-Click-Namespace: Support namespace
 
 ###
 
 GET http://localhost:8080/github/click?tag=promo
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
+Cookie: identifier=10000000-2000-4000-8000-160000000000
+X-Click-Namespace: 10000000-2000-4000-8000-160000000002
 
 ###
 
 GET http://localhost:8080/github/click?tag=src
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
+Cookie: identifier=10000000-2000-4000-8000-160000000000
+X-Click-Namespace: 10000000-2000-4000-8000-160000000002
 
 ###
 
-GET http://localhost:8080/github/click
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
-X-Click-Namespace: issue
+GET http://localhost:8080/github/click!
+Cookie: identifier=10000000-2000-4000-8000-160000000000
+X-Click-Namespace: 10000000-2000-4000-8000-160000000001
 
 ###
 
-GET http://localhost:8080/api/v1/pass?url=https://github.com/kamilsk/click
-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
+GET http://localhost:8080/github/click!
+Cookie: identifier=10000000-2000-4000-8000-160000000000
+X-Click-Namespace: 10000000-2000-4000-8000-160000000001
+X-Click-Options: anonym # anonymously
+
+###
+
+GET http://localhost:8080/github/click!
+Cookie: identifier=10000000-2000-4000-8000-160000000000
+X-Click-Namespace: 10000000-2000-4000-8000-160000000001
+X-Click-Options: nolog # no logging
+
+###
+
+GET http://localhost:8080/github/click!
+Cookie: identifier=10000000-2000-4000-8000-160000000000
+X-Click-Namespace: 10000000-2000-4000-8000-160000000001
+X-Click-Options: anonym; nolog # combining
 
 ### Profiling
 
