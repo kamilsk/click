@@ -1,6 +1,6 @@
 ### API v1
 
-GET http://localhost:8080/api/v1/a382922d-b615-4227-b598-6d3633c397aa
+GET http://localhost:8080/api/v1/10000000-2000-4000-8000-160000000005
 Authorization: Bearer 10000000-2000-4000-8000-160000000004
 
 ### Redirect API
