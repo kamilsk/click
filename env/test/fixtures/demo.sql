@@ -1,15 +1,15 @@
 DO $$
-DECLARE   demoAccount "account"."id"%TYPE := '00000000-0000-4000-8000-000000000001';
+DECLARE   demoAccount "account"."id"%TYPE := '10000000-2000-4000-8000-160000000001';
   DECLARE globalNS    "namespace"."id"%TYPE := demoAccount;
-  DECLARE demoUser    "user"."id"%TYPE := '00000000-0000-4000-8000-000000000002';
-  DECLARE demoToken   "token"."id"%TYPE := '00000000-0000-4000-8000-000000000003';
-  DECLARE click       "link"."id"%TYPE := '00000000-0000-4000-8000-000000000004';
-  DECLARE supportNS   "namespace"."id"%TYPE := '00000000-0000-4000-8000-000000000005';
+  DECLARE supportNS   "namespace"."id"%TYPE := '10000000-2000-4000-8000-160000000002';
+  DECLARE demoUser    "user"."id"%TYPE := '10000000-2000-4000-8000-160000000003';
+  DECLARE demoToken   "token"."id"%TYPE := '10000000-2000-4000-8000-160000000004';
+  DECLARE click       "link"."id"%TYPE := '10000000-2000-4000-8000-160000000005';
   DECLARE promo       "alias"."id"%TYPE;
   DECLARE issue       "alias"."id"%TYPE;
 BEGIN
   DELETE FROM "log"
-  WHERE "link_id" = click;
+  WHERE "account_id" = demoAccount OR "link_id" = click;
 
   DELETE FROM "target"
   WHERE "link_id" = click;
