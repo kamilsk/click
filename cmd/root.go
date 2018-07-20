@@ -14,7 +14,7 @@ import (
 var RootCmd = &cobra.Command{Use: "click", Short: "Click!"}
 
 func init() {
-	RootCmd.AddCommand(completionCmd, migrateCmd, runCmd)
+	RootCmd.AddCommand(completionCmd, controlCmd, migrateCmd, runCmd)
 }
 
 func must(actions ...func() error) {

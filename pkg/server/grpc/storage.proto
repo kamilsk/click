@@ -1,6 +1,29 @@
-// protoc -Ipkg/grpc/ --go_out=plugins=grpc:pkg/grpc storage.proto
+// protoc -Ipkg/server/grpc/ --go_out=plugins=grpc:pkg/server/grpc storage.proto
 syntax = "proto3";
 package grpc;
+
+message CreateNamespaceRequest {}
+
+message CreateNamespaceResponse {}
+
+message ReadNamespaceRequest {}
+
+message ReadNamespaceResponse {}
+
+message UpdateNamespaceRequest {}
+
+message UpdateNamespaceResponse {}
+
+message DeleteNamespaceRequest {}
+
+message DeleteNamespaceResponse {}
+
+service Namespace {
+    rpc Create (CreateNamespaceRequest) returns (CreateNamespaceResponse) {}
+    rpc Read (ReadNamespaceRequest) returns (ReadNamespaceResponse) {}
+    rpc Update (UpdateNamespaceRequest) returns (UpdateNamespaceResponse) {}
+    rpc Delete (DeleteNamespaceRequest) returns (DeleteNamespaceResponse) {}
+}
 
 message CreateLinkRequest {}
 
@@ -29,6 +52,10 @@ message CreateAliasRequest {}
 
 message CreateAliasResponse {}
 
+message ReadAliasRequest {}
+
+message ReadAliasResponse {}
+
 message UpdateAliasRequest {}
 
 message UpdateAliasResponse {}
@@ -39,6 +66,7 @@ message DeleteAliasResponse {}
 
 service Alias {
     rpc Create (CreateAliasRequest) returns (CreateAliasResponse) {}
+    rpc Read (ReadAliasRequest) returns (ReadAliasResponse) {}
     rpc Update (UpdateAliasRequest) returns (UpdateAliasResponse) {}
     rpc Delete (DeleteAliasRequest) returns (DeleteAliasResponse) {}
 }
@@ -46,6 +74,10 @@ service Alias {
 message CreateTargetRequest {}
 
 message CreateTargetResponse {}
+
+message ReadTargetRequest {}
+
+message ReadTargetResponse {}
 
 message UpdateTargetRequest {}
 
@@ -57,6 +89,7 @@ message DeleteTargetResponse {}
 
 service Target {
     rpc Create (CreateTargetRequest) returns (CreateTargetResponse) {}
+    rpc Read (ReadTargetRequest) returns (ReadTargetResponse) {}
     rpc Update (UpdateTargetRequest) returns (UpdateTargetResponse) {}
     rpc Delete (DeleteTargetRequest) returns (DeleteTargetResponse) {}
 }
