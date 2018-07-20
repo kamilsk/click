@@ -11,6 +11,7 @@ import (
 
 	pb "github.com/kamilsk/click/pkg/server/grpc"
 
+	"github.com/kamilsk/click/pkg/config"
 	"github.com/kamilsk/click/pkg/dao"
 	"github.com/kamilsk/click/pkg/server"
 	"github.com/kamilsk/click/pkg/server/router/chi"
@@ -26,22 +27,28 @@ var runCmd = &cobra.Command{
 	Short: "Start HTTP server",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		runtime.GOMAXPROCS(asInt(cmd.Flag("cpus").Value))
-		addr := cmd.Flag("bind").Value.String() + ":" + cmd.Flag("port").Value.String()
 
-		if err := startGRPC(":8092"); err != nil {
+		if err := startGRPCServer(config.GRPCConfig{Interface: ":8092"}); err != nil {
 			return err
 		}
 		if asBool(cmd.Flag("with-monitoring").Value) {
-			if err := startMonitoring(":8091"); err != nil {
+			if err := startMonitoring(config.MonitoringConfig{Interface: ":8091"}); err != nil {
 				return err
 			}
 		}
 		if asBool(cmd.Flag("with-profiler").Value) {
-			if err := startProfiler(":8090"); err != nil {
+			if err := startProfiler(config.ProfilerConfig{Interface: ":8090"}); err != nil {
 				return err
 			}
 		}
 
+		cnf := config.ServerConfig{
+			Interface:         cmd.Flag("bind").Value.String() + ":" + cmd.Flag("port").Value.String(),
+			ReadTimeout:       asDuration(cmd.Flag("read-timeout").Value),
+			ReadHeaderTimeout: asDuration(cmd.Flag("read-header-timeout").Value),
+			WriteTimeout:      asDuration(cmd.Flag("write-timeout").Value),
+			IdleTimeout:       asDuration(cmd.Flag("idle-timeout").Value),
+		}
 		handler := chi.NewRouter(
 			server.New(
 				service.New(
@@ -49,13 +56,7 @@ var runCmd = &cobra.Command{
 				),
 			),
 		)
-		srv := &http.Server{Addr: addr, Handler: handler,
-			ReadTimeout:       asDuration(cmd.Flag("read-timeout").Value),
-			ReadHeaderTimeout: asDuration(cmd.Flag("read-header-timeout").Value),
-			WriteTimeout:      asDuration(cmd.Flag("write-timeout").Value),
-			IdleTimeout:       asDuration(cmd.Flag("idle-timeout").Value)}
-		log.Println("starting server at", addr)
-		return srv.ListenAndServe()
+		return startHTTPServer(cnf, handler)
 	},
 }
 
@@ -95,15 +96,30 @@ func init() {
 		runCmd.Flags().Duration("idle-timeout", v.GetDuration("idle_timeout"),
 			"maximum amount of time to wait for the next request when keep-alive is enabled")
 		runCmd.Flags().Bool("with-profiler", false,
-			"enable pprof on /pprof")
+			"enable pprof on /pprof/* and /debug/pprof/")
 		runCmd.Flags().Bool("with-monitoring", false,
-			"enable expvar on /vars")
+			"enable prometheus on /monitoring and expvar on /vars")
 	}
 	db(runCmd)
 }
 
-func startGRPC(address string) error {
-	listener, err := net.Listen("tcp", address)
+func startHTTPServer(cnf config.ServerConfig, handler http.Handler) error {
+	listener, err := net.Listen("tcp", cnf.Interface)
+	if err != nil {
+		return err
+	}
+	srv := &http.Server{Addr: cnf.Interface, Handler: handler,
+		ReadTimeout:       cnf.ReadTimeout,
+		ReadHeaderTimeout: cnf.ReadHeaderTimeout,
+		WriteTimeout:      cnf.WriteTimeout,
+		IdleTimeout:       cnf.IdleTimeout,
+	}
+	log.Println("start HTTP server at", listener.Addr())
+	return srv.Serve(listener)
+}
+
+func startGRPCServer(cnf config.GRPCConfig) error {
+	listener, err := net.Listen("tcp", cnf.Interface)
 	if err != nil {
 		return err
 	}
@@ -114,14 +130,15 @@ func startGRPC(address string) error {
 		pb.RegisterAliasServer(srv, pb.NewAliasServer())
 		pb.RegisterTargetServer(srv, pb.NewTargetServer())
 		pb.RegisterLogServer(srv, pb.NewLogServer())
-		log.Println("starting gRPC at", listener.Addr())
+		log.Println("start gRPC server at", listener.Addr())
 		_ = srv.Serve(listener) // TODO issue#97
+		listener.Close()
 	}()
 	return nil
 }
 
-func startMonitoring(address string) error {
-	listener, err := net.Listen("tcp", address)
+func startMonitoring(cnf config.MonitoringConfig) error {
+	listener, err := net.Listen("tcp", cnf.Interface)
 	if err != nil {
 		return err
 	}
@@ -131,12 +148,13 @@ func startMonitoring(address string) error {
 		mux.Handle("/vars", expvar.Handler())
 		log.Println("start monitor at", listener.Addr())
 		_ = http.Serve(listener, mux) // TODO issue#97
+		listener.Close()
 	}()
 	return nil
 }
 
-func startProfiler(address string) error {
-	listener, err := net.Listen("tcp", address)
+func startProfiler(cnf config.ProfilerConfig) error {
+	listener, err := net.Listen("tcp", cnf.Interface)
 	if err != nil {
 		return err
 	}
@@ -149,6 +167,7 @@ func startProfiler(address string) error {
 		mux.HandleFunc("/debug/pprof/", pprof.Index) // net/http/pprof.handler.ServeHTTP specificity
 		log.Println("start profiler at", listener.Addr())
 		_ = http.Serve(listener, mux) // TODO issue#97
+		listener.Close()
 	}()
 	return nil
 }
