@@ -93,7 +93,7 @@
     "jlexer",
     "jwriter"
   ]
-  revision = "efc7eb8984d6655c26b5c9d2e65c024e5767c37c"
+  revision = "d5012789d6659eeed305f54c1b1542e7b65829e6"
 
 [[projects]]
   name = "github.com/matttproud/golang_protobuf_extensions"
@@ -159,7 +159,7 @@
     "nfs",
     "xfs"
   ]
-  revision = "ae68e2d4c00fed4943b5f6698d504a5fe083da8a"
+  revision = "05ee40e3a273f7245e8777337fc7b46e533a9a92"
 
 [[projects]]
   branch = "master"
@@ -236,7 +236,7 @@
     "internal/timeseries",
     "trace"
   ]
-  revision = "81d44fd177a98d09fe3bc40a5a78d495d3f042ea"
+  revision = "3673e40ba22529d22c3fd7c93e97b0ce50fa7bdd"
 
 [[projects]]
   branch = "master"
@@ -248,7 +248,7 @@
   branch = "master"
   name = "golang.org/x/sys"
   packages = ["unix"]
-  revision = "ac767d655b305d4e9612f5f6e33120b9176c4ad4"
+  revision = "bd9dbc187b6e1dacfdd2722a87e83093c2d7bd6e"
 
 [[projects]]
   name = "golang.org/x/text"
@@ -275,7 +275,7 @@
   branch = "master"
   name = "google.golang.org/genproto"
   packages = ["googleapis/rpc/status"]
-  revision = "fedd2861243fd1a8152376292b921b394c7bef7e"
+  revision = "2a72893556e4d1f6c795a4c039314c9fa751eedb"
 
 [[projects]]
   name = "google.golang.org/grpc"
@@ -324,6 +324,6 @@
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  inputs-digest = "2875adfdad465f55c62f2da1c73fe560878140170d729de2e7cbdfcd42477f9b"
+  inputs-digest = "cda65cbfcb342182eab10e944d6ec89c0e3cb362eecb49bc96e843ac76816cf1"
   solver-name = "gps-cdcl"
   solver-version = 1
