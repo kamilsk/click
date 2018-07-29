@@ -1,6 +1,9 @@
 config:
   db:
     dsn: '***'
+    idle: 1
+    open: 1
+    lifetime: 0s
   grpc:
     interface: 127.0.0.1:8092
     timeout: 0s
