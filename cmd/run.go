@@ -49,16 +49,10 @@ var runCmd = &cobra.Command{
 			}
 		}
 
-		// TODO issue#98 start
-		if cnf.Union.ServerConfig.Interface == "" {
-			cnf.Union.ServerConfig.Interface = cmd.Flag("bind").Value.String() + ":" + cmd.Flag("port").Value.String()
-		}
-		// TODO issue#98 end
-
 		handler := chi.NewRouter(
 			server.New(
 				service.New(
-					dao.Must(dao.Connection(dsn(cmd))),
+					dao.Must(dao.Connection(cnf.Union.DBConfig)),
 				),
 			),
 		)
@@ -70,26 +64,14 @@ func init() {
 	v := viper.New()
 	fn.Must(
 		func() error { return v.BindEnv("max_cpus") },
-
-		// TODO issue#98 start
-		func() error { return v.BindEnv("bind") },
-		func() error { return v.BindEnv("port") },
-		// TODO issue#98 end
 		func() error { return v.BindEnv("host") },
-
 		func() error { return v.BindEnv("read_timeout") },
 		func() error { return v.BindEnv("read_header_timeout") },
 		func() error { return v.BindEnv("write_timeout") },
 		func() error { return v.BindEnv("idle_timeout") },
 		func() error {
 			v.SetDefault("max_cpus", 1)
-
-			// TODO issue#98 start
-			v.SetDefault("bind", "127.0.0.1")
-			v.SetDefault("port", 80)
-			// TODO issue#98 end
 			v.SetDefault("host", "127.0.0.1:80")
-
 			v.SetDefault("read_timeout", time.Duration(0))
 			v.SetDefault("read_header_timeout", time.Duration(0))
 			v.SetDefault("write_timeout", time.Duration(0))
@@ -100,14 +82,8 @@ func init() {
 			flags := runCmd.Flags()
 			flags.UintVarP(&cnf.Union.ServerConfig.CPUCount,
 				"cpus", "C", uint(v.GetInt("max_cpus")), "maximum number of CPUs that can be executing simultaneously")
-
-			// TODO issue#98 start
-			flags.String("bind", v.GetString("bind"), "interface to which the server will bind")
-			flags.Int("port", v.GetInt("port"), "port on which the server will listen")
-			// TODO issue#98 end
 			flags.StringVarP(&cnf.Union.ServerConfig.Interface,
 				"host", "H", v.GetString("host"), "web server host")
-
 			flags.DurationVarP(&cnf.Union.ServerConfig.ReadTimeout,
 				"read-timeout", "", v.GetDuration("read_timeout"),
 				"maximum duration for reading the entire request, including the body")
