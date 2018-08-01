@@ -1,3 +1,9 @@
+.PHONY: grpc
+grpc:
+	protoc -Ipkg/server/grpc/ --go_out=plugins=grpc:pkg/server/grpc common.proto
+	protoc -Ipkg/server/grpc/ --go_out=plugins=grpc:pkg/server/grpc storage.proto
+	protoc -Ipkg/server/grpc/ --go_out=plugins=grpc:pkg/server/grpc event.proto
+
 .PHONY: json
 json:
 	go generate -run="easyjson" ./...
