@@ -1,22 +1,55 @@
-// protoc -Ipkg/server/grpc/ --go_out=plugins=grpc:pkg/server/grpc storage.proto
 syntax = "proto3";
+
 package grpc;
 
-message CreateNamespaceRequest {}
+import public "common.proto";
+import "google/protobuf/timestamp.proto";
 
-message CreateNamespaceResponse {}
+message CreateNamespaceRequest {
+    string name = 3;
+}
 
-message ReadNamespaceRequest {}
+message CreateNamespaceResponse {
+    string id = 1;
+    google.protobuf.Timestamp created_at = 4;
 
-message ReadNamespaceResponse {}
+    Error err = 15;
+}
 
-message UpdateNamespaceRequest {}
+message ReadNamespaceRequest {
+    string id = 1;
+}
 
-message UpdateNamespaceResponse {}
+message ReadNamespaceResponse {
+    string id = 1;
+    string name = 3;
+    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp updated_at = 5;
+    google.protobuf.Timestamp deleted_at = 6;
 
-message DeleteNamespaceRequest {}
+    Error err = 15;
+}
 
-message DeleteNamespaceResponse {}
+message UpdateNamespaceRequest {
+    string id = 1;
+    string name = 3;
+}
+
+message UpdateNamespaceResponse {
+    google.protobuf.Timestamp updated_at = 5;
+
+    Error err = 15;
+}
+
+message DeleteNamespaceRequest {
+    string id = 1;
+}
+
+message DeleteNamespaceResponse {
+    google.protobuf.Timestamp deleted_at = 6;
+
+    Error err = 15;
+}
 
 service Namespace {
     rpc Create (CreateNamespaceRequest) returns (CreateNamespaceResponse) {}
@@ -25,21 +58,51 @@ service Namespace {
     rpc Delete (DeleteNamespaceRequest) returns (DeleteNamespaceResponse) {}
 }
 
-message CreateLinkRequest {}
+message CreateLinkRequest {
+    string name = 3;
+}
 
-message CreateLinkResponse {}
+message CreateLinkResponse {
+    string id = 1;
+    google.protobuf.Timestamp created_at = 4;
 
-message ReadLinkRequest {}
+    Error err = 15;
+}
 
-message ReadLinkResponse {}
+message ReadLinkRequest {
+    string id = 1;
+}
 
-message UpdateLinkRequest {}
+message ReadLinkResponse {
+    string id = 1;
+    string name = 3;
+    google.protobuf.Timestamp created_at = 4;
+    google.protobuf.Timestamp updated_at = 5;
+    google.protobuf.Timestamp deleted_at = 6;
 
-message UpdateLinkResponse {}
+    Error err = 15;
+}
 
-message DeleteLinkRequest {}
+message UpdateLinkRequest {
+    string id = 1;
+    string name = 3;
+}
 
-message DeleteLinkResponse {}
+message UpdateLinkResponse {
+    google.protobuf.Timestamp updated_at = 5;
+
+    Error err = 15;
+}
+
+message DeleteLinkRequest {
+    string id = 1;
+}
+
+message DeleteLinkResponse {
+    google.protobuf.Timestamp deleted_at = 6;
+
+    Error err = 15;
+}
 
 service Link {
     rpc Create (CreateLinkRequest) returns (CreateLinkResponse) {}
@@ -48,21 +111,57 @@ service Link {
     rpc Delete (DeleteLinkRequest) returns (DeleteLinkResponse) {}
 }
 
-message CreateAliasRequest {}
+message CreateAliasRequest {
+    string link_id = 2;
+    string namespace_id = 3;
+    string urn = 4;
+}
 
-message CreateAliasResponse {}
+message CreateAliasResponse {
+    string id = 1;
+    google.protobuf.Timestamp created_at = 5;
 
-message ReadAliasRequest {}
+    Error err = 15;
+}
 
-message ReadAliasResponse {}
+message ReadAliasRequest {
+    string id = 1;
+}
 
-message UpdateAliasRequest {}
+message ReadAliasResponse {
+    string id = 1;
+    string link_id = 2;
+    string namespace_id = 3;
+    string urn = 4;
+    google.protobuf.Timestamp created_at = 5;
+    google.protobuf.Timestamp updated_at = 6;
+    google.protobuf.Timestamp deleted_at = 7;
 
-message UpdateAliasResponse {}
+    Error err = 15;
+}
 
-message DeleteAliasRequest {}
+message UpdateAliasRequest {
+    string id = 1;
+    string link_id = 2;
+    string namespace_id = 3;
+    string urn = 4;
+}
 
-message DeleteAliasResponse {}
+message UpdateAliasResponse {
+    google.protobuf.Timestamp updated_at = 6;
+
+    Error err = 15;
+}
+
+message DeleteAliasRequest {
+    string id = 1;
+}
+
+message DeleteAliasResponse {
+    google.protobuf.Timestamp deleted_at = 7;
+
+    Error err = 15;
+}
 
 service Alias {
     rpc Create (CreateAliasRequest) returns (CreateAliasResponse) {}
@@ -71,21 +170,60 @@ service Alias {
     rpc Delete (DeleteAliasRequest) returns (DeleteAliasResponse) {}
 }
 
-message CreateTargetRequest {}
+message CreateTargetRequest {
+    string link_id = 2;
+    string uri = 3;
+    bytes rule = 4;
+    bytes b_rule = 5;
+}
 
-message CreateTargetResponse {}
+message CreateTargetResponse {
+    string id = 1;
+    google.protobuf.Timestamp created_at = 6;
 
-message ReadTargetRequest {}
+    Error err = 15;
+}
 
-message ReadTargetResponse {}
+message ReadTargetRequest {
+    string id = 1;
+}
 
-message UpdateTargetRequest {}
+message ReadTargetResponse {
+    string id = 1;
+    string link_id = 2;
+    string uri = 3;
+    bytes rule = 4;
+    bytes b_rule = 5;
+    google.protobuf.Timestamp created_at = 6;
+    google.protobuf.Timestamp updated_at = 7;
+    google.protobuf.Timestamp deleted_at = 8;
 
-message UpdateTargetResponse {}
+    Error err = 15;
+}
 
-message DeleteTargetRequest {}
+message UpdateTargetRequest {
+    string id = 1;
+    string link_id = 2;
+    string uri = 3;
+    bytes rule = 4;
+    bytes b_rule = 5;
+}
 
-message DeleteTargetResponse {}
+message UpdateTargetResponse {
+    google.protobuf.Timestamp updated_at = 7;
+
+    Error err = 15;
+}
+
+message DeleteTargetRequest {
+    string id = 1;
+}
+
+message DeleteTargetResponse {
+    google.protobuf.Timestamp deleted_at = 8;
+
+    Error err = 15;
+}
 
 service Target {
     rpc Create (CreateTargetRequest) returns (CreateTargetResponse) {}

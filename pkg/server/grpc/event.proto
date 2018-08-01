@@ -1,16 +1,50 @@
-// protoc -Ipkg/server/grpc/ --go_out=plugins=grpc:pkg/server/grpc event.proto
 syntax = "proto3";
+
 package grpc;
 
-message ReadLogRequest {}
+import public "common.proto";
+import "google/protobuf/timestamp.proto";
 
-message ReadLogResponse {}
+message ReadLogsRequest {
+    string link_id = 3;
+    string alias_id = 4;
+    string target_id = 5;
+    string identifier = 6;
+    string uri = 7;
+    int32 code = 8;
+    TimestampRange range = 10;
 
-message ListenLogRequest {}
+    uint32 limit = 15;
+}
 
-message ListenLogResponse {}
+message LogEntry {
+    uint32 id = 1;
+    string link_id = 3;
+    string alias_id = 4;
+    string target_id = 5;
+    string identifier = 6;
+    string uri = 7;
+    int32 code = 8;
+    bytes context = 9;
+    google.protobuf.Timestamp created_at = 10;
+}
+
+message ReadLogsResponse {
+    repeated LogEntry logs = 1;
+
+    Error err = 15;
+}
+
+message ListenLogsRequest {
+    string link_id = 3;
+    string alias_id = 4;
+    string target_id = 5;
+    string identifier = 6;
+    string uri = 7;
+    int32 code = 8;
+}
 
 service Log {
-    rpc Read (ReadLogRequest) returns (ReadLogResponse) {}
-    rpc Listen (ListenLogRequest) returns (stream ListenLogResponse) {}
+    rpc Read (ReadLogsRequest) returns (ReadLogsResponse) {}
+    rpc Listen (ListenLogsRequest) returns (stream LogEntry) {}
 }
