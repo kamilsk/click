@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/kamilsk/click/pkg/dao"
 	"github.com/kamilsk/click/pkg/static"
+	"github.com/kamilsk/click/pkg/storage"
 	"github.com/kamilsk/go-kit/pkg/fn"
 	"github.com/rubenv/sql-migrate"
 	"github.com/spf13/cobra"
@@ -24,7 +24,7 @@ var migrateCmd = &cobra.Command{
 		direction, limit := chooseDirectionAndLimit(args)
 		migrate.SetTable(cnf.Union.MigrationConfig.Table)
 		migrate.SetSchema(cnf.Union.MigrationConfig.Schema)
-		layer := dao.Must(dao.Connection(cnf.Union.DBConfig))
+		layer := storage.Must(storage.Connection(cnf.Union.DBConfig))
 		src := &migrate.AssetMigrationSource{
 			Asset:    static.Asset,
 			AssetDir: static.AssetDir,

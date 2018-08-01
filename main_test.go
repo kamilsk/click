@@ -5,9 +5,18 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/kamilsk/click/pkg/server"
+	"github.com/kamilsk/click/pkg/service"
+	"github.com/kamilsk/click/pkg/storage"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+)
+
+// convergence
+var (
+	_ server.Service  = service.New(nil)
+	_ service.Storage = storage.Must()
 )
 
 func TestApplication_Run(t *testing.T) {

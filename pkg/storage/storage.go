@@ -1,11 +1,11 @@
-package dao
+package storage
 
 import (
 	"database/sql"
 
 	"github.com/kamilsk/click/pkg/config"
-	"github.com/kamilsk/click/pkg/dao/postgres"
 	"github.com/kamilsk/click/pkg/domain"
+	"github.com/kamilsk/click/pkg/storage/postgres"
 	"github.com/pkg/errors"
 )
 

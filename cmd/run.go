@@ -12,10 +12,10 @@ import (
 	pb "github.com/kamilsk/click/pkg/server/grpc"
 
 	"github.com/kamilsk/click/pkg/config"
-	"github.com/kamilsk/click/pkg/dao"
 	"github.com/kamilsk/click/pkg/server"
 	"github.com/kamilsk/click/pkg/server/router/chi"
 	"github.com/kamilsk/click/pkg/service"
+	"github.com/kamilsk/click/pkg/storage"
 	"github.com/kamilsk/go-kit/pkg/fn"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/spf13/cobra"
@@ -46,7 +46,7 @@ var runCmd = &cobra.Command{
 		handler := chi.NewRouter(
 			server.New(
 				service.New(
-					dao.Must(dao.Connection(cnf.Union.DBConfig)),
+					storage.Must(storage.Connection(cnf.Union.DBConfig)),
 				),
 			),
 		)
