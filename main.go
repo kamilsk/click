@@ -12,8 +12,6 @@ import (
 	"github.com/kamilsk/click/cmd"
 	"github.com/kamilsk/click/pkg/errors"
 	"github.com/spf13/cobra"
-
-	_ "github.com/mitchellh/mapstructure"
 )
 
 const (
