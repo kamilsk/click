@@ -127,8 +127,8 @@ func init() {
 		func() error { return v.BindEnv("click_token") },
 		func() error { return v.BindEnv("grpc_host") },
 		func() error {
-			v.SetDefault("click_token", "")
-			v.SetDefault("grpc_host", "127.0.0.1:8092")
+			v.SetDefault("click_token", defaults["click_token"])
+			v.SetDefault("grpc_host", defaults["grpc_host"])
 			return nil
 		},
 		func() error {
