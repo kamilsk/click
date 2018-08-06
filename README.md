@@ -1,4 +1,4 @@
-> # Click! [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Link%20Manager%20as%20a%20Service&url=https://kamilsk.github.io/click/&via=ikamilsk&hashtags=go,service,link-manager,link-storage,link-shortener)
+> # Click! [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Link%20Manager%20as%20a%20Service&url=https://kamilsk.github.io/click/&via=ikamilsk&hashtags=go,service,link-manager,link-storage,link-shortener,url-shortener)
 > [![Analytics](https://ga-beacon.appspot.com/UA-109817251-20/click/readme?pixel)](https://kamilsk.github.io/click/)
 > Link Manager as a Service &mdash; your personal link storage and URL shortener.
 
@@ -8,9 +8,22 @@
 [![Code Quality](https://scrutinizer-ci.com/g/kamilsk/click/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kamilsk/click/?branch=master)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
+## Roadmap
+
+- [x] v1: MVP
+May 31, 2018
+- [ ] v2: URL shortener and CLI CRUD
+August 31, 2018
+- [ ] v3: DSL for rules and CSI
+September 30, 2018
+- [ ] v4: GUI CRUD
+October 31, 2018
+- [ ] Click!, SaaS
+December 31, 2018
+
 ## Quick start
 
-Requirements: 
+Requirements:
 
 - Docker 17.09.0-ce or above
 - Docker Compose 1.16.1 or above
@@ -157,23 +170,16 @@ $ click completion bash > /path/to/bash_completion.d/click.sh
 $ click completion zsh  > /path/to/zsh-completions/_click.zsh
 ```
 
-## Notes
-
-- brief roadmap
-  - [x] v1: MVP
-  - [ ] v2: URL Shortener
-  - [ ] v3: DSL for rules
-  - [ ] v4: CRUD
-  - [ ] v5: GUI
-  - [ ] Click!, SaaS
-- [research](../../tree/research)
-- tested on Go 1.9 and 1.10
-
 ### Update
 
 This application is in a state of [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product) and under active
 development. [SemVer](https://semver.org/) is used for releases, and you can easily be updated within minor versions,
 but major versions can be not [BC](https://en.wikipedia.org/wiki/Backward_compatibility)-safe.
+
+## Notes
+
+- [research](../../tree/research)
+- tested on Go 1.9 and 1.10
 
 ---
 
