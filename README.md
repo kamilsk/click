@@ -10,16 +10,23 @@
 
 ## Roadmap
 
-- [x] v1: MVP
-May 31, 2018
-- [ ] v2: URL shortener and CLI CRUD
-August 31, 2018
-- [ ] v3: DSL for rules and CSI
-September 30, 2018
-- [ ] v4: GUI CRUD
-October 31, 2018
+- [x] v1: [MVP](https://github.com/kamilsk/click/projects/1)
+  - [**May 31, 2018**](https://github.com/kamilsk/click/milestone/1)
+  - Main concepts and working prototype.
+- [ ] v2: [URL shortener and CLI CRUD](https://github.com/kamilsk/click/projects/2)
+  - [**August 31, 2018**](https://github.com/kamilsk/click/milestone/2)
+  - Command line interface for create, read, update and delete operations above gRPC.
+  - URL shortener functionality.
+- [ ] v3: [DSL for rules and CSI](https://github.com/kamilsk/click/projects/3)
+  - [**September 30, 2018**](https://github.com/kamilsk/click/milestone/3)
+  - Client-side integration.
+  - Domain-specific language to define target rules.
+- [ ] v4: [GUI CRUD](https://github.com/kamilsk/click/projects/4)
+  - [**October 31, 2018**](https://github.com/kamilsk/click/milestone/4)
+  - Graphical user interface and admin panel to perform create, read, update and delete operations.
 - [ ] Click!, SaaS
-December 31, 2018
+  - **December 31, 2018**
+  - Ready to apply on Cloud.
 
 ## Quick start
 
