@@ -27,6 +27,7 @@
 - [ ] Click!, SaaS
   - **December 31, 2018**
   - Ready to apply on Cloud.
+  - Move to [OctoLab](https://github.com/octolab/) organization.
 
 ## Quick start
 
