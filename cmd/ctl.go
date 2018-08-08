@@ -65,8 +65,6 @@ func (f factory) data(file string) (schema, error) {
 	return out, errors.Wrapf(err, "trying to decode file %q as YAML", file)
 }
 
-var entities factory
-
 func call(cnf config.GRPCConfig, entity interface{}) (interface{}, error) {
 	conn, err := grpc.Dial(cnf.Interface, grpc.WithInsecure())
 	if err != nil {
@@ -152,76 +150,28 @@ func convert(entity interface{}) map[string]interface{} {
 	return m
 }
 
+func edit(cmd *cobra.Command, _ []string) error {
+	entity, err := entities.new(cmd)
+	if err != nil {
+		return err
+	}
+	response, err := call(cnf.Union.GRPCConfig, entity)
+	if err != nil {
+		return err
+	}
+	cmd.Printf("`ctl %s` was called, in:%#v out:%#v\n", cmd.Use, entity, response)
+	return nil
+}
+
+var entities factory
+
 var (
-	controlCmd = &cobra.Command{
-		Use:   "ctl",
-		Short: "Communicate with Click! server via gRPC",
-	}
-	createCmd = &cobra.Command{
-		Use:   "create",
-		Short: "Create some kind",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			entity, err := entities.new(cmd)
-			if err != nil {
-				return err
-			}
-			response, err := call(cnf.Union.GRPCConfig, entity)
-			if err != nil {
-				return err
-			}
-			cmd.Printf("`ctl %s` was called, in:%#v out:%#v\n", cmd.Use, entity, response)
-			return nil
-		},
-	}
-	readCmd = &cobra.Command{
-		Use:   "read",
-		Short: "Read some kind",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			entity, err := entities.new(cmd)
-			if err != nil {
-				return err
-			}
-			response, err := call(cnf.Union.GRPCConfig, entity)
-			if err != nil {
-				return err
-			}
-			cmd.Printf("`ctl %s` was called, in:%#v out:%#v\n", cmd.Use, entity, response)
-			return nil
-		},
-	}
-	updateCmd = &cobra.Command{
-		Use:   "update",
-		Short: "Update some kind",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			entity, err := entities.new(cmd)
-			if err != nil {
-				return err
-			}
-			response, err := call(cnf.Union.GRPCConfig, entity)
-			if err != nil {
-				return err
-			}
-			cmd.Printf("`ctl %s` was called, in:%#v out:%#v\n", cmd.Use, entity, response)
-			return nil
-		},
-	}
-	deleteCmd = &cobra.Command{
-		Use:   "delete",
-		Short: "Delete some kind",
-		RunE: func(cmd *cobra.Command, args []string) error {
-			entity, err := entities.new(cmd)
-			if err != nil {
-				return err
-			}
-			response, err := call(cnf.Union.GRPCConfig, entity)
-			if err != nil {
-				return err
-			}
-			cmd.Printf("`ctl %s` was called, in:%#v out:%#v\n", cmd.Use, entity, response)
-			return nil
-		},
-	}
-	schemaCmd = &cobra.Command{
+	controlCmd = &cobra.Command{Use: "ctl", Short: "Communicate with Click! server via gRPC"}
+	createCmd  = &cobra.Command{Use: "create", Short: "Create some kind", RunE: edit}
+	readCmd    = &cobra.Command{Use: "read", Short: "Read some kind", RunE: edit}
+	updateCmd  = &cobra.Command{Use: "update", Short: "Update some kind", RunE: edit}
+	deleteCmd  = &cobra.Command{Use: "delete", Short: "Delete some kind", RunE: edit}
+	schemaCmd  = &cobra.Command{
 		Use:   "schema",
 		Short: "Print schema of another control command",
 		RunE: func(cmd *cobra.Command, args []string) error {
@@ -241,10 +191,7 @@ var (
 				return errors.Errorf("unknown control command %q", use)
 			}
 			for kind, builder := range builders {
-				yaml.NewEncoder(cmd.OutOrStdout()).Encode(schema{
-					Kind:    kind,
-					Payload: convert(builder()),
-				})
+				yaml.NewEncoder(cmd.OutOrStdout()).Encode(schema{Kind: kind, Payload: convert(builder())})
 				cmd.Println()
 			}
 			return nil
