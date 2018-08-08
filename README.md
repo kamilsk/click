@@ -141,8 +141,8 @@ You can find completion files [here](https://github.com/kamilsk/shared/tree/dotf
 build your own using these commands
 
 ```bash
-$ click completion bash > /path/to/bash_completion.d/click.sh
-$ click completion zsh  > /path/to/zsh-completions/_click.zsh
+$ click completion -f bash > /path/to/bash_completion.d/click.sh
+$ click completion -f zsh  > /path/to/zsh-completions/_click.zsh
 ```
 
 ## Installation
