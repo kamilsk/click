@@ -84,6 +84,10 @@ up-migration: env
 start-migration: env
 	$(COMPOSE) start migration
 
+.PHONY: stop-migration
+stop-migration: env
+	$(COMPOSE) stop migration
+
 .PHONY: log-migration
 log-migration: env
 	$(COMPOSE) logs -f migration
