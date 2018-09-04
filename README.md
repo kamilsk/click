@@ -1,11 +1,13 @@
 > # Click! [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Link%20Manager%20as%20a%20Service&url=https://kamilsk.github.io/click/&via=ikamilsk&hashtags=go,service,link-manager,link-storage,link-shortener,url-shortener)
 > [![Analytics](https://ga-beacon.appspot.com/UA-109817251-20/click/readme?pixel)](https://kamilsk.github.io/click/)
-> Link Manager as a Service &mdash; your personal link storage and URL shortener.
+> 🔗 Link Manager as a Service &mdash; your personal link storage and URL shortener.
 
 [![Patreon](https://img.shields.io/badge/patreon-donate-orange.svg)](https://www.patreon.com/octolab)
 [![Build Status](https://travis-ci.org/kamilsk/click.svg?branch=master)](https://travis-ci.org/kamilsk/click)
-[![Code Coverage](https://scrutinizer-ci.com/g/kamilsk/click/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/kamilsk/click/?branch=master)
 [![Code Quality](https://scrutinizer-ci.com/g/kamilsk/click/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kamilsk/click/?branch=master)
+[![Go version](https://img.shields.io/badge/Go-%3E%3D%201.9.2-green.svg)](https://travis-ci.org/kamilsk/click)
+[![Code Coverage](https://scrutinizer-ci.com/g/kamilsk/click/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/kamilsk/click/?branch=master)
+[![Research](https://img.shields.io/badge/research-in%20progress-yellow.svg)](../../tree/research/)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## Roadmap
@@ -13,16 +15,16 @@
 - [x] v1: [MVP](https://github.com/kamilsk/click/projects/1)
   - [**May 31, 2018**](https://github.com/kamilsk/click/milestone/1)
   - Main concepts and working prototype.
-- [ ] v2: [URL shortener and CLI CRUD](https://github.com/kamilsk/click/projects/2)
+- [ ] v2: [CLI CRUD](https://github.com/kamilsk/click/projects/2)
   - [**August 31, 2018**](https://github.com/kamilsk/click/milestone/2)
   - Command line interface for create, read, update and delete operations above gRPC.
-  - URL shortener functionality.
-- [ ] v3: [DSL for rules and CSI](https://github.com/kamilsk/click/projects/3)
+- [ ] v3: [URL shortener and DSL for rules](https://github.com/kamilsk/click/projects/3)
   - [**September 30, 2018**](https://github.com/kamilsk/click/milestone/3)
-  - Client-side integration.
+  - URL shortener functionality.
   - Domain-specific language to define target rules.
-- [ ] v4: [GUI CRUD](https://github.com/kamilsk/click/projects/4)
+- [ ] v4: [CSI and GUI CRUD](https://github.com/kamilsk/click/projects/4)
   - [**October 31, 2018**](https://github.com/kamilsk/click/milestone/4)
+  - Client-side integration.
   - Graphical user interface and admin panel to perform create, read, update and delete operations.
 - [ ] Click!, SaaS
   - **December 31, 2018**
@@ -31,7 +33,7 @@
 
 ## Motivation
 
-- We need better integration with static site generators like [Hugo](https://gohugo.io/).
+- We need better integration with static sites built with [Hugo](https://gohugo.io/).
 - We want better products than [Bitly](https://bitly.com/) or [Ow.ly](http://ow.ly/).
 - We have to full control over our users' data and protect it from third parties.
 
@@ -53,9 +55,9 @@ click_db_1        docker-entrypoint.sh postgres    Up      0.0.0.0:5432->5432/tc
 click_server_1    /bin/sh -c envsubst '$SERV ...   Up      80/tcp, 0.0.0.0:80->8080/tcp
 click_service_1   click run --with-profiling ...   Up      0.0.0.0:8080->80/tcp, 0.0.0.0:8090->8090/tcp, 0.0.0.0:8091->8091/tcp
 
-$ curl http://localhost:8080/api/v1/a382922d-b615-4227-b598-6d3633c397aa
+$ curl http://localhost:8080/api/v1/10000000-2000-4000-8000-160000000005
 # {
-#   "id": "a382922d-b615-4227-b598-6d3633c397aa",
+#   "id": "10000000-2000-4000-8000-160000000005",
 #   "name": "Click! - Link Manager as a Service",
 #   "status": "active",
 #   "aliases": [
@@ -91,17 +93,15 @@ $ curl http://localhost:8080/api/v1/a382922d-b615-4227-b598-6d3633c397aa
 #     }
 #   ]
 # }
-$ curl -v --cookie "token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4" http://localhost:8080/github/click!
+$ curl -v http://localhost:8080/github/click!
 # > GET /github/click! HTTP/1.1
 # > Host: localhost:8080
 # > User-Agent: curl/7.54.0
 # > Accept: */*
-# > Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4
 # >
 # < HTTP/1.1 302 Found
 # < Location: https://kamilsk.github.io/click/
-# < Set-Cookie: token=41ca5e09-3ce2-4094-b108-3ecc257c6fa4; Path=/; HttpOnly; Secure
-# < Date: Wed, 11 Apr 2018 17:37:48 GMT
+# < Date: Sat, 05 May 2018 09:34:47 GMT
 # < Content-Length: 0
 # <
 ```
@@ -124,6 +124,7 @@ Usage:
 
 Available Commands:
   completion  Print Bash or Zsh completion
+  ctl         Communicate with Click! server via gRPC
   help        Help about any command
   migrate     Apply database migration
   run         Start HTTP server
@@ -156,7 +157,7 @@ $ brew install kamilsk/tap/click
 ### Binary
 
 ```bash
-$ export VER=1.0.0      # all available versions are on https://github.com/kamilsk/click/releases
+$ export VER=1.0.0      # all available versions are on https://github.com/kamilsk/click/releases/
 $ export REQ_OS=Linux   # macOS and Windows are also available
 $ export REQ_ARCH=64bit # 32bit is also available
 $ wget -q -O click.tar.gz \
@@ -189,11 +190,6 @@ $ egg bitbucket.org/kamilsk/click@^1.0.0 -- make test install
 This application is in a state of [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product) and under active
 development. [SemVer](https://semver.org/) is used for releases, and you can easily be updated within minor versions,
 but major versions can be not [BC](https://en.wikipedia.org/wiki/Backward_compatibility)-safe.
-
-## Notes
-
-- [research](../../tree/research)
-- tested on Go 1.9 and 1.10
 
 ---
 
