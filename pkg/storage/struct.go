@@ -2,7 +2,7 @@ package storage
 
 import "time"
 
-// Account TODO
+// Account TODO issue#131
 type Account struct {
 	ID        string     `db:"id"`
 	Name      string     `db:"name"`
@@ -12,7 +12,7 @@ type Account struct {
 	Users     []*User    `db:"-"`
 }
 
-// User TODO
+// User TODO issue#131
 type User struct {
 	ID        string     `db:"id"`
 	AccountID string     `db:"account_id"`
@@ -24,7 +24,7 @@ type User struct {
 	Tokens    []*Token   `db:"-"`
 }
 
-// Token TODO
+// Token TODO issue#131
 type Token struct {
 	ID        string     `db:"id"`
 	UserID    string     `db:"user_id"`
@@ -33,7 +33,7 @@ type Token struct {
 	User      *User      `db:"-"`
 }
 
-// Namespace TODO
+// Namespace TODO issue#131
 type Namespace struct {
 	ID        string     `db:"id"`
 	AccountID string     `db:"account_id"`
@@ -44,7 +44,7 @@ type Namespace struct {
 	Account   *Account   `db:"-"`
 }
 
-// Link TODO
+// Link TODO issue#131
 type Link struct {
 	ID        string     `db:"id"`
 	AccountID string     `db:"account_id"`
@@ -55,7 +55,7 @@ type Link struct {
 	Account   *Account   `db:"-"`
 }
 
-// Alias TODO
+// Alias TODO issue#131
 type Alias struct {
 	ID          string     `db:"id"`
 	LinkID      string     `db:"link_id"`
@@ -68,7 +68,7 @@ type Alias struct {
 	Namespace   *Namespace `db:"-"`
 }
 
-// Target TODO
+// Target TODO issue#131
 type Target struct {
 	ID         string     `db:"id"`
 	LinkID     string     `db:"link_id"`
@@ -81,7 +81,7 @@ type Target struct {
 	Link       *Link      `db:"-"`
 }
 
-// Log TODO
+// Log TODO issue#131
 type Log struct {
 	ID         uint64    `db:"id"`
 	AccountID  string    `db:"account_id"`

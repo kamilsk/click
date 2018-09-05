@@ -15,7 +15,7 @@
 - [x] v1: [MVP](https://github.com/kamilsk/click/projects/1)
   - [**May 31, 2018**](https://github.com/kamilsk/click/milestone/1)
   - Main concepts and working prototype.
-- [ ] v2: [CLI CRUD](https://github.com/kamilsk/click/projects/2)
+- [ ] v2: [Accounts and CLI CRUD](https://github.com/kamilsk/click/projects/2)
   - [**August 31, 2018**](https://github.com/kamilsk/click/milestone/2)
   - Command line interface for create, read, update and delete operations above gRPC.
 - [ ] v3: [URL shortener and DSL for rules](https://github.com/kamilsk/click/projects/3)
