@@ -33,7 +33,7 @@ type Server struct {
 // GetV1 is responsible for `GET /api/v1/{Link.ID}` request handling.
 func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
 	var (
-		id = req.Context().Value(middleware.LinkKey{}).(domain.UUID)
+		id = req.Context().Value(middleware.LinkKey{}).(domain.ID)
 	)
 	response := s.service.HandleGetV1(v1.GetRequest{ID: id})
 	if response.Error != nil {
@@ -86,7 +86,7 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 
 	if !opts.NoLog() {
 		go log(s.service.LogRedirectEvent, req, response.EncryptedMarker, domain.Log{
-			LinkID:   string(domain.EmptyUUID),
+			LinkID:   "00000000-0000-4000-8000-000000000000",
 			AliasID:  0,
 			TargetID: 0,
 			URI:      to,

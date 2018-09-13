@@ -20,7 +20,7 @@ func Dialect() string {
 }
 
 // Link returns the Link with its Aliases and Targets by provided ID.
-func Link(db *sql.DB, id domain.UUID) (domain.Link, error) {
+func Link(db *sql.DB, id domain.ID) (domain.Link, error) {
 	var (
 		link domain.Link
 	)
@@ -52,7 +52,7 @@ func Link(db *sql.DB, id domain.UUID) (domain.Link, error) {
 func LinkByAlias(db *sql.DB, ns, urn string) (domain.Link, error) {
 	var (
 		aliasID   uint64
-		linkID    domain.UUID
+		linkID    domain.ID
 		namespace string
 	)
 	rows, err := db.Query(
@@ -95,8 +95,8 @@ RETURNING "id", "created_at"`,
 }
 
 // UUID returns a new generated unique identifier.
-func UUID(db *sql.DB) (domain.UUID, error) {
-	var id domain.UUID
+func UUID(db *sql.DB) (domain.ID, error) {
+	var id domain.ID
 	row := db.QueryRow(`SELECT uuid_generate_v4()`)
 	if err := row.Scan(&id); err != nil {
 		return id, errors.Database(errors.ServerErrorMessage, err, "trying to populate UUID")
@@ -104,7 +104,7 @@ func UUID(db *sql.DB) (domain.UUID, error) {
 	return id, nil
 }
 
-func aliases(db *sql.DB, linkID domain.UUID) ([]domain.Alias, error) {
+func aliases(db *sql.DB, linkID domain.ID) ([]domain.Alias, error) {
 	aliases := make([]domain.Alias, 0, avgCount)
 	rows, err := db.Query(
 		`SELECT "id", "namespace", "urn", "created_at", "deleted_at" FROM "alias" WHERE "link_id" = $1`, linkID)
@@ -122,7 +122,7 @@ func aliases(db *sql.DB, linkID domain.UUID) ([]domain.Alias, error) {
 	return aliases, nil
 }
 
-func targets(db *sql.DB, linkID domain.UUID) ([]domain.Target, error) {
+func targets(db *sql.DB, linkID domain.ID) ([]domain.Target, error) {
 	targets := make([]domain.Target, 0, avgCount)
 	rows, err := db.Query(
 		`SELECT "id", "uri", "rule", "created_at", "updated_at" FROM "target" WHERE "link_id" = $1`, linkID)

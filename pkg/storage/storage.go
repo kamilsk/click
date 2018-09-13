@@ -62,7 +62,7 @@ func (l *Storage) Dialect() string {
 }
 
 // Link returns the Link with its Aliases and Targets by provided ID.
-func (l *Storage) Link(id domain.UUID) (domain.Link, error) {
+func (l *Storage) Link(id domain.ID) (domain.Link, error) {
 	return postgres.Link(l.conn, id)
 }
 
@@ -77,6 +77,6 @@ func (l *Storage) Log(event domain.Log) (domain.Log, error) {
 }
 
 // UUID returns a new generated unique identifier.
-func (l *Storage) UUID() (domain.UUID, error) {
+func (l *Storage) UUID() (domain.ID, error) {
 	return postgres.UUID(l.conn)
 }

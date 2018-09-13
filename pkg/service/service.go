@@ -28,7 +28,7 @@ func (s *Click) HandlePass(request transfer.PassRequest) transfer.PassResponse {
 	var response transfer.PassResponse
 
 	{ // TODO encrypt/decrypt marker
-		marker := domain.UUID(request.EncryptedMarker)
+		marker := domain.ID(request.EncryptedMarker)
 		if !marker.IsValid() {
 			marker, response.Error = s.dao.UUID()
 			if response.Error != nil {
@@ -46,7 +46,7 @@ func (s *Click) HandleRedirect(request transfer.RedirectRequest) transfer.Redire
 	var response transfer.RedirectResponse
 
 	{ // TODO encrypt/decrypt marker
-		marker := domain.UUID(request.EncryptedMarker)
+		marker := domain.ID(request.EncryptedMarker)
 		if !marker.IsValid() {
 			marker, response.Error = s.dao.UUID()
 			if response.Error != nil {

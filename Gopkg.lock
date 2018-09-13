@@ -46,9 +46,12 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:2e292c0e36117b617c4df3f10ac9a7fe05e3c90bf057f1e61867c913d866e0c9"
+  digest = "1:8e2e9d89f806c2830ed880fa4dc417e9ed53edb9b071d1bf59f6ea57cfb0e0fc"
   name = "github.com/golang/mock"
-  packages = ["gomock"]
+  packages = [
+    "gomock",
+    "mockgen/model",
+  ]
   pruneopts = "UT"
   revision = "600781dde9cca80734169b9e969d9054ccc57937"
 
@@ -107,9 +110,12 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:5cc561c0f280b098d24dbaa192fa0c6409bbd0cbc06b6e4ac46f6e9b36077ca6"
+  digest = "1:caf232246c27105c302d27831d8d0834907188c0970cf24747dc007c74959e2f"
   name = "github.com/kamilsk/go-kit"
-  packages = ["pkg/fn"]
+  packages = [
+    "pkg/config",
+    "pkg/fn",
+  ]
   pruneopts = "UT"
   revision = "0101ca8436fba89061a6961d864ae7fa731e5797"
 
@@ -440,9 +446,11 @@
     "github.com/go-chi/chi",
     "github.com/go-chi/chi/middleware",
     "github.com/golang/mock/gomock",
+    "github.com/golang/mock/mockgen/model",
     "github.com/golang/protobuf/proto",
     "github.com/golang/protobuf/ptypes/timestamp",
     "github.com/grpc-ecosystem/go-grpc-middleware/auth",
+    "github.com/kamilsk/go-kit/pkg/config",
     "github.com/kamilsk/go-kit/pkg/fn",
     "github.com/lib/pq",
     "github.com/mailru/easyjson",

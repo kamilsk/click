@@ -34,7 +34,7 @@ func (m *MockStorage) EXPECT() *MockStorageMockRecorder {
 }
 
 // Link mocks base method
-func (m *MockStorage) Link(arg0 domain.UUID) (domain.Link, error) {
+func (m *MockStorage) Link(arg0 domain.ID) (domain.Link, error) {
 	ret := m.ctrl.Call(m, "Link", arg0)
 	ret0, _ := ret[0].(domain.Link)
 	ret1, _ := ret[1].(error)
@@ -73,9 +73,9 @@ func (mr *MockStorageMockRecorder) Log(arg0 interface{}) *gomock.Call {
 }
 
 // UUID mocks base method
-func (m *MockStorage) UUID() (domain.UUID, error) {
+func (m *MockStorage) UUID() (domain.ID, error) {
 	ret := m.ctrl.Call(m, "UUID")
-	ret0, _ := ret[0].(domain.UUID)
+	ret0, _ := ret[0].(domain.ID)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
