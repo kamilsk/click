@@ -9,6 +9,9 @@ import (
 
 	_ "github.com/lib/pq"
 
+	_ "github.com/grpc-ecosystem/go-grpc-middleware/auth"
+	_ "gopkg.in/DATA-DOG/go-sqlmock.v1"
+
 	"github.com/kamilsk/click/cmd"
 	"github.com/kamilsk/click/pkg/errors"
 	"github.com/spf13/cobra"

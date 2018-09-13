@@ -1,29 +1,29 @@
-> # Click! [![Tweet](https://img.shields.io/twitter/url/http/shields.io.svg?style=social)](https://twitter.com/intent/tweet?text=Link%20Manager%20as%20a%20Service&url=https://kamilsk.github.io/click/&via=ikamilsk&hashtags=go,service,link-manager,link-storage,link-shortener,url-shortener)
-> [![Analytics](https://ga-beacon.appspot.com/UA-109817251-20/click/readme?pixel)](https://kamilsk.github.io/click/)
-> 🔗 Link Manager as a Service &mdash; your personal link storage and URL shortener.
+> # 🔗 Click! [![Tweet][icon_twitter]][publish_twitter]
+> [![Analytics][pixel_analytics]][page_promo]
+> Link Manager as a Service &mdash; your personal link storage and URL shortener.
 
-[![Patreon](https://img.shields.io/badge/patreon-donate-orange.svg)](https://www.patreon.com/octolab)
-[![Build Status](https://travis-ci.org/kamilsk/click.svg?branch=master)](https://travis-ci.org/kamilsk/click)
-[![Code Quality](https://scrutinizer-ci.com/g/kamilsk/click/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kamilsk/click/?branch=master)
-[![Go version](https://img.shields.io/badge/Go-%3E%3D%201.9.2-green.svg)](https://travis-ci.org/kamilsk/click)
-[![Code Coverage](https://scrutinizer-ci.com/g/kamilsk/click/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/kamilsk/click/?branch=master)
-[![Research](https://img.shields.io/badge/research-in%20progress-yellow.svg)](../../tree/research/)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Patreon][icon_patreon]][page_patreon]
+[![Build Status][status_build]][page_build]
+[![Code Quality][status_quality]][page_quality]
+[![Go version][status_go_min]][page_build]
+[![Code Coverage][status_coverage]][page_quality]
+[![Research][status_research]][page_research]
+[![License][icon_license]][page_license]
 
 ## Roadmap
 
-- [x] v1: [MVP](https://github.com/kamilsk/click/projects/1)
-  - [**May 31, 2018**](https://github.com/kamilsk/click/milestone/1)
+- [x] v1: [MVP][project_v1]
+  - [**May 31, 2018**][milestone_v1]
   - Main concepts and working prototype.
-- [ ] v2: [Accounts and CLI CRUD](https://github.com/kamilsk/click/projects/2)
-  - [**August 31, 2018**](https://github.com/kamilsk/click/milestone/2)
+- [ ] v2: [Accounts and CLI CRUD][project_v2]
+  - [**August 31, 2018**][milestone_v2]
   - Command line interface for create, read, update and delete operations above gRPC.
-- [ ] v3: [URL shortener and DSL for rules](https://github.com/kamilsk/click/projects/3)
-  - [**September 30, 2018**](https://github.com/kamilsk/click/milestone/3)
+- [ ] v3: [URL shortener and DSL for rules][project_v3]
+  - [**September 30, 2018**][milestone_v3]
   - URL shortener functionality.
   - Domain-specific language to define target rules.
-- [ ] v4: [CSI and GUI CRUD](https://github.com/kamilsk/click/projects/4)
-  - [**October 31, 2018**](https://github.com/kamilsk/click/milestone/4)
+- [ ] v4: [CSI and GUI CRUD][project_v4]
+  - [**October 31, 2018**][milestone_v4]
   - Client-side integration.
   - Graphical user interface and admin panel to perform create, read, update and delete operations.
 - [ ] Click!, SaaS
@@ -54,7 +54,12 @@ $ make up demo status
 click_db_1        docker-entrypoint.sh postgres    Up      0.0.0.0:5432->5432/tcp
 click_server_1    /bin/sh -c envsubst '$SERV ...   Up      80/tcp, 0.0.0.0:80->8080/tcp
 click_service_1   click run --with-profiling ...   Up      0.0.0.0:8080->80/tcp, 0.0.0.0:8090->8090/tcp, 0.0.0.0:8091->8091/tcp
+```
 
+<details>
+<summary><strong>GET curl /api/v1/UUID</strong></summary>
+
+```bash
 $ curl http://localhost:8080/api/v1/10000000-2000-4000-8000-160000000005
 # {
 #   "id": "10000000-2000-4000-8000-160000000005",
@@ -105,15 +110,24 @@ $ curl -v http://localhost:8080/github/click!
 # < Content-Length: 0
 # <
 ```
+</details>
 
 ## Specification
 
 ### API
 
-You can find API specification [here](env/rest.http). Also, we recommend using [Insomnia](https://insomnia.rest)
-HTTP client to work with the API - you can import data for it from the [file](env/insomnia.json).
+You can find API specification [here](env/client/rest.http). Also, we recommend using [Insomnia](https://insomnia.rest/)
+HTTP client to work with the API - you can import data for it from the [file](env/client/insomnia.json).
+Or you can choose [Postman](https://www.getpostman.com/) - its import data is [here](env/client/postman.json) and
+[here](env/client/postman.env.json).
 
 ### CLI
+
+You can use CLI not only to start the HTTP server but also to execute
+[CRUD](https://en.wikipedia.org/wiki/Create,_read,_update_and_delete) operations.
+
+<details>
+<summary><strong>CLI interface</strong></summary>
 
 ```bash
 $ click --help
@@ -135,6 +149,7 @@ Flags:
 
 Use "click [command] --help" for more information about a command.
 ```
+</details>
 
 #### Bash and Zsh completions
 
@@ -183,7 +198,7 @@ $ egg github.com/kamilsk/click@^1.0.0 -- make test install
 $ egg bitbucket.org/kamilsk/click@^1.0.0 -- make test install
 ```
 
-> [egg](https://github.com/kamilsk/egg) is an `extended go get`.
+> [egg](https://github.com/kamilsk/egg)<sup id="anchor-egg">[1](#egg)</sup> is an `extended go get`.
 
 ## Update
 
@@ -191,10 +206,44 @@ This application is in a state of [MVP](https://en.wikipedia.org/wiki/Minimum_vi
 development. [SemVer](https://semver.org/) is used for releases, and you can easily be updated within minor versions,
 but major versions can be not [BC](https://en.wikipedia.org/wiki/Backward_compatibility)-safe.
 
+<sup id="egg">1</sup> The project is still in prototyping. [↩](#anchor-egg)
+
 ---
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kamilsk/click)
-[![@kamilsk](https://img.shields.io/badge/author-%40kamilsk-blue.svg)](https://twitter.com/ikamilsk)
-[![@octolab](https://img.shields.io/badge/sponsor-%40octolab-blue.svg)](https://twitter.com/octolab_inc)
+[![Gitter][icon_gitter]](https://gitter.im/kamilsk/click)
+[![@kamilsk][icon_tw_author]](https://twitter.com/ikamilsk)
+[![@octolab][icon_tw_sponsor]](https://twitter.com/octolab_inc)
 
 made with ❤️ by [OctoLab](https://www.octolab.org/)
+
+[icon_gitter]:     https://badges.gitter.im/Join%20Chat.svg
+[icon_license]:    https://img.shields.io/badge/license-MIT-blue.svg
+[icon_patreon]:    https://img.shields.io/badge/patreon-donate-orange.svg
+[icon_tw_author]:  https://img.shields.io/badge/author-%40kamilsk-blue.svg
+[icon_tw_sponsor]: https://img.shields.io/badge/sponsor-%40octolab-blue.svg
+[icon_twitter]:    https://img.shields.io/twitter/url/http/shields.io.svg?style=social
+
+[page_build]:      https://travis-ci.org/kamilsk/click
+[page_license]:    https://github.com/kamilsk/click/blob/master/LICENSE
+[page_patreon]:    https://www.patreon.com/octolab
+[page_promo]:      https://kamilsk.github.io/click/
+[page_research]:   https://github.com/kamilsk/click/tree/research
+[page_quality]:    https://scrutinizer-ci.com/g/kamilsk/click/?branch=master
+
+[pixel_analytics]: https://ga-beacon.appspot.com/UA-109817251-20/click/readme?pixel
+[publish_twitter]: https://twitter.com/intent/tweet?text=Link%20Manager%20as%20a%20Service&url=https://kamilsk.github.io/click/&via=ikamilsk&hashtags=go,service,link-manager,link-storage,link-shortener,url-shortener
+
+[project_v1]:      https://github.com/kamilsk/click/projects/1
+[milestone_v1]:    https://github.com/kamilsk/click/milestone/1
+[project_v2]:      https://github.com/kamilsk/click/projects/2
+[milestone_v2]:    https://github.com/kamilsk/click/milestone/2
+[project_v3]:      https://github.com/kamilsk/click/projects/3
+[milestone_v3]:    https://github.com/kamilsk/click/milestone/3
+[project_v4]:      https://github.com/kamilsk/click/projects/4
+[milestone_v4]:    https://github.com/kamilsk/click/milestone/4
+
+[status_build]:    https://travis-ci.org/kamilsk/click.svg?branch=master
+[status_coverage]: https://scrutinizer-ci.com/g/kamilsk/click/badges/coverage.png?b=master
+[status_go_min]:   https://img.shields.io/badge/Go-%3E%3D%201.9.2-green.svg
+[status_research]: https://img.shields.io/badge/research-in%20progress-yellow.svg
+[status_quality]:  https://scrutinizer-ci.com/g/kamilsk/click/badges/quality-score.png?b=master
