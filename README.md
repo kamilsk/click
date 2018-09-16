@@ -1,4 +1,4 @@
-> # 🔗 Click! [![Tweet][icon_twitter]][publish_twitter]
+> # 🔗 Click! [![Tweet][icon_twitter]][publish_twitter] <img align="right" width="100" src=".github/character.png">
 > [![Analytics][pixel_analytics]][page_promo]
 > Link Manager as a Service &mdash; your personal link storage and URL shortener.
 
