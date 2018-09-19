@@ -13,6 +13,9 @@ func TestNew(t *testing.T) {
 	type contract interface {
 		Dialect() string
 
+		LinkEditor(context.Context, *sql.Conn) executor.LinkEditor
+		LinkReader(context.Context, *sql.Conn) executor.LinkReader
+		NamespaceEditor(context.Context, *sql.Conn) executor.NamespaceEditor
 		UserManager(context.Context, *sql.Conn) executor.UserManager
 	}
 	t.Run("PostgreSQL", func(t *testing.T) {

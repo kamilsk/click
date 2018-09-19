@@ -4,7 +4,8 @@ import "github.com/kamilsk/click/pkg/domain"
 
 // CreateNamespace TODO issue#131
 type CreateNamespace struct {
-	ID *domain.ID
+	ID   *domain.ID
+	Name string
 }
 
 // ReadNamespace TODO issue#131
@@ -14,7 +15,8 @@ type ReadNamespace struct {
 
 // UpdateNamespace TODO issue#131
 type UpdateNamespace struct {
-	ID domain.ID
+	ID   domain.ID
+	Name string
 }
 
 // DeleteNamespace TODO issue#131

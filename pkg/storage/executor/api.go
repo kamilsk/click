@@ -29,6 +29,9 @@ func New(dialect string) *Executor {
 		exec.factory.NewLinkReader = func(ctx context.Context, conn *sql.Conn) LinkReader {
 			return postgres.NewLinkContext(ctx, conn)
 		}
+		exec.factory.NewNamespaceEditor = func(ctx context.Context, conn *sql.Conn) NamespaceEditor {
+			return postgres.NewNamespaceContext(ctx, conn)
+		}
 		exec.factory.NewUserManager = func(ctx context.Context, conn *sql.Conn) UserManager {
 			return postgres.NewUserContext(ctx, conn)
 		}
@@ -48,6 +51,14 @@ type LinkEditor interface {
 	Delete(*types.Token, query.DeleteLink) (types.Link, error)
 }
 
+// NamespaceEditor TODO issue#131
+type NamespaceEditor interface {
+	Create(*types.Token, query.CreateNamespace) (types.Namespace, error)
+	Read(*types.Token, query.ReadNamespace) (types.Namespace, error)
+	Update(*types.Token, query.UpdateNamespace) (types.Namespace, error)
+	Delete(*types.Token, query.DeleteNamespace) (types.Namespace, error)
+}
+
 // LinkReader TODO issue#131
 type LinkReader interface {
 	ReadByID(domain.ID) (types.Link, error)
@@ -62,9 +73,10 @@ type UserManager interface {
 type Executor struct {
 	dialect string
 	factory struct {
-		NewLinkEditor  func(context.Context, *sql.Conn) LinkEditor
-		NewLinkReader  func(context.Context, *sql.Conn) LinkReader
-		NewUserManager func(context.Context, *sql.Conn) UserManager
+		NewLinkEditor      func(context.Context, *sql.Conn) LinkEditor
+		NewLinkReader      func(context.Context, *sql.Conn) LinkReader
+		NewNamespaceEditor func(context.Context, *sql.Conn) NamespaceEditor
+		NewUserManager     func(context.Context, *sql.Conn) UserManager
 	}
 }
 
@@ -76,6 +88,11 @@ func (e *Executor) Dialect() string {
 // LinkEditor TODO issue#131
 func (e *Executor) LinkEditor(ctx context.Context, conn *sql.Conn) LinkEditor {
 	return e.factory.NewLinkEditor(ctx, conn)
+}
+
+// NamespaceEditor TODO issue#131
+func (e *Executor) NamespaceEditor(ctx context.Context, conn *sql.Conn) NamespaceEditor {
+	return e.factory.NewNamespaceEditor(ctx, conn)
 }
 
 // LinkReader TODO issue#131
