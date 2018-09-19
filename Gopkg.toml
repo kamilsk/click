@@ -1,4 +1,7 @@
 required = [
+  "github.com/mailru/easyjson/jlexer",
+  "github.com/mailru/easyjson/jwriter",
+
   "github.com/grpc-ecosystem/go-grpc-middleware/auth",
   "golang.org/x/sync/errgroup",
   "gopkg.in/DATA-DOG/go-sqlmock.v1",
@@ -26,6 +29,10 @@ required = [
 
 [[constraint]]
   name = "github.com/lib/pq"
+  branch = "master"
+
+[[constraint]]
+  name = "github.com/mailru/easyjson"
   branch = "master"
 
 [[constraint]]
