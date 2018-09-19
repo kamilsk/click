@@ -1,4 +1,7 @@
 required = [
+  "github.com/golang/mock/gomock",
+  "github.com/golang/mock/mockgen/model",
+
   "golang.org/x/sync/errgroup",
   "gopkg.in/DATA-DOG/go-sqlmock.v1",
 ]
