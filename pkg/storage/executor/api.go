@@ -9,6 +9,7 @@ import (
 
 	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/storage/executor/internal/postgres"
+	"github.com/kamilsk/click/pkg/storage/query"
 	"github.com/kamilsk/click/pkg/storage/types"
 )
 
@@ -22,6 +23,12 @@ func New(dialect string) *Executor {
 	exec := &Executor{dialect: dialect}
 	switch exec.dialect {
 	case postgresDialect:
+		exec.factory.NewLinkEditor = func(ctx context.Context, conn *sql.Conn) LinkEditor {
+			return postgres.NewLinkContext(ctx, conn)
+		}
+		exec.factory.NewLinkReader = func(ctx context.Context, conn *sql.Conn) LinkReader {
+			return postgres.NewLinkContext(ctx, conn)
+		}
 		exec.factory.NewUserManager = func(ctx context.Context, conn *sql.Conn) UserManager {
 			return postgres.NewUserContext(ctx, conn)
 		}
@@ -33,6 +40,19 @@ func New(dialect string) *Executor {
 	return exec
 }
 
+// LinkEditor TODO issue#131
+type LinkEditor interface {
+	Create(*types.Token, query.CreateLink) (types.Link, error)
+	Read(*types.Token, query.ReadLink) (types.Link, error)
+	Update(*types.Token, query.UpdateLink) (types.Link, error)
+	Delete(*types.Token, query.DeleteLink) (types.Link, error)
+}
+
+// LinkReader TODO issue#131
+type LinkReader interface {
+	ReadByID(domain.ID) (types.Link, error)
+}
+
 // UserManager TODO issue#131
 type UserManager interface {
 	Token(domain.ID) (*types.Token, error)
@@ -42,6 +62,8 @@ type UserManager interface {
 type Executor struct {
 	dialect string
 	factory struct {
+		NewLinkEditor  func(context.Context, *sql.Conn) LinkEditor
+		NewLinkReader  func(context.Context, *sql.Conn) LinkReader
 		NewUserManager func(context.Context, *sql.Conn) UserManager
 	}
 }
@@ -49,6 +71,16 @@ type Executor struct {
 // Dialect TODO issue#131
 func (e *Executor) Dialect() string {
 	return e.dialect
+}
+
+// LinkEditor TODO issue#131
+func (e *Executor) LinkEditor(ctx context.Context, conn *sql.Conn) LinkEditor {
+	return e.factory.NewLinkEditor(ctx, conn)
+}
+
+// LinkReader TODO issue#131
+func (e *Executor) LinkReader(ctx context.Context, conn *sql.Conn) LinkReader {
+	return e.factory.NewLinkReader(ctx, conn)
 }
 
 // UserManager TODO issue#131
