@@ -3,8 +3,6 @@ package storage
 import (
 	"database/sql"
 
-	_ "github.com/lib/pq"
-
 	"github.com/kamilsk/click/pkg/config"
 	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/storage/postgres"
