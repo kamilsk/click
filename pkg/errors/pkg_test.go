@@ -62,8 +62,6 @@ func TestApplicationError(t *testing.T) {
 }
 
 func TestApplicationErrorMessage(t *testing.T) {
-	const emptyMessage, serializationMessage = "", "serialization"
-
 	tests := []struct {
 		name        string
 		constructor func(userMsg string, cause error, ctxMsg string, ctxArgs ...interface{}) errors.ApplicationError
@@ -72,17 +70,17 @@ func TestApplicationErrorMessage(t *testing.T) {
 	}{
 		{"not found", errors.NotFound,
 			func(name string) (string, error, string) {
-				return emptyMessage, fmt.Errorf(name), "uuid is not presented"
+				return "", fmt.Errorf(name), "uuid is not presented"
 			},
 			func() (string, string) { return "error: uuid is not presented: not found", errors.ClientErrorMessage }},
 		{"database", errors.Database,
-			func(name string) (string, error, string) { return emptyMessage, fmt.Errorf(name), "connection is lost" },
+			func(name string) (string, error, string) { return "", fmt.Errorf(name), "connection is lost" },
 			func() (string, string) {
 				return "server error: connection is lost: database", errors.ServerErrorMessage
 			}},
 		{"serialization", errors.Serialization,
-			func(name string) (string, error, string) { return serializationMessage, nil, "corrupted data" },
-			func() (string, string) { return serializationMessage, serializationMessage }},
+			func(name string) (string, error, string) { return "serialization", nil, "corrupted data" },
+			func() (string, string) { return "serialization", "serialization" }},
 	}
 
 	for _, test := range tests {
