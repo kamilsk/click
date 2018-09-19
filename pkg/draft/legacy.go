@@ -1,1 +1,3 @@
+// +build draft
+
 package draft
