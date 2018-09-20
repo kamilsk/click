@@ -4,7 +4,11 @@ import "github.com/kamilsk/click/pkg/domain"
 
 // CreateTarget TODO issue#131
 type CreateTarget struct {
-	ID *domain.ID
+	ID         *domain.ID
+	LinkID     domain.ID
+	URI        string
+	Rule       domain.Rule
+	BinaryRule domain.BinaryRule
 }
 
 // ReadTarget TODO issue#131
@@ -14,7 +18,10 @@ type ReadTarget struct {
 
 // UpdateTarget TODO issue#131
 type UpdateTarget struct {
-	ID domain.ID
+	ID         domain.ID
+	URI        string
+	Rule       domain.Rule
+	BinaryRule domain.BinaryRule
 }
 
 // DeleteTarget TODO issue#131

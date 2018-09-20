@@ -16,6 +16,7 @@ func TestNew(t *testing.T) {
 		AliasEditor(context.Context, *sql.Conn) executor.AliasEditor
 		LinkEditor(context.Context, *sql.Conn) executor.LinkEditor
 		NamespaceEditor(context.Context, *sql.Conn) executor.NamespaceEditor
+		TargetEditor(context.Context, *sql.Conn) executor.TargetEditor
 		UserManager(context.Context, *sql.Conn) executor.UserManager
 
 		// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead

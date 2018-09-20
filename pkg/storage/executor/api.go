@@ -32,6 +32,9 @@ func New(dialect string) *Executor {
 		exec.factory.NewNamespaceEditor = func(ctx context.Context, conn *sql.Conn) NamespaceEditor {
 			return postgres.NewNamespaceContext(ctx, conn)
 		}
+		exec.factory.NewTargetEditor = func(ctx context.Context, conn *sql.Conn) TargetEditor {
+			return postgres.NewTargetContext(ctx, conn)
+		}
 		exec.factory.NewUserManager = func(ctx context.Context, conn *sql.Conn) UserManager {
 			return postgres.NewUserContext(ctx, conn)
 		}
@@ -71,6 +74,14 @@ type NamespaceEditor interface {
 	Delete(*types.Token, query.DeleteNamespace) (types.Namespace, error)
 }
 
+// TargetEditor TODO issue#131
+type TargetEditor interface {
+	Create(*types.Token, query.CreateTarget) (types.Target, error)
+	Read(*types.Token, query.ReadTarget) (types.Target, error)
+	Update(*types.Token, query.UpdateTarget) (types.Target, error)
+	Delete(*types.Token, query.DeleteTarget) (types.Target, error)
+}
+
 // LinkReader TODO issue#131
 // Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
 type LinkReader interface {
@@ -89,6 +100,7 @@ type Executor struct {
 		NewAliasEditor     func(context.Context, *sql.Conn) AliasEditor
 		NewLinkEditor      func(context.Context, *sql.Conn) LinkEditor
 		NewNamespaceEditor func(context.Context, *sql.Conn) NamespaceEditor
+		NewTargetEditor    func(context.Context, *sql.Conn) TargetEditor
 		NewUserManager     func(context.Context, *sql.Conn) UserManager
 
 		// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
@@ -114,6 +126,11 @@ func (e *Executor) LinkEditor(ctx context.Context, conn *sql.Conn) LinkEditor {
 // NamespaceEditor TODO issue#131
 func (e *Executor) NamespaceEditor(ctx context.Context, conn *sql.Conn) NamespaceEditor {
 	return e.factory.NewNamespaceEditor(ctx, conn)
+}
+
+// TargetEditor TODO issue#131
+func (e *Executor) TargetEditor(ctx context.Context, conn *sql.Conn) TargetEditor {
+	return e.factory.NewTargetEditor(ctx, conn)
 }
 
 // UserManager TODO issue#131
