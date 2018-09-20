@@ -23,10 +23,10 @@ func New(dialect string) *Executor {
 	exec := &Executor{dialect: dialect}
 	switch exec.dialect {
 	case postgresDialect:
-		exec.factory.NewLinkEditor = func(ctx context.Context, conn *sql.Conn) LinkEditor {
-			return postgres.NewLinkContext(ctx, conn)
+		exec.factory.NewAliasEditor = func(ctx context.Context, conn *sql.Conn) AliasEditor {
+			return postgres.NewAliasContext(ctx, conn)
 		}
-		exec.factory.NewLinkReader = func(ctx context.Context, conn *sql.Conn) LinkReader {
+		exec.factory.NewLinkEditor = func(ctx context.Context, conn *sql.Conn) LinkEditor {
 			return postgres.NewLinkContext(ctx, conn)
 		}
 		exec.factory.NewNamespaceEditor = func(ctx context.Context, conn *sql.Conn) NamespaceEditor {
@@ -35,12 +35,24 @@ func New(dialect string) *Executor {
 		exec.factory.NewUserManager = func(ctx context.Context, conn *sql.Conn) UserManager {
 			return postgres.NewUserContext(ctx, conn)
 		}
+		// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
+		exec.factory.NewLinkReader = func(ctx context.Context, conn *sql.Conn) LinkReader {
+			return postgres.NewLinkContext(ctx, conn)
+		}
 	case mysqlDialect:
 		fallthrough
 	default:
 		panic(fmt.Sprintf("not supported dialect %q is provided", exec.dialect))
 	}
 	return exec
+}
+
+// AliasEditor TODO issue#131
+type AliasEditor interface {
+	Create(*types.Token, query.CreateAlias) (types.Alias, error)
+	Read(*types.Token, query.ReadAlias) (types.Alias, error)
+	Update(*types.Token, query.UpdateAlias) (types.Alias, error)
+	Delete(*types.Token, query.DeleteAlias) (types.Alias, error)
 }
 
 // LinkEditor TODO issue#131
@@ -60,6 +72,7 @@ type NamespaceEditor interface {
 }
 
 // LinkReader TODO issue#131
+// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
 type LinkReader interface {
 	ReadByID(domain.ID) (types.Link, error)
 }
@@ -73,16 +86,24 @@ type UserManager interface {
 type Executor struct {
 	dialect string
 	factory struct {
+		NewAliasEditor     func(context.Context, *sql.Conn) AliasEditor
 		NewLinkEditor      func(context.Context, *sql.Conn) LinkEditor
-		NewLinkReader      func(context.Context, *sql.Conn) LinkReader
 		NewNamespaceEditor func(context.Context, *sql.Conn) NamespaceEditor
 		NewUserManager     func(context.Context, *sql.Conn) UserManager
+
+		// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
+		NewLinkReader func(context.Context, *sql.Conn) LinkReader
 	}
 }
 
 // Dialect TODO issue#131
 func (e *Executor) Dialect() string {
 	return e.dialect
+}
+
+// AliasEditor TODO issue#131
+func (e *Executor) AliasEditor(ctx context.Context, conn *sql.Conn) AliasEditor {
+	return e.factory.NewAliasEditor(ctx, conn)
 }
 
 // LinkEditor TODO issue#131
@@ -95,12 +116,13 @@ func (e *Executor) NamespaceEditor(ctx context.Context, conn *sql.Conn) Namespac
 	return e.factory.NewNamespaceEditor(ctx, conn)
 }
 
-// LinkReader TODO issue#131
-func (e *Executor) LinkReader(ctx context.Context, conn *sql.Conn) LinkReader {
-	return e.factory.NewLinkReader(ctx, conn)
-}
-
 // UserManager TODO issue#131
 func (e *Executor) UserManager(ctx context.Context, conn *sql.Conn) UserManager {
 	return e.factory.NewUserManager(ctx, conn)
+}
+
+// LinkReader TODO issue#131
+// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
+func (e *Executor) LinkReader(ctx context.Context, conn *sql.Conn) LinkReader {
+	return e.factory.NewLinkReader(ctx, conn)
 }

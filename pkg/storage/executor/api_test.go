@@ -13,10 +13,13 @@ func TestNew(t *testing.T) {
 	type contract interface {
 		Dialect() string
 
+		AliasEditor(context.Context, *sql.Conn) executor.AliasEditor
 		LinkEditor(context.Context, *sql.Conn) executor.LinkEditor
-		LinkReader(context.Context, *sql.Conn) executor.LinkReader
 		NamespaceEditor(context.Context, *sql.Conn) executor.NamespaceEditor
 		UserManager(context.Context, *sql.Conn) executor.UserManager
+
+		// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
+		LinkReader(context.Context, *sql.Conn) executor.LinkReader
 	}
 	t.Run("PostgreSQL", func(t *testing.T) {
 		assert.NotPanics(t, func() {

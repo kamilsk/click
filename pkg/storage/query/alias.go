@@ -4,7 +4,10 @@ import "github.com/kamilsk/click/pkg/domain"
 
 // CreateAlias TODO issue#131
 type CreateAlias struct {
-	ID *domain.ID
+	ID          *domain.ID
+	LinkID      domain.ID
+	NamespaceID domain.ID
+	URN         string
 }
 
 // ReadAlias TODO issue#131
@@ -14,7 +17,8 @@ type ReadAlias struct {
 
 // UpdateAlias TODO issue#131
 type UpdateAlias struct {
-	ID domain.ID
+	ID  domain.ID
+	URN string
 }
 
 // DeleteAlias TODO issue#131
