@@ -15,21 +15,21 @@ const (
 //go:generate easyjson -all
 type Rule struct {
 	Description string            `json:"description,omitempty"`
-	AliasID     uint64            `json:"alias,omitempty"`
+	AliasID     ID                `json:"alias,omitempty"`
 	Tags        []string          `json:"tags,omitempty"`
 	Conditions  map[string]string `json:"conditions,omitempty"`
 	Match       byte              `json:"match,omitempty"`
 }
 
 // Calculate calculates weight of Rule's Target.
-func (v Rule) Calculate(alias Alias, query map[string][]string) int {
+func (v *Rule) Calculate(alias Alias, query map[string][]string) int {
 	// default rule
-	if v.AliasID == 0 && len(v.Tags) == 0 && len(v.Conditions) == 0 {
+	if v.AliasID.IsEmpty() && len(v.Tags) == 0 && len(v.Conditions) == 0 {
 		return 1
 	}
 	// other rules will be ordered by weight and ID
-	toCheck := make([]func(Rule, Alias, map[string][]string) bool, 0, 3)
-	if v.AliasID != 0 {
+	toCheck := make([]func(*Rule, Alias, map[string][]string) bool, 0, 3)
+	if !v.AliasID.IsEmpty() {
 		toCheck = append(toCheck, checkAlias)
 	}
 	if len(v.Tags) > 0 {
@@ -57,11 +57,16 @@ func (v Rule) Calculate(alias Alias, query map[string][]string) int {
 	return weight
 }
 
-func checkAlias(rule Rule, alias Alias, _ map[string][]string) bool {
+// IsEmpty TODO issue#131
+func (v *Rule) IsEmpty() bool {
+	return v.Description == "" && v.AliasID.IsEmpty() && len(v.Tags) == 0 && len(v.Conditions) == 0
+}
+
+func checkAlias(rule *Rule, alias Alias, _ map[string][]string) bool {
 	return rule.AliasID == alias.ID
 }
 
-func checkTags(rule Rule, _ Alias, query map[string][]string) bool {
+func checkTags(rule *Rule, _ Alias, query map[string][]string) bool {
 	if tags, ok := query[tagKey]; ok && len(tags) > 0 {
 		tag := tags[0]
 		for i := range rule.Tags {
@@ -73,7 +78,7 @@ func checkTags(rule Rule, _ Alias, query map[string][]string) bool {
 	return false
 }
 
-func checkConditions(rule Rule, _ Alias, query map[string][]string) bool {
+func checkConditions(rule *Rule, _ Alias, query map[string][]string) bool {
 	for key, value := range rule.Conditions {
 		if values, ok := query[key]; ok {
 			if len(values) > 0 && values[0] == value {
@@ -82,4 +87,12 @@ func checkConditions(rule Rule, _ Alias, query map[string][]string) bool {
 		}
 	}
 	return false
+}
+
+// BinaryRule TODO issue#131
+type BinaryRule []byte
+
+// IsEmpty TODO issue#131
+func (rule BinaryRule) IsEmpty() bool {
+	return len(rule) == 0
 }

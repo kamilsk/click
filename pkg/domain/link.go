@@ -5,7 +5,7 @@ import "database/sql"
 // Link represents a "redirect entity".
 //go:generate easyjson -all
 type Link struct {
-	ID        string         `json:"id"`
+	ID        ID             `json:"id"`
 	Name      string         `json:"name"`
 	Status    string         `json:"status"`
 	CreatedAt string         `json:"-"`

@@ -142,7 +142,7 @@ func targets(db *sql.DB, linkID domain.ID) ([]domain.Target, error) {
 		if len(raw) > 0 {
 			if err := (&target.Rule).UnmarshalJSON(raw); err != nil {
 				return nil, errors.Serialization(errors.NeutralMessage, err,
-					"trying to unmarshal rule of target %d of link %q", target.ID, linkID)
+					"trying to unmarshal rule of target %s of link %q", target.ID, linkID)
 			}
 		}
 		targets = append(targets, target)

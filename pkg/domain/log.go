@@ -4,9 +4,9 @@ package domain
 //go:generate easyjson -all
 type Log struct {
 	ID        uint64   `json:"id"`
-	LinkID    string   `json:"link_id"`
-	AliasID   uint64   `json:"alias_id"`
-	TargetID  uint64   `json:"target_id"`
+	LinkID    ID       `json:"link_id"`
+	AliasID   ID       `json:"alias_id"`
+	TargetID  ID       `json:"target_id"`
 	URI       string   `json:"uri"`
 	Code      int      `json:"code"`
 	Context   Metadata `json:"context"`

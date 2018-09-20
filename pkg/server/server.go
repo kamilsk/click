@@ -87,8 +87,8 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 	if !opts.NoLog() {
 		go log(s.service.LogRedirectEvent, req, response.EncryptedMarker, domain.Log{
 			LinkID:   "00000000-0000-4000-8000-000000000000",
-			AliasID:  0,
-			TargetID: 0,
+			AliasID:  "00000000-0000-4000-8000-000000000000",
+			TargetID: "00000000-0000-4000-8000-000000000000",
 			URI:      to,
 			Code:     http.StatusFound,
 		})
