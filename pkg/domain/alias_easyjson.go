@@ -37,7 +37,7 @@ func easyjson8922032aDecodeGithubComKamilskClickPkgDomain(in *jlexer.Lexer, out 
 		}
 		switch key {
 		case "id":
-			out.ID = uint64(in.Uint64())
+			out.ID = ID(in.String())
 		case "namespace":
 			out.Namespace = string(in.String())
 		case "urn":
@@ -64,7 +64,7 @@ func easyjson8922032aEncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 		} else {
 			out.RawString(prefix)
 		}
-		out.Uint64(uint64(in.ID))
+		out.String(string(in.ID))
 	}
 	{
 		const prefix string = ",\"namespace\":"

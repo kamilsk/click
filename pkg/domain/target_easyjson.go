@@ -37,7 +37,7 @@ func easyjsonD6888903DecodeGithubComKamilskClickPkgDomain(in *jlexer.Lexer, out 
 		}
 		switch key {
 		case "id":
-			out.ID = uint64(in.Uint64())
+			out.ID = ID(in.String())
 		case "uri":
 			out.URI = string(in.String())
 		case "rule":
@@ -64,7 +64,7 @@ func easyjsonD6888903EncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 		} else {
 			out.RawString(prefix)
 		}
-		out.Uint64(uint64(in.ID))
+		out.String(string(in.ID))
 	}
 	{
 		const prefix string = ",\"uri\":"

@@ -37,7 +37,7 @@ func easyjson16eb09bcDecodeGithubComKamilskClickPkgDomain(in *jlexer.Lexer, out 
 		}
 		switch key {
 		case "id":
-			out.ID = string(in.String())
+			out.ID = ID(in.String())
 		case "name":
 			out.Name = string(in.String())
 		case "status":
@@ -82,7 +82,7 @@ func easyjson16eb09bcDecodeGithubComKamilskClickPkgDomain(in *jlexer.Lexer, out 
 				}
 				for !in.IsDelim(']') {
 					var v2 Target
-					(v2).UnmarshalEasyJSON(in)
+					easyjson16eb09bcDecodeGithubComKamilskClickPkgDomain1(in, &v2)
 					out.Targets = append(out.Targets, v2)
 					in.WantComma()
 				}
@@ -169,7 +169,7 @@ func easyjson16eb09bcEncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 				if v5 > 0 {
 					out.RawByte(',')
 				}
-				(v6).MarshalEasyJSON(out)
+				easyjson16eb09bcEncodeGithubComKamilskClickPkgDomain1(out, v6)
 			}
 			out.RawByte(']')
 		}
@@ -199,4 +199,232 @@ func (v *Link) UnmarshalJSON(data []byte) error {
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *Link) UnmarshalEasyJSON(l *jlexer.Lexer) {
 	easyjson16eb09bcDecodeGithubComKamilskClickPkgDomain(l, v)
+}
+func easyjson16eb09bcDecodeGithubComKamilskClickPkgDomain1(in *jlexer.Lexer, out *Target) {
+	isTopLevel := in.IsStart()
+	if in.IsNull() {
+		if isTopLevel {
+			in.Consumed()
+		}
+		in.Skip()
+		return
+	}
+	in.Delim('{')
+	for !in.IsDelim('}') {
+		key := in.UnsafeString()
+		in.WantColon()
+		if in.IsNull() {
+			in.Skip()
+			in.WantComma()
+			continue
+		}
+		switch key {
+		case "id":
+			out.ID = ID(in.String())
+		case "uri":
+			out.URI = string(in.String())
+		case "rule":
+			easyjson16eb09bcDecodeGithubComKamilskClickPkgDomain2(in, &out.Rule)
+		default:
+			in.SkipRecursive()
+		}
+		in.WantComma()
+	}
+	in.Delim('}')
+	if isTopLevel {
+		in.Consumed()
+	}
+}
+func easyjson16eb09bcEncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, in Target) {
+	out.RawByte('{')
+	first := true
+	_ = first
+	{
+		const prefix string = ",\"id\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.ID))
+	}
+	{
+		const prefix string = ",\"uri\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.URI))
+	}
+	{
+		const prefix string = ",\"rule\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		easyjson16eb09bcEncodeGithubComKamilskClickPkgDomain2(out, in.Rule)
+	}
+	out.RawByte('}')
+}
+func easyjson16eb09bcDecodeGithubComKamilskClickPkgDomain2(in *jlexer.Lexer, out *Rule) {
+	isTopLevel := in.IsStart()
+	if in.IsNull() {
+		if isTopLevel {
+			in.Consumed()
+		}
+		in.Skip()
+		return
+	}
+	in.Delim('{')
+	for !in.IsDelim('}') {
+		key := in.UnsafeString()
+		in.WantColon()
+		if in.IsNull() {
+			in.Skip()
+			in.WantComma()
+			continue
+		}
+		switch key {
+		case "description":
+			out.Description = string(in.String())
+		case "alias":
+			out.AliasID = ID(in.String())
+		case "tags":
+			if in.IsNull() {
+				in.Skip()
+				out.Tags = nil
+			} else {
+				in.Delim('[')
+				if out.Tags == nil {
+					if !in.IsDelim(']') {
+						out.Tags = make([]string, 0, 4)
+					} else {
+						out.Tags = []string{}
+					}
+				} else {
+					out.Tags = (out.Tags)[:0]
+				}
+				for !in.IsDelim(']') {
+					var v7 string
+					v7 = string(in.String())
+					out.Tags = append(out.Tags, v7)
+					in.WantComma()
+				}
+				in.Delim(']')
+			}
+		case "conditions":
+			if in.IsNull() {
+				in.Skip()
+			} else {
+				in.Delim('{')
+				if !in.IsDelim('}') {
+					out.Conditions = make(map[string]string)
+				} else {
+					out.Conditions = nil
+				}
+				for !in.IsDelim('}') {
+					key := string(in.String())
+					in.WantColon()
+					var v8 string
+					v8 = string(in.String())
+					(out.Conditions)[key] = v8
+					in.WantComma()
+				}
+				in.Delim('}')
+			}
+		case "match":
+			out.Match = uint8(in.Uint8())
+		default:
+			in.SkipRecursive()
+		}
+		in.WantComma()
+	}
+	in.Delim('}')
+	if isTopLevel {
+		in.Consumed()
+	}
+}
+func easyjson16eb09bcEncodeGithubComKamilskClickPkgDomain2(out *jwriter.Writer, in Rule) {
+	out.RawByte('{')
+	first := true
+	_ = first
+	if in.Description != "" {
+		const prefix string = ",\"description\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.Description))
+	}
+	if in.AliasID != "" {
+		const prefix string = ",\"alias\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.AliasID))
+	}
+	if len(in.Tags) != 0 {
+		const prefix string = ",\"tags\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		{
+			out.RawByte('[')
+			for v9, v10 := range in.Tags {
+				if v9 > 0 {
+					out.RawByte(',')
+				}
+				out.String(string(v10))
+			}
+			out.RawByte(']')
+		}
+	}
+	if len(in.Conditions) != 0 {
+		const prefix string = ",\"conditions\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		{
+			out.RawByte('{')
+			v11First := true
+			for v11Name, v11Value := range in.Conditions {
+				if v11First {
+					v11First = false
+				} else {
+					out.RawByte(',')
+				}
+				out.String(string(v11Name))
+				out.RawByte(':')
+				out.String(string(v11Value))
+			}
+			out.RawByte('}')
+		}
+	}
+	if in.Match != 0 {
+		const prefix string = ",\"match\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.Uint8(uint8(in.Match))
+	}
+	out.RawByte('}')
 }

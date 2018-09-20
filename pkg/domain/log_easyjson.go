@@ -294,11 +294,11 @@ func easyjsonB6915918DecodeGithubComKamilskClickPkgDomain1(in *jlexer.Lexer, out
 		case "id":
 			out.ID = uint64(in.Uint64())
 		case "link_id":
-			out.LinkID = string(in.String())
+			out.LinkID = ID(in.String())
 		case "alias_id":
-			out.AliasID = uint64(in.Uint64())
+			out.AliasID = ID(in.String())
 		case "target_id":
-			out.TargetID = uint64(in.Uint64())
+			out.TargetID = ID(in.String())
 		case "uri":
 			out.URI = string(in.String())
 		case "code":
@@ -349,7 +349,7 @@ func easyjsonB6915918EncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, 
 		} else {
 			out.RawString(prefix)
 		}
-		out.Uint64(uint64(in.AliasID))
+		out.String(string(in.AliasID))
 	}
 	{
 		const prefix string = ",\"target_id\":"
@@ -359,7 +359,7 @@ func easyjsonB6915918EncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, 
 		} else {
 			out.RawString(prefix)
 		}
-		out.Uint64(uint64(in.TargetID))
+		out.String(string(in.TargetID))
 	}
 	{
 		const prefix string = ",\"uri\":"
