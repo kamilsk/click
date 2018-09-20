@@ -1,8 +1,9 @@
 required = [
   "github.com/golang/mock/gomock",
   "github.com/golang/mock/mockgen/model",
-
-  "golang.org/x/sync/errgroup",
+  "github.com/mailru/easyjson/gen",
+  "github.com/mailru/easyjson/jlexer",
+  "github.com/mailru/easyjson/jwriter",
 ]
 
 [[constraint]]

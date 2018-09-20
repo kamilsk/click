@@ -132,11 +132,12 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:853fe95bef4c5e8a70dcd405b5206b38a9ff09e9c26fef93d1d0adeaea39f9ce"
+  digest = "1:27709e1b4d50eb443e1c41cb8393cee3be80a48400edfc98c8098752882a4d8c"
   name = "github.com/mailru/easyjson"
   packages = [
     ".",
     "buffer",
+    "gen",
     "jlexer",
     "jwriter",
   ]
@@ -217,7 +218,7 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:6621142cd60b7150ab66f38ff36303ca55843dc5a635c1f9a28f95ecddab72b4"
+  digest = "1:26a2f5e891cc4d2321f18a0caa84c8e788663c17bed6a487f3cbe2c4295292d0"
   name = "github.com/prometheus/procfs"
   packages = [
     ".",
@@ -226,7 +227,7 @@
     "xfs",
   ]
   pruneopts = "NUT"
-  revision = "05ee40e3a273f7245e8777337fc7b46e533a9a92"
+  revision = "418d78d0b9a7b7de3a6bbc8a23def624cc977bb2"
 
 [[projects]]
   branch = "master"
@@ -335,11 +336,11 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:1d7f832618b2bc7289b0e1560eaedfebe91bbc1f1ade8e4e84bc45c466332833"
+  digest = "1:4500e055e68fb08c556114b8df1e2f2b2c0e14ee2eb58dd5a036e73c17b9c7f9"
   name = "golang.org/x/sys"
   packages = ["unix"]
   pruneopts = "NUT"
-  revision = "1561086e645b2809fb9f8a1e2a38160bf8d53bf4"
+  revision = "d641721ec2dead6fe5ca284096fe4b1fcd49e427"
 
 [[projects]]
   digest = "1:e7071ed636b5422cc51c0e3a6cebc229d6c9fffc528814b519a980641422d619"
@@ -446,6 +447,7 @@
     "github.com/kamilsk/go-kit/pkg/fn",
     "github.com/lib/pq",
     "github.com/mailru/easyjson",
+    "github.com/mailru/easyjson/gen",
     "github.com/mailru/easyjson/jlexer",
     "github.com/mailru/easyjson/jwriter",
     "github.com/mitchellh/mapstructure",
