@@ -22,6 +22,7 @@ CREATE TABLE "link" (
 
 CREATE TABLE "alias" (
   "id"           UUID         NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  "account_id"   UUID         NOT NULL,
   "link_id"      UUID         NOT NULL,
   "namespace_id" UUID         NOT NULL,
   "urn"          VARCHAR(512) NOT NULL,
@@ -33,6 +34,7 @@ CREATE TABLE "alias" (
 
 CREATE TABLE "target" (
   "id"         UUID          NOT NULL PRIMARY KEY DEFAULT uuid_generate_v4(),
+  "account_id" UUID          NOT NULL,
   "link_id"    UUID          NOT NULL,
   "uri"        VARCHAR(1024) NOT NULL,
   "rule"       JSONB         NULL                 DEFAULT NULL,

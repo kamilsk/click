@@ -42,12 +42,14 @@ func (scope linkScope) Read(token *types.Token, data query.ReadLink) (types.Link
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, entity.AccountID)
 	if err := row.Scan(&entity.Name, &entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); err != nil {
 		return entity, errors.Database(errors.ServerErrorMessage, err,
-			"user %q of account %q tried to read the link %q", token.UserID, token.User.AccountID, entity.ID)
+			"user %q of account %q tried to read the link %q",
+			token.UserID, token.User.AccountID, entity.ID)
 	}
 	return entity, nil
 }
 
 // ReadByID TODO issue#131
+// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
 func (scope linkScope) ReadByID(id domain.ID) (types.Link, error) {
 	entity := types.Link{ID: id}
 	q := `SELECT "name", "created_at", "updated_at" FROM "link"

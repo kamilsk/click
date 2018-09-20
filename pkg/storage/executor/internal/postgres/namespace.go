@@ -41,7 +41,8 @@ func (scope namespaceScope) Read(token *types.Token, data query.ReadNamespace) (
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, entity.AccountID)
 	if err := row.Scan(&entity.Name, &entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); err != nil {
 		return entity, errors.Database(errors.ServerErrorMessage, err,
-			"user %q of account %q tried to read the namespace %q", token.UserID, token.User.AccountID, entity.ID)
+			"user %q of account %q tried to read the namespace %q",
+			token.UserID, token.User.AccountID, entity.ID)
 	}
 	return entity, nil
 }
