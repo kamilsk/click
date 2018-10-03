@@ -1,9 +1,9 @@
 DO $$
 DECLARE   demoAccount "account"."id"%TYPE := '10000000-2000-4000-8000-160000000001';
+  DECLARE demoUser    "user"."id"%TYPE := '10000000-2000-4000-8000-160000000002';
+  DECLARE demoToken   "token"."id"%TYPE := '10000000-2000-4000-8000-160000000003';
   DECLARE globalNS    "namespace"."id"%TYPE := demoAccount;
-  DECLARE supportNS   "namespace"."id"%TYPE := '10000000-2000-4000-8000-160000000002';
-  DECLARE demoUser    "user"."id"%TYPE := '10000000-2000-4000-8000-160000000003';
-  DECLARE demoToken   "token"."id"%TYPE := '10000000-2000-4000-8000-160000000004';
+  DECLARE supportNS   "namespace"."id"%TYPE := '10000000-2000-4000-8000-160000000004';
   DECLARE click       "link"."id"%TYPE := '10000000-2000-4000-8000-160000000005';
   DECLARE promo       "alias"."id"%TYPE;
   DECLARE issue       "alias"."id"%TYPE;

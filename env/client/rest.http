@@ -1,7 +1,7 @@
 ### API v1
 
 GET http://localhost:8080/api/v1/10000000-2000-4000-8000-160000000005
-Authorization: Bearer 10000000-2000-4000-8000-160000000004
+Authorization: Bearer 10000000-2000-4000-8000-160000000003
 
 ### Redirect API
 
@@ -18,26 +18,26 @@ X-Click-Namespace: 10000000-2000-4000-8000-160000000001
 
 GET http://localhost:8080/github/click
 Cookie: identifier=10000000-2000-4000-8000-160000000000
-X-Click-Namespace: 10000000-2000-4000-8000-160000000002
+X-Click-Namespace: 10000000-2000-4000-8000-160000000004
 
 ###
 
 GET http://localhost:8080/github/click
 Cookie: identifier=10000000-2000-4000-8000-160000000000
-X-Click-Account: 10000000-2000-4000-8000-160000000002
+X-Click-Account: 10000000-2000-4000-8000-160000000001
 X-Click-Namespace: Support namespace
 
 ###
 
 GET http://localhost:8080/github/click?tag=promo
 Cookie: identifier=10000000-2000-4000-8000-160000000000
-X-Click-Namespace: 10000000-2000-4000-8000-160000000002
+X-Click-Namespace: 10000000-2000-4000-8000-160000000004
 
 ###
 
 GET http://localhost:8080/github/click?tag=src
 Cookie: identifier=10000000-2000-4000-8000-160000000000
-X-Click-Namespace: 10000000-2000-4000-8000-160000000002
+X-Click-Namespace: 10000000-2000-4000-8000-160000000004
 
 ###
 
