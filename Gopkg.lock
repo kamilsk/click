@@ -102,11 +102,12 @@
 
 [[projects]]
   branch = "master"
-  digest = "1:caf232246c27105c302d27831d8d0834907188c0970cf24747dc007c74959e2f"
+  digest = "1:09196f8417b28774ee5463e5a1f26f3ab89848170565539d84f478398efeefe0"
   name = "github.com/kamilsk/go-kit"
   packages = [
     "pkg/config",
     "pkg/fn",
+    "pkg/strings",
   ]
   pruneopts = "NUT"
   revision = "bcfc2c1707dec83bb1aad27c5547093a90be5efc"
@@ -276,12 +277,12 @@
   version = "v1.0.0"
 
 [[projects]]
-  digest = "1:e3707aeaccd2adc89eba6c062fec72116fe1fc1ba71097da85b4d8ae1668a675"
+  digest = "1:9d8420bbf131d1618bde6530af37c3799340d3762cc47210c1d9532a4c3a2779"
   name = "github.com/spf13/pflag"
   packages = ["."]
   pruneopts = "NUT"
-  revision = "9a97c102cda95a86cec2345a6f09f55a939babf5"
-  version = "v1.0.2"
+  revision = "298182f68c66c05229eb03ac171abe6e309ee79a"
+  version = "v1.0.3"
 
 [[projects]]
   digest = "1:9caed8c7c05e8927f5bc6eec5698119b2b63a7cf304effc6c9b818bc864a10d3"
@@ -324,7 +325,7 @@
     "trace",
   ]
   pruneopts = "NUT"
-  revision = "4dfa2610cdf3b287375bbba5b8f2a14d3b01d8de"
+  revision = "f5e5bdd778241bfefa8627f7124c39cd6ad8d74f"
 
 [[projects]]
   branch = "master"
@@ -445,6 +446,7 @@
     "github.com/grpc-ecosystem/go-grpc-middleware/auth",
     "github.com/kamilsk/go-kit/pkg/config",
     "github.com/kamilsk/go-kit/pkg/fn",
+    "github.com/kamilsk/go-kit/pkg/strings",
     "github.com/lib/pq",
     "github.com/mailru/easyjson",
     "github.com/mailru/easyjson/gen",
