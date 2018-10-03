@@ -24,14 +24,23 @@ func TestNew(t *testing.T) {
 	}
 	t.Run("PostgreSQL", func(t *testing.T) {
 		assert.NotPanics(t, func() {
-			var exec contract = executor.New("postgres")
-			assert.NotEmpty(t, exec.Dialect())
-			assert.NotNil(t, exec.UserManager(nil, nil))
+			dialect, ctx := "postgres", context.Background()
+			var exec contract = executor.New(dialect)
+			assert.Equal(t, dialect, exec.Dialect())
+
+			assert.NotNil(t, exec.AliasEditor(ctx, nil))
+			assert.NotNil(t, exec.LinkEditor(ctx, nil))
+			assert.NotNil(t, exec.NamespaceEditor(ctx, nil))
+			assert.NotNil(t, exec.TargetEditor(ctx, nil))
+			assert.NotNil(t, exec.UserManager(ctx, nil))
+
+			assert.NotNil(t, exec.LinkReader(ctx, nil))
 		})
 	})
 	t.Run("MySQL", func(t *testing.T) {
 		assert.Panics(t, func() {
-			var _ contract = executor.New("mysql")
+			dialect := "mysql"
+			var _ contract = executor.New(dialect)
 		})
 	})
 }
