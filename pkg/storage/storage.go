@@ -1,12 +1,12 @@
 package storage
 
 import (
+	"context"
 	"database/sql"
 
 	"github.com/kamilsk/click/pkg/config"
-	"github.com/kamilsk/click/pkg/domain"
-	"github.com/kamilsk/click/pkg/storage/postgres"
-	"github.com/pkg/errors"
+	"github.com/kamilsk/click/pkg/errors"
+	"github.com/kamilsk/click/pkg/storage/executor"
 )
 
 // Must returns a new instance of the Storage or panics if it cannot configure it.
@@ -29,17 +29,18 @@ func New(configs ...Configurator) (*Storage, error) {
 	return instance, nil
 }
 
-// Connection returns database connection Configurator.
-func Connection(cnf config.DBConfig) Configurator {
-	return func(instance *Storage) error {
-		var err error
-		instance.conn, err = sql.Open(cnf.DriverName(), string(cnf.DSN))
+// Database returns database configurator.
+func Database(cnf config.DBConfig) Configurator {
+	return func(instance *Storage) (err error) {
+		defer errors.Recover(&err)
+		instance.exec = executor.New(cnf.DriverName())
+		instance.db, err = sql.Open(cnf.DriverName(), string(cnf.DSN))
 		if err == nil {
-			instance.conn.SetMaxOpenConns(cnf.MaxOpen)
-			instance.conn.SetMaxIdleConns(cnf.MaxIdle)
-			instance.conn.SetConnMaxLifetime(cnf.MaxLifetime)
+			instance.db.SetMaxOpenConns(cnf.MaxOpen)
+			instance.db.SetMaxIdleConns(cnf.MaxIdle)
+			instance.db.SetConnMaxLifetime(cnf.MaxLifetime)
 		}
-		return err
+		return
 	}
 }
 
@@ -48,35 +49,24 @@ type Configurator func(*Storage) error
 
 // Storage is an implementation of Data Access Object.
 type Storage struct {
-	conn *sql.DB
+	db   *sql.DB
+	exec *executor.Executor
 }
 
-// Connection returns current database connection.
-func (l *Storage) Connection() *sql.DB {
-	return l.conn
+// Database returns the current database handle.
+func (storage *Storage) Database() *sql.DB {
+	return storage.db
 }
 
-// Dialect returns supported database dialect.
-func (l *Storage) Dialect() string {
-	return postgres.Dialect()
+// Dialect returns a supported database dialect.
+func (storage *Storage) Dialect() string {
+	return storage.exec.Dialect()
 }
 
-// Link returns the Link with its Aliases and Targets by provided ID.
-func (l *Storage) Link(id domain.ID) (domain.Link, error) {
-	return postgres.Link(l.conn, id)
-}
-
-// LinkByAlias returns the Link with its set of Alias and set of Target defined by provided namespace and URN.
-func (l *Storage) LinkByAlias(ns, urn string) (domain.Link, error) {
-	return postgres.LinkByAlias(l.conn, ns, urn)
-}
-
-// Log stores a "redirect event".
-func (l *Storage) Log(event domain.Log) (domain.Log, error) {
-	return postgres.Log(l.conn, event)
-}
-
-// UUID returns a new generated unique identifier.
-func (l *Storage) UUID() (domain.ID, error) {
-	return postgres.UUID(l.conn)
+func (storage *Storage) connection(ctx context.Context) (*sql.Conn, func() error, error) {
+	conn, err := storage.db.Conn(ctx)
+	if err != nil {
+		return conn, nil, errors.Database(errors.ServerErrorMessage, err, "trying to get connection")
+	}
+	return conn, conn.Close, nil
 }

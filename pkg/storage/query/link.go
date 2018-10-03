@@ -24,14 +24,3 @@ type DeleteLink struct {
 	ID          domain.ID
 	Permanently bool
 }
-
-// WriteLog TODO issue#131
-type WriteLog struct {
-	LinkID          domain.ID
-	AliasID         domain.ID
-	TargetID        domain.ID
-	Identifier      domain.ID
-	URI             string
-	Code            uint16
-	RedirectContext domain.RedirectContext
-}

@@ -45,7 +45,7 @@ var runCmd = &cobra.Command{
 		handler := chi.NewRouter(
 			server.New(
 				service.New(
-					storage.Must(storage.Connection(cnf.Union.DBConfig)),
+					storage.Must(storage.Database(cnf.Union.DBConfig)),
 				),
 			),
 		)
