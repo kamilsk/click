@@ -28,7 +28,14 @@ var runCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		runtime.GOMAXPROCS(int(cnf.Union.ServerConfig.CPUCount))
 
-		if err := startGRPCServer(cnf.Union.GRPCConfig); err != nil {
+		repo := storage.Must(storage.Database(cnf.Union.DBConfig))
+		handler := chi.NewRouter(
+			server.New(
+				service.New(repo),
+			),
+		)
+
+		if err := startGRPCServer(cnf.Union.GRPCConfig, repo); err != nil {
 			return err
 		}
 		if cnf.Union.MonitoringConfig.Enabled {
@@ -41,14 +48,6 @@ var runCmd = &cobra.Command{
 				return err
 			}
 		}
-
-		handler := chi.NewRouter(
-			server.New(
-				service.New(
-					storage.Must(storage.Database(cnf.Union.DBConfig)),
-				),
-			),
-		)
 		return startHTTPServer(cnf.Union.ServerConfig, handler)
 	},
 }
@@ -126,18 +125,18 @@ func startHTTPServer(cnf config.ServerConfig, handler http.Handler) error {
 	return srv.Serve(listener)
 }
 
-func startGRPCServer(cnf config.GRPCConfig) error {
+func startGRPCServer(cnf config.GRPCConfig, storage pb.ProtectedStorage) error {
 	listener, err := net.Listen("tcp", cnf.Interface)
 	if err != nil {
 		return err
 	}
 	go func() {
 		srv := grpc.NewServer()
-		pb.RegisterNamespaceServer(srv, pb.NewNamespaceServer())
-		pb.RegisterLinkServer(srv, pb.NewLinkServer())
-		pb.RegisterAliasServer(srv, pb.NewAliasServer())
-		pb.RegisterTargetServer(srv, pb.NewTargetServer())
-		pb.RegisterLogServer(srv, pb.NewLogServer())
+		pb.RegisterNamespaceServer(srv, pb.NewNamespaceServer(storage))
+		pb.RegisterLinkServer(srv, pb.NewLinkServer(storage))
+		pb.RegisterAliasServer(srv, pb.NewAliasServer(storage))
+		pb.RegisterTargetServer(srv, pb.NewTargetServer(storage))
+		pb.RegisterLogServer(srv, pb.NewLogServer(storage))
 		log.Println("start gRPC server at", listener.Addr())
 		_ = srv.Serve(listener) // TODO issue#97
 		listener.Close()
