@@ -74,6 +74,37 @@ func (scope targetScope) Read(token *types.Token, data query.ReadTarget) (types.
 	return entity, nil
 }
 
+// ReadAllByLink TODO issue#docs
+func (scope targetScope) ReadAllByLink(link domain.ID) ([]types.Target, error) {
+	q := `SELECT "id", "uri", "rule", "b_rule", "created_at", "updated_at", "deleted_at"
+	        FROM "target"
+	       WHERE "link_id" = $1 AND "deleted_at" IS NULL`
+	rows, queryErr := scope.conn.QueryContext(scope.ctx, q, link)
+	if queryErr != nil {
+		return nil, errors.Database(errors.ServerErrorMessage, queryErr,
+			"trying to read all targets of the link %q", link)
+	}
+	result := make([]types.Target, 0, 4)
+	for rows.Next() {
+		var encodedRule, encodedBinaryRule []byte
+		entity := types.Target{LinkID: link}
+		if scanErr := rows.Scan(&entity.ID, &entity.URI,
+			&encodedRule, &encodedBinaryRule,
+			&entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); scanErr != nil {
+			return nil, errors.Database(errors.ServerErrorMessage, scanErr,
+				"trying to read a target of the link %q", link)
+		}
+		if err := json.Unmarshal(encodedRule, &entity.Rule); err != nil {
+			return nil, errors.Serialization(errors.ServerErrorMessage, err,
+				"trying to unmarshal JSON `%s` of the target rule %q",
+				encodedRule, entity.ID)
+		}
+		entity.BinaryRule = domain.BinaryRule(encodedBinaryRule)
+		result = append(result, entity)
+	}
+	return result, nil
+}
+
 // Update TODO issue#131
 func (scope targetScope) Update(token *types.Token, data query.UpdateTarget) (types.Target, error) {
 	entity, readErr := scope.Read(token, query.ReadTarget{ID: data.ID})

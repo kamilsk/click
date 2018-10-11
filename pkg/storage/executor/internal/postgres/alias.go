@@ -4,6 +4,7 @@ import (
 	"context"
 	"database/sql"
 
+	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/errors"
 	"github.com/kamilsk/click/pkg/storage/query"
 	"github.com/kamilsk/click/pkg/storage/types"
@@ -54,6 +55,29 @@ func (scope aliasScope) Read(token *types.Token, data query.ReadAlias) (types.Al
 			token.UserID, token.User.AccountID, entity.ID)
 	}
 	return entity, nil
+}
+
+// ReadAllByLink TODO issue#131
+func (scope aliasScope) ReadAllByLink(link domain.ID) ([]types.Alias, error) {
+	q := `SELECT "id", "namespace_id", "urn", "created_at", "updated_at", "deleted_at"
+	        FROM "alias"
+	       WHERE "link_id" = $1 AND "deleted_at" IS NULL`
+	rows, queryErr := scope.conn.QueryContext(scope.ctx, q, link)
+	if queryErr != nil {
+		return nil, errors.Database(errors.ServerErrorMessage, queryErr,
+			"trying to read all aliases of the link %q", link)
+	}
+	result := make([]types.Alias, 0, 4)
+	for rows.Next() {
+		entity := types.Alias{LinkID: link}
+		if scanErr := rows.Scan(&entity.ID, &entity.NamespaceID, &entity.URN,
+			&entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); scanErr != nil {
+			return nil, errors.Database(errors.ServerErrorMessage, scanErr,
+				"trying to read an alias of the link %q", link)
+		}
+		result = append(result, entity)
+	}
+	return result, nil
 }
 
 // Update TODO issue#131
