@@ -18,6 +18,7 @@ func TestNew(t *testing.T) {
 		AliasReader(context.Context, *sql.Conn) AliasReader
 		LinkEditor(context.Context, *sql.Conn) LinkEditor
 		LinkReader(context.Context, *sql.Conn) LinkReader
+		LogWriter(context.Context, *sql.Conn) LogWriter
 		NamespaceEditor(context.Context, *sql.Conn) NamespaceEditor
 		TargetEditor(context.Context, *sql.Conn) TargetEditor
 		TargetReader(context.Context, *sql.Conn) TargetReader
@@ -33,6 +34,7 @@ func TestNew(t *testing.T) {
 			assert.NotNil(t, exec.AliasReader(ctx, nil))
 			assert.NotNil(t, exec.LinkEditor(ctx, nil))
 			assert.NotNil(t, exec.LinkReader(ctx, nil))
+			assert.NotNil(t, exec.LogWriter(ctx, nil))
 			assert.NotNil(t, exec.NamespaceEditor(ctx, nil))
 			assert.NotNil(t, exec.TargetEditor(ctx, nil))
 			assert.NotNil(t, exec.TargetReader(ctx, nil))

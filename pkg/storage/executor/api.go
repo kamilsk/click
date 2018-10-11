@@ -33,6 +33,9 @@ func New(dialect string) *Executor {
 		exec.factory.NewLinkReader = func(ctx context.Context, conn *sql.Conn) LinkReader {
 			return postgres.NewLinkContext(ctx, conn)
 		}
+		exec.factory.NewLogWriter = func(ctx context.Context, conn *sql.Conn) LogWriter {
+			return postgres.NewLogContext(ctx, conn)
+		}
 		exec.factory.NewNamespaceEditor = func(ctx context.Context, conn *sql.Conn) NamespaceEditor {
 			return postgres.NewNamespaceContext(ctx, conn)
 		}
@@ -92,6 +95,12 @@ type LinkReader interface {
 	ReadByAlias(ns domain.ID, urn string) (types.Link, error)
 }
 
+// LogWriter TODO issue#131
+type LogWriter interface {
+	// Write TODO issue#131
+	Write(query.WriteLog) (types.Log, error)
+}
+
 // NamespaceEditor TODO issue#131
 type NamespaceEditor interface {
 	// Create TODO issue#131
@@ -136,6 +145,7 @@ type Executor struct {
 		NewAliasReader     func(context.Context, *sql.Conn) AliasReader
 		NewLinkEditor      func(context.Context, *sql.Conn) LinkEditor
 		NewLinkReader      func(context.Context, *sql.Conn) LinkReader
+		NewLogWriter       func(context.Context, *sql.Conn) LogWriter
 		NewNamespaceEditor func(context.Context, *sql.Conn) NamespaceEditor
 		NewTargetEditor    func(context.Context, *sql.Conn) TargetEditor
 		NewTargetReader    func(context.Context, *sql.Conn) TargetReader
@@ -166,6 +176,11 @@ func (e *Executor) LinkEditor(ctx context.Context, conn *sql.Conn) LinkEditor {
 // LinkReader TODO issue#131
 func (e *Executor) LinkReader(ctx context.Context, conn *sql.Conn) LinkReader {
 	return e.factory.NewLinkReader(ctx, conn)
+}
+
+// LogWriter TODO issue#131
+func (e *Executor) LogWriter(ctx context.Context, conn *sql.Conn) LogWriter {
+	return e.factory.NewLogWriter(ctx, conn)
 }
 
 // NamespaceEditor TODO issue#131

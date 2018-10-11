@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/kamilsk/click/pkg/domain"
-	"github.com/kamilsk/click/pkg/storage/postgres"
+	"github.com/kamilsk/click/pkg/storage/query"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -77,9 +77,24 @@ func (storage *Storage) LinkByAlias(ctx context.Context, ns domain.ID, urn strin
 	return storage.Link(ctx, entity.ID)
 }
 
-// Log stores a "redirect event".
-func (storage *Storage) Log(ctx context.Context, event domain.Redirect) (domain.Redirect, error) {
-	var _ domain.Redirect
+// LogRedirect stores a redirect event.
+func (storage *Storage) LogRedirect(ctx context.Context, event domain.Redirect) error {
+	conn, closer, connErr := storage.connection(ctx)
+	if connErr != nil {
+		return connErr
+	}
+	defer closer()
 
-	return postgres.Log(storage.db, event)
+	// TODO issue#51
+	_, writeErr := storage.exec.LogWriter(ctx, conn).Write(query.WriteLog{
+		LinkID:          event.LinkID,
+		AliasID:         event.AliasID,
+		TargetID:        event.TargetID,
+		Identifier:      "10000000-2000-4000-8000-160000000000", // TODO issue#134
+		URI:             event.URI,
+		Code:            302,
+		RedirectContext: event.Context,
+	})
+
+	return writeErr
 }
