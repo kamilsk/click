@@ -37,8 +37,9 @@ func (scope targetScope) Create(token *types.Token, data query.CreateTarget) (ty
 			token.UserID, token.User.AccountID, entity.Rule)
 	}
 	encodedBinaryRule := []byte(entity.BinaryRule)
-	q := `INSERT INTO "target" ("id", "account_id", "link_id", "uri", "rule", "b_rule") VALUES ($1, $2, $3, $4, $5, $6)
-	      RETURNING "id", "created_at"`
+	q := `INSERT INTO "target" ("id", "account_id", "link_id", "uri", "rule", "b_rule")
+	      VALUES (coalesce($1, uuid_generate_v4()), $2, $3, $4, $5, $6)
+	   RETURNING "id", "created_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, entity.AccountID, entity.LinkID,
 		entity.URI, encodedRule, encodedBinaryRule)
 	if err := row.Scan(&entity.ID, &entity.CreatedAt); err != nil {
@@ -53,7 +54,8 @@ func (scope targetScope) Create(token *types.Token, data query.CreateTarget) (ty
 func (scope targetScope) Read(token *types.Token, data query.ReadTarget) (types.Target, error) {
 	var encodedRule, encodedBinaryRule []byte
 	entity := types.Target{ID: data.ID, AccountID: token.User.AccountID}
-	q := `SELECT "link_id", "uri", "rule", "b_rule", "created_at", "updated_at", "deleted_at" FROM "target"
+	q := `SELECT "link_id", "uri", "rule", "b_rule", "created_at", "updated_at", "deleted_at"
+	        FROM "target"
 	       WHERE "id" = $1 AND "account_id" = $2`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, entity.AccountID)
 	if err := row.Scan(&entity.LinkID, &entity.URI,
@@ -94,7 +96,8 @@ func (scope targetScope) Update(token *types.Token, data query.UpdateTarget) (ty
 			token.UserID, token.User.AccountID, entity.Rule, entity.ID)
 	}
 	encodedBinaryRule := []byte(entity.BinaryRule)
-	q := `UPDATE "target" SET "uri" = $1, "rule" = $2, "b_rule" = $3
+	q := `UPDATE "target"
+	         SET "uri" = $1, "rule" = $2, "b_rule" = $3
 	       WHERE "id" = $4 AND "account_id" = $5
 	   RETURNING "updated_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.URI, encodedRule, encodedBinaryRule,
@@ -123,7 +126,8 @@ func (scope targetScope) Delete(token *types.Token, data query.DeleteTarget) (ty
 		}
 		return entity, nil
 	}
-	q := `UPDATE "target" SET "deleted_at" = now()
+	q := `UPDATE "target"
+	         SET "deleted_at" = now()
 	       WHERE "id" = $1 AND "account_id" = $2
 	   RETURNING "deleted_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, entity.AccountID)

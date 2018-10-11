@@ -27,8 +27,9 @@ func (scope aliasScope) Create(token *types.Token, data query.CreateAlias) (type
 		NamespaceID: data.NamespaceID,
 		URN:         data.URN,
 	}
-	q := `INSERT INTO "alias" ("id", "account_id", "link_id", "namespace_id", "urn") VALUES ($1, $2, $3, $4, $5)
-	      RETURNING "id", "created_at"`
+	q := `INSERT INTO "alias" ("id", "account_id", "link_id", "namespace_id", "urn")
+	      VALUES (coalesce($1, uuid_generate_v4()), $2, $3, $4, $5)
+	   RETURNING "id", "created_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, entity.AccountID,
 		entity.LinkID, entity.NamespaceID, entity.URN)
 	if err := row.Scan(&entity.ID, &entity.CreatedAt); err != nil {
@@ -42,7 +43,8 @@ func (scope aliasScope) Create(token *types.Token, data query.CreateAlias) (type
 // Read TODO issue#131
 func (scope aliasScope) Read(token *types.Token, data query.ReadAlias) (types.Alias, error) {
 	entity := types.Alias{ID: data.ID, AccountID: token.User.AccountID}
-	q := `SELECT "link_id", "namespace_id", "urn", "created_at", "updated_at", "deleted_at" FROM "alias"
+	q := `SELECT "link_id", "namespace_id", "urn", "created_at", "updated_at", "deleted_at"
+	        FROM "alias"
 	       WHERE "id" = $1 AND "account_id" = $2`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, entity.AccountID)
 	if err := row.Scan(&entity.LinkID, &entity.NamespaceID, &entity.URN,
@@ -63,7 +65,8 @@ func (scope aliasScope) Update(token *types.Token, data query.UpdateAlias) (type
 	if data.URN != "" {
 		entity.URN = data.URN
 	}
-	q := `UPDATE "alias" SET "urn" = $1
+	q := `UPDATE "alias"
+	         SET "urn" = $1
 	       WHERE "id" = $2 AND "account_id" = $3
 	   RETURNING "updated_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.URN, entity.ID, entity.AccountID)
@@ -91,7 +94,8 @@ func (scope aliasScope) Delete(token *types.Token, data query.DeleteAlias) (type
 		}
 		return entity, nil
 	}
-	q := `UPDATE "alias" SET "deleted_at" = now()
+	q := `UPDATE "alias"
+	         SET "deleted_at" = now()
 	       WHERE "id" = $1 AND "account_id" = $2
 	   RETURNING "deleted_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, entity.AccountID)

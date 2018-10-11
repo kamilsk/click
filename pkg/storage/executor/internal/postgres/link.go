@@ -23,8 +23,9 @@ type linkScope struct {
 // Create TODO issue#131
 func (scope linkScope) Create(token *types.Token, data query.CreateLink) (types.Link, error) {
 	entity := types.Link{AccountID: token.User.AccountID, Name: data.Name}
-	q := `INSERT INTO "link" ("id", "account_id", "name") VALUES ($1, $2, $3)
-	      RETURNING "id", "created_at"`
+	q := `INSERT INTO "link" ("id", "account_id", "name")
+	      VALUES (coalesce($1, uuid_generate_v4()), $2, $3)
+	   RETURNING "id", "created_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, entity.AccountID, entity.Name)
 	if err := row.Scan(&entity.ID, &entity.CreatedAt); err != nil {
 		return entity, errors.Database(errors.ServerErrorMessage, err,
@@ -37,7 +38,8 @@ func (scope linkScope) Create(token *types.Token, data query.CreateLink) (types.
 // Read TODO issue#131
 func (scope linkScope) Read(token *types.Token, data query.ReadLink) (types.Link, error) {
 	entity := types.Link{ID: data.ID, AccountID: token.User.AccountID}
-	q := `SELECT "name", "created_at", "updated_at", "deleted_at" FROM "link"
+	q := `SELECT "name", "created_at", "updated_at", "deleted_at"
+	        FROM "link"
 	       WHERE "id" = $1 AND "account_id" = $2`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, entity.AccountID)
 	if err := row.Scan(&entity.Name, &entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); err != nil {
@@ -52,7 +54,8 @@ func (scope linkScope) Read(token *types.Token, data query.ReadLink) (types.Link
 // Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
 func (scope linkScope) ReadByID(id domain.ID) (types.Link, error) {
 	entity := types.Link{ID: id}
-	q := `SELECT "name", "created_at", "updated_at" FROM "link"
+	q := `SELECT "name", "created_at", "updated_at"
+	        FROM "link"
 	       WHERE "id" = $1 AND "deleted_at" IS NULL`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID)
 	if err := row.Scan(&entity.Name, &entity.CreatedAt, &entity.UpdatedAt); err != nil {
@@ -73,7 +76,8 @@ func (scope linkScope) Update(token *types.Token, data query.UpdateLink) (types.
 	if data.Name != "" {
 		entity.Name = data.Name
 	}
-	q := `UPDATE "link" SET "name" = $1
+	q := `UPDATE "link"
+	         SET "name" = $1
 	       WHERE "id" = $2 AND "account_id" = $3
 	   RETURNING "updated_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.Name, entity.ID, entity.AccountID)
@@ -101,7 +105,8 @@ func (scope linkScope) Delete(token *types.Token, data query.DeleteLink) (types.
 		}
 		return entity, nil
 	}
-	q := `UPDATE "link" SET "deleted_at" = now()
+	q := `UPDATE "link"
+	         SET "deleted_at" = now()
 	       WHERE "id" = $1 AND "account_id" = $2
 	   RETURNING "deleted_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, entity.AccountID)
