@@ -33,10 +33,10 @@ BEGIN
   WHERE "id" = demoAccount;
 
   INSERT INTO "account" ("id", "name")
-  VALUES (demoAccount, 'Demo account');
+  VALUES (demoAccount, 'Demo Account');
 
   INSERT INTO "user" ("id", "account_id", "name")
-  VALUES (demoUser, demoAccount, 'Demo user');
+  VALUES (demoUser, demoAccount, 'Demo User');
 
   INSERT INTO "token" ("id", "user_id", "expired_at")
   VALUES (demoToken, demoUser, NULL);
@@ -49,30 +49,30 @@ BEGIN
   INSERT INTO "link" ("id", "account_id", "name")
   VALUES (click, demoAccount, 'Click! - Link Manager as a Service');
 
-  INSERT INTO "alias" ("link_id", "namespace_id", "urn")
-  VALUES (click, globalNS, 'github/click');
+  INSERT INTO "alias" ("account_id", "link_id", "namespace_id", "urn")
+  VALUES (demoAccount, click, globalNS, 'github/click');
 
-  INSERT INTO "alias" ("link_id", "namespace_id", "urn")
-  VALUES (click, globalNS, 'github/click!')
+  INSERT INTO "alias" ("account_id", "link_id", "namespace_id", "urn")
+  VALUES (demoAccount, click, globalNS, 'github/click!')
   RETURNING "id"
     INTO promo;
 
-  INSERT INTO "alias" ("link_id", "namespace_id", "urn")
-  VALUES (click, supportNS, 'github/click')
+  INSERT INTO "alias" ("account_id", "link_id", "namespace_id", "urn")
+  VALUES (demoAccount, click, supportNS, 'github/click')
   RETURNING "id"
     INTO issue;
 
-  INSERT INTO "target" ("link_id", "uri", "rule", "b_rule")
+  INSERT INTO "target" ("account_id", "link_id", "uri", "rule", "b_rule")
   VALUES
-    (click, 'https://github.com/kamilsk/click', '{
+    (demoAccount, click, 'https://github.com/kamilsk/click', '{
       "description": "Project''s source code",
       "tags": ["src"]
     }' :: JSONB, convert_to('{tag} in ["src"]', 'UTF8')),
-    (click, 'https://kamilsk.github.io/click/', ('{
+    (demoAccount, click, 'https://kamilsk.github.io/click/', ('{
       "description": "Project''s promo page",
       "tags": ["promo"], "alias": "' || promo || '", "match": 1
     }') :: JSONB, convert_to('{tag} in ["promo"] or {alias} is "' || promo || '"', 'UTF8')),
-    (click, 'https://github.com/kamilsk/click/issues/new', ('{
+    (demoAccount, click, 'https://github.com/kamilsk/click/issues/new', ('{
       "description": "Project''s bug tracker",
       "alias": "' || issue || '"
     }') :: JSONB, convert_to('{alias} is "' || issue || '"', 'UTF8'));

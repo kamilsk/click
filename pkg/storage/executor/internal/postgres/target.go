@@ -74,7 +74,7 @@ func (scope targetScope) Read(token *types.Token, data query.ReadTarget) (types.
 	return entity, nil
 }
 
-// ReadAllByLink TODO issue#docs
+// ReadAllByLink TODO issue#131
 func (scope targetScope) ReadAllByLink(link domain.ID) ([]types.Target, error) {
 	q := `SELECT "id", "uri", "rule", "b_rule", "created_at", "updated_at", "deleted_at"
 	        FROM "target"
@@ -84,6 +84,7 @@ func (scope targetScope) ReadAllByLink(link domain.ID) ([]types.Target, error) {
 		return nil, errors.Database(errors.ServerErrorMessage, queryErr,
 			"trying to read all targets of the link %q", link)
 	}
+	defer rows.Close()
 	result := make([]types.Target, 0, 4)
 	for rows.Next() {
 		var encodedRule, encodedBinaryRule []byte

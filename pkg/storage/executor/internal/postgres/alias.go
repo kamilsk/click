@@ -67,6 +67,7 @@ func (scope aliasScope) ReadAllByLink(link domain.ID) ([]types.Alias, error) {
 		return nil, errors.Database(errors.ServerErrorMessage, queryErr,
 			"trying to read all aliases of the link %q", link)
 	}
+	defer rows.Close()
 	result := make([]types.Alias, 0, 4)
 	for rows.Next() {
 		entity := types.Alias{LinkID: link}
