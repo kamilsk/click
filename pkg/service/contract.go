@@ -10,6 +10,4 @@ type Storage interface {
 	LinkByAlias(ns, urn string) (domain.Link, error)
 	// Log stores a "redirect event".
 	Log(event domain.Log) (domain.Log, error)
-	// UUID returns a new generated unique identifier.
-	UUID() (domain.ID, error)
 }

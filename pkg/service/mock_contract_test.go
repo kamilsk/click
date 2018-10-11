@@ -71,16 +71,3 @@ func (m *MockStorage) Log(arg0 domain.Log) (domain.Log, error) {
 func (mr *MockStorageMockRecorder) Log(arg0 interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Log", reflect.TypeOf((*MockStorage)(nil).Log), arg0)
 }
-
-// UUID mocks base method
-func (m *MockStorage) UUID() (domain.ID, error) {
-	ret := m.ctrl.Call(m, "UUID")
-	ret0, _ := ret[0].(domain.ID)
-	ret1, _ := ret[1].(error)
-	return ret0, ret1
-}
-
-// UUID indicates an expected call of UUID
-func (mr *MockStorageMockRecorder) UUID() *gomock.Call {
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UUID", reflect.TypeOf((*MockStorage)(nil).UUID))
-}

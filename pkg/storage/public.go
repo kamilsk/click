@@ -19,8 +19,3 @@ func (storage *Storage) LinkByAlias(ns, urn string) (domain.Link, error) {
 func (storage *Storage) Log(event domain.Log) (domain.Log, error) {
 	return postgres.Log(storage.db, event)
 }
-
-// UUID returns a new generated unique identifier.
-func (storage *Storage) UUID() (domain.ID, error) {
-	return postgres.UUID(storage.db)
-}

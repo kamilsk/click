@@ -17,7 +17,6 @@ const (
 	namespaceHeader = "X-Click-Namespace"
 	optionsHeader   = "X-Click-Options"
 	passQueryParam  = "url"
-	tokenCookieName = "token"
 )
 
 // New returns a new instance of Click! server.
@@ -61,31 +60,16 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 
 	var opts options
 	opts.From(req.Header.Get(optionsHeader))
-
-	// TODO: move to middleware layer
-	// TODO: support opts.Anonymously()
-	cookie, err := req.Cookie(tokenCookieName)
-	if err != nil {
-		cookie = &http.Cookie{Name: tokenCookieName}
-	}
-
-	response := s.service.HandlePass(transfer.PassRequest{EncryptedMarker: cookie.Value})
+	response := s.service.HandlePass(transfer.PassRequest{})
 	if response.Error != nil {
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
-	// TODO: move to middleware layer
-	// TODO: support opts.Anonymously()
-	cookie.MaxAge, cookie.Path, cookie.Value = 0, "/", response.EncryptedMarker
-	cookie.Secure, cookie.HttpOnly = true, true
-	http.SetCookie(rw, cookie)
-
 	rw.Header().Set("Location", to)
 	rw.WriteHeader(http.StatusFound)
 
 	if !opts.NoLog() {
-		go log(s.service.LogRedirectEvent, req, response.EncryptedMarker, domain.Log{
+		go log(s.service.LogRedirectEvent, req, domain.Log{
 			LinkID:   "00000000-0000-4000-8000-000000000000",
 			AliasID:  "00000000-0000-4000-8000-000000000000",
 			TargetID: "00000000-0000-4000-8000-000000000000",
@@ -101,27 +85,11 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 
 	var opts options
 	opts.From(req.Header.Get(optionsHeader))
-
-	// TODO: move to middleware layer
-	// TODO: support opts.Anonymously()
-	cookie, err := req.Cookie(tokenCookieName)
-	if err != nil {
-		cookie = &http.Cookie{Name: tokenCookieName}
-	}
-
 	response := s.service.HandleRedirect(transfer.RedirectRequest{
-		EncryptedMarker: cookie.Value,
-		Namespace:       ns,
-		URN:             strings.Trim(req.URL.Path, "/"),
-		Query:           req.URL.Query(),
+		Namespace: ns,
+		URN:       strings.Trim(req.URL.Path, "/"),
+		Query:     req.URL.Query(),
 	})
-
-	// TODO: move to middleware layer
-	// TODO: support opts.Anonymously()
-	cookie.MaxAge, cookie.Path, cookie.Value = 0, "/", response.EncryptedMarker
-	cookie.Secure, cookie.HttpOnly = true, true
-	http.SetCookie(rw, cookie)
-
 	if response.Error != nil {
 		if err, is := response.Error.(errors.ApplicationError); is {
 			if _, is := err.IsClientError(); is {
@@ -149,7 +117,7 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	rw.WriteHeader(statusCode)
 
 	if !opts.NoLog() {
-		go log(s.service.LogRedirectEvent, req, response.EncryptedMarker, domain.Log{
+		go log(s.service.LogRedirectEvent, req, domain.Log{
 			LinkID:   response.Alias.LinkID,
 			AliasID:  response.Alias.ID,
 			TargetID: response.Target.ID,
@@ -201,7 +169,7 @@ func fallback(value string, fallbackValues ...string) string {
 	return value
 }
 
-func log(handle func(event domain.Log), req *http.Request, token string, event domain.Log) {
+func log(handle func(event domain.Log), req *http.Request, event domain.Log) {
 	var (
 		cookie map[string]string
 		header map[string][]string
@@ -215,7 +183,6 @@ func log(handle func(event domain.Log), req *http.Request, token string, event d
 				cookie[c.Name] = c.Value
 			}
 		}
-		cookie[tokenCookieName] = token
 	}
 	{
 		origin := req.Header
