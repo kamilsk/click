@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
-	
+
 	. "github.com/kamilsk/click/pkg/storage/executor"
 )
 
@@ -15,13 +15,13 @@ func TestNew(t *testing.T) {
 		Dialect() string
 
 		AliasEditor(context.Context, *sql.Conn) AliasEditor
+		AliasReader(context.Context, *sql.Conn) AliasReader
 		LinkEditor(context.Context, *sql.Conn) LinkEditor
+		LinkReader(context.Context, *sql.Conn) LinkReader
 		NamespaceEditor(context.Context, *sql.Conn) NamespaceEditor
 		TargetEditor(context.Context, *sql.Conn) TargetEditor
+		TargetReader(context.Context, *sql.Conn) TargetReader
 		UserManager(context.Context, *sql.Conn) UserManager
-
-		// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
-		LinkReader(context.Context, *sql.Conn) LinkReader
 	}
 	t.Run("PostgreSQL", func(t *testing.T) {
 		assert.NotPanics(t, func() {
@@ -30,9 +30,12 @@ func TestNew(t *testing.T) {
 			assert.Equal(t, dialect, exec.Dialect())
 
 			assert.NotNil(t, exec.AliasEditor(ctx, nil))
+			assert.NotNil(t, exec.AliasReader(ctx, nil))
 			assert.NotNil(t, exec.LinkEditor(ctx, nil))
+			assert.NotNil(t, exec.LinkReader(ctx, nil))
 			assert.NotNil(t, exec.NamespaceEditor(ctx, nil))
 			assert.NotNil(t, exec.TargetEditor(ctx, nil))
+			assert.NotNil(t, exec.TargetReader(ctx, nil))
 			assert.NotNil(t, exec.UserManager(ctx, nil))
 
 			assert.NotNil(t, exec.LinkReader(ctx, nil))

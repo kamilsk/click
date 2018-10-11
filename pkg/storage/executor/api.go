@@ -24,7 +24,13 @@ func New(dialect string) *Executor {
 		exec.factory.NewAliasEditor = func(ctx context.Context, conn *sql.Conn) AliasEditor {
 			return postgres.NewAliasContext(ctx, conn)
 		}
+		exec.factory.NewAliasReader = func(ctx context.Context, conn *sql.Conn) AliasReader {
+			return postgres.NewAliasContext(ctx, conn)
+		}
 		exec.factory.NewLinkEditor = func(ctx context.Context, conn *sql.Conn) LinkEditor {
+			return postgres.NewLinkContext(ctx, conn)
+		}
+		exec.factory.NewLinkReader = func(ctx context.Context, conn *sql.Conn) LinkReader {
 			return postgres.NewLinkContext(ctx, conn)
 		}
 		exec.factory.NewNamespaceEditor = func(ctx context.Context, conn *sql.Conn) NamespaceEditor {
@@ -33,12 +39,11 @@ func New(dialect string) *Executor {
 		exec.factory.NewTargetEditor = func(ctx context.Context, conn *sql.Conn) TargetEditor {
 			return postgres.NewTargetContext(ctx, conn)
 		}
+		exec.factory.NewTargetReader = func(ctx context.Context, conn *sql.Conn) TargetReader {
+			return postgres.NewTargetContext(ctx, conn)
+		}
 		exec.factory.NewUserManager = func(ctx context.Context, conn *sql.Conn) UserManager {
 			return postgres.NewUserContext(ctx, conn)
-		}
-		// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
-		exec.factory.NewLinkReader = func(ctx context.Context, conn *sql.Conn) LinkReader {
-			return postgres.NewLinkContext(ctx, conn)
 		}
 	case mysqlDialect:
 		fallthrough
@@ -50,44 +55,76 @@ func New(dialect string) *Executor {
 
 // AliasEditor TODO issue#131
 type AliasEditor interface {
+	// Create TODO issue#131
 	Create(*types.Token, query.CreateAlias) (types.Alias, error)
+	// Read TODO issue#131
 	Read(*types.Token, query.ReadAlias) (types.Alias, error)
+	// Update TODO issue#131
 	Update(*types.Token, query.UpdateAlias) (types.Alias, error)
+	// Delete TODO issue#131
 	Delete(*types.Token, query.DeleteAlias) (types.Alias, error)
+}
+
+// AliasReader TODO issue#131
+type AliasReader interface {
+	// ReadAllByLink TODO issue#131
+	ReadAllByLink(domain.ID) ([]types.Alias, error)
 }
 
 // LinkEditor TODO issue#131
 type LinkEditor interface {
+	// Create TODO issue#131
 	Create(*types.Token, query.CreateLink) (types.Link, error)
+	// Read TODO issue#131
 	Read(*types.Token, query.ReadLink) (types.Link, error)
+	// Update TODO issue#131
 	Update(*types.Token, query.UpdateLink) (types.Link, error)
+	// Delete TODO issue#131
 	Delete(*types.Token, query.DeleteLink) (types.Link, error)
+}
+
+// LinkReader TODO issue#131
+type LinkReader interface {
+	// ReadByID TODO issue#131
+	// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
+	ReadByID(domain.ID) (types.Link, error)
+	// ReadByAlias TODO issue#131
+	ReadByAlias(ns domain.ID, urn string) (types.Link, error)
 }
 
 // NamespaceEditor TODO issue#131
 type NamespaceEditor interface {
+	// Create TODO issue#131
 	Create(*types.Token, query.CreateNamespace) (types.Namespace, error)
+	// Read TODO issue#131
 	Read(*types.Token, query.ReadNamespace) (types.Namespace, error)
+	// Update TODO issue#131
 	Update(*types.Token, query.UpdateNamespace) (types.Namespace, error)
+	// Delete TODO issue#131
 	Delete(*types.Token, query.DeleteNamespace) (types.Namespace, error)
 }
 
 // TargetEditor TODO issue#131
 type TargetEditor interface {
+	// Create TODO issue#131
 	Create(*types.Token, query.CreateTarget) (types.Target, error)
+	// Read TODO issue#131
 	Read(*types.Token, query.ReadTarget) (types.Target, error)
+	// Update TODO issue#131
 	Update(*types.Token, query.UpdateTarget) (types.Target, error)
+	// Delete TODO issue#131
 	Delete(*types.Token, query.DeleteTarget) (types.Target, error)
 }
 
-// LinkReader TODO issue#131
-// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
-type LinkReader interface {
-	ReadByID(domain.ID) (types.Link, error)
+// TargetReader TODO issue#131
+type TargetReader interface {
+	// ReadAllByLink TODO issue#131
+	ReadAllByLink(link domain.ID) ([]types.Target, error)
 }
 
 // UserManager TODO issue#131
 type UserManager interface {
+	// Token TODO issue#131
 	Token(domain.ID) (*types.Token, error)
 }
 
@@ -96,13 +133,13 @@ type Executor struct {
 	dialect string
 	factory struct {
 		NewAliasEditor     func(context.Context, *sql.Conn) AliasEditor
+		NewAliasReader     func(context.Context, *sql.Conn) AliasReader
 		NewLinkEditor      func(context.Context, *sql.Conn) LinkEditor
+		NewLinkReader      func(context.Context, *sql.Conn) LinkReader
 		NewNamespaceEditor func(context.Context, *sql.Conn) NamespaceEditor
 		NewTargetEditor    func(context.Context, *sql.Conn) TargetEditor
+		NewTargetReader    func(context.Context, *sql.Conn) TargetReader
 		NewUserManager     func(context.Context, *sql.Conn) UserManager
-
-		// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
-		NewLinkReader func(context.Context, *sql.Conn) LinkReader
 	}
 }
 
@@ -116,9 +153,19 @@ func (e *Executor) AliasEditor(ctx context.Context, conn *sql.Conn) AliasEditor 
 	return e.factory.NewAliasEditor(ctx, conn)
 }
 
+// AliasReader TODO issue#131
+func (e *Executor) AliasReader(ctx context.Context, conn *sql.Conn) AliasReader {
+	return e.factory.NewAliasReader(ctx, conn)
+}
+
 // LinkEditor TODO issue#131
 func (e *Executor) LinkEditor(ctx context.Context, conn *sql.Conn) LinkEditor {
 	return e.factory.NewLinkEditor(ctx, conn)
+}
+
+// LinkReader TODO issue#131
+func (e *Executor) LinkReader(ctx context.Context, conn *sql.Conn) LinkReader {
+	return e.factory.NewLinkReader(ctx, conn)
 }
 
 // NamespaceEditor TODO issue#131
@@ -131,13 +178,12 @@ func (e *Executor) TargetEditor(ctx context.Context, conn *sql.Conn) TargetEdito
 	return e.factory.NewTargetEditor(ctx, conn)
 }
 
+// TargetReader TODO issue#131
+func (e *Executor) TargetReader(ctx context.Context, conn *sql.Conn) TargetReader {
+	return e.factory.NewTargetReader(ctx, conn)
+}
+
 // UserManager TODO issue#131
 func (e *Executor) UserManager(ctx context.Context, conn *sql.Conn) UserManager {
 	return e.factory.NewUserManager(ctx, conn)
-}
-
-// LinkReader TODO issue#131
-// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
-func (e *Executor) LinkReader(ctx context.Context, conn *sql.Conn) LinkReader {
-	return e.factory.NewLinkReader(ctx, conn)
 }

@@ -58,11 +58,48 @@ func (scope linkScope) ReadByID(id domain.ID) (types.Link, error) {
 	        FROM "link"
 	       WHERE "id" = $1 AND "deleted_at" IS NULL`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID)
-	if err := row.Scan(&entity.Name, &entity.CreatedAt, &entity.UpdatedAt); err != nil {
-		if err == sql.ErrNoRows {
-			return entity, errors.NotFound(errors.LinkNotFoundMessage, err, "the link %q not found", entity.ID)
+	if scanErr := row.Scan(&entity.Name, &entity.CreatedAt, &entity.UpdatedAt); scanErr != nil {
+		if scanErr == sql.ErrNoRows {
+			return entity, errors.NotFound(errors.LinkNotFoundMessage, scanErr, "the link %q not found", entity.ID)
 		}
-		return entity, errors.Database(errors.ServerErrorMessage, err, "trying to populate the link %q", entity.ID)
+		return entity, errors.Database(errors.ServerErrorMessage, scanErr, "trying to populate the link %q", entity.ID)
+	}
+	return entity, nil
+}
+
+// ReadByAlias TODO issue#131
+// TODO issue#deprecated too complex logic
+func (scope linkScope) ReadByAlias(ns domain.ID, urn string) (types.Link, error) {
+	var entity types.Link
+	q := `SELECT "id", "name", "created_at", "updated_at"
+	        FROM "link"
+	       WHERE "id" = (
+	             SELECT "link_id"
+	               FROM (
+	                 SELECT "link_id"
+	                   FROM "alias"
+	                  WHERE "namespace_id" = $1
+	                    AND "urn" = $2
+	
+	                  UNION
+	
+	                 SELECT "link_id"
+	                   FROM "alias"
+	                  WHERE "namespace_id" = (
+	                        SELECT "account_id"
+	                          FROM "namespace"
+	                         WHERE "id" = $1
+	                        )
+	                    AND "urn" = $2
+	                ) "fallback" LIMIT 1
+	             )
+	         AND "deleted_at" IS NULL`
+	row := scope.conn.QueryRowContext(scope.ctx, q, ns, urn)
+	if scanErr := row.Scan(&entity.ID, &entity.Name, &entity.CreatedAt, &entity.UpdatedAt); scanErr != nil {
+		if scanErr == sql.ErrNoRows {
+			return entity, errors.NotFound(errors.LinkNotFoundMessage, scanErr, "the link %q not found", entity.ID)
+		}
+		return entity, errors.Database(errors.ServerErrorMessage, scanErr, "trying to populate the link %q", entity.ID)
 	}
 	return entity, nil
 }
