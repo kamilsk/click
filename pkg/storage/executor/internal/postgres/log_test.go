@@ -30,7 +30,8 @@ func TestLogWriter(t *testing.T) {
 
 			mock.
 				ExpectQuery(`INSERT INTO "log"`).
-				WithArgs(id, id, id, id, "test", uint16(http.StatusFound), []byte(`{"cookie":"test"}`)).
+				WithArgs(id, id, id, id, "test", http.StatusFound,
+					[]byte(`{"request_id":"10000000-2000-4000-8000-160000000000"}`)).
 				WillReturnRows(
 					sqlmock.
 						NewRows([]string{"id", "created_at"}).
@@ -41,7 +42,7 @@ func TestLogWriter(t *testing.T) {
 			log, err := exec.Write(query.WriteLog{
 				LinkID: id, AliasID: id, TargetID: id,
 				Identifier: id, URI: "test", Code: http.StatusFound,
-				RedirectContext: domain.RedirectContext{Cookie: map[string]string{"cookie": "test"}},
+				RedirectContext: domain.RedirectContext{RequestID: id.String()},
 			})
 			assert.NoError(t, err)
 			assert.Equal(t, uint64(1), log.ID)
@@ -61,14 +62,15 @@ func TestLogWriter(t *testing.T) {
 
 			mock.
 				ExpectQuery(`INSERT INTO "log"`).
-				WithArgs(id, id, id, id, "test", uint16(http.StatusFound), []byte(`{"cookie":"test"}`)).
+				WithArgs(id, id, id, id, "test", http.StatusFound,
+					[]byte(`{"request_id":"10000000-2000-4000-8000-160000000000"}`)).
 				WillReturnError(errors.Simple("test"))
 
 			var exec executor.LogWriter = NewLogContext(ctx, conn)
 			log, err := exec.Write(query.WriteLog{
 				LinkID: id, AliasID: id, TargetID: id,
 				Identifier: id, URI: "test", Code: http.StatusFound,
-				RedirectContext: domain.RedirectContext{Cookie: map[string]string{"cookie": "test"}},
+				RedirectContext: domain.RedirectContext{RequestID: id.String()},
 			})
 			assert.Error(t, err)
 			assert.Empty(t, log.ID)

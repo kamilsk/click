@@ -15,7 +15,7 @@ type Log struct {
 	TargetID   domain.ID              `db:"target_id"`
 	Identifier domain.ID              `db:"identifier"`
 	URI        string                 `db:"uri"`
-	Code       uint16                 `db:"code"`
+	Code       int                    `db:"code"`
 	Context    domain.RedirectContext `db:"context"`
 	CreatedAt  time.Time              `db:"created_at"`
 	Account    *Account               `db:"-"`

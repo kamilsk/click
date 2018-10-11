@@ -9,6 +9,6 @@ type WriteLog struct {
 	TargetID        domain.ID
 	Identifier      domain.ID
 	URI             string
-	Code            uint16
+	Code            int
 	RedirectContext domain.RedirectContext
 }

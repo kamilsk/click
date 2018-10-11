@@ -36,7 +36,7 @@ func (storage *Storage) Link(ctx context.Context, id domain.ID) (domain.Link, er
 		for _, entity := range entities {
 			link.Aliases = append(link.Aliases, domain.Alias{
 				ID:        entity.ID,
-				Namespace: entity.NamespaceID.String(),
+				Namespace: entity.NamespaceID,
 				URN:       entity.URN,
 			})
 		}
@@ -90,9 +90,9 @@ func (storage *Storage) LogRedirect(ctx context.Context, event domain.Redirect) 
 		LinkID:          event.LinkID,
 		AliasID:         event.AliasID,
 		TargetID:        event.TargetID,
-		Identifier:      "10000000-2000-4000-8000-160000000000", // TODO issue#134
+		Identifier:      event.Identifier,
 		URI:             event.URI,
-		Code:            302,
+		Code:            event.Code,
 		RedirectContext: event.Context,
 	})
 

@@ -1,13 +1,21 @@
 package service
 
-import "github.com/kamilsk/click/pkg/domain"
+import (
+	"context"
 
-// Storage defines the behavior of Data Access Object.
+	"github.com/kamilsk/click/pkg/domain"
+)
+
+// Storage TODO issue#131
 type Storage interface {
-	// Link returns the Link with its set of Alias and set of Target by provided ID.
-	Link(domain.ID) (domain.Link, error)
-	// LinkByAlias returns the Link with its set of Alias and set of Target defined by provided namespace and URN.
-	LinkByAlias(ns, urn string) (domain.Link, error)
-	// Log stores a "redirect event".
-	Log(event domain.Log) (domain.Log, error)
+	// Link TODO issue#131
+	Link(context.Context, domain.ID) (domain.Link, error)
+	// LinkByAlias TODO issue#131
+	LinkByAlias(ctx context.Context, ns domain.ID, urn string) (domain.Link, error)
+}
+
+// RedirectHandler TODO issue#131
+type RedirectHandler interface {
+	// LogRedirect stores a redirect event.
+	LogRedirect(context.Context, domain.Redirect) error
 }
