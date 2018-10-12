@@ -29,7 +29,7 @@ func TestLogWriter(t *testing.T) {
 			defer conn.Close()
 
 			mock.
-				ExpectQuery(`INSERT INTO "log"`).
+				ExpectQuery(`INSERT INTO "event"`).
 				WithArgs(id, &id, &id, &id, http.StatusFound, "test", id, []byte(`{}`)).
 				WillReturnRows(
 					sqlmock.
@@ -62,7 +62,7 @@ func TestLogWriter(t *testing.T) {
 			defer conn.Close()
 
 			mock.
-				ExpectQuery(`INSERT INTO "log"`).
+				ExpectQuery(`INSERT INTO "event"`).
 				WithArgs(id, &id, &id, &id, http.StatusFound, "test", id, []byte(`{}`)).
 				WillReturnError(errors.Simple("test"))
 

@@ -14,7 +14,7 @@
 - [x] v1: [MVP][project_v1]
   - [**May 31, 2018**][project_v1_dl]
   - Main concepts and working prototype.
-- [ ] v2: [Accounts and CLI CRUD][project_v2]
+- [x] v2: [Accounts and CLI CRUD][project_v2]
   - [**August 31, 2018**][project_v2_dl]
   - Command line interface for create, read, update and delete operations above gRPC.
 - [ ] v3: [URL shortener and RESTful API][project_v3]
@@ -50,58 +50,80 @@ Requirements:
 ```bash
 $ make up demo status
 
-     Name                    Command               State                                  Ports
--------------------------------------------------------------------------------------------------------------------------------
+     Name                    Command               State                           Ports
+----------------------------------------------------------------------------------------------------------------
 click_db_1        docker-entrypoint.sh postgres    Up      0.0.0.0:5432->5432/tcp
-click_server_1    /bin/sh -c envsubst '$SERV ...   Up      80/tcp, 0.0.0.0:80->8080/tcp
-click_service_1   click run --with-profiling ...   Up      0.0.0.0:8080->80/tcp, 0.0.0.0:8090->8090/tcp, 0.0.0.0:8091->8091/tcp
+click_server_1    /bin/sh -c echo $BASIC_USE ...   Up      0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp
+click_service_1   service run --with-profili ...   Up      0.0.0.0:8080->80/tcp, 0.0.0.0:8090->8090/tcp,
+                                                           0.0.0.0:8091->8091/tcp, 0.0.0.0:8092->8092/tcp
+
+$ open http://127.0.0.1.xip.io/github/click
+
+$ make help
 ```
 
 <details>
 <summary><strong>GET curl /api/v1/UUID</strong></summary>
 
 ```bash
-$ curl http://localhost:8080/api/v1/10000000-2000-4000-8000-160000000005
+$ curl http://127.0.0.1.xip.io/api/v1/10000000-2000-4000-8000-160000000005
 # {
 #   "id": "10000000-2000-4000-8000-160000000005",
 #   "name": "Click! - Link Manager as a Service",
-#   "status": "active",
 #   "aliases": [
 #     {
-#       "id": 1,
-#       "namespace": "global",
+#       "id": "10000000-2000-4000-8000-160000000008",
+#       "namespace": "10000000-2000-4000-8000-160000000001",
 #       "urn": "github/click"
 #     },
 #     {
-#       "id": 7,
-#       "namespace": "global",
+#       "id": "10000000-2000-4000-8000-160000000007",
+#       "namespace": "10000000-2000-4000-8000-160000000001",
 #       "urn": "github/click!"
+#     },
+#     {
+#       "id": "10000000-2000-4000-8000-160000000006",
+#       "namespace": "10000000-2000-4000-8000-160000000004",
+#       "urn": "github/click"
 #     }
 #   ],
 #   "targets": [
 #     {
-#       "id": 1,
-#       "url": "https://github.com/kamilsk/click",
+#       "id": "10000000-2000-4000-8000-160000000011",
 #       "rule": {
-#         "description": "Project location",
-#         "tags": ["src"]
-#       }
+#         "description": "Project's source code",
+#         "tags": [
+#           "src"
+#         ]
+#       },
+#       "url": "https://github.com/kamilsk/click"
 #     },
 #     {
-#       "id": 2,
-#       "url": "https://kamilsk.github.io/click/",
+#       "id": "10000000-2000-4000-8000-160000000009",
 #       "rule": {
-#         "description": "Promotion page",
-#         "alias": 7,
-#         "tags": ["promo"],
+#         "description": "Project's bug tracker",
+#         "alias": "10000000-2000-4000-8000-160000000006"
+#       },
+#       "url": "https://github.com/kamilsk/click/issues/new"
+#     },
+#     {
+#       "id": "10000000-2000-4000-8000-160000000010",
+#       "rule": {
+#         "description": "Project's promo page",
+#         "alias": "10000000-2000-4000-8000-160000000007",
+#         "tags": [
+#           "promo"
+#         ],
 #         "match": 1
-#       }
+#       },
+#       "url": "https://kamilsk.github.io/click/"
 #     }
 #   ]
 # }
-$ curl -v http://localhost:8080/github/click!
+
+$ curl -H "X-Click-Namespace: 10000000-2000-4000-8000-160000000001" -v http://127.0.0.1.xip.io/github/click!
 # > GET /github/click! HTTP/1.1
-# > Host: localhost:8080
+# > Host: 127.0.0.1.xip.io
 # > User-Agent: curl/7.54.0
 # > Accept: */*
 # >
@@ -131,6 +153,8 @@ You can use CLI not only to start the HTTP server but also to execute
 <summary><strong>Service command-line interface</strong></summary>
 
 ```bash
+$ make install
+
 $ click --help
 Click!
 
@@ -168,6 +192,9 @@ $ click completion -f zsh  > /path/to/zsh-completions/_click.zsh
 
 ```bash
 $ brew install kamilsk/tap/click
+
+$ which click
+/usr/local/bin/click
 ```
 
 ### Binary
@@ -176,7 +203,7 @@ $ brew install kamilsk/tap/click
 $ export REQ_VER=1.0.0  # all available versions are on https://github.com/kamilsk/click/releases/
 $ export REQ_OS=Linux   # macOS and Windows are also available
 $ export REQ_ARCH=64bit # 32bit is also available
-$ # wget -q -O click.tar.gz
+# wget -q -O click.tar.gz
 $ curl -sL -o click.tar.gz \
        https://github.com/kamilsk/click/releases/download/"${REQ_VER}/click_${REQ_VER}_${REQ_OS}-${REQ_ARCH}".tar.gz
 $ tar xf click.tar.gz -C "${GOPATH}"/bin/ && rm click.tar.gz

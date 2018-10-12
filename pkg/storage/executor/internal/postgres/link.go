@@ -71,7 +71,7 @@ func (scope linkScope) ReadByID(id domain.ID) (types.Link, error) {
 // Deprecated: TODO issue#logic is not transparent
 func (scope linkScope) ReadByAlias(ns domain.ID, urn string) (types.Link, error) {
 	var entity types.Link
-	q := `SELECT "id", "name", "created_at", "updated_at", "deleted_at"
+	q := `SELECT "id", "name", "created_at", "updated_at"
 	        FROM "link"
 	       WHERE "id" = (
 	             SELECT "link_id"
