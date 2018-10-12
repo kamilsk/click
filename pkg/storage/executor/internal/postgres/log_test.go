@@ -30,8 +30,7 @@ func TestLogWriter(t *testing.T) {
 
 			mock.
 				ExpectQuery(`INSERT INTO "log"`).
-				WithArgs(id, id, id, id, "test", http.StatusFound,
-					[]byte(`{"request_id":"10000000-2000-4000-8000-160000000000"}`)).
+				WithArgs(id, &id, &id, &id, http.StatusFound, "test", id, []byte(`{}`)).
 				WillReturnRows(
 					sqlmock.
 						NewRows([]string{"id", "created_at"}).
@@ -40,9 +39,11 @@ func TestLogWriter(t *testing.T) {
 
 			var exec executor.LogWriter = NewLogContext(ctx, conn)
 			log, err := exec.Write(query.WriteLog{
-				LinkID: id, AliasID: id, TargetID: id,
-				Identifier: id, URL: "test", Code: http.StatusFound,
-				RedirectContext: domain.RedirectContext{RequestID: id.String()},
+				RedirectEvent: domain.RedirectEvent{
+					NamespaceID: id, LinkID: &id, AliasID: &id, TargetID: &id,
+					Code: http.StatusFound, URL: "test", Identifier: id,
+					Context: domain.RedirectContext{},
+				},
 			})
 			assert.NoError(t, err)
 			assert.Equal(t, uint64(1), log.ID)
@@ -62,15 +63,16 @@ func TestLogWriter(t *testing.T) {
 
 			mock.
 				ExpectQuery(`INSERT INTO "log"`).
-				WithArgs(id, id, id, id, "test", http.StatusFound,
-					[]byte(`{"request_id":"10000000-2000-4000-8000-160000000000"}`)).
+				WithArgs(id, &id, &id, &id, http.StatusFound, "test", id, []byte(`{}`)).
 				WillReturnError(errors.Simple("test"))
 
 			var exec executor.LogWriter = NewLogContext(ctx, conn)
 			log, err := exec.Write(query.WriteLog{
-				LinkID: id, AliasID: id, TargetID: id,
-				Identifier: id, URL: "test", Code: http.StatusFound,
-				RedirectContext: domain.RedirectContext{RequestID: id.String()},
+				RedirectEvent: domain.RedirectEvent{
+					NamespaceID: id, LinkID: &id, AliasID: &id, TargetID: &id,
+					Code: http.StatusFound, URL: "test", Identifier: id,
+					Context: domain.RedirectContext{},
+				},
 			})
 			assert.Error(t, err)
 			assert.Empty(t, log.ID)

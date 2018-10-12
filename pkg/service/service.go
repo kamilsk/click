@@ -11,8 +11,8 @@ import (
 )
 
 // New returns a new instance of Click! service.
-func New(storage Storage, handler Tracker) *Click {
-	return &Click{storage, handler}
+func New(storage Storage, tracker Tracker) *Click {
+	return &Click{storage, tracker}
 }
 
 // Click is the primary application service.

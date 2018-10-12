@@ -7,6 +7,7 @@ import (
 
 	"github.com/kamilsk/click/pkg/server"
 	"github.com/kamilsk/click/pkg/server/grpc"
+	"github.com/kamilsk/click/pkg/server/router"
 	"github.com/kamilsk/click/pkg/service"
 	"github.com/kamilsk/click/pkg/storage"
 	"github.com/spf13/cobra"
@@ -16,9 +17,11 @@ import (
 
 // invariant
 var (
-	_ server.Service        = service.New(nil)
-	_ service.Storage       = storage.Must()
 	_ grpc.ProtectedStorage = storage.Must()
+	_ router.Server         = server.New(nil)
+	_ server.Service        = service.New(nil, nil)
+	_ service.Storage       = storage.Must()
+	_ service.Tracker       = storage.Must()
 )
 
 func TestApplication_Run(t *testing.T) {

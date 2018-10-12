@@ -32,11 +32,13 @@ var runCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		runtime.GOMAXPROCS(int(cnf.Union.ServerConfig.CPUCount))
 
-		repo := storage.Must(storage.Database(cnf.Union.DBConfig))
-		handler := chi.NewRouter(
-			server.New(
-				service.New(repo),
-			),
+		var (
+			repo    = storage.Must(storage.Database(cnf.Union.DBConfig))
+			handler = chi.NewRouter(
+				server.New(
+					service.New(repo, repo),
+				),
+			)
 		)
 
 		if err := startGRPCServer(cnf.Union.GRPCConfig, repo); err != nil {
