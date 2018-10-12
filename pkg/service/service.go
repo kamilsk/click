@@ -37,6 +37,11 @@ func (service *Click) HandlePass(ctx context.Context, req transfer.PassRequest) 
 	}
 
 	req.Event.Code, req.Event.URL = http.StatusFound, req.Event.Context.URL()
+	if req.Event.URL == "" {
+		resp.Error = errors.NotFound(errors.LinkNotFoundMessage, errors.Simple("url is empty"),
+			"request %+v", req)
+		return
+	}
 
 	option := req.Event.Context.Option()
 	if !option.NoLog {
@@ -71,7 +76,7 @@ func (service *Click) HandleRedirect(ctx context.Context, req transfer.RedirectR
 			"request %+v", req)
 		return
 	}
-	target, found := link.Targets.Find(alias, req.Event.Context.Query)
+	target, found := link.Targets.Find(alias, req.Event.Context.Queries)
 	if !found {
 		resp.Error = errors.NotFound(errors.LinkNotFoundMessage, errors.Simple("required target not found"),
 			"request %+v", req)

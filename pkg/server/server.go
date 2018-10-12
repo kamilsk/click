@@ -6,22 +6,14 @@ import (
 	"strings"
 
 	"github.com/kamilsk/click/pkg/domain"
-	"github.com/kamilsk/click/pkg/errors"
 	"github.com/kamilsk/click/pkg/server/middleware"
 	"github.com/kamilsk/click/pkg/transfer"
 	"github.com/kamilsk/click/pkg/transfer/api/v1"
 )
 
-const (
-	globalNS        = "global"
-	namespaceHeader = "X-Click-Namespace"
-	optionsHeader   = "X-Click-Options"
-	passQueryParam  = "url"
-)
-
 // New returns a new instance of Click! server.
 func New(service Service) *Server {
-	return &Server{service: service}
+	return &Server{service}
 }
 
 // Server handles HTTP requests.
@@ -30,18 +22,11 @@ type Server struct {
 }
 
 // GetV1 is responsible for `GET /api/v1/{Link.ID}` request handling.
+// Deprecated: TODO issue#version3.0 use LinkEditor and gRPC gateway instead
 func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
-	var (
-		id = req.Context().Value(middleware.LinkKey{}).(domain.ID)
-	)
-	response := s.service.HandleGetV1(v1.GetRequest{ID: id})
+	var id = req.Context().Value(middleware.LinkKey{}).(domain.ID)
+	response := s.service.HandleGetV1(req.Context(), v1.GetRequest{ID: id})
 	if response.Error != nil {
-		if err, is := response.Error.(errors.ApplicationError); is {
-			if _, is := err.IsClientError(); is {
-				rw.WriteHeader(http.StatusNotFound)
-				return
-			}
-		}
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
@@ -50,158 +35,71 @@ func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
 	json.NewEncoder(rw).Encode(response.Link)
 }
 
-// Pass is responsible for `GET /pass?url={URI}` request handling.
+// Pass is responsible for `GET /pass?url={URL}` request handling.
 func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
-	to := req.URL.Query().Get(passQueryParam)
-	if to == "" {
-		rw.WriteHeader(http.StatusBadRequest)
-		return
-	}
-
-	var opts options
-	opts.From(req.Header.Get(optionsHeader))
-	response := s.service.HandlePass(transfer.PassRequest{})
-	if response.Error != nil {
+	resp := s.service.HandlePass(req.Context(), transfer.PassRequest{Event: domain.RedirectEvent{
+		Context: domain.RedirectContext{
+			Cookies: func() map[string]string {
+				cookies := make(map[string]string)
+				for _, cookie := range req.Cookies() {
+					if cookie.HttpOnly && cookie.Secure {
+						cookies[cookie.Name] = cookie.Value
+					}
+				}
+				return cookies
+			}(),
+			Headers: func() map[string][]string {
+				headers := make(map[string][]string)
+				for key, values := range req.Header {
+					if key != "Cookie" {
+						headers[key] = values
+					}
+				}
+				return headers
+			}(),
+			Queries: req.URL.Query(),
+		},
+	}})
+	if resp.Error != nil {
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-	rw.Header().Set("Location", to)
-	rw.WriteHeader(http.StatusFound)
-
-	if !opts.NoLog() {
-		go log(s.service.LogRedirectEvent, req, domain.Log{
-			LinkID:   "00000000-0000-4000-8000-000000000000",
-			AliasID:  "00000000-0000-4000-8000-000000000000",
-			TargetID: "00000000-0000-4000-8000-000000000000",
-			URI:      to,
-			Code:     http.StatusFound,
-		})
-	}
+	rw.Header().Set("Location", resp.URL)
+	rw.WriteHeader(resp.StatusCode)
 }
 
 // Redirect is responsible for `GET /{Alias.URN}` request handling.
 func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
-	var ns = fallback(req.Header.Get(namespaceHeader), globalNS)
-
-	var opts options
-	opts.From(req.Header.Get(optionsHeader))
-	response := s.service.HandleRedirect(transfer.RedirectRequest{
-		Namespace: ns,
-		URN:       strings.Trim(req.URL.Path, "/"),
-		Query:     req.URL.Query(),
+	resp := s.service.HandleRedirect(req.Context(), transfer.RedirectRequest{
+		Event: domain.RedirectEvent{
+			Context: domain.RedirectContext{
+				Cookies: func() map[string]string {
+					cookies := make(map[string]string)
+					for _, cookie := range req.Cookies() {
+						if cookie.HttpOnly && cookie.Secure {
+							cookies[cookie.Name] = cookie.Value
+						}
+					}
+					return cookies
+				}(),
+				Headers: func() map[string][]string {
+					headers := make(map[string][]string)
+					for key, values := range req.Header {
+						if key != "Cookie" {
+							headers[key] = values
+						}
+					}
+					return headers
+				}(),
+				Queries: req.URL.Query(),
+			},
+		},
+		URN: strings.Trim(req.URL.Path, "/"),
 	})
-	if response.Error != nil {
-		if err, is := response.Error.(errors.ApplicationError); is {
-			if _, is := err.IsClientError(); is {
-				rw.WriteHeader(http.StatusNotFound)
-				return
-			}
-		}
+	if resp.Error != nil {
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
-
-	var statusCode int
-	{ // domain logic
-		switch {
-		case response.Target.URI == "":
-			statusCode = http.StatusNotImplemented
-		case response.Alias.DeletedAt.Valid:
-			statusCode = http.StatusMovedPermanently
-		default:
-			statusCode = http.StatusFound
-		}
-	}
-
-	rw.Header().Set("Location", response.Target.URI)
-	rw.WriteHeader(statusCode)
-
-	if !opts.NoLog() {
-		go log(s.service.LogRedirectEvent, req, domain.Log{
-			LinkID:   response.Alias.LinkID,
-			AliasID:  response.Alias.ID,
-			TargetID: response.Target.ID,
-			URI:      response.Target.URI,
-			Code:     statusCode,
-		})
-	}
-}
-
-type options []string
-
-func (opts *options) From(str string) {
-	s := strings.Split(str, ";")
-	*opts = make([]string, 0, len(s))
-	for _, str := range s {
-		*opts = append(*opts, strings.ToLower(strings.TrimSpace(str)))
-	}
-}
-
-func (opts options) Anonymously() bool {
-	return opts.find("anonym")
-}
-
-func (opts options) Debug() bool {
-	return opts.find("debug")
-}
-
-func (opts options) NoLog() bool {
-	return opts.find("nolog")
-}
-
-func (opts options) find(str string) bool {
-	for _, opt := range opts {
-		if opt == str {
-			return true
-		}
-	}
-	return false
-}
-
-func fallback(value string, fallbackValues ...string) string {
-	if value == "" {
-		for _, value := range fallbackValues {
-			if value != "" {
-				return value
-			}
-		}
-	}
-	return value
-}
-
-func log(handle func(event domain.Log), req *http.Request, event domain.Log) {
-	var (
-		cookie map[string]string
-		header map[string][]string
-		query  map[string][]string
-	)
-	{
-		origin := req.Cookies()
-		cookie = make(map[string]string, len(origin))
-		for _, c := range origin {
-			if c.HttpOnly && c.Secure {
-				cookie[c.Name] = c.Value
-			}
-		}
-	}
-	{
-		origin := req.Header
-		header = make(map[string][]string, len(origin))
-		for key, values := range origin {
-			if key != "Cookie" {
-				header[key] = values
-			}
-		}
-	}
-	{
-		origin := req.URL.Query()
-		query = make(map[string][]string, len(origin))
-		for key, values := range origin {
-			if key != passQueryParam {
-				query[key] = values
-			}
-		}
-	}
-	event.Context = domain.Metadata{Cookie: cookie, Header: header, Query: query}
-	handle(event)
+	rw.Header().Set("Location", resp.URL)
+	rw.WriteHeader(resp.StatusCode)
 }

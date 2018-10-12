@@ -51,8 +51,8 @@ func (storage *Storage) Link(ctx context.Context, id domain.ID) (domain.Link, er
 		for _, entity := range entities {
 			link.Targets = append(link.Targets, domain.Target{
 				ID:   entity.ID,
-				URI:  entity.URI,
 				Rule: entity.Rule,
+				URL:  entity.URI,
 			})
 		}
 		return nil
@@ -91,7 +91,7 @@ func (storage *Storage) LogRedirect(ctx context.Context, event domain.RedirectEv
 		AliasID:         event.AliasID,
 		TargetID:        event.TargetID,
 		Identifier:      event.Identifier,
-		URI:             event.URI,
+		URI:             event.URL,
 		Code:            event.Code,
 		RedirectContext: event.Context,
 	})
