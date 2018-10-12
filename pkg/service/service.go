@@ -19,7 +19,7 @@ type Click struct {
 }
 
 // HandleGetV1 handles an input request.
-// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
+// Deprecated: TODO issue#version3.0 use LinkEditor and gRPC gateway instead
 func (service *Click) HandleGetV1(ctx context.Context, request v1.GetRequest) v1.GetResponse {
 	var response v1.GetResponse
 	response.Link, response.Error = service.storage.Link(ctx, request.ID)

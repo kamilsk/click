@@ -51,12 +51,12 @@ func (scope linkScope) Read(token *types.Token, data query.ReadLink) (types.Link
 }
 
 // ReadByID TODO issue#131
-// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
+// Deprecated: TODO issue#version3.0 use LinkEditor and gRPC gateway instead
 func (scope linkScope) ReadByID(id domain.ID) (types.Link, error) {
 	entity := types.Link{ID: id}
 	q := `SELECT "name", "created_at", "updated_at"
 	        FROM "link"
-	       WHERE "id" = $1 AND "deleted_at" IS NULL`
+	       WHERE "id" = $1`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID)
 	if scanErr := row.Scan(&entity.Name, &entity.CreatedAt, &entity.UpdatedAt); scanErr != nil {
 		if scanErr == sql.ErrNoRows {
@@ -68,10 +68,10 @@ func (scope linkScope) ReadByID(id domain.ID) (types.Link, error) {
 }
 
 // ReadByAlias TODO issue#131
-// TODO issue#deprecated too complex logic
+// Deprecated: TODO issue#logic is not transparent
 func (scope linkScope) ReadByAlias(ns domain.ID, urn string) (types.Link, error) {
 	var entity types.Link
-	q := `SELECT "id", "name", "created_at", "updated_at"
+	q := `SELECT "id", "name", "created_at", "updated_at", "deleted_at"
 	        FROM "link"
 	       WHERE "id" = (
 	             SELECT "link_id"
@@ -92,8 +92,7 @@ func (scope linkScope) ReadByAlias(ns domain.ID, urn string) (types.Link, error)
 	                        )
 	                    AND "urn" = $2
 	                ) "fallback" LIMIT 1
-	             )
-	         AND "deleted_at" IS NULL`
+	             )`
 	row := scope.conn.QueryRowContext(scope.ctx, q, ns, urn)
 	if scanErr := row.Scan(&entity.ID, &entity.Name, &entity.CreatedAt, &entity.UpdatedAt); scanErr != nil {
 		if scanErr == sql.ErrNoRows {

@@ -89,9 +89,10 @@ type LinkEditor interface {
 // LinkReader TODO issue#131
 type LinkReader interface {
 	// ReadByID TODO issue#131
-	// Deprecated TODO issue#version3.0 use LinkEditor and gRPC gateway instead
+	// Deprecated: TODO issue#version3.0 use LinkEditor and gRPC gateway instead
 	ReadByID(domain.ID) (types.Link, error)
 	// ReadByAlias TODO issue#131
+	// Deprecated: TODO issue#refactoring logic is not transparent
 	ReadByAlias(ns domain.ID, urn string) (types.Link, error)
 }
 
