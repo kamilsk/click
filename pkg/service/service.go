@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/errors"
 	"github.com/kamilsk/click/pkg/transfer"
 	"github.com/kamilsk/click/pkg/transfer/api/v1"
@@ -29,54 +30,57 @@ func (service *Click) HandleGetV1(ctx context.Context, req v1.GetRequest) (resp 
 
 // HandlePass handles an input request.
 func (service *Click) HandlePass(ctx context.Context, req transfer.PassRequest) (resp transfer.PassResponse) {
-	req.Event.NamespaceID = req.Event.Context.Namespace()
-	if !req.Event.NamespaceID.IsValid() {
+	ns := req.Context.Namespace()
+	if !ns.IsValid() {
 		resp.Error = errors.NotFound(errors.LinkNotFoundMessage, errors.Simple("namespace is invalid"),
 			"request %+v", req)
 		return
 	}
 
-	req.Event.Code, req.Event.URL = http.StatusFound, req.Event.Context.URL()
-	if req.Event.URL == "" {
+	resp.StatusCode, resp.URL = http.StatusFound, req.Context.Redirect()
+	if resp.URL == "" {
 		resp.Error = errors.NotFound(errors.LinkNotFoundMessage, errors.Simple("url is empty"),
 			"request %+v", req)
 		return
 	}
 
-	option := req.Event.Context.Option()
+	option := req.Context.Option()
 	if !option.NoLog {
 		// if option.Anonymously {}
-		req.Event.Identifier = "10000000-2000-4000-8000-160000000000" // TODO issue#134
-		_ = service.tracker.LogRedirect(ctx, req.Event)               // TODO issue#51
+		event := domain.RedirectEvent{
+			NamespaceID: ns,
+			Code:        resp.StatusCode,
+			URL:         resp.URL,
+			Identifier:  "10000000-2000-4000-8000-160000000000", // TODO issue#134
+			Context:     req.Context,
+		}
+		_ = service.tracker.LogRedirect(ctx, event) // TODO issue#51
 	}
 
-	return transfer.PassResponse{
-		StatusCode: req.Event.Code,
-		URL:        req.Event.URL,
-	}
+	return
 }
 
 // HandleRedirect handles an input request.
 func (service *Click) HandleRedirect(ctx context.Context, req transfer.RedirectRequest) (resp transfer.RedirectResponse) {
-	req.Event.NamespaceID = req.Event.Context.Namespace()
-	if !req.Event.NamespaceID.IsValid() {
+	ns := req.Context.Namespace()
+	if !ns.IsValid() {
 		resp.Error = errors.NotFound(errors.LinkNotFoundMessage, errors.Simple("namespace is invalid"),
 			"request %+v", req)
 		return
 	}
 
-	link, err := service.storage.LinkByAlias(ctx, req.Event.NamespaceID, req.URN)
+	link, err := service.storage.LinkByAlias(ctx, ns, req.URN)
 	if err != nil {
 		resp.Error = err
 		return
 	}
-	alias, found := link.Aliases.Find(req.Event.NamespaceID, req.URN)
+	alias, found := link.Aliases.Find(ns, req.URN)
 	if !found {
 		resp.Error = errors.NotFound(errors.LinkNotFoundMessage, errors.Simple("required alias not found"),
 			"request %+v", req)
 		return
 	}
-	target, found := link.Targets.Find(alias, req.Event.Context.Queries)
+	target, found := link.Targets.Find(alias, req.Context.Queries)
 	if !found {
 		resp.Error = errors.NotFound(errors.LinkNotFoundMessage, errors.Simple("required target not found"),
 			"request %+v", req)
@@ -84,17 +88,23 @@ func (service *Click) HandleRedirect(ctx context.Context, req transfer.RedirectR
 	}
 
 	// if link.Deleted { http.StatusMovedPermanently ? }
-	req.Event.Code, req.Event.URL = http.StatusFound, target.URL
+	resp.StatusCode, resp.URL = http.StatusFound, target.URL
 
-	option := req.Event.Context.Option()
+	option := req.Context.Option()
 	if !option.NoLog {
 		// if option.Anonymously {}
-		req.Event.Identifier = "10000000-2000-4000-8000-160000000000" // TODO issue#134
-		_ = service.tracker.LogRedirect(ctx, req.Event)               // TODO issue#51
+		event := domain.RedirectEvent{
+			NamespaceID: ns,
+			LinkID:      &link.ID,
+			AliasID:     &alias.ID,
+			TargetID:    &target.ID,
+			Code:        resp.StatusCode,
+			URL:         resp.URL,
+			Identifier:  "10000000-2000-4000-8000-160000000000", // TODO issue#134
+			Context:     req.Context,
+		}
+		resp.Error = service.tracker.LogRedirect(ctx, event) // TODO issue#51
 	}
 
-	return transfer.RedirectResponse{
-		StatusCode: req.Event.Code,
-		URL:        req.Event.URL,
-	}
+	return
 }

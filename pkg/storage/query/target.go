@@ -6,7 +6,7 @@ import "github.com/kamilsk/click/pkg/domain"
 type CreateTarget struct {
 	ID         *domain.ID
 	LinkID     domain.ID
-	URI        string
+	URL        string
 	Rule       domain.Rule
 	BinaryRule domain.BinaryRule
 }
@@ -19,7 +19,7 @@ type ReadTarget struct {
 // UpdateTarget TODO issue#131
 type UpdateTarget struct {
 	ID         domain.ID
-	URI        string
+	URL        string
 	Rule       domain.Rule
 	BinaryRule domain.BinaryRule
 }

@@ -36,20 +36,44 @@ func easyjsonF642ad3eDecodeGithubComKamilskClickPkgDomain(in *jlexer.Lexer, out 
 			continue
 		}
 		switch key {
-		case "id":
-			out.ID = uint64(in.Uint64())
+		case "namespace_id":
+			out.NamespaceID = ID(in.String())
 		case "link_id":
-			out.LinkID = ID(in.String())
+			if in.IsNull() {
+				in.Skip()
+				out.LinkID = nil
+			} else {
+				if out.LinkID == nil {
+					out.LinkID = new(ID)
+				}
+				*out.LinkID = ID(in.String())
+			}
 		case "alias_id":
-			out.AliasID = ID(in.String())
+			if in.IsNull() {
+				in.Skip()
+				out.AliasID = nil
+			} else {
+				if out.AliasID == nil {
+					out.AliasID = new(ID)
+				}
+				*out.AliasID = ID(in.String())
+			}
 		case "target_id":
-			out.TargetID = ID(in.String())
-		case "identifier":
-			out.Identifier = ID(in.String())
-		case "uri":
-			out.URI = string(in.String())
+			if in.IsNull() {
+				in.Skip()
+				out.TargetID = nil
+			} else {
+				if out.TargetID == nil {
+					out.TargetID = new(ID)
+				}
+				*out.TargetID = ID(in.String())
+			}
 		case "code":
 			out.Code = int(in.Int())
+		case "url":
+			out.URL = string(in.String())
+		case "identifier":
+			out.Identifier = ID(in.String())
 		case "context":
 			(out.Context).UnmarshalEasyJSON(in)
 		default:
@@ -67,16 +91,16 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 	first := true
 	_ = first
 	{
-		const prefix string = ",\"id\":"
+		const prefix string = ",\"namespace_id\":"
 		if first {
 			first = false
 			out.RawString(prefix[1:])
 		} else {
 			out.RawString(prefix)
 		}
-		out.Uint64(uint64(in.ID))
+		out.String(string(in.NamespaceID))
 	}
-	{
+	if in.LinkID != nil {
 		const prefix string = ",\"link_id\":"
 		if first {
 			first = false
@@ -84,9 +108,9 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 		} else {
 			out.RawString(prefix)
 		}
-		out.String(string(in.LinkID))
+		out.String(string(*in.LinkID))
 	}
-	{
+	if in.AliasID != nil {
 		const prefix string = ",\"alias_id\":"
 		if first {
 			first = false
@@ -94,9 +118,9 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 		} else {
 			out.RawString(prefix)
 		}
-		out.String(string(in.AliasID))
+		out.String(string(*in.AliasID))
 	}
-	{
+	if in.TargetID != nil {
 		const prefix string = ",\"target_id\":"
 		if first {
 			first = false
@@ -104,27 +128,7 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 		} else {
 			out.RawString(prefix)
 		}
-		out.String(string(in.TargetID))
-	}
-	{
-		const prefix string = ",\"identifier\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.Identifier))
-	}
-	{
-		const prefix string = ",\"uri\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.URI))
+		out.String(string(*in.TargetID))
 	}
 	{
 		const prefix string = ",\"code\":"
@@ -135,6 +139,26 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 			out.RawString(prefix)
 		}
 		out.Int(int(in.Code))
+	}
+	{
+		const prefix string = ",\"url\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.URL))
+	}
+	{
+		const prefix string = ",\"identifier\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.Identifier))
 	}
 	{
 		const prefix string = ",\"context\":"
@@ -191,37 +215,35 @@ func easyjsonF642ad3eDecodeGithubComKamilskClickPkgDomain1(in *jlexer.Lexer, out
 			continue
 		}
 		switch key {
-		case "request_id":
-			out.RequestID = string(in.String())
-		case "cookie":
+		case "cookies":
 			if in.IsNull() {
 				in.Skip()
 			} else {
 				in.Delim('{')
 				if !in.IsDelim('}') {
-					out.Cookie = make(map[string]string)
+					out.Cookies = make(map[string]string)
 				} else {
-					out.Cookie = nil
+					out.Cookies = nil
 				}
 				for !in.IsDelim('}') {
 					key := string(in.String())
 					in.WantColon()
 					var v1 string
 					v1 = string(in.String())
-					(out.Cookie)[key] = v1
+					(out.Cookies)[key] = v1
 					in.WantComma()
 				}
 				in.Delim('}')
 			}
-		case "header":
+		case "headers":
 			if in.IsNull() {
 				in.Skip()
 			} else {
 				in.Delim('{')
 				if !in.IsDelim('}') {
-					out.Header = make(map[string][]string)
+					out.Headers = make(map[string][]string)
 				} else {
-					out.Header = nil
+					out.Headers = nil
 				}
 				for !in.IsDelim('}') {
 					key := string(in.String())
@@ -249,20 +271,20 @@ func easyjsonF642ad3eDecodeGithubComKamilskClickPkgDomain1(in *jlexer.Lexer, out
 						}
 						in.Delim(']')
 					}
-					(out.Header)[key] = v2
+					(out.Headers)[key] = v2
 					in.WantComma()
 				}
 				in.Delim('}')
 			}
-		case "query":
+		case "queries":
 			if in.IsNull() {
 				in.Skip()
 			} else {
 				in.Delim('{')
 				if !in.IsDelim('}') {
-					out.Query = make(map[string][]string)
+					out.Queries = make(map[string][]string)
 				} else {
-					out.Query = nil
+					out.Queries = nil
 				}
 				for !in.IsDelim('}') {
 					key := string(in.String())
@@ -290,7 +312,7 @@ func easyjsonF642ad3eDecodeGithubComKamilskClickPkgDomain1(in *jlexer.Lexer, out
 						}
 						in.Delim(']')
 					}
-					(out.Query)[key] = v4
+					(out.Queries)[key] = v4
 					in.WantComma()
 				}
 				in.Delim('}')
@@ -309,18 +331,8 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, 
 	out.RawByte('{')
 	first := true
 	_ = first
-	if in.RequestID != "" {
-		const prefix string = ",\"request_id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.RequestID))
-	}
-	if len(in.Cookie) != 0 {
-		const prefix string = ",\"cookie\":"
+	if len(in.Cookies) != 0 {
+		const prefix string = ",\"cookies\":"
 		if first {
 			first = false
 			out.RawString(prefix[1:])
@@ -330,7 +342,7 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, 
 		{
 			out.RawByte('{')
 			v6First := true
-			for v6Name, v6Value := range in.Cookie {
+			for v6Name, v6Value := range in.Cookies {
 				if v6First {
 					v6First = false
 				} else {
@@ -343,8 +355,8 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, 
 			out.RawByte('}')
 		}
 	}
-	if len(in.Header) != 0 {
-		const prefix string = ",\"header\":"
+	if len(in.Headers) != 0 {
+		const prefix string = ",\"headers\":"
 		if first {
 			first = false
 			out.RawString(prefix[1:])
@@ -354,7 +366,7 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, 
 		{
 			out.RawByte('{')
 			v7First := true
-			for v7Name, v7Value := range in.Header {
+			for v7Name, v7Value := range in.Headers {
 				if v7First {
 					v7First = false
 				} else {
@@ -378,8 +390,8 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, 
 			out.RawByte('}')
 		}
 	}
-	if len(in.Query) != 0 {
-		const prefix string = ",\"query\":"
+	if len(in.Queries) != 0 {
+		const prefix string = ",\"queries\":"
 		if first {
 			first = false
 			out.RawString(prefix[1:])
@@ -389,7 +401,7 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, 
 		{
 			out.RawByte('{')
 			v10First := true
-			for v10Name, v10Value := range in.Query {
+			for v10Name, v10Value := range in.Queries {
 				if v10First {
 					v10First = false
 				} else {
@@ -438,4 +450,99 @@ func (v *RedirectContext) UnmarshalJSON(data []byte) error {
 // UnmarshalEasyJSON supports easyjson.Unmarshaler interface
 func (v *RedirectContext) UnmarshalEasyJSON(l *jlexer.Lexer) {
 	easyjsonF642ad3eDecodeGithubComKamilskClickPkgDomain1(l, v)
+}
+func easyjsonF642ad3eDecodeGithubComKamilskClickPkgDomain2(in *jlexer.Lexer, out *Option) {
+	isTopLevel := in.IsStart()
+	if in.IsNull() {
+		if isTopLevel {
+			in.Consumed()
+		}
+		in.Skip()
+		return
+	}
+	in.Delim('{')
+	for !in.IsDelim('}') {
+		key := in.UnsafeString()
+		in.WantColon()
+		if in.IsNull() {
+			in.Skip()
+			in.WantComma()
+			continue
+		}
+		switch key {
+		case "Anonymously":
+			out.Anonymously = bool(in.Bool())
+		case "Debug":
+			out.Debug = bool(in.Bool())
+		case "NoLog":
+			out.NoLog = bool(in.Bool())
+		default:
+			in.SkipRecursive()
+		}
+		in.WantComma()
+	}
+	in.Delim('}')
+	if isTopLevel {
+		in.Consumed()
+	}
+}
+func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain2(out *jwriter.Writer, in Option) {
+	out.RawByte('{')
+	first := true
+	_ = first
+	{
+		const prefix string = ",\"Anonymously\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.Bool(bool(in.Anonymously))
+	}
+	{
+		const prefix string = ",\"Debug\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.Bool(bool(in.Debug))
+	}
+	{
+		const prefix string = ",\"NoLog\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.Bool(bool(in.NoLog))
+	}
+	out.RawByte('}')
+}
+
+// MarshalJSON supports json.Marshaler interface
+func (v Option) MarshalJSON() ([]byte, error) {
+	w := jwriter.Writer{}
+	easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain2(&w, v)
+	return w.Buffer.BuildBytes(), w.Error
+}
+
+// MarshalEasyJSON supports easyjson.Marshaler interface
+func (v Option) MarshalEasyJSON(w *jwriter.Writer) {
+	easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain2(w, v)
+}
+
+// UnmarshalJSON supports json.Unmarshaler interface
+func (v *Option) UnmarshalJSON(data []byte) error {
+	r := jlexer.Lexer{Data: data}
+	easyjsonF642ad3eDecodeGithubComKamilskClickPkgDomain2(&r, v)
+	return r.Error()
+}
+
+// UnmarshalEasyJSON supports easyjson.Unmarshaler interface
+func (v *Option) UnmarshalEasyJSON(l *jlexer.Lexer) {
+	easyjsonF642ad3eDecodeGithubComKamilskClickPkgDomain2(l, v)
 }

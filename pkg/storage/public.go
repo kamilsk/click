@@ -52,7 +52,7 @@ func (storage *Storage) Link(ctx context.Context, id domain.ID) (domain.Link, er
 			link.Targets = append(link.Targets, domain.Target{
 				ID:   entity.ID,
 				Rule: entity.Rule,
-				URL:  entity.URI,
+				URL:  entity.URL,
 			})
 		}
 		return nil
@@ -86,15 +86,7 @@ func (storage *Storage) LogRedirect(ctx context.Context, event domain.RedirectEv
 	defer closer()
 
 	// TODO issue#51
-	_, writeErr := storage.exec.LogWriter(ctx, conn).Write(query.WriteLog{
-		LinkID:          event.LinkID,
-		AliasID:         event.AliasID,
-		TargetID:        event.TargetID,
-		Identifier:      event.Identifier,
-		URI:             event.URL,
-		Code:            event.Code,
-		RedirectContext: event.Context,
-	})
+	_, writeErr := storage.exec.LogWriter(ctx, conn).Write(query.WriteLog{RedirectEvent: event})
 
 	return writeErr
 }

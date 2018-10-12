@@ -6,8 +6,8 @@ import "sort"
 //go:generate easyjson -all
 type Target struct {
 	ID   ID     `json:"id"`
-	URI  string `json:"uri"`
 	Rule Rule   `json:"rule"`
+	URL  string `json:"url"`
 }
 
 // Targets holds set of Target of the Link and provides useful methods for the set.
@@ -15,11 +15,8 @@ type Targets []Target
 
 // Find tries to find a suitable target of the Link for the specific context
 // or returns an empty Target if nothing found.
-func (set Targets) Find(alias Alias, query map[string][]string) Target {
-	var (
-		result     Target
-		index, max = -1, 0
-	)
+func (set Targets) Find(alias Alias, query map[string][]string) (Target, bool) {
+	var index, max = -1, 0
 	sort.Sort(sort.Reverse(targetsByID(set)))
 	for i, target := range set {
 		if weight := target.Rule.Calculate(alias, query); weight >= max {
@@ -27,9 +24,9 @@ func (set Targets) Find(alias Alias, query map[string][]string) Target {
 		}
 	}
 	if index > -1 {
-		result = set[index]
+		return set[index], true
 	}
-	return result
+	return Target{}, false
 }
 
 type targetsByID Targets

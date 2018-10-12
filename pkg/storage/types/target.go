@@ -11,7 +11,7 @@ type Target struct {
 	ID         domain.ID         `db:"id"`
 	AccountID  domain.ID         `db:"account_id"`
 	LinkID     domain.ID         `db:"link_id"`
-	URI        string            `db:"uri"`
+	URL        string            `db:"url"`
 	Rule       domain.Rule       `db:"rule,deprecated"`
 	BinaryRule domain.BinaryRule `db:"b_rule"`
 	CreatedAt  time.Time         `db:"created_at"`

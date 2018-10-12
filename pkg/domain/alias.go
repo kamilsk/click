@@ -13,12 +13,11 @@ type Aliases []Alias
 
 // Find tries to find a suitable alias by provided namespace and URN
 // or returns an empty Alias if nothing found.
-func (set Aliases) Find(ns ID, urn string) Alias {
-	var result Alias
+func (set Aliases) Find(ns ID, urn string) (Alias, bool) {
 	for _, alias := range set {
 		if alias.Namespace == ns && alias.URN == urn {
-			return alias
+			return alias, true
 		}
 	}
-	return result
+	return Alias{}, false
 }

@@ -209,10 +209,10 @@ func easyjson16eb09bcDecodeGithubComKamilskClickPkgDomain1(in *jlexer.Lexer, out
 		switch key {
 		case "id":
 			out.ID = ID(in.String())
-		case "uri":
-			out.URI = string(in.String())
 		case "rule":
 			easyjson16eb09bcDecodeGithubComKamilskClickPkgDomain2(in, &out.Rule)
+		case "url":
+			out.URL = string(in.String())
 		default:
 			in.SkipRecursive()
 		}
@@ -238,16 +238,6 @@ func easyjson16eb09bcEncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, 
 		out.String(string(in.ID))
 	}
 	{
-		const prefix string = ",\"uri\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.URI))
-	}
-	{
 		const prefix string = ",\"rule\":"
 		if first {
 			first = false
@@ -256,6 +246,16 @@ func easyjson16eb09bcEncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, 
 			out.RawString(prefix)
 		}
 		easyjson16eb09bcEncodeGithubComKamilskClickPkgDomain2(out, in.Rule)
+	}
+	{
+		const prefix string = ",\"url\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(in.URL))
 	}
 	out.RawByte('}')
 }
