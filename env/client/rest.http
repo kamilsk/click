@@ -22,13 +22,6 @@ X-Click-Namespace: 10000000-2000-4000-8000-160000000004
 
 ###
 
-GET http://localhost:8080/github/click
-Cookie: identifier=10000000-2000-4000-8000-160000000000
-X-Click-Account: 10000000-2000-4000-8000-160000000001
-X-Click-Namespace: Support namespace
-
-###
-
 GET http://localhost:8080/github/click?tag=promo
 Cookie: identifier=10000000-2000-4000-8000-160000000000
 X-Click-Namespace: 10000000-2000-4000-8000-160000000004
