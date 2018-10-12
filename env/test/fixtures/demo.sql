@@ -8,29 +8,14 @@ DECLARE   demoAccount "account"."id"%TYPE := '10000000-2000-4000-8000-1600000000
   DECLARE promo       "alias"."id"%TYPE;
   DECLARE issue       "alias"."id"%TYPE;
 BEGIN
-  DELETE FROM "log"
-  WHERE "account_id" = demoAccount OR "link_id" = click;
-
-  DELETE FROM "target"
-  WHERE "link_id" = click;
-
-  DELETE FROM "alias"
-  WHERE "link_id" = click OR "namespace_id" IN (globalNS, supportNS);
-
-  DELETE FROM "link"
-  WHERE "id" = click OR "account_id" = demoAccount;
-
-  DELETE FROM "namespace"
-  WHERE "id" IN (globalNS, supportNS) OR "account_id" = demoAccount;
-
-  DELETE FROM "token"
-  WHERE "id" = demoToken OR "user_id" = demoUser;
-
-  DELETE FROM "user"
-  WHERE "id" = demoUser OR "account_id" = demoAccount;
-
-  DELETE FROM "account"
-  WHERE "id" = demoAccount;
+  TRUNCATE TABLE "account" RESTART IDENTITY RESTRICT;
+  TRUNCATE TABLE "token" RESTART IDENTITY RESTRICT;
+  TRUNCATE TABLE "user" RESTART IDENTITY RESTRICT;
+  TRUNCATE TABLE "link" RESTART IDENTITY RESTRICT;
+  TRUNCATE TABLE "target" RESTART IDENTITY RESTRICT;
+  TRUNCATE TABLE "namespace" RESTART IDENTITY RESTRICT;
+  TRUNCATE TABLE "alias" RESTART IDENTITY RESTRICT;
+  TRUNCATE TABLE "log" RESTART IDENTITY RESTRICT;
 
   INSERT INTO "account" ("id", "name")
   VALUES (demoAccount, 'Demo Account');
