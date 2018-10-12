@@ -11,7 +11,7 @@ type RedirectRequest struct {
 	URN       string
 	Query     map[string][]string
 	Option    service.Option
-	Redirect  domain.Redirect
+	Event     domain.RedirectEvent
 }
 
 // RedirectResponse represents `GET /{Alias.URN}` response.

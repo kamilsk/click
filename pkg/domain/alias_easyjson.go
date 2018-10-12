@@ -39,7 +39,7 @@ func easyjson8922032aDecodeGithubComKamilskClickPkgDomain(in *jlexer.Lexer, out 
 		case "id":
 			out.ID = ID(in.String())
 		case "namespace":
-			out.Namespace = string(in.String())
+			out.Namespace = ID(in.String())
 		case "urn":
 			out.URN = string(in.String())
 		default:

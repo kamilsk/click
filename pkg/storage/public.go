@@ -78,7 +78,7 @@ func (storage *Storage) LinkByAlias(ctx context.Context, ns domain.ID, urn strin
 }
 
 // LogRedirect stores a redirect event.
-func (storage *Storage) LogRedirect(ctx context.Context, event domain.Redirect) error {
+func (storage *Storage) LogRedirect(ctx context.Context, event domain.RedirectEvent) error {
 	conn, closer, connErr := storage.connection(ctx)
 	if connErr != nil {
 		return connErr

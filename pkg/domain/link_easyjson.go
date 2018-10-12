@@ -40,8 +40,6 @@ func easyjson16eb09bcDecodeGithubComKamilskClickPkgDomain(in *jlexer.Lexer, out 
 			out.ID = ID(in.String())
 		case "name":
 			out.Name = string(in.String())
-		case "status":
-			out.Status = string(in.String())
 		case "aliases":
 			if in.IsNull() {
 				in.Skip()
@@ -121,16 +119,6 @@ func easyjson16eb09bcEncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 			out.RawString(prefix)
 		}
 		out.String(string(in.Name))
-	}
-	{
-		const prefix string = ",\"status\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.Status))
 	}
 	{
 		const prefix string = ",\"aliases\":"

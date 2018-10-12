@@ -7,8 +7,8 @@ import (
 
 // PassRequest represents `GET /pass?url={URI}` request.
 type PassRequest struct {
-	Option   service.Option
-	Redirect domain.Redirect
+	Option service.Option
+	Event  domain.RedirectEvent
 }
 
 // PassResponse represents `GET /pass?url={URI}` response.
