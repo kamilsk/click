@@ -11,7 +11,7 @@ message LogEntry {
     string alias_id = 4;
     string target_id = 5;
     string identifier = 6;
-    string uri = 7;
+    string url = 7;
     int32 code = 8;
     bytes context = 9;
     google.protobuf.Timestamp created_at = 10;
@@ -22,7 +22,7 @@ message LogFilter {
     string alias_id = 4;
     string target_id = 5;
     string identifier = 6;
-    string uri = 7;
+    string url = 7;
     int32 code = 8;
     TimestampRange created_at = 10;
 

@@ -172,7 +172,7 @@ service Alias {
 
 message CreateTargetRequest {
     string link_id = 2;
-    string uri = 3;
+    string url = 3;
     bytes rule = 4;
     bytes b_rule = 5;
 }
@@ -191,7 +191,7 @@ message ReadTargetRequest {
 message ReadTargetResponse {
     string id = 1;
     string link_id = 2;
-    string uri = 3;
+    string url = 3;
     bytes rule = 4;
     bytes b_rule = 5;
     google.protobuf.Timestamp created_at = 6;
@@ -204,7 +204,7 @@ message ReadTargetResponse {
 message UpdateTargetRequest {
     string id = 1;
     string link_id = 2;
-    string uri = 3;
+    string url = 3;
     bytes rule = 4;
     bytes b_rule = 5;
 }

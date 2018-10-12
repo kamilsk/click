@@ -43,7 +43,7 @@ BEGIN
       RETURNING "id"
         INTO issue;
 
-  INSERT INTO "target" ("account_id", "link_id", "uri", "rule", "b_rule")
+  INSERT INTO "target" ("account_id", "link_id", "url", "rule", "b_rule")
   VALUES (demoAccount, click, 'https://github.com/kamilsk/click', '{
       "description": "Project''s source code",
       "tags": ["src"]

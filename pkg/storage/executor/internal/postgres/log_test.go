@@ -41,7 +41,7 @@ func TestLogWriter(t *testing.T) {
 			var exec executor.LogWriter = NewLogContext(ctx, conn)
 			log, err := exec.Write(query.WriteLog{
 				LinkID: id, AliasID: id, TargetID: id,
-				Identifier: id, URI: "test", Code: http.StatusFound,
+				Identifier: id, URL: "test", Code: http.StatusFound,
 				RedirectContext: domain.RedirectContext{RequestID: id.String()},
 			})
 			assert.NoError(t, err)
@@ -69,7 +69,7 @@ func TestLogWriter(t *testing.T) {
 			var exec executor.LogWriter = NewLogContext(ctx, conn)
 			log, err := exec.Write(query.WriteLog{
 				LinkID: id, AliasID: id, TargetID: id,
-				Identifier: id, URI: "test", Code: http.StatusFound,
+				Identifier: id, URL: "test", Code: http.StatusFound,
 				RedirectContext: domain.RedirectContext{RequestID: id.String()},
 			})
 			assert.Error(t, err)

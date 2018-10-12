@@ -26,7 +26,7 @@ func (scope targetScope) Create(token *types.Token, data query.CreateTarget) (ty
 	entity := types.Target{
 		AccountID:  token.User.AccountID,
 		LinkID:     data.LinkID,
-		URI:        data.URI,
+		URL:        data.URL,
 		Rule:       data.Rule,
 		BinaryRule: data.BinaryRule,
 	}
@@ -37,15 +37,15 @@ func (scope targetScope) Create(token *types.Token, data query.CreateTarget) (ty
 			token.UserID, token.User.AccountID, entity.Rule)
 	}
 	encodedBinaryRule := []byte(entity.BinaryRule)
-	q := `INSERT INTO "target" ("id", "account_id", "link_id", "uri", "rule", "b_rule")
+	q := `INSERT INTO "target" ("id", "account_id", "link_id", "url", "rule", "b_rule")
 	      VALUES (coalesce($1, uuid_generate_v4()), $2, $3, $4, $5, $6)
 	   RETURNING "id", "created_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q, data.ID, entity.AccountID, entity.LinkID,
-		entity.URI, encodedRule, encodedBinaryRule)
+		entity.URL, encodedRule, encodedBinaryRule)
 	if err := row.Scan(&entity.ID, &entity.CreatedAt); err != nil {
 		return entity, errors.Database(errors.ServerErrorMessage, err,
 			"user %q of account %q tried to create a target %q",
-			token.UserID, token.User.AccountID, entity.URI)
+			token.UserID, token.User.AccountID, entity.URL)
 	}
 	return entity, nil
 }
@@ -54,11 +54,11 @@ func (scope targetScope) Create(token *types.Token, data query.CreateTarget) (ty
 func (scope targetScope) Read(token *types.Token, data query.ReadTarget) (types.Target, error) {
 	var encodedRule, encodedBinaryRule []byte
 	entity := types.Target{ID: data.ID, AccountID: token.User.AccountID}
-	q := `SELECT "link_id", "uri", "rule", "b_rule", "created_at", "updated_at", "deleted_at"
+	q := `SELECT "link_id", "url", "rule", "b_rule", "created_at", "updated_at", "deleted_at"
 	        FROM "target"
 	       WHERE "id" = $1 AND "account_id" = $2`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID, entity.AccountID)
-	if err := row.Scan(&entity.LinkID, &entity.URI,
+	if err := row.Scan(&entity.LinkID, &entity.URL,
 		&encodedRule, &encodedBinaryRule,
 		&entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); err != nil {
 		return entity, errors.Database(errors.ServerErrorMessage, err,
@@ -76,7 +76,7 @@ func (scope targetScope) Read(token *types.Token, data query.ReadTarget) (types.
 
 // ReadAllByLink TODO issue#131
 func (scope targetScope) ReadAllByLink(link domain.ID) ([]types.Target, error) {
-	q := `SELECT "id", "uri", "rule", "b_rule", "created_at", "updated_at", "deleted_at"
+	q := `SELECT "id", "url", "rule", "b_rule", "created_at", "updated_at", "deleted_at"
 	        FROM "target"
 	       WHERE "link_id" = $1 AND "deleted_at" IS NULL`
 	rows, queryErr := scope.conn.QueryContext(scope.ctx, q, link)
@@ -89,7 +89,7 @@ func (scope targetScope) ReadAllByLink(link domain.ID) ([]types.Target, error) {
 	for rows.Next() {
 		var encodedRule, encodedBinaryRule []byte
 		entity := types.Target{LinkID: link}
-		if scanErr := rows.Scan(&entity.ID, &entity.URI,
+		if scanErr := rows.Scan(&entity.ID, &entity.URL,
 			&encodedRule, &encodedBinaryRule,
 			&entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); scanErr != nil {
 			return nil, errors.Database(errors.ServerErrorMessage, scanErr,
@@ -112,8 +112,8 @@ func (scope targetScope) Update(token *types.Token, data query.UpdateTarget) (ty
 	if readErr != nil {
 		return entity, readErr
 	}
-	if data.URI != "" {
-		entity.URI = data.URI
+	if data.URL != "" {
+		entity.URL = data.URL
 	}
 	if !data.Rule.IsEmpty() {
 		entity.Rule = data.Rule
@@ -129,10 +129,10 @@ func (scope targetScope) Update(token *types.Token, data query.UpdateTarget) (ty
 	}
 	encodedBinaryRule := []byte(entity.BinaryRule)
 	q := `UPDATE "target"
-	         SET "uri" = $1, "rule" = $2, "b_rule" = $3
+	         SET "url" = $1, "rule" = $2, "b_rule" = $3
 	       WHERE "id" = $4 AND "account_id" = $5
 	   RETURNING "updated_at"`
-	row := scope.conn.QueryRowContext(scope.ctx, q, entity.URI, encodedRule, encodedBinaryRule,
+	row := scope.conn.QueryRowContext(scope.ctx, q, entity.URL, encodedRule, encodedBinaryRule,
 		entity.ID, entity.AccountID)
 	if scanErr := row.Scan(&entity.UpdatedAt); scanErr != nil {
 		return entity, errors.Database(errors.ServerErrorMessage, scanErr,

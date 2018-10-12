@@ -81,7 +81,7 @@ $ curl http://localhost:8080/api/v1/10000000-2000-4000-8000-160000000005
 #   "targets": [
 #     {
 #       "id": 1,
-#       "uri": "https://github.com/kamilsk/click",
+#       "url": "https://github.com/kamilsk/click",
 #       "rule": {
 #         "description": "Project location",
 #         "tags": ["src"]
@@ -89,7 +89,7 @@ $ curl http://localhost:8080/api/v1/10000000-2000-4000-8000-160000000005
 #     },
 #     {
 #       "id": 2,
-#       "uri": "https://kamilsk.github.io/click/",
+#       "url": "https://kamilsk.github.io/click/",
 #       "rule": {
 #         "description": "Promotion page",
 #         "alias": 7,
