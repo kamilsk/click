@@ -37,7 +37,7 @@ func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
 
 // Pass is responsible for `GET /pass?url={URL}` request handling.
 func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
-	resp := s.service.HandlePass(req.Context(), transfer.PassRequest{Event: domain.RedirectEvent{
+	resp := s.service.HandlePass(req.Context(), transfer.PassRequest{
 		Context: domain.RedirectContext{
 			Cookies: func() map[string]string {
 				cookies := make(map[string]string)
@@ -59,7 +59,7 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 			}(),
 			Queries: req.URL.Query(),
 		},
-	}})
+	})
 	if resp.Error != nil {
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
@@ -71,28 +71,26 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 // Redirect is responsible for `GET /{Alias.URN}` request handling.
 func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	resp := s.service.HandleRedirect(req.Context(), transfer.RedirectRequest{
-		Event: domain.RedirectEvent{
-			Context: domain.RedirectContext{
-				Cookies: func() map[string]string {
-					cookies := make(map[string]string)
-					for _, cookie := range req.Cookies() {
-						if cookie.HttpOnly && cookie.Secure {
-							cookies[cookie.Name] = cookie.Value
-						}
+		Context: domain.RedirectContext{
+			Cookies: func() map[string]string {
+				cookies := make(map[string]string)
+				for _, cookie := range req.Cookies() {
+					if cookie.HttpOnly && cookie.Secure {
+						cookies[cookie.Name] = cookie.Value
 					}
-					return cookies
-				}(),
-				Headers: func() map[string][]string {
-					headers := make(map[string][]string)
-					for key, values := range req.Header {
-						if key != "Cookie" {
-							headers[key] = values
-						}
+				}
+				return cookies
+			}(),
+			Headers: func() map[string][]string {
+				headers := make(map[string][]string)
+				for key, values := range req.Header {
+					if key != "Cookie" {
+						headers[key] = values
 					}
-					return headers
-				}(),
-				Queries: req.URL.Query(),
-			},
+				}
+				return headers
+			}(),
+			Queries: req.URL.Query(),
 		},
 		URN: strings.Trim(req.URL.Path, "/"),
 	})

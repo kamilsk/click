@@ -4,7 +4,7 @@ import "github.com/kamilsk/click/pkg/domain"
 
 // PassRequest represents `GET /pass?url={URL}` request.
 type PassRequest struct {
-	Event domain.RedirectEvent
+	Context domain.RedirectContext
 }
 
 // PassResponse represents `GET /pass?url={URL}` response.

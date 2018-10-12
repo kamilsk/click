@@ -4,8 +4,8 @@ import "github.com/kamilsk/click/pkg/domain"
 
 // RedirectRequest represents `GET /{Alias.URN}` request.
 type RedirectRequest struct {
-	Event domain.RedirectEvent
-	URN   string
+	Context domain.RedirectContext
+	URN     string
 }
 
 // RedirectResponse represents `GET /{Alias.URN}` response.
