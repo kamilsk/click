@@ -14,8 +14,8 @@ type Storage interface {
 	LinkByAlias(ctx context.Context, ns domain.ID, urn string) (domain.Link, error)
 }
 
-// RedirectHandler TODO issue#131
-type RedirectHandler interface {
+// Tracker TODO issue#131
+type Tracker interface {
 	// LogRedirect stores a redirect event.
-	LogRedirect(context.Context, domain.Redirect) error
+	LogRedirect(context.Context, domain.RedirectEvent) error
 }
