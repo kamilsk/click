@@ -1,17 +1,15 @@
 package transfer
 
-import (
-	"github.com/kamilsk/click/pkg/domain"
-	"github.com/kamilsk/click/pkg/service"
-)
+import "github.com/kamilsk/click/pkg/domain"
 
-// PassRequest represents `GET /pass?url={URI}` request.
+// PassRequest represents `GET /pass?url={URL}` request.
 type PassRequest struct {
-	Option service.Option
-	Event  domain.RedirectEvent
+	Event domain.RedirectEvent
 }
 
-// PassResponse represents `GET /pass?url={URI}` response.
+// PassResponse represents `GET /pass?url={URL}` response.
 type PassResponse struct {
-	Error error
+	Error      error
+	StatusCode int
+	URL        string
 }

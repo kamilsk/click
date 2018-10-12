@@ -9,6 +9,6 @@ type GetRequest struct {
 
 // GetResponse represents `GET /api/v1/{Link.ID}` response.
 type GetResponse struct {
-	Link  domain.Link
 	Error error
+	Link  domain.Link
 }

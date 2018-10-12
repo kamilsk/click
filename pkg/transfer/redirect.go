@@ -1,21 +1,16 @@
 package transfer
 
-import (
-	"github.com/kamilsk/click/pkg/domain"
-	"github.com/kamilsk/click/pkg/service"
-)
+import "github.com/kamilsk/click/pkg/domain"
 
 // RedirectRequest represents `GET /{Alias.URN}` request.
 type RedirectRequest struct {
-	Namespace domain.ID
-	URN       string
-	Query     map[string][]string
-	Option    service.Option
-	Event     domain.RedirectEvent
+	Event domain.RedirectEvent
+	URN   string
 }
 
 // RedirectResponse represents `GET /{Alias.URN}` response.
 type RedirectResponse struct {
-	Target domain.Target
-	Error  error
+	Error      error
+	StatusCode int
+	URL        string
 }

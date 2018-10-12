@@ -7,9 +7,9 @@ CREATE TABLE "event" (
   "link_id"      UUID          NULL DEFAULT NULL,
   "alias_id"     UUID          NULL DEFAULT NULL,
   "target_id"    UUID          NULL DEFAULT NULL,
-  "identifier"   UUID          NOT NULL,
-  "url"          VARCHAR(1024) NOT NULL,
   "code"         INTEGER       NOT NULL,
+  "url"          VARCHAR(1024) NOT NULL,
+  "identifier"   UUID          NOT NULL,
   "context"      JSONB         NOT NULL,
   "created_at"   TIMESTAMP     NOT NULL DEFAULT now()
 );
