@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"strings"
 
+	"github.com/kamilsk/click/pkg/config"
 	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/server/middleware"
 	"github.com/kamilsk/click/pkg/transfer"
@@ -12,12 +13,13 @@ import (
 )
 
 // New returns a new instance of Click! server.
-func New(service Service) *Server {
-	return &Server{service}
+func New(cnf config.ServerConfig, service Service) *Server {
+	return &Server{cnf, service}
 }
 
 // Server handles HTTP requests.
 type Server struct {
+	config  config.ServerConfig
 	service Service
 }
 

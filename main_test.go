@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/kamilsk/click/pkg/config"
 	"github.com/kamilsk/click/pkg/server"
 	"github.com/kamilsk/click/pkg/server/grpc"
 	"github.com/kamilsk/click/pkg/server/router"
@@ -18,8 +19,8 @@ import (
 // invariant
 var (
 	_ grpc.ProtectedStorage = storage.Must()
-	_ router.Server         = server.New(nil)
-	_ server.Service        = service.New(nil, nil)
+	_ router.Server         = server.New(config.ServerConfig{}, nil)
+	_ server.Service        = service.New(config.ServiceConfig{}, nil, nil)
 	_ service.Storage       = storage.Must()
 	_ service.Tracker       = storage.Must()
 )

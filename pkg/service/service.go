@@ -4,6 +4,7 @@ import (
 	"context"
 	"net/http"
 
+	"github.com/kamilsk/click/pkg/config"
 	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/errors"
 	"github.com/kamilsk/click/pkg/transfer"
@@ -11,12 +12,13 @@ import (
 )
 
 // New returns a new instance of Click! service.
-func New(storage Storage, tracker Tracker) *Click {
-	return &Click{storage, tracker}
+func New(cnf config.ServiceConfig, storage Storage, tracker Tracker) *Click {
+	return &Click{cnf, storage, tracker}
 }
 
 // Click is the primary application service.
 type Click struct {
+	config  config.ServiceConfig
 	storage Storage
 	tracker Tracker
 }

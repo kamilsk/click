@@ -36,7 +36,8 @@ var runCmd = &cobra.Command{
 			repo    = storage.Must(storage.Database(cnf.Union.DatabaseConfig))
 			handler = chi.NewRouter(
 				server.New(
-					service.New(repo, repo),
+					cnf.Union.ServerConfig,
+					service.New(cnf.Union.ServiceConfig, repo, repo),
 				),
 			)
 		)
