@@ -49,10 +49,10 @@ func (service *Click) HandlePass(ctx context.Context, req transfer.PassRequest) 
 		// if option.Anonymously {}
 		event := domain.RedirectEvent{
 			NamespaceID: ns,
+			Identifier:  nil, // TODO issue#134
+			Context:     req.Context,
 			Code:        resp.StatusCode,
 			URL:         resp.URL,
-			Identifier:  "10000000-2000-4000-8000-160000000000", // TODO issue#134
-			Context:     req.Context,
 		}
 		_ = service.tracker.LogRedirect(ctx, event) // TODO issue#51
 	}
@@ -98,10 +98,10 @@ func (service *Click) HandleRedirect(ctx context.Context, req transfer.RedirectR
 			LinkID:      &link.ID,
 			AliasID:     &alias.ID,
 			TargetID:    &target.ID,
+			Identifier:  nil, // TODO issue#134
+			Context:     req.Context,
 			Code:        resp.StatusCode,
 			URL:         resp.URL,
-			Identifier:  "10000000-2000-4000-8000-160000000000", // TODO issue#134
-			Context:     req.Context,
 		}
 		resp.Error = service.tracker.LogRedirect(ctx, event) // TODO issue#51
 	}

@@ -25,10 +25,10 @@ type RedirectEvent struct {
 	LinkID      *ID             `json:"link_id,omitempty"`
 	AliasID     *ID             `json:"alias_id,omitempty"`
 	TargetID    *ID             `json:"target_id,omitempty"`
+	Identifier  *ID             `json:"identifier,omitempty"`
+	Context     RedirectContext `json:"context"`
 	Code        int             `json:"code"`
 	URL         string          `json:"url"`
-	Identifier  ID              `json:"identifier"`
-	Context     RedirectContext `json:"context"`
 }
 
 // Redirect TODO issue#131

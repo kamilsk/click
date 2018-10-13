@@ -68,14 +68,22 @@ func easyjsonF642ad3eDecodeGithubComKamilskClickPkgDomain(in *jlexer.Lexer, out 
 				}
 				*out.TargetID = ID(in.String())
 			}
+		case "identifier":
+			if in.IsNull() {
+				in.Skip()
+				out.Identifier = nil
+			} else {
+				if out.Identifier == nil {
+					out.Identifier = new(ID)
+				}
+				*out.Identifier = ID(in.String())
+			}
+		case "context":
+			(out.Context).UnmarshalEasyJSON(in)
 		case "code":
 			out.Code = int(in.Int())
 		case "url":
 			out.URL = string(in.String())
-		case "identifier":
-			out.Identifier = ID(in.String())
-		case "context":
-			(out.Context).UnmarshalEasyJSON(in)
 		default:
 			in.SkipRecursive()
 		}
@@ -130,6 +138,26 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 		}
 		out.String(string(*in.TargetID))
 	}
+	if in.Identifier != nil {
+		const prefix string = ",\"identifier\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		out.String(string(*in.Identifier))
+	}
+	{
+		const prefix string = ",\"context\":"
+		if first {
+			first = false
+			out.RawString(prefix[1:])
+		} else {
+			out.RawString(prefix)
+		}
+		(in.Context).MarshalEasyJSON(out)
+	}
 	{
 		const prefix string = ",\"code\":"
 		if first {
@@ -149,26 +177,6 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 			out.RawString(prefix)
 		}
 		out.String(string(in.URL))
-	}
-	{
-		const prefix string = ",\"identifier\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		out.String(string(in.Identifier))
-	}
-	{
-		const prefix string = ",\"context\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
-		(in.Context).MarshalEasyJSON(out)
 	}
 	out.RawByte('}')
 }
