@@ -28,7 +28,7 @@ const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 // Ignoring public import of TimestampRange from common.proto
 
-type LogEntry struct {
+type EventEntry struct {
 	Id                   uint32               `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
 	LinkId               string               `protobuf:"bytes,3,opt,name=link_id,json=linkId,proto3" json:"link_id,omitempty"`
 	AliasId              string               `protobuf:"bytes,4,opt,name=alias_id,json=aliasId,proto3" json:"alias_id,omitempty"`
@@ -43,94 +43,94 @@ type LogEntry struct {
 	XXX_sizecache        int32                `json:"-"`
 }
 
-func (m *LogEntry) Reset()         { *m = LogEntry{} }
-func (m *LogEntry) String() string { return proto.CompactTextString(m) }
-func (*LogEntry) ProtoMessage()    {}
-func (*LogEntry) Descriptor() ([]byte, []int) {
+func (m *EventEntry) Reset()         { *m = EventEntry{} }
+func (m *EventEntry) String() string { return proto.CompactTextString(m) }
+func (*EventEntry) ProtoMessage()    {}
+func (*EventEntry) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2d17a9d3f0ddf27e, []int{0}
 }
-func (m *LogEntry) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_LogEntry.Unmarshal(m, b)
+func (m *EventEntry) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_EventEntry.Unmarshal(m, b)
 }
-func (m *LogEntry) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_LogEntry.Marshal(b, m, deterministic)
+func (m *EventEntry) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_EventEntry.Marshal(b, m, deterministic)
 }
-func (m *LogEntry) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_LogEntry.Merge(m, src)
+func (m *EventEntry) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EventEntry.Merge(m, src)
 }
-func (m *LogEntry) XXX_Size() int {
-	return xxx_messageInfo_LogEntry.Size(m)
+func (m *EventEntry) XXX_Size() int {
+	return xxx_messageInfo_EventEntry.Size(m)
 }
-func (m *LogEntry) XXX_DiscardUnknown() {
-	xxx_messageInfo_LogEntry.DiscardUnknown(m)
+func (m *EventEntry) XXX_DiscardUnknown() {
+	xxx_messageInfo_EventEntry.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_LogEntry proto.InternalMessageInfo
+var xxx_messageInfo_EventEntry proto.InternalMessageInfo
 
-func (m *LogEntry) GetId() uint32 {
+func (m *EventEntry) GetId() uint32 {
 	if m != nil {
 		return m.Id
 	}
 	return 0
 }
 
-func (m *LogEntry) GetLinkId() string {
+func (m *EventEntry) GetLinkId() string {
 	if m != nil {
 		return m.LinkId
 	}
 	return ""
 }
 
-func (m *LogEntry) GetAliasId() string {
+func (m *EventEntry) GetAliasId() string {
 	if m != nil {
 		return m.AliasId
 	}
 	return ""
 }
 
-func (m *LogEntry) GetTargetId() string {
+func (m *EventEntry) GetTargetId() string {
 	if m != nil {
 		return m.TargetId
 	}
 	return ""
 }
 
-func (m *LogEntry) GetIdentifier() string {
+func (m *EventEntry) GetIdentifier() string {
 	if m != nil {
 		return m.Identifier
 	}
 	return ""
 }
 
-func (m *LogEntry) GetUrl() string {
+func (m *EventEntry) GetUrl() string {
 	if m != nil {
 		return m.Url
 	}
 	return ""
 }
 
-func (m *LogEntry) GetCode() int32 {
+func (m *EventEntry) GetCode() int32 {
 	if m != nil {
 		return m.Code
 	}
 	return 0
 }
 
-func (m *LogEntry) GetContext() []byte {
+func (m *EventEntry) GetContext() []byte {
 	if m != nil {
 		return m.Context
 	}
 	return nil
 }
 
-func (m *LogEntry) GetCreatedAt() *timestamp.Timestamp {
+func (m *EventEntry) GetCreatedAt() *timestamp.Timestamp {
 	if m != nil {
 		return m.CreatedAt
 	}
 	return nil
 }
 
-type LogFilter struct {
+type EventFilter struct {
 	LinkId               string          `protobuf:"bytes,3,opt,name=link_id,json=linkId,proto3" json:"link_id,omitempty"`
 	AliasId              string          `protobuf:"bytes,4,opt,name=alias_id,json=aliasId,proto3" json:"alias_id,omitempty"`
 	TargetId             string          `protobuf:"bytes,5,opt,name=target_id,json=targetId,proto3" json:"target_id,omitempty"`
@@ -144,215 +144,215 @@ type LogFilter struct {
 	XXX_sizecache        int32           `json:"-"`
 }
 
-func (m *LogFilter) Reset()         { *m = LogFilter{} }
-func (m *LogFilter) String() string { return proto.CompactTextString(m) }
-func (*LogFilter) ProtoMessage()    {}
-func (*LogFilter) Descriptor() ([]byte, []int) {
+func (m *EventFilter) Reset()         { *m = EventFilter{} }
+func (m *EventFilter) String() string { return proto.CompactTextString(m) }
+func (*EventFilter) ProtoMessage()    {}
+func (*EventFilter) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2d17a9d3f0ddf27e, []int{1}
 }
-func (m *LogFilter) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_LogFilter.Unmarshal(m, b)
+func (m *EventFilter) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_EventFilter.Unmarshal(m, b)
 }
-func (m *LogFilter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_LogFilter.Marshal(b, m, deterministic)
+func (m *EventFilter) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_EventFilter.Marshal(b, m, deterministic)
 }
-func (m *LogFilter) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_LogFilter.Merge(m, src)
+func (m *EventFilter) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_EventFilter.Merge(m, src)
 }
-func (m *LogFilter) XXX_Size() int {
-	return xxx_messageInfo_LogFilter.Size(m)
+func (m *EventFilter) XXX_Size() int {
+	return xxx_messageInfo_EventFilter.Size(m)
 }
-func (m *LogFilter) XXX_DiscardUnknown() {
-	xxx_messageInfo_LogFilter.DiscardUnknown(m)
+func (m *EventFilter) XXX_DiscardUnknown() {
+	xxx_messageInfo_EventFilter.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_LogFilter proto.InternalMessageInfo
+var xxx_messageInfo_EventFilter proto.InternalMessageInfo
 
-func (m *LogFilter) GetLinkId() string {
+func (m *EventFilter) GetLinkId() string {
 	if m != nil {
 		return m.LinkId
 	}
 	return ""
 }
 
-func (m *LogFilter) GetAliasId() string {
+func (m *EventFilter) GetAliasId() string {
 	if m != nil {
 		return m.AliasId
 	}
 	return ""
 }
 
-func (m *LogFilter) GetTargetId() string {
+func (m *EventFilter) GetTargetId() string {
 	if m != nil {
 		return m.TargetId
 	}
 	return ""
 }
 
-func (m *LogFilter) GetIdentifier() string {
+func (m *EventFilter) GetIdentifier() string {
 	if m != nil {
 		return m.Identifier
 	}
 	return ""
 }
 
-func (m *LogFilter) GetUrl() string {
+func (m *EventFilter) GetUrl() string {
 	if m != nil {
 		return m.Url
 	}
 	return ""
 }
 
-func (m *LogFilter) GetCode() int32 {
+func (m *EventFilter) GetCode() int32 {
 	if m != nil {
 		return m.Code
 	}
 	return 0
 }
 
-func (m *LogFilter) GetCreatedAt() *TimestampRange {
+func (m *EventFilter) GetCreatedAt() *TimestampRange {
 	if m != nil {
 		return m.CreatedAt
 	}
 	return nil
 }
 
-func (m *LogFilter) GetLimit() uint32 {
+func (m *EventFilter) GetLimit() uint32 {
 	if m != nil {
 		return m.Limit
 	}
 	return 0
 }
 
-type ReadLogsRequest struct {
+type ReadEventsRequest struct {
 	// Types that are valid to be assigned to Filter:
-	//	*ReadLogsRequest_Id
-	//	*ReadLogsRequest_Condition
-	Filter               isReadLogsRequest_Filter `protobuf_oneof:"filter"`
-	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
-	XXX_unrecognized     []byte                   `json:"-"`
-	XXX_sizecache        int32                    `json:"-"`
+	//	*ReadEventsRequest_Id
+	//	*ReadEventsRequest_Condition
+	Filter               isReadEventsRequest_Filter `protobuf_oneof:"filter"`
+	XXX_NoUnkeyedLiteral struct{}                   `json:"-"`
+	XXX_unrecognized     []byte                     `json:"-"`
+	XXX_sizecache        int32                      `json:"-"`
 }
 
-func (m *ReadLogsRequest) Reset()         { *m = ReadLogsRequest{} }
-func (m *ReadLogsRequest) String() string { return proto.CompactTextString(m) }
-func (*ReadLogsRequest) ProtoMessage()    {}
-func (*ReadLogsRequest) Descriptor() ([]byte, []int) {
+func (m *ReadEventsRequest) Reset()         { *m = ReadEventsRequest{} }
+func (m *ReadEventsRequest) String() string { return proto.CompactTextString(m) }
+func (*ReadEventsRequest) ProtoMessage()    {}
+func (*ReadEventsRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2d17a9d3f0ddf27e, []int{2}
 }
-func (m *ReadLogsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ReadLogsRequest.Unmarshal(m, b)
+func (m *ReadEventsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadEventsRequest.Unmarshal(m, b)
 }
-func (m *ReadLogsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ReadLogsRequest.Marshal(b, m, deterministic)
+func (m *ReadEventsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadEventsRequest.Marshal(b, m, deterministic)
 }
-func (m *ReadLogsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReadLogsRequest.Merge(m, src)
+func (m *ReadEventsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadEventsRequest.Merge(m, src)
 }
-func (m *ReadLogsRequest) XXX_Size() int {
-	return xxx_messageInfo_ReadLogsRequest.Size(m)
+func (m *ReadEventsRequest) XXX_Size() int {
+	return xxx_messageInfo_ReadEventsRequest.Size(m)
 }
-func (m *ReadLogsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReadLogsRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ReadLogsRequest proto.InternalMessageInfo
-
-type isReadLogsRequest_Filter interface {
-	isReadLogsRequest_Filter()
+func (m *ReadEventsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadEventsRequest.DiscardUnknown(m)
 }
 
-type ReadLogsRequest_Id struct {
+var xxx_messageInfo_ReadEventsRequest proto.InternalMessageInfo
+
+type isReadEventsRequest_Filter interface {
+	isReadEventsRequest_Filter()
+}
+
+type ReadEventsRequest_Id struct {
 	Id uint32 `protobuf:"varint,1,opt,name=id,proto3,oneof"`
 }
 
-type ReadLogsRequest_Condition struct {
-	Condition *LogFilter `protobuf:"bytes,2,opt,name=condition,proto3,oneof"`
+type ReadEventsRequest_Condition struct {
+	Condition *EventFilter `protobuf:"bytes,2,opt,name=condition,proto3,oneof"`
 }
 
-func (*ReadLogsRequest_Id) isReadLogsRequest_Filter() {}
+func (*ReadEventsRequest_Id) isReadEventsRequest_Filter() {}
 
-func (*ReadLogsRequest_Condition) isReadLogsRequest_Filter() {}
+func (*ReadEventsRequest_Condition) isReadEventsRequest_Filter() {}
 
-func (m *ReadLogsRequest) GetFilter() isReadLogsRequest_Filter {
+func (m *ReadEventsRequest) GetFilter() isReadEventsRequest_Filter {
 	if m != nil {
 		return m.Filter
 	}
 	return nil
 }
 
-func (m *ReadLogsRequest) GetId() uint32 {
-	if x, ok := m.GetFilter().(*ReadLogsRequest_Id); ok {
+func (m *ReadEventsRequest) GetId() uint32 {
+	if x, ok := m.GetFilter().(*ReadEventsRequest_Id); ok {
 		return x.Id
 	}
 	return 0
 }
 
-func (m *ReadLogsRequest) GetCondition() *LogFilter {
-	if x, ok := m.GetFilter().(*ReadLogsRequest_Condition); ok {
+func (m *ReadEventsRequest) GetCondition() *EventFilter {
+	if x, ok := m.GetFilter().(*ReadEventsRequest_Condition); ok {
 		return x.Condition
 	}
 	return nil
 }
 
 // XXX_OneofFuncs is for the internal use of the proto package.
-func (*ReadLogsRequest) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
-	return _ReadLogsRequest_OneofMarshaler, _ReadLogsRequest_OneofUnmarshaler, _ReadLogsRequest_OneofSizer, []interface{}{
-		(*ReadLogsRequest_Id)(nil),
-		(*ReadLogsRequest_Condition)(nil),
+func (*ReadEventsRequest) XXX_OneofFuncs() (func(msg proto.Message, b *proto.Buffer) error, func(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error), func(msg proto.Message) (n int), []interface{}) {
+	return _ReadEventsRequest_OneofMarshaler, _ReadEventsRequest_OneofUnmarshaler, _ReadEventsRequest_OneofSizer, []interface{}{
+		(*ReadEventsRequest_Id)(nil),
+		(*ReadEventsRequest_Condition)(nil),
 	}
 }
 
-func _ReadLogsRequest_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
-	m := msg.(*ReadLogsRequest)
+func _ReadEventsRequest_OneofMarshaler(msg proto.Message, b *proto.Buffer) error {
+	m := msg.(*ReadEventsRequest)
 	// filter
 	switch x := m.Filter.(type) {
-	case *ReadLogsRequest_Id:
+	case *ReadEventsRequest_Id:
 		b.EncodeVarint(1<<3 | proto.WireVarint)
 		b.EncodeVarint(uint64(x.Id))
-	case *ReadLogsRequest_Condition:
+	case *ReadEventsRequest_Condition:
 		b.EncodeVarint(2<<3 | proto.WireBytes)
 		if err := b.EncodeMessage(x.Condition); err != nil {
 			return err
 		}
 	case nil:
 	default:
-		return fmt.Errorf("ReadLogsRequest.Filter has unexpected type %T", x)
+		return fmt.Errorf("ReadEventsRequest.Filter has unexpected type %T", x)
 	}
 	return nil
 }
 
-func _ReadLogsRequest_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
-	m := msg.(*ReadLogsRequest)
+func _ReadEventsRequest_OneofUnmarshaler(msg proto.Message, tag, wire int, b *proto.Buffer) (bool, error) {
+	m := msg.(*ReadEventsRequest)
 	switch tag {
 	case 1: // filter.id
 		if wire != proto.WireVarint {
 			return true, proto.ErrInternalBadWireType
 		}
 		x, err := b.DecodeVarint()
-		m.Filter = &ReadLogsRequest_Id{uint32(x)}
+		m.Filter = &ReadEventsRequest_Id{uint32(x)}
 		return true, err
 	case 2: // filter.condition
 		if wire != proto.WireBytes {
 			return true, proto.ErrInternalBadWireType
 		}
-		msg := new(LogFilter)
+		msg := new(EventFilter)
 		err := b.DecodeMessage(msg)
-		m.Filter = &ReadLogsRequest_Condition{msg}
+		m.Filter = &ReadEventsRequest_Condition{msg}
 		return true, err
 	default:
 		return false, nil
 	}
 }
 
-func _ReadLogsRequest_OneofSizer(msg proto.Message) (n int) {
-	m := msg.(*ReadLogsRequest)
+func _ReadEventsRequest_OneofSizer(msg proto.Message) (n int) {
+	m := msg.(*ReadEventsRequest)
 	// filter
 	switch x := m.Filter.(type) {
-	case *ReadLogsRequest_Id:
+	case *ReadEventsRequest_Id:
 		n += 1 // tag and wire
 		n += proto.SizeVarint(uint64(x.Id))
-	case *ReadLogsRequest_Condition:
+	case *ReadEventsRequest_Condition:
 		s := proto.Size(x.Condition)
 		n += 1 // tag and wire
 		n += proto.SizeVarint(uint64(s))
@@ -364,84 +364,84 @@ func _ReadLogsRequest_OneofSizer(msg proto.Message) (n int) {
 	return n
 }
 
-type ReadLogsResponse struct {
-	Logs                 []*LogEntry `protobuf:"bytes,1,rep,name=logs,proto3" json:"logs,omitempty"`
-	Err                  *Error      `protobuf:"bytes,15,opt,name=err,proto3" json:"err,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
-	XXX_unrecognized     []byte      `json:"-"`
-	XXX_sizecache        int32       `json:"-"`
+type ReadEventsResponse struct {
+	Logs                 []*EventEntry `protobuf:"bytes,1,rep,name=logs,proto3" json:"logs,omitempty"`
+	Err                  *Error        `protobuf:"bytes,15,opt,name=err,proto3" json:"err,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}      `json:"-"`
+	XXX_unrecognized     []byte        `json:"-"`
+	XXX_sizecache        int32         `json:"-"`
 }
 
-func (m *ReadLogsResponse) Reset()         { *m = ReadLogsResponse{} }
-func (m *ReadLogsResponse) String() string { return proto.CompactTextString(m) }
-func (*ReadLogsResponse) ProtoMessage()    {}
-func (*ReadLogsResponse) Descriptor() ([]byte, []int) {
+func (m *ReadEventsResponse) Reset()         { *m = ReadEventsResponse{} }
+func (m *ReadEventsResponse) String() string { return proto.CompactTextString(m) }
+func (*ReadEventsResponse) ProtoMessage()    {}
+func (*ReadEventsResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2d17a9d3f0ddf27e, []int{3}
 }
-func (m *ReadLogsResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ReadLogsResponse.Unmarshal(m, b)
+func (m *ReadEventsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadEventsResponse.Unmarshal(m, b)
 }
-func (m *ReadLogsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ReadLogsResponse.Marshal(b, m, deterministic)
+func (m *ReadEventsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadEventsResponse.Marshal(b, m, deterministic)
 }
-func (m *ReadLogsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReadLogsResponse.Merge(m, src)
+func (m *ReadEventsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadEventsResponse.Merge(m, src)
 }
-func (m *ReadLogsResponse) XXX_Size() int {
-	return xxx_messageInfo_ReadLogsResponse.Size(m)
+func (m *ReadEventsResponse) XXX_Size() int {
+	return xxx_messageInfo_ReadEventsResponse.Size(m)
 }
-func (m *ReadLogsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReadLogsResponse.DiscardUnknown(m)
+func (m *ReadEventsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadEventsResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ReadLogsResponse proto.InternalMessageInfo
+var xxx_messageInfo_ReadEventsResponse proto.InternalMessageInfo
 
-func (m *ReadLogsResponse) GetLogs() []*LogEntry {
+func (m *ReadEventsResponse) GetLogs() []*EventEntry {
 	if m != nil {
 		return m.Logs
 	}
 	return nil
 }
 
-func (m *ReadLogsResponse) GetErr() *Error {
+func (m *ReadEventsResponse) GetErr() *Error {
 	if m != nil {
 		return m.Err
 	}
 	return nil
 }
 
-type ListenLogsRequest struct {
-	Filter               *LogFilter `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
-	XXX_unrecognized     []byte     `json:"-"`
-	XXX_sizecache        int32      `json:"-"`
+type ListenEventsRequest struct {
+	Filter               *EventFilter `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}     `json:"-"`
+	XXX_unrecognized     []byte       `json:"-"`
+	XXX_sizecache        int32        `json:"-"`
 }
 
-func (m *ListenLogsRequest) Reset()         { *m = ListenLogsRequest{} }
-func (m *ListenLogsRequest) String() string { return proto.CompactTextString(m) }
-func (*ListenLogsRequest) ProtoMessage()    {}
-func (*ListenLogsRequest) Descriptor() ([]byte, []int) {
+func (m *ListenEventsRequest) Reset()         { *m = ListenEventsRequest{} }
+func (m *ListenEventsRequest) String() string { return proto.CompactTextString(m) }
+func (*ListenEventsRequest) ProtoMessage()    {}
+func (*ListenEventsRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_2d17a9d3f0ddf27e, []int{4}
 }
-func (m *ListenLogsRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListenLogsRequest.Unmarshal(m, b)
+func (m *ListenEventsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListenEventsRequest.Unmarshal(m, b)
 }
-func (m *ListenLogsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListenLogsRequest.Marshal(b, m, deterministic)
+func (m *ListenEventsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListenEventsRequest.Marshal(b, m, deterministic)
 }
-func (m *ListenLogsRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListenLogsRequest.Merge(m, src)
+func (m *ListenEventsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListenEventsRequest.Merge(m, src)
 }
-func (m *ListenLogsRequest) XXX_Size() int {
-	return xxx_messageInfo_ListenLogsRequest.Size(m)
+func (m *ListenEventsRequest) XXX_Size() int {
+	return xxx_messageInfo_ListenEventsRequest.Size(m)
 }
-func (m *ListenLogsRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListenLogsRequest.DiscardUnknown(m)
+func (m *ListenEventsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListenEventsRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ListenLogsRequest proto.InternalMessageInfo
+var xxx_messageInfo_ListenEventsRequest proto.InternalMessageInfo
 
-func (m *ListenLogsRequest) GetFilter() *LogFilter {
+func (m *ListenEventsRequest) GetFilter() *EventFilter {
 	if m != nil {
 		return m.Filter
 	}
@@ -449,11 +449,11 @@ func (m *ListenLogsRequest) GetFilter() *LogFilter {
 }
 
 func init() {
-	proto.RegisterType((*LogEntry)(nil), "grpc.LogEntry")
-	proto.RegisterType((*LogFilter)(nil), "grpc.LogFilter")
-	proto.RegisterType((*ReadLogsRequest)(nil), "grpc.ReadLogsRequest")
-	proto.RegisterType((*ReadLogsResponse)(nil), "grpc.ReadLogsResponse")
-	proto.RegisterType((*ListenLogsRequest)(nil), "grpc.ListenLogsRequest")
+	proto.RegisterType((*EventEntry)(nil), "grpc.EventEntry")
+	proto.RegisterType((*EventFilter)(nil), "grpc.EventFilter")
+	proto.RegisterType((*ReadEventsRequest)(nil), "grpc.ReadEventsRequest")
+	proto.RegisterType((*ReadEventsResponse)(nil), "grpc.ReadEventsResponse")
+	proto.RegisterType((*ListenEventsRequest)(nil), "grpc.ListenEventsRequest")
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -464,37 +464,37 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// LogClient is the client API for Log service.
+// EventClient is the client API for Event service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type LogClient interface {
-	Read(ctx context.Context, in *ReadLogsRequest, opts ...grpc.CallOption) (*ReadLogsResponse, error)
-	Listen(ctx context.Context, in *ListenLogsRequest, opts ...grpc.CallOption) (Log_ListenClient, error)
+type EventClient interface {
+	Read(ctx context.Context, in *ReadEventsRequest, opts ...grpc.CallOption) (*ReadEventsResponse, error)
+	Listen(ctx context.Context, in *ListenEventsRequest, opts ...grpc.CallOption) (Event_ListenClient, error)
 }
 
-type logClient struct {
+type eventClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewLogClient(cc *grpc.ClientConn) LogClient {
-	return &logClient{cc}
+func NewEventClient(cc *grpc.ClientConn) EventClient {
+	return &eventClient{cc}
 }
 
-func (c *logClient) Read(ctx context.Context, in *ReadLogsRequest, opts ...grpc.CallOption) (*ReadLogsResponse, error) {
-	out := new(ReadLogsResponse)
-	err := c.cc.Invoke(ctx, "/grpc.Log/Read", in, out, opts...)
+func (c *eventClient) Read(ctx context.Context, in *ReadEventsRequest, opts ...grpc.CallOption) (*ReadEventsResponse, error) {
+	out := new(ReadEventsResponse)
+	err := c.cc.Invoke(ctx, "/grpc.Event/Read", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-func (c *logClient) Listen(ctx context.Context, in *ListenLogsRequest, opts ...grpc.CallOption) (Log_ListenClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_Log_serviceDesc.Streams[0], "/grpc.Log/Listen", opts...)
+func (c *eventClient) Listen(ctx context.Context, in *ListenEventsRequest, opts ...grpc.CallOption) (Event_ListenClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Event_serviceDesc.Streams[0], "/grpc.Event/Listen", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &logListenClient{stream}
+	x := &eventListenClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -504,85 +504,85 @@ func (c *logClient) Listen(ctx context.Context, in *ListenLogsRequest, opts ...g
 	return x, nil
 }
 
-type Log_ListenClient interface {
-	Recv() (*LogEntry, error)
+type Event_ListenClient interface {
+	Recv() (*EventEntry, error)
 	grpc.ClientStream
 }
 
-type logListenClient struct {
+type eventListenClient struct {
 	grpc.ClientStream
 }
 
-func (x *logListenClient) Recv() (*LogEntry, error) {
-	m := new(LogEntry)
+func (x *eventListenClient) Recv() (*EventEntry, error) {
+	m := new(EventEntry)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
 	}
 	return m, nil
 }
 
-// LogServer is the server API for Log service.
-type LogServer interface {
-	Read(context.Context, *ReadLogsRequest) (*ReadLogsResponse, error)
-	Listen(*ListenLogsRequest, Log_ListenServer) error
+// EventServer is the server API for Event service.
+type EventServer interface {
+	Read(context.Context, *ReadEventsRequest) (*ReadEventsResponse, error)
+	Listen(*ListenEventsRequest, Event_ListenServer) error
 }
 
-func RegisterLogServer(s *grpc.Server, srv LogServer) {
-	s.RegisterService(&_Log_serviceDesc, srv)
+func RegisterEventServer(s *grpc.Server, srv EventServer) {
+	s.RegisterService(&_Event_serviceDesc, srv)
 }
 
-func _Log_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReadLogsRequest)
+func _Event_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadEventsRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LogServer).Read(ctx, in)
+		return srv.(EventServer).Read(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/grpc.Log/Read",
+		FullMethod: "/grpc.Event/Read",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LogServer).Read(ctx, req.(*ReadLogsRequest))
+		return srv.(EventServer).Read(ctx, req.(*ReadEventsRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Log_Listen_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(ListenLogsRequest)
+func _Event_Listen_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(ListenEventsRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(LogServer).Listen(m, &logListenServer{stream})
+	return srv.(EventServer).Listen(m, &eventListenServer{stream})
 }
 
-type Log_ListenServer interface {
-	Send(*LogEntry) error
+type Event_ListenServer interface {
+	Send(*EventEntry) error
 	grpc.ServerStream
 }
 
-type logListenServer struct {
+type eventListenServer struct {
 	grpc.ServerStream
 }
 
-func (x *logListenServer) Send(m *LogEntry) error {
+func (x *eventListenServer) Send(m *EventEntry) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-var _Log_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "grpc.Log",
-	HandlerType: (*LogServer)(nil),
+var _Event_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "grpc.Event",
+	HandlerType: (*EventServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "Read",
-			Handler:    _Log_Read_Handler,
+			Handler:    _Event_Read_Handler,
 		},
 	},
 	Streams: []grpc.StreamDesc{
 		{
 			StreamName:    "Listen",
-			Handler:       _Log_Listen_Handler,
+			Handler:       _Event_Listen_Handler,
 			ServerStreams: true,
 		},
 	},
@@ -592,35 +592,35 @@ var _Log_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("event.proto", fileDescriptor_2d17a9d3f0ddf27e) }
 
 var fileDescriptor_2d17a9d3f0ddf27e = []byte{
-	// 473 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x52, 0x41, 0x8f, 0xd3, 0x3c,
-	0x10, 0x6d, 0x9a, 0x34, 0x4d, 0x26, 0xfb, 0x6d, 0xfb, 0x59, 0x0b, 0x6b, 0x82, 0x80, 0x28, 0x17,
-	0x72, 0x4a, 0x51, 0x57, 0x08, 0x21, 0x71, 0x01, 0x69, 0xd1, 0x56, 0xca, 0x01, 0x59, 0x70, 0x65,
-	0x95, 0x8d, 0x5d, 0xcb, 0x22, 0xb1, 0x8b, 0xe3, 0x22, 0xf8, 0x03, 0xfc, 0x5b, 0xfe, 0x03, 0x8a,
-	0xdd, 0x6e, 0xab, 0xc2, 0x0f, 0xe0, 0xe6, 0x79, 0x6f, 0xe4, 0x79, 0xef, 0xcd, 0x40, 0xc2, 0xbe,
-	0x31, 0x69, 0xca, 0x8d, 0x56, 0x46, 0xa1, 0x80, 0xeb, 0x4d, 0x93, 0x9e, 0x35, 0xaa, 0xeb, 0x94,
-	0x74, 0x58, 0xfa, 0x8c, 0x2b, 0xc5, 0x5b, 0xb6, 0xb0, 0xd5, 0xdd, 0x76, 0xbd, 0x30, 0xa2, 0x63,
-	0xbd, 0xa9, 0xbb, 0x8d, 0x6b, 0xc8, 0x7f, 0x8e, 0x21, 0xaa, 0x14, 0xbf, 0x96, 0x46, 0xff, 0x40,
-	0xe7, 0x30, 0x16, 0x14, 0x7b, 0x99, 0x57, 0xfc, 0x47, 0xc6, 0x82, 0xa2, 0x4b, 0x98, 0xb6, 0x42,
-	0x7e, 0xb9, 0x15, 0x14, 0xfb, 0x99, 0x57, 0xc4, 0x24, 0x1c, 0xca, 0x15, 0x45, 0x8f, 0x20, 0xaa,
-	0x5b, 0x51, 0xf7, 0x03, 0x13, 0x58, 0x66, 0x6a, 0xeb, 0x15, 0x45, 0x8f, 0x21, 0x36, 0xb5, 0xe6,
-	0xcc, 0x0c, 0xdc, 0xc4, 0x72, 0x91, 0x03, 0x56, 0x14, 0x3d, 0x05, 0x10, 0x94, 0x49, 0x23, 0xd6,
-	0x82, 0x69, 0x1c, 0x5a, 0xf6, 0x08, 0x41, 0x73, 0xf0, 0xb7, 0xba, 0xc5, 0x53, 0x4b, 0x0c, 0x4f,
-	0x84, 0x20, 0x68, 0x14, 0x65, 0x38, 0xca, 0xbc, 0x62, 0x42, 0xec, 0x1b, 0x61, 0x98, 0x36, 0x4a,
-	0x1a, 0xf6, 0xdd, 0xe0, 0x38, 0xf3, 0x8a, 0x33, 0xb2, 0x2f, 0xd1, 0x6b, 0x80, 0x46, 0xb3, 0xda,
-	0x30, 0x7a, 0x5b, 0x1b, 0x0c, 0x99, 0x57, 0x24, 0xcb, 0xb4, 0x74, 0x19, 0x94, 0xfb, 0x0c, 0xca,
-	0x8f, 0xfb, 0x0c, 0x48, 0xbc, 0xeb, 0x7e, 0x6b, 0xf2, 0x5f, 0x1e, 0xc4, 0x95, 0xe2, 0xef, 0x45,
-	0x6b, 0x98, 0xfe, 0x57, 0x9d, 0x5f, 0xfd, 0xc5, 0xdf, 0x45, 0x39, 0xec, 0xfd, 0xc8, 0x54, 0x2d,
-	0x39, 0x3b, 0x72, 0x86, 0x2e, 0x60, 0xd2, 0x8a, 0x4e, 0x18, 0x3c, 0xb3, 0x8b, 0x75, 0x45, 0xfe,
-	0x19, 0x66, 0x84, 0xd5, 0xb4, 0x52, 0xbc, 0x27, 0xec, 0xeb, 0x96, 0xf5, 0x06, 0xcd, 0x0f, 0xeb,
-	0xbf, 0x19, 0xd9, 0x03, 0x58, 0x40, 0xdc, 0x28, 0x49, 0x85, 0x11, 0x4a, 0xe2, 0xb1, 0x1d, 0x37,
-	0x73, 0xe3, 0xee, 0xa3, 0xba, 0x19, 0x91, 0x43, 0xcf, 0xbb, 0x08, 0xc2, 0xb5, 0x85, 0xf3, 0x4f,
-	0x30, 0x3f, 0xfc, 0xdf, 0x6f, 0x94, 0xec, 0x19, 0xca, 0x21, 0x68, 0x15, 0xef, 0xb1, 0x97, 0xf9,
-	0x45, 0xb2, 0x3c, 0xbf, 0xff, 0xc9, 0x5e, 0x1f, 0xb1, 0x1c, 0x7a, 0x02, 0x3e, 0xd3, 0xda, 0x6a,
-	0x4d, 0x96, 0x89, 0x6b, 0xb9, 0xd6, 0x5a, 0x69, 0x32, 0xe0, 0xf9, 0x1b, 0xf8, 0xbf, 0x12, 0xbd,
-	0x61, 0xf2, 0x58, 0xf8, 0xf3, 0xfd, 0x54, 0x2b, 0xfe, 0x4f, 0x8d, 0x64, 0x47, 0x2f, 0xb7, 0xe0,
-	0x57, 0x8a, 0xa3, 0x57, 0x10, 0x0c, 0xda, 0xd0, 0x03, 0xd7, 0x77, 0x92, 0x43, 0xfa, 0xf0, 0x14,
-	0x76, 0xf2, 0xf3, 0x11, 0x7a, 0x09, 0xa1, 0x9b, 0x8e, 0x2e, 0x77, 0x23, 0x4e, 0xb5, 0xa4, 0x27,
-	0xae, 0xf2, 0xd1, 0x0b, 0xef, 0xc3, 0xe8, 0x2e, 0xb4, 0xc7, 0x77, 0xf5, 0x3b, 0x00, 0x00, 0xff,
-	0xff, 0x22, 0xd6, 0x59, 0xb1, 0xb1, 0x03, 0x00, 0x00,
+	// 470 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x52, 0xc1, 0x8e, 0xd3, 0x30,
+	0x10, 0x4d, 0xda, 0x34, 0x6d, 0x26, 0x0b, 0x74, 0x87, 0x95, 0xd6, 0x1b, 0x04, 0x44, 0x11, 0x87,
+	0x70, 0xc9, 0x42, 0xf7, 0xb4, 0xe2, 0x02, 0x48, 0x8b, 0xb6, 0x12, 0x07, 0x64, 0x71, 0xe1, 0xb4,
+	0x4a, 0x63, 0x37, 0xb2, 0x48, 0xec, 0xe2, 0xb8, 0x08, 0x4e, 0x5c, 0xf9, 0x5b, 0x7e, 0x01, 0xc5,
+	0x6e, 0xb5, 0x41, 0xed, 0x07, 0x70, 0xf3, 0xbc, 0xf7, 0xe4, 0x99, 0xf7, 0x66, 0x20, 0xe6, 0xdf,
+	0xb9, 0x34, 0xc5, 0x46, 0x2b, 0xa3, 0x30, 0xa8, 0xf5, 0xa6, 0x4a, 0x4e, 0x2a, 0xd5, 0xb6, 0x4a,
+	0x3a, 0x2c, 0x79, 0x5e, 0x2b, 0x55, 0x37, 0xfc, 0xd2, 0x56, 0xab, 0xed, 0xfa, 0xd2, 0x88, 0x96,
+	0x77, 0xa6, 0x6c, 0x37, 0x4e, 0x90, 0xfd, 0x1e, 0x01, 0xdc, 0xf4, 0x9f, 0xdc, 0x48, 0xa3, 0x7f,
+	0xe2, 0x43, 0x18, 0x09, 0x46, 0xfc, 0xd4, 0xcf, 0x1f, 0xd0, 0x91, 0x60, 0x78, 0x0e, 0xd3, 0x46,
+	0xc8, 0xaf, 0x77, 0x82, 0x91, 0x71, 0xea, 0xe7, 0x11, 0x0d, 0xfb, 0x72, 0xc9, 0xf0, 0x02, 0x66,
+	0x65, 0x23, 0xca, 0xae, 0x67, 0x02, 0xcb, 0x4c, 0x6d, 0xbd, 0x64, 0xf8, 0x04, 0x22, 0x53, 0xea,
+	0x9a, 0x9b, 0x9e, 0x9b, 0x58, 0x6e, 0xe6, 0x80, 0x25, 0xc3, 0x67, 0x00, 0x82, 0x71, 0x69, 0xc4,
+	0x5a, 0x70, 0x4d, 0x42, 0xcb, 0x0e, 0x10, 0x9c, 0xc3, 0x78, 0xab, 0x1b, 0x32, 0xb5, 0x44, 0xff,
+	0x44, 0x84, 0xa0, 0x52, 0x8c, 0x93, 0x59, 0xea, 0xe7, 0x13, 0x6a, 0xdf, 0x48, 0x60, 0x5a, 0x29,
+	0x69, 0xf8, 0x0f, 0x43, 0xa2, 0xd4, 0xcf, 0x4f, 0xe8, 0xbe, 0xc4, 0x6b, 0x80, 0x4a, 0xf3, 0xd2,
+	0x70, 0x76, 0x57, 0x1a, 0x02, 0xa9, 0x9f, 0xc7, 0x8b, 0xa4, 0x70, 0x29, 0x14, 0xfb, 0x14, 0x8a,
+	0xcf, 0xfb, 0x14, 0x68, 0xb4, 0x53, 0xbf, 0x33, 0xd9, 0x1f, 0x1f, 0x62, 0x1b, 0xc5, 0x07, 0xd1,
+	0x18, 0xae, 0xff, 0x57, 0xef, 0x57, 0x47, 0x1c, 0x9e, 0x15, 0xfd, 0xee, 0x07, 0xb6, 0x4a, 0x59,
+	0xf3, 0x81, 0x37, 0x3c, 0x83, 0x49, 0x23, 0x5a, 0x61, 0xc8, 0x23, 0xbb, 0x5a, 0x57, 0x64, 0x2b,
+	0x38, 0xa5, 0xbc, 0x64, 0xd6, 0x74, 0x47, 0xf9, 0xb7, 0x2d, 0xef, 0x0c, 0xce, 0xef, 0x4f, 0xe0,
+	0xd6, 0xb3, 0x47, 0xf0, 0x1a, 0xa2, 0x4a, 0x49, 0x26, 0x8c, 0x50, 0x92, 0x8c, 0x6c, 0xc3, 0x53,
+	0xd7, 0x70, 0x10, 0xd7, 0xad, 0x47, 0xef, 0x55, 0xef, 0x67, 0x10, 0xae, 0x2d, 0x9c, 0x7d, 0x01,
+	0x1c, 0xf6, 0xe8, 0x36, 0x4a, 0x76, 0x1c, 0x5f, 0x40, 0xd0, 0xa8, 0xba, 0x23, 0x7e, 0x3a, 0xce,
+	0xe3, 0xc5, 0x7c, 0xf0, 0x9b, 0xbd, 0x43, 0x6a, 0x59, 0x7c, 0x0a, 0x63, 0xae, 0xb5, 0x9d, 0x39,
+	0x5e, 0xc4, 0x3b, 0x91, 0xd6, 0x4a, 0xd3, 0x1e, 0xcf, 0xde, 0xc2, 0xe3, 0x8f, 0xa2, 0x33, 0x5c,
+	0xfe, 0x6b, 0xe0, 0xe5, 0xbe, 0xb7, 0x35, 0x71, 0x6c, 0x56, 0xba, 0x13, 0x2c, 0x7e, 0xc1, 0xc4,
+	0xc2, 0xf8, 0x06, 0x82, 0x7e, 0x4a, 0x3c, 0x77, 0xda, 0x83, 0x54, 0x12, 0x72, 0x48, 0x38, 0x2b,
+	0x99, 0x87, 0xd7, 0x10, 0xba, 0x39, 0xf0, 0xc2, 0xa9, 0x8e, 0x4c, 0x95, 0x1c, 0x78, 0xcc, 0xbc,
+	0x57, 0xfe, 0x27, 0x6f, 0x15, 0xda, 0xa3, 0xbc, 0xfa, 0x1b, 0x00, 0x00, 0xff, 0xff, 0xcd, 0x80,
+	0xd8, 0x96, 0xcb, 0x03, 0x00, 0x00,
 }

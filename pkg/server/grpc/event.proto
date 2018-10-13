@@ -5,7 +5,7 @@ package grpc;
 import public "common.proto";
 import "google/protobuf/timestamp.proto";
 
-message LogEntry {
+message EventEntry {
     uint32 id = 1;
     string link_id = 3;
     string alias_id = 4;
@@ -17,7 +17,7 @@ message LogEntry {
     google.protobuf.Timestamp created_at = 10;
 }
 
-message LogFilter {
+message EventFilter {
     string link_id = 3;
     string alias_id = 4;
     string target_id = 5;
@@ -29,24 +29,24 @@ message LogFilter {
     uint32 limit = 15;
 }
 
-message ReadLogsRequest {
+message ReadEventsRequest {
     oneof filter {
         uint32 id = 1;
-        LogFilter condition = 2;
+        EventFilter condition = 2;
     }
 }
 
-message ReadLogsResponse {
-    repeated LogEntry logs = 1;
+message ReadEventsResponse {
+    repeated EventEntry logs = 1;
 
     Error err = 15;
 }
 
-message ListenLogsRequest {
-    LogFilter filter = 1;
+message ListenEventsRequest {
+    EventFilter filter = 1;
 }
 
-service Log {
-    rpc Read (ReadLogsRequest) returns (ReadLogsResponse) {}
-    rpc Listen (ListenLogsRequest) returns (stream LogEntry) {}
+service Event {
+    rpc Read (ReadEventsRequest) returns (ReadEventsResponse) {}
+    rpc Listen (ListenEventsRequest) returns (stream EventEntry) {}
 }
