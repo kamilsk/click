@@ -34,7 +34,7 @@ func New(dialect string) *Executor {
 			return postgres.NewLinkContext(ctx, conn)
 		}
 		exec.factory.NewLogWriter = func(ctx context.Context, conn *sql.Conn) LogWriter {
-			return postgres.NewLogContext(ctx, conn)
+			return postgres.NewEventContext(ctx, conn)
 		}
 		exec.factory.NewNamespaceEditor = func(ctx context.Context, conn *sql.Conn) NamespaceEditor {
 			return postgres.NewNamespaceContext(ctx, conn)
@@ -99,7 +99,7 @@ type LinkReader interface {
 // LogWriter TODO issue#131
 type LogWriter interface {
 	// Write TODO issue#131
-	Write(query.WriteLog) (types.Log, error)
+	Write(query.WriteLog) (types.Event, error)
 }
 
 // NamespaceEditor TODO issue#131
