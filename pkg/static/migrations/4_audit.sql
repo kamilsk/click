@@ -4,13 +4,13 @@ CREATE TABLE "event" (
   "id"           BIGSERIAL PRIMARY KEY,
   "account_id"   UUID          NOT NULL,
   "namespace_id" UUID          NOT NULL,
-  "link_id"      UUID          NULL DEFAULT NULL,
-  "alias_id"     UUID          NULL DEFAULT NULL,
-  "target_id"    UUID          NULL DEFAULT NULL,
+  "link_id"      UUID          NULL     DEFAULT NULL,
+  "alias_id"     UUID          NULL     DEFAULT NULL,
+  "target_id"    UUID          NULL     DEFAULT NULL,
+  "identifier"   UUID          NULL     DEFAULT NULL,
+  "context"      JSONB         NOT NULL,
   "code"         INTEGER       NOT NULL,
   "url"          VARCHAR(1024) NOT NULL,
-  "identifier"   UUID          NOT NULL,
-  "context"      JSONB         NOT NULL,
   "created_at"   TIMESTAMP     NOT NULL DEFAULT now()
 );
 
