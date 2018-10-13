@@ -1,12 +1,6 @@
 package domain
 
-import "strings"
-
-const (
-	namespaceHeader = "X-Click-Namespace"
-	optionsHeader   = "X-Click-Options"
-	passQueryParam  = "url"
-)
+const passQueryParam = "url"
 
 // Option contains rules for request processing.
 type Option struct {
@@ -47,44 +41,10 @@ type RedirectContext struct {
 	Queries map[string][]string `json:"queries,omitempty"`
 }
 
-// Namespace TODO issue#131
-func (context RedirectContext) Namespace() ID {
-	return ID(get(context.Headers, namespaceHeader))
-}
-
-// Option TODO issue#131
-func (context RedirectContext) Option() Option {
-	split := func(str string) []string {
-		ss := strings.Split(str, ";")
-		for i, s := range ss {
-			ss[i] = strings.ToLower(strings.TrimSpace(s))
-		}
-		return ss
-	}
-	is := func(where []string, what string) bool {
-		for _, opt := range where {
-			if opt == what {
-				return true
-			}
-		}
-		return false
-	}
-	options := split(get(context.Headers, optionsHeader))
-	return Option{
-		Anonymously: is(options, "anonym"),
-		Debug:       is(options, "debug"),
-		NoLog:       is(options, "nolog"),
-	}
-}
-
 // Redirect TODO issue#131
 func (context RedirectContext) Redirect() string {
-	return get(context.Queries, passQueryParam)
-}
-
-func get(where map[string][]string, what string) string {
-	if len(where[what]) > 0 {
-		return where[what][0]
+	if len(context.Queries[passQueryParam]) > 0 {
+		return context.Queries[passQueryParam][0]
 	}
 	return ""
 }

@@ -41,25 +41,9 @@ func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
 func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 	resp := s.service.HandlePass(req.Context(), transfer.PassRequest{
 		Context: domain.RedirectContext{
-			Cookies: func() map[string]string {
-				cookies := make(map[string]string)
-				for _, cookie := range req.Cookies() {
-					if cookie.HttpOnly && cookie.Secure {
-						cookies[cookie.Name] = cookie.Value
-					}
-				}
-				return cookies
-			}(),
-			Headers: func() map[string][]string {
-				headers := make(map[string][]string)
-				for key, values := range req.Header {
-					if key != "Cookie" {
-						headers[key] = values
-					}
-				}
-				return headers
-			}(),
-			Queries: req.URL.Query(),
+			Cookies: domain.FromCookies(req.Cookies()),
+			Headers: domain.FromHeaders(req.Header),
+			Queries: domain.FromRequest(req),
 		},
 	})
 	if resp.Error != nil {
@@ -74,25 +58,9 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 	resp := s.service.HandleRedirect(req.Context(), transfer.RedirectRequest{
 		Context: domain.RedirectContext{
-			Cookies: func() map[string]string {
-				cookies := make(map[string]string)
-				for _, cookie := range req.Cookies() {
-					if cookie.HttpOnly && cookie.Secure {
-						cookies[cookie.Name] = cookie.Value
-					}
-				}
-				return cookies
-			}(),
-			Headers: func() map[string][]string {
-				headers := make(map[string][]string)
-				for key, values := range req.Header {
-					if key != "Cookie" {
-						headers[key] = values
-					}
-				}
-				return headers
-			}(),
-			Queries: req.URL.Query(),
+			Cookies: domain.FromCookies(req.Cookies()),
+			Headers: domain.FromHeaders(req.Header),
+			Queries: domain.FromRequest(req),
 		},
 		URN: strings.Trim(req.URL.Path, "/"),
 	})
