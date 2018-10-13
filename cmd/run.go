@@ -30,10 +30,10 @@ var runCmd = &cobra.Command{
 	Use:   "run",
 	Short: "Start HTTP server",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		runtime.GOMAXPROCS(int(cnf.Union.ServerConfig.CPUCount))
+		runtime.GOMAXPROCS(cnf.Union.CPUs)
 
 		var (
-			repo    = storage.Must(storage.Database(cnf.Union.DBConfig))
+			repo    = storage.Must(storage.Database(cnf.Union.DatabaseConfig))
 			handler = chi.NewRouter(
 				server.New(
 					service.New(repo, repo),
@@ -93,8 +93,8 @@ func init() {
 		},
 		func() error {
 			flags := runCmd.Flags()
-			flags.UintVarP(&cnf.Union.ServerConfig.CPUCount,
-				"cpus", "C", uint(v.GetInt("max_cpus")), "maximum number of CPUs that can be executing simultaneously")
+			flags.IntVarP(&cnf.Union.CPUs,
+				"cpus", "C", v.GetInt("max_cpus"), "maximum number of CPUs that can be executing simultaneously")
 			flags.StringVarP(&cnf.Union.ServerConfig.Interface,
 				"host", "H", v.GetString("host"), "web server host")
 			flags.DurationVarP(&cnf.Union.ServerConfig.ReadTimeout,
