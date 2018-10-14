@@ -91,10 +91,12 @@ func (scope aliasScope) Update(token *types.Token, data query.UpdateAlias) (type
 		entity.URN = data.URN
 	}
 	q := `UPDATE "alias"
-	         SET "urn" = $1
-	       WHERE "id" = $2 AND "account_id" = $3
+	         SET "link_id" = $1, "namespace_id" = $2, "urn" = $3
+	       WHERE "id" = $4 AND "account_id" = $5
 	   RETURNING "updated_at"`
-	row := scope.conn.QueryRowContext(scope.ctx, q, entity.URN, entity.ID, entity.AccountID)
+	row := scope.conn.QueryRowContext(scope.ctx, q,
+		entity.LinkID, entity.NamespaceID, entity.URN,
+		entity.ID, entity.AccountID)
 	if scanErr := row.Scan(&entity.UpdatedAt); scanErr != nil {
 		return entity, errors.Database(errors.ServerErrorMessage, scanErr,
 			"user %q of account %q tried to update the alias %q",

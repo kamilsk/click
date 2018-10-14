@@ -17,8 +17,10 @@ type ReadAlias struct {
 
 // UpdateAlias TODO issue#131
 type UpdateAlias struct {
-	ID  domain.ID
-	URN string
+	ID          domain.ID
+	LinkID      domain.ID
+	NamespaceID domain.ID
+	URN         string
 }
 
 // DeleteAlias TODO issue#131

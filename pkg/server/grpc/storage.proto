@@ -102,6 +102,7 @@ service Namespace {
 }
 
 message CreateAliasRequest {
+    string id = 1;
     string link_id = 2;
     string namespace_id = 3;
     string urn = 4;
@@ -109,9 +110,7 @@ message CreateAliasRequest {
 
 message CreateAliasResponse {
     string id = 1;
-    google.protobuf.Timestamp created_at = 5;
-
-    Error err = 15;
+    google.protobuf.Timestamp created_at = 2;
 }
 
 message ReadAliasRequest {
@@ -126,8 +125,6 @@ message ReadAliasResponse {
     google.protobuf.Timestamp created_at = 5;
     google.protobuf.Timestamp updated_at = 6;
     google.protobuf.Timestamp deleted_at = 7;
-
-    Error err = 15;
 }
 
 message UpdateAliasRequest {
@@ -138,9 +135,8 @@ message UpdateAliasRequest {
 }
 
 message UpdateAliasResponse {
-    google.protobuf.Timestamp updated_at = 6;
-
-    Error err = 15;
+    string id = 1;
+    google.protobuf.Timestamp updated_at = 2;
 }
 
 message DeleteAliasRequest {
@@ -148,9 +144,8 @@ message DeleteAliasRequest {
 }
 
 message DeleteAliasResponse {
-    google.protobuf.Timestamp deleted_at = 7;
-
-    Error err = 15;
+    string id = 1;
+    google.protobuf.Timestamp deleted_at = 2;
 }
 
 service Alias {
