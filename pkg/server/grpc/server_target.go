@@ -2,7 +2,13 @@ package grpc
 
 import (
 	"context"
-	"log"
+	"encoding/json"
+
+	"github.com/kamilsk/click/pkg/domain"
+	"github.com/kamilsk/click/pkg/server/grpc/middleware"
+	"github.com/kamilsk/click/pkg/storage/query"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 // NewTargetServer returns new instance of server API for Target service.
@@ -15,25 +21,92 @@ type targetServer struct {
 }
 
 // Create TODO issue#131
-func (*targetServer) Create(context.Context, *CreateTargetRequest) (*CreateTargetResponse, error) {
-	log.Println("TargetServer.Create was called")
-	return &CreateTargetResponse{}, nil
+func (server *targetServer) Create(ctx context.Context, req *CreateTargetRequest) (*CreateTargetResponse, error) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	var rule domain.Rule
+	if err := json.Unmarshal(req.Rule, &rule); err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, "invalid rule provided: %+v", err)
+	}
+	target, createErr := server.storage.CreateTarget(ctx, token, query.CreateTarget{
+		ID:         ptrToID(req.Id),
+		LinkID:     domain.ID(req.LinkId),
+		URL:        req.Url,
+		Rule:       rule,
+		BinaryRule: domain.BinaryRule(req.BRule),
+	})
+	if createErr != nil {
+		return nil, status.Errorf(codes.Internal, "error happened: %+v", createErr)
+	}
+	return &CreateTargetResponse{
+		Id:        target.ID.String(),
+		CreatedAt: Timestamp(&target.CreatedAt),
+	}, nil
 }
 
 // Read TODO issue#131
-func (*targetServer) Read(context.Context, *ReadTargetRequest) (*ReadTargetResponse, error) {
-	log.Println("TargetServer.Read was called")
-	return &ReadTargetResponse{}, nil
+func (server *targetServer) Read(ctx context.Context, req *ReadTargetRequest) (*ReadTargetResponse, error) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	target, readErr := server.storage.ReadTarget(ctx, token, query.ReadTarget{ID: domain.ID(req.Id)})
+	if readErr != nil {
+		return nil, status.Errorf(codes.Internal, "error happened: %+v", readErr)
+	}
+	rule, _ := json.Marshal(target.Rule)
+	return &ReadTargetResponse{
+		Id:        target.ID.String(),
+		LinkId:    target.LinkID.String(),
+		Url:       target.URL,
+		Rule:      rule,
+		BRule:     target.BinaryRule,
+		CreatedAt: Timestamp(&target.CreatedAt),
+		UpdatedAt: Timestamp(target.UpdatedAt),
+		DeletedAt: Timestamp(target.DeletedAt),
+	}, nil
 }
 
 // Update TODO issue#131
-func (*targetServer) Update(context.Context, *UpdateTargetRequest) (*UpdateTargetResponse, error) {
-	log.Println("TargetServer.Update was called")
-	return &UpdateTargetResponse{}, nil
+func (server *targetServer) Update(ctx context.Context, req *UpdateTargetRequest) (*UpdateTargetResponse, error) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	var rule domain.Rule
+	if err := json.Unmarshal(req.Rule, &rule); err != nil {
+		return nil, status.Errorf(codes.InvalidArgument, "invalid rule provided: %+v", err)
+	}
+	target, updateErr := server.storage.UpdateTarget(ctx, token, query.UpdateTarget{
+		ID:         domain.ID(req.Id),
+		LinkID:     domain.ID(req.LinkId),
+		URL:        req.Url,
+		Rule:       rule,
+		BinaryRule: domain.BinaryRule(req.BRule),
+	})
+	if updateErr != nil {
+		return nil, status.Errorf(codes.Internal, "error happened: %+v", updateErr)
+	}
+	return &UpdateTargetResponse{
+		Id:        target.ID.String(),
+		UpdatedAt: Timestamp(target.UpdatedAt),
+	}, nil
 }
 
 // Delete TODO issue#131
-func (*targetServer) Delete(context.Context, *DeleteTargetRequest) (*DeleteTargetResponse, error) {
-	log.Println("TargetServer.Delete was called")
-	return &DeleteTargetResponse{}, nil
+func (server *targetServer) Delete(ctx context.Context, req *DeleteTargetRequest) (*DeleteTargetResponse, error) {
+	token, authErr := middleware.TokenExtractor(ctx)
+	if authErr != nil {
+		return nil, authErr
+	}
+	target, deleteErr := server.storage.DeleteTarget(ctx, token, query.DeleteTarget{ID: domain.ID(req.Id)})
+	if deleteErr != nil {
+		return nil, status.Errorf(codes.Internal, "error happened: %+v", deleteErr)
+	}
+	return &DeleteTargetResponse{
+		Id:        target.ID.String(),
+		DeletedAt: Timestamp(target.DeletedAt),
+	}, nil
 }

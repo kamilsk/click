@@ -129,10 +129,12 @@ func (scope targetScope) Update(token *types.Token, data query.UpdateTarget) (ty
 	}
 	encodedBinaryRule := []byte(entity.BinaryRule)
 	q := `UPDATE "target"
-	         SET "url" = $1, "rule" = $2, "b_rule" = $3
-	       WHERE "id" = $4 AND "account_id" = $5
+	         SET "link_id" = $1, "url" = $2, "rule" = $3, "b_rule" = $4
+	       WHERE "id" = $5 AND "account_id" = $6
 	   RETURNING "updated_at"`
-	row := scope.conn.QueryRowContext(scope.ctx, q, entity.URL, encodedRule, encodedBinaryRule,
+	row := scope.conn.QueryRowContext(scope.ctx, q,
+		entity.LinkID,
+		entity.URL, encodedRule, encodedBinaryRule,
 		entity.ID, entity.AccountID)
 	if scanErr := row.Scan(&entity.UpdatedAt); scanErr != nil {
 		return entity, errors.Database(errors.ServerErrorMessage, scanErr,

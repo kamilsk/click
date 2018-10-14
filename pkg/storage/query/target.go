@@ -19,6 +19,7 @@ type ReadTarget struct {
 // UpdateTarget TODO issue#131
 type UpdateTarget struct {
 	ID         domain.ID
+	LinkID     domain.ID
 	URL        string
 	Rule       domain.Rule
 	BinaryRule domain.BinaryRule

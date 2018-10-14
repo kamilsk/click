@@ -156,6 +156,7 @@ service Alias {
 }
 
 message CreateTargetRequest {
+    string id = 1;
     string link_id = 2;
     string url = 3;
     bytes rule = 4;
@@ -164,9 +165,7 @@ message CreateTargetRequest {
 
 message CreateTargetResponse {
     string id = 1;
-    google.protobuf.Timestamp created_at = 6;
-
-    Error err = 15;
+    google.protobuf.Timestamp created_at = 2;
 }
 
 message ReadTargetRequest {
@@ -182,8 +181,6 @@ message ReadTargetResponse {
     google.protobuf.Timestamp created_at = 6;
     google.protobuf.Timestamp updated_at = 7;
     google.protobuf.Timestamp deleted_at = 8;
-
-    Error err = 15;
 }
 
 message UpdateTargetRequest {
@@ -195,9 +192,8 @@ message UpdateTargetRequest {
 }
 
 message UpdateTargetResponse {
-    google.protobuf.Timestamp updated_at = 7;
-
-    Error err = 15;
+    string id = 1;
+    google.protobuf.Timestamp updated_at = 2;
 }
 
 message DeleteTargetRequest {
@@ -205,9 +201,8 @@ message DeleteTargetRequest {
 }
 
 message DeleteTargetResponse {
-    google.protobuf.Timestamp deleted_at = 8;
-
-    Error err = 15;
+    string id = 1;
+    google.protobuf.Timestamp deleted_at = 2;
 }
 
 service Target {
