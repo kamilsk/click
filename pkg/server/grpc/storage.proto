@@ -54,14 +54,13 @@ service Link {
 }
 
 message CreateNamespaceRequest {
-    string name = 3;
+    string id = 1;
+    string name = 2;
 }
 
 message CreateNamespaceResponse {
     string id = 1;
-    google.protobuf.Timestamp created_at = 4;
-
-    Error err = 15;
+    google.protobuf.Timestamp created_at = 2;
 }
 
 message ReadNamespaceRequest {
@@ -70,23 +69,20 @@ message ReadNamespaceRequest {
 
 message ReadNamespaceResponse {
     string id = 1;
-    string name = 3;
-    google.protobuf.Timestamp created_at = 4;
-    google.protobuf.Timestamp updated_at = 5;
-    google.protobuf.Timestamp deleted_at = 6;
-
-    Error err = 15;
+    string name = 2;
+    google.protobuf.Timestamp created_at = 3;
+    google.protobuf.Timestamp updated_at = 4;
+    google.protobuf.Timestamp deleted_at = 5;
 }
 
 message UpdateNamespaceRequest {
     string id = 1;
-    string name = 3;
+    string name = 2;
 }
 
 message UpdateNamespaceResponse {
-    google.protobuf.Timestamp updated_at = 5;
-
-    Error err = 15;
+    string id = 1;
+    google.protobuf.Timestamp updated_at = 2;
 }
 
 message DeleteNamespaceRequest {
@@ -94,9 +90,8 @@ message DeleteNamespaceRequest {
 }
 
 message DeleteNamespaceResponse {
-    google.protobuf.Timestamp deleted_at = 6;
-
-    Error err = 15;
+    string id = 1;
+    google.protobuf.Timestamp deleted_at = 2;
 }
 
 service Namespace {
