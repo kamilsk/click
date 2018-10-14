@@ -5,6 +5,54 @@ package grpc;
 import public "common.proto";
 import "google/protobuf/timestamp.proto";
 
+message CreateLinkRequest {
+    string id = 1;
+    string name = 2;
+}
+
+message CreateLinkResponse {
+    string id = 1;
+    google.protobuf.Timestamp created_at = 2;
+}
+
+message ReadLinkRequest {
+    string id = 1;
+}
+
+message ReadLinkResponse {
+    string id = 1;
+    string name = 2;
+    google.protobuf.Timestamp created_at = 3;
+    google.protobuf.Timestamp updated_at = 4;
+    google.protobuf.Timestamp deleted_at = 5;
+}
+
+message UpdateLinkRequest {
+    string id = 1;
+    string name = 2;
+}
+
+message UpdateLinkResponse {
+    string id = 1;
+    google.protobuf.Timestamp updated_at = 2;
+}
+
+message DeleteLinkRequest {
+    string id = 1;
+}
+
+message DeleteLinkResponse {
+    string id = 1;
+    google.protobuf.Timestamp deleted_at = 2;
+}
+
+service Link {
+    rpc Create (CreateLinkRequest) returns (CreateLinkResponse) {}
+    rpc Read (ReadLinkRequest) returns (ReadLinkResponse) {}
+    rpc Update (UpdateLinkRequest) returns (UpdateLinkResponse) {}
+    rpc Delete (DeleteLinkRequest) returns (DeleteLinkResponse) {}
+}
+
 message CreateNamespaceRequest {
     string name = 3;
 }
@@ -56,59 +104,6 @@ service Namespace {
     rpc Read (ReadNamespaceRequest) returns (ReadNamespaceResponse) {}
     rpc Update (UpdateNamespaceRequest) returns (UpdateNamespaceResponse) {}
     rpc Delete (DeleteNamespaceRequest) returns (DeleteNamespaceResponse) {}
-}
-
-message CreateLinkRequest {
-    string name = 3;
-}
-
-message CreateLinkResponse {
-    string id = 1;
-    google.protobuf.Timestamp created_at = 4;
-
-    Error err = 15;
-}
-
-message ReadLinkRequest {
-    string id = 1;
-}
-
-message ReadLinkResponse {
-    string id = 1;
-    string name = 3;
-    google.protobuf.Timestamp created_at = 4;
-    google.protobuf.Timestamp updated_at = 5;
-    google.protobuf.Timestamp deleted_at = 6;
-
-    Error err = 15;
-}
-
-message UpdateLinkRequest {
-    string id = 1;
-    string name = 3;
-}
-
-message UpdateLinkResponse {
-    google.protobuf.Timestamp updated_at = 5;
-
-    Error err = 15;
-}
-
-message DeleteLinkRequest {
-    string id = 1;
-}
-
-message DeleteLinkResponse {
-    google.protobuf.Timestamp deleted_at = 6;
-
-    Error err = 15;
-}
-
-service Link {
-    rpc Create (CreateLinkRequest) returns (CreateLinkResponse) {}
-    rpc Read (ReadLinkRequest) returns (ReadLinkResponse) {}
-    rpc Update (UpdateLinkRequest) returns (UpdateLinkResponse) {}
-    rpc Delete (DeleteLinkRequest) returns (DeleteLinkResponse) {}
 }
 
 message CreateAliasRequest {

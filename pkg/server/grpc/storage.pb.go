@@ -28,6 +28,382 @@ const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
 // Ignoring public import of TimestampRange from common.proto
 
+type CreateLinkRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *CreateLinkRequest) Reset()         { *m = CreateLinkRequest{} }
+func (m *CreateLinkRequest) String() string { return proto.CompactTextString(m) }
+func (*CreateLinkRequest) ProtoMessage()    {}
+func (*CreateLinkRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{0}
+}
+func (m *CreateLinkRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateLinkRequest.Unmarshal(m, b)
+}
+func (m *CreateLinkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateLinkRequest.Marshal(b, m, deterministic)
+}
+func (m *CreateLinkRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateLinkRequest.Merge(m, src)
+}
+func (m *CreateLinkRequest) XXX_Size() int {
+	return xxx_messageInfo_CreateLinkRequest.Size(m)
+}
+func (m *CreateLinkRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateLinkRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateLinkRequest proto.InternalMessageInfo
+
+func (m *CreateLinkRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *CreateLinkRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type CreateLinkResponse struct {
+	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	CreatedAt            *timestamp.Timestamp `protobuf:"bytes,2,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *CreateLinkResponse) Reset()         { *m = CreateLinkResponse{} }
+func (m *CreateLinkResponse) String() string { return proto.CompactTextString(m) }
+func (*CreateLinkResponse) ProtoMessage()    {}
+func (*CreateLinkResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{1}
+}
+func (m *CreateLinkResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_CreateLinkResponse.Unmarshal(m, b)
+}
+func (m *CreateLinkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_CreateLinkResponse.Marshal(b, m, deterministic)
+}
+func (m *CreateLinkResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CreateLinkResponse.Merge(m, src)
+}
+func (m *CreateLinkResponse) XXX_Size() int {
+	return xxx_messageInfo_CreateLinkResponse.Size(m)
+}
+func (m *CreateLinkResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CreateLinkResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_CreateLinkResponse proto.InternalMessageInfo
+
+func (m *CreateLinkResponse) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *CreateLinkResponse) GetCreatedAt() *timestamp.Timestamp {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return nil
+}
+
+type ReadLinkRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ReadLinkRequest) Reset()         { *m = ReadLinkRequest{} }
+func (m *ReadLinkRequest) String() string { return proto.CompactTextString(m) }
+func (*ReadLinkRequest) ProtoMessage()    {}
+func (*ReadLinkRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{2}
+}
+func (m *ReadLinkRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadLinkRequest.Unmarshal(m, b)
+}
+func (m *ReadLinkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadLinkRequest.Marshal(b, m, deterministic)
+}
+func (m *ReadLinkRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadLinkRequest.Merge(m, src)
+}
+func (m *ReadLinkRequest) XXX_Size() int {
+	return xxx_messageInfo_ReadLinkRequest.Size(m)
+}
+func (m *ReadLinkRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadLinkRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadLinkRequest proto.InternalMessageInfo
+
+func (m *ReadLinkRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type ReadLinkResponse struct {
+	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string               `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	CreatedAt            *timestamp.Timestamp `protobuf:"bytes,3,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	UpdatedAt            *timestamp.Timestamp `protobuf:"bytes,4,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	DeletedAt            *timestamp.Timestamp `protobuf:"bytes,5,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *ReadLinkResponse) Reset()         { *m = ReadLinkResponse{} }
+func (m *ReadLinkResponse) String() string { return proto.CompactTextString(m) }
+func (*ReadLinkResponse) ProtoMessage()    {}
+func (*ReadLinkResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{3}
+}
+func (m *ReadLinkResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ReadLinkResponse.Unmarshal(m, b)
+}
+func (m *ReadLinkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ReadLinkResponse.Marshal(b, m, deterministic)
+}
+func (m *ReadLinkResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ReadLinkResponse.Merge(m, src)
+}
+func (m *ReadLinkResponse) XXX_Size() int {
+	return xxx_messageInfo_ReadLinkResponse.Size(m)
+}
+func (m *ReadLinkResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_ReadLinkResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ReadLinkResponse proto.InternalMessageInfo
+
+func (m *ReadLinkResponse) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *ReadLinkResponse) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *ReadLinkResponse) GetCreatedAt() *timestamp.Timestamp {
+	if m != nil {
+		return m.CreatedAt
+	}
+	return nil
+}
+
+func (m *ReadLinkResponse) GetUpdatedAt() *timestamp.Timestamp {
+	if m != nil {
+		return m.UpdatedAt
+	}
+	return nil
+}
+
+func (m *ReadLinkResponse) GetDeletedAt() *timestamp.Timestamp {
+	if m != nil {
+		return m.DeletedAt
+	}
+	return nil
+}
+
+type UpdateLinkRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Name                 string   `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UpdateLinkRequest) Reset()         { *m = UpdateLinkRequest{} }
+func (m *UpdateLinkRequest) String() string { return proto.CompactTextString(m) }
+func (*UpdateLinkRequest) ProtoMessage()    {}
+func (*UpdateLinkRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{4}
+}
+func (m *UpdateLinkRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateLinkRequest.Unmarshal(m, b)
+}
+func (m *UpdateLinkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateLinkRequest.Marshal(b, m, deterministic)
+}
+func (m *UpdateLinkRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateLinkRequest.Merge(m, src)
+}
+func (m *UpdateLinkRequest) XXX_Size() int {
+	return xxx_messageInfo_UpdateLinkRequest.Size(m)
+}
+func (m *UpdateLinkRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateLinkRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateLinkRequest proto.InternalMessageInfo
+
+func (m *UpdateLinkRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *UpdateLinkRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+type UpdateLinkResponse struct {
+	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	UpdatedAt            *timestamp.Timestamp `protobuf:"bytes,2,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *UpdateLinkResponse) Reset()         { *m = UpdateLinkResponse{} }
+func (m *UpdateLinkResponse) String() string { return proto.CompactTextString(m) }
+func (*UpdateLinkResponse) ProtoMessage()    {}
+func (*UpdateLinkResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{5}
+}
+func (m *UpdateLinkResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateLinkResponse.Unmarshal(m, b)
+}
+func (m *UpdateLinkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateLinkResponse.Marshal(b, m, deterministic)
+}
+func (m *UpdateLinkResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateLinkResponse.Merge(m, src)
+}
+func (m *UpdateLinkResponse) XXX_Size() int {
+	return xxx_messageInfo_UpdateLinkResponse.Size(m)
+}
+func (m *UpdateLinkResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateLinkResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateLinkResponse proto.InternalMessageInfo
+
+func (m *UpdateLinkResponse) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *UpdateLinkResponse) GetUpdatedAt() *timestamp.Timestamp {
+	if m != nil {
+		return m.UpdatedAt
+	}
+	return nil
+}
+
+type DeleteLinkRequest struct {
+	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *DeleteLinkRequest) Reset()         { *m = DeleteLinkRequest{} }
+func (m *DeleteLinkRequest) String() string { return proto.CompactTextString(m) }
+func (*DeleteLinkRequest) ProtoMessage()    {}
+func (*DeleteLinkRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{6}
+}
+func (m *DeleteLinkRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteLinkRequest.Unmarshal(m, b)
+}
+func (m *DeleteLinkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteLinkRequest.Marshal(b, m, deterministic)
+}
+func (m *DeleteLinkRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteLinkRequest.Merge(m, src)
+}
+func (m *DeleteLinkRequest) XXX_Size() int {
+	return xxx_messageInfo_DeleteLinkRequest.Size(m)
+}
+func (m *DeleteLinkRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteLinkRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteLinkRequest proto.InternalMessageInfo
+
+func (m *DeleteLinkRequest) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+type DeleteLinkResponse struct {
+	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	DeletedAt            *timestamp.Timestamp `protobuf:"bytes,2,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
+	XXX_unrecognized     []byte               `json:"-"`
+	XXX_sizecache        int32                `json:"-"`
+}
+
+func (m *DeleteLinkResponse) Reset()         { *m = DeleteLinkResponse{} }
+func (m *DeleteLinkResponse) String() string { return proto.CompactTextString(m) }
+func (*DeleteLinkResponse) ProtoMessage()    {}
+func (*DeleteLinkResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{7}
+}
+func (m *DeleteLinkResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DeleteLinkResponse.Unmarshal(m, b)
+}
+func (m *DeleteLinkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DeleteLinkResponse.Marshal(b, m, deterministic)
+}
+func (m *DeleteLinkResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DeleteLinkResponse.Merge(m, src)
+}
+func (m *DeleteLinkResponse) XXX_Size() int {
+	return xxx_messageInfo_DeleteLinkResponse.Size(m)
+}
+func (m *DeleteLinkResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_DeleteLinkResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_DeleteLinkResponse proto.InternalMessageInfo
+
+func (m *DeleteLinkResponse) GetId() string {
+	if m != nil {
+		return m.Id
+	}
+	return ""
+}
+
+func (m *DeleteLinkResponse) GetDeletedAt() *timestamp.Timestamp {
+	if m != nil {
+		return m.DeletedAt
+	}
+	return nil
+}
+
 type CreateNamespaceRequest struct {
 	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -39,7 +415,7 @@ func (m *CreateNamespaceRequest) Reset()         { *m = CreateNamespaceRequest{}
 func (m *CreateNamespaceRequest) String() string { return proto.CompactTextString(m) }
 func (*CreateNamespaceRequest) ProtoMessage()    {}
 func (*CreateNamespaceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{0}
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{8}
 }
 func (m *CreateNamespaceRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateNamespaceRequest.Unmarshal(m, b)
@@ -79,7 +455,7 @@ func (m *CreateNamespaceResponse) Reset()         { *m = CreateNamespaceResponse
 func (m *CreateNamespaceResponse) String() string { return proto.CompactTextString(m) }
 func (*CreateNamespaceResponse) ProtoMessage()    {}
 func (*CreateNamespaceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{1}
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{9}
 }
 func (m *CreateNamespaceResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_CreateNamespaceResponse.Unmarshal(m, b)
@@ -131,7 +507,7 @@ func (m *ReadNamespaceRequest) Reset()         { *m = ReadNamespaceRequest{} }
 func (m *ReadNamespaceRequest) String() string { return proto.CompactTextString(m) }
 func (*ReadNamespaceRequest) ProtoMessage()    {}
 func (*ReadNamespaceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{2}
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{10}
 }
 func (m *ReadNamespaceRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadNamespaceRequest.Unmarshal(m, b)
@@ -174,7 +550,7 @@ func (m *ReadNamespaceResponse) Reset()         { *m = ReadNamespaceResponse{} }
 func (m *ReadNamespaceResponse) String() string { return proto.CompactTextString(m) }
 func (*ReadNamespaceResponse) ProtoMessage()    {}
 func (*ReadNamespaceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{3}
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{11}
 }
 func (m *ReadNamespaceResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_ReadNamespaceResponse.Unmarshal(m, b)
@@ -248,7 +624,7 @@ func (m *UpdateNamespaceRequest) Reset()         { *m = UpdateNamespaceRequest{}
 func (m *UpdateNamespaceRequest) String() string { return proto.CompactTextString(m) }
 func (*UpdateNamespaceRequest) ProtoMessage()    {}
 func (*UpdateNamespaceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{4}
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{12}
 }
 func (m *UpdateNamespaceRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateNamespaceRequest.Unmarshal(m, b)
@@ -294,7 +670,7 @@ func (m *UpdateNamespaceResponse) Reset()         { *m = UpdateNamespaceResponse
 func (m *UpdateNamespaceResponse) String() string { return proto.CompactTextString(m) }
 func (*UpdateNamespaceResponse) ProtoMessage()    {}
 func (*UpdateNamespaceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{5}
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{13}
 }
 func (m *UpdateNamespaceResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_UpdateNamespaceResponse.Unmarshal(m, b)
@@ -339,7 +715,7 @@ func (m *DeleteNamespaceRequest) Reset()         { *m = DeleteNamespaceRequest{}
 func (m *DeleteNamespaceRequest) String() string { return proto.CompactTextString(m) }
 func (*DeleteNamespaceRequest) ProtoMessage()    {}
 func (*DeleteNamespaceRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{6}
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{14}
 }
 func (m *DeleteNamespaceRequest) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteNamespaceRequest.Unmarshal(m, b)
@@ -378,7 +754,7 @@ func (m *DeleteNamespaceResponse) Reset()         { *m = DeleteNamespaceResponse
 func (m *DeleteNamespaceResponse) String() string { return proto.CompactTextString(m) }
 func (*DeleteNamespaceResponse) ProtoMessage()    {}
 func (*DeleteNamespaceResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{7}
+	return fileDescriptor_0d2c4ccf1453ffdb, []int{15}
 }
 func (m *DeleteNamespaceResponse) XXX_Unmarshal(b []byte) error {
 	return xxx_messageInfo_DeleteNamespaceResponse.Unmarshal(m, b)
@@ -406,390 +782,6 @@ func (m *DeleteNamespaceResponse) GetDeletedAt() *timestamp.Timestamp {
 }
 
 func (m *DeleteNamespaceResponse) GetErr() *Error {
-	if m != nil {
-		return m.Err
-	}
-	return nil
-}
-
-type CreateLinkRequest struct {
-	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *CreateLinkRequest) Reset()         { *m = CreateLinkRequest{} }
-func (m *CreateLinkRequest) String() string { return proto.CompactTextString(m) }
-func (*CreateLinkRequest) ProtoMessage()    {}
-func (*CreateLinkRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{8}
-}
-func (m *CreateLinkRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateLinkRequest.Unmarshal(m, b)
-}
-func (m *CreateLinkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateLinkRequest.Marshal(b, m, deterministic)
-}
-func (m *CreateLinkRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateLinkRequest.Merge(m, src)
-}
-func (m *CreateLinkRequest) XXX_Size() int {
-	return xxx_messageInfo_CreateLinkRequest.Size(m)
-}
-func (m *CreateLinkRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateLinkRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateLinkRequest proto.InternalMessageInfo
-
-func (m *CreateLinkRequest) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-type CreateLinkResponse struct {
-	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	CreatedAt            *timestamp.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	Err                  *Error               `protobuf:"bytes,15,opt,name=err,proto3" json:"err,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
-}
-
-func (m *CreateLinkResponse) Reset()         { *m = CreateLinkResponse{} }
-func (m *CreateLinkResponse) String() string { return proto.CompactTextString(m) }
-func (*CreateLinkResponse) ProtoMessage()    {}
-func (*CreateLinkResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{9}
-}
-func (m *CreateLinkResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_CreateLinkResponse.Unmarshal(m, b)
-}
-func (m *CreateLinkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_CreateLinkResponse.Marshal(b, m, deterministic)
-}
-func (m *CreateLinkResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_CreateLinkResponse.Merge(m, src)
-}
-func (m *CreateLinkResponse) XXX_Size() int {
-	return xxx_messageInfo_CreateLinkResponse.Size(m)
-}
-func (m *CreateLinkResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_CreateLinkResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_CreateLinkResponse proto.InternalMessageInfo
-
-func (m *CreateLinkResponse) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *CreateLinkResponse) GetCreatedAt() *timestamp.Timestamp {
-	if m != nil {
-		return m.CreatedAt
-	}
-	return nil
-}
-
-func (m *CreateLinkResponse) GetErr() *Error {
-	if m != nil {
-		return m.Err
-	}
-	return nil
-}
-
-type ReadLinkRequest struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ReadLinkRequest) Reset()         { *m = ReadLinkRequest{} }
-func (m *ReadLinkRequest) String() string { return proto.CompactTextString(m) }
-func (*ReadLinkRequest) ProtoMessage()    {}
-func (*ReadLinkRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{10}
-}
-func (m *ReadLinkRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ReadLinkRequest.Unmarshal(m, b)
-}
-func (m *ReadLinkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ReadLinkRequest.Marshal(b, m, deterministic)
-}
-func (m *ReadLinkRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReadLinkRequest.Merge(m, src)
-}
-func (m *ReadLinkRequest) XXX_Size() int {
-	return xxx_messageInfo_ReadLinkRequest.Size(m)
-}
-func (m *ReadLinkRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReadLinkRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ReadLinkRequest proto.InternalMessageInfo
-
-func (m *ReadLinkRequest) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-type ReadLinkResponse struct {
-	Id                   string               `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string               `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	CreatedAt            *timestamp.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
-	UpdatedAt            *timestamp.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	DeletedAt            *timestamp.Timestamp `protobuf:"bytes,6,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at,omitempty"`
-	Err                  *Error               `protobuf:"bytes,15,opt,name=err,proto3" json:"err,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
-}
-
-func (m *ReadLinkResponse) Reset()         { *m = ReadLinkResponse{} }
-func (m *ReadLinkResponse) String() string { return proto.CompactTextString(m) }
-func (*ReadLinkResponse) ProtoMessage()    {}
-func (*ReadLinkResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{11}
-}
-func (m *ReadLinkResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ReadLinkResponse.Unmarshal(m, b)
-}
-func (m *ReadLinkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ReadLinkResponse.Marshal(b, m, deterministic)
-}
-func (m *ReadLinkResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ReadLinkResponse.Merge(m, src)
-}
-func (m *ReadLinkResponse) XXX_Size() int {
-	return xxx_messageInfo_ReadLinkResponse.Size(m)
-}
-func (m *ReadLinkResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_ReadLinkResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ReadLinkResponse proto.InternalMessageInfo
-
-func (m *ReadLinkResponse) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *ReadLinkResponse) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-func (m *ReadLinkResponse) GetCreatedAt() *timestamp.Timestamp {
-	if m != nil {
-		return m.CreatedAt
-	}
-	return nil
-}
-
-func (m *ReadLinkResponse) GetUpdatedAt() *timestamp.Timestamp {
-	if m != nil {
-		return m.UpdatedAt
-	}
-	return nil
-}
-
-func (m *ReadLinkResponse) GetDeletedAt() *timestamp.Timestamp {
-	if m != nil {
-		return m.DeletedAt
-	}
-	return nil
-}
-
-func (m *ReadLinkResponse) GetErr() *Error {
-	if m != nil {
-		return m.Err
-	}
-	return nil
-}
-
-type UpdateLinkRequest struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name                 string   `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *UpdateLinkRequest) Reset()         { *m = UpdateLinkRequest{} }
-func (m *UpdateLinkRequest) String() string { return proto.CompactTextString(m) }
-func (*UpdateLinkRequest) ProtoMessage()    {}
-func (*UpdateLinkRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{12}
-}
-func (m *UpdateLinkRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateLinkRequest.Unmarshal(m, b)
-}
-func (m *UpdateLinkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateLinkRequest.Marshal(b, m, deterministic)
-}
-func (m *UpdateLinkRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateLinkRequest.Merge(m, src)
-}
-func (m *UpdateLinkRequest) XXX_Size() int {
-	return xxx_messageInfo_UpdateLinkRequest.Size(m)
-}
-func (m *UpdateLinkRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateLinkRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UpdateLinkRequest proto.InternalMessageInfo
-
-func (m *UpdateLinkRequest) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-func (m *UpdateLinkRequest) GetName() string {
-	if m != nil {
-		return m.Name
-	}
-	return ""
-}
-
-type UpdateLinkResponse struct {
-	UpdatedAt            *timestamp.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
-	Err                  *Error               `protobuf:"bytes,15,opt,name=err,proto3" json:"err,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
-}
-
-func (m *UpdateLinkResponse) Reset()         { *m = UpdateLinkResponse{} }
-func (m *UpdateLinkResponse) String() string { return proto.CompactTextString(m) }
-func (*UpdateLinkResponse) ProtoMessage()    {}
-func (*UpdateLinkResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{13}
-}
-func (m *UpdateLinkResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_UpdateLinkResponse.Unmarshal(m, b)
-}
-func (m *UpdateLinkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_UpdateLinkResponse.Marshal(b, m, deterministic)
-}
-func (m *UpdateLinkResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_UpdateLinkResponse.Merge(m, src)
-}
-func (m *UpdateLinkResponse) XXX_Size() int {
-	return xxx_messageInfo_UpdateLinkResponse.Size(m)
-}
-func (m *UpdateLinkResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_UpdateLinkResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_UpdateLinkResponse proto.InternalMessageInfo
-
-func (m *UpdateLinkResponse) GetUpdatedAt() *timestamp.Timestamp {
-	if m != nil {
-		return m.UpdatedAt
-	}
-	return nil
-}
-
-func (m *UpdateLinkResponse) GetErr() *Error {
-	if m != nil {
-		return m.Err
-	}
-	return nil
-}
-
-type DeleteLinkRequest struct {
-	Id                   string   `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DeleteLinkRequest) Reset()         { *m = DeleteLinkRequest{} }
-func (m *DeleteLinkRequest) String() string { return proto.CompactTextString(m) }
-func (*DeleteLinkRequest) ProtoMessage()    {}
-func (*DeleteLinkRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{14}
-}
-func (m *DeleteLinkRequest) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteLinkRequest.Unmarshal(m, b)
-}
-func (m *DeleteLinkRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteLinkRequest.Marshal(b, m, deterministic)
-}
-func (m *DeleteLinkRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteLinkRequest.Merge(m, src)
-}
-func (m *DeleteLinkRequest) XXX_Size() int {
-	return xxx_messageInfo_DeleteLinkRequest.Size(m)
-}
-func (m *DeleteLinkRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteLinkRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteLinkRequest proto.InternalMessageInfo
-
-func (m *DeleteLinkRequest) GetId() string {
-	if m != nil {
-		return m.Id
-	}
-	return ""
-}
-
-type DeleteLinkResponse struct {
-	DeletedAt            *timestamp.Timestamp `protobuf:"bytes,6,opt,name=deleted_at,json=deletedAt,proto3" json:"deleted_at,omitempty"`
-	Err                  *Error               `protobuf:"bytes,15,opt,name=err,proto3" json:"err,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}             `json:"-"`
-	XXX_unrecognized     []byte               `json:"-"`
-	XXX_sizecache        int32                `json:"-"`
-}
-
-func (m *DeleteLinkResponse) Reset()         { *m = DeleteLinkResponse{} }
-func (m *DeleteLinkResponse) String() string { return proto.CompactTextString(m) }
-func (*DeleteLinkResponse) ProtoMessage()    {}
-func (*DeleteLinkResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0d2c4ccf1453ffdb, []int{15}
-}
-func (m *DeleteLinkResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DeleteLinkResponse.Unmarshal(m, b)
-}
-func (m *DeleteLinkResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DeleteLinkResponse.Marshal(b, m, deterministic)
-}
-func (m *DeleteLinkResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DeleteLinkResponse.Merge(m, src)
-}
-func (m *DeleteLinkResponse) XXX_Size() int {
-	return xxx_messageInfo_DeleteLinkResponse.Size(m)
-}
-func (m *DeleteLinkResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_DeleteLinkResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DeleteLinkResponse proto.InternalMessageInfo
-
-func (m *DeleteLinkResponse) GetDeletedAt() *timestamp.Timestamp {
-	if m != nil {
-		return m.DeletedAt
-	}
-	return nil
-}
-
-func (m *DeleteLinkResponse) GetErr() *Error {
 	if m != nil {
 		return m.Err
 	}
@@ -1685,14 +1677,6 @@ func (m *DeleteTargetResponse) GetErr() *Error {
 }
 
 func init() {
-	proto.RegisterType((*CreateNamespaceRequest)(nil), "grpc.CreateNamespaceRequest")
-	proto.RegisterType((*CreateNamespaceResponse)(nil), "grpc.CreateNamespaceResponse")
-	proto.RegisterType((*ReadNamespaceRequest)(nil), "grpc.ReadNamespaceRequest")
-	proto.RegisterType((*ReadNamespaceResponse)(nil), "grpc.ReadNamespaceResponse")
-	proto.RegisterType((*UpdateNamespaceRequest)(nil), "grpc.UpdateNamespaceRequest")
-	proto.RegisterType((*UpdateNamespaceResponse)(nil), "grpc.UpdateNamespaceResponse")
-	proto.RegisterType((*DeleteNamespaceRequest)(nil), "grpc.DeleteNamespaceRequest")
-	proto.RegisterType((*DeleteNamespaceResponse)(nil), "grpc.DeleteNamespaceResponse")
 	proto.RegisterType((*CreateLinkRequest)(nil), "grpc.CreateLinkRequest")
 	proto.RegisterType((*CreateLinkResponse)(nil), "grpc.CreateLinkResponse")
 	proto.RegisterType((*ReadLinkRequest)(nil), "grpc.ReadLinkRequest")
@@ -1701,6 +1685,14 @@ func init() {
 	proto.RegisterType((*UpdateLinkResponse)(nil), "grpc.UpdateLinkResponse")
 	proto.RegisterType((*DeleteLinkRequest)(nil), "grpc.DeleteLinkRequest")
 	proto.RegisterType((*DeleteLinkResponse)(nil), "grpc.DeleteLinkResponse")
+	proto.RegisterType((*CreateNamespaceRequest)(nil), "grpc.CreateNamespaceRequest")
+	proto.RegisterType((*CreateNamespaceResponse)(nil), "grpc.CreateNamespaceResponse")
+	proto.RegisterType((*ReadNamespaceRequest)(nil), "grpc.ReadNamespaceRequest")
+	proto.RegisterType((*ReadNamespaceResponse)(nil), "grpc.ReadNamespaceResponse")
+	proto.RegisterType((*UpdateNamespaceRequest)(nil), "grpc.UpdateNamespaceRequest")
+	proto.RegisterType((*UpdateNamespaceResponse)(nil), "grpc.UpdateNamespaceResponse")
+	proto.RegisterType((*DeleteNamespaceRequest)(nil), "grpc.DeleteNamespaceRequest")
+	proto.RegisterType((*DeleteNamespaceResponse)(nil), "grpc.DeleteNamespaceResponse")
 	proto.RegisterType((*CreateAliasRequest)(nil), "grpc.CreateAliasRequest")
 	proto.RegisterType((*CreateAliasResponse)(nil), "grpc.CreateAliasResponse")
 	proto.RegisterType((*ReadAliasRequest)(nil), "grpc.ReadAliasRequest")
@@ -1726,169 +1718,6 @@ var _ grpc.ClientConn
 // This is a compile-time assertion to ensure that this generated file
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
-
-// NamespaceClient is the client API for Namespace service.
-//
-// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type NamespaceClient interface {
-	Create(ctx context.Context, in *CreateNamespaceRequest, opts ...grpc.CallOption) (*CreateNamespaceResponse, error)
-	Read(ctx context.Context, in *ReadNamespaceRequest, opts ...grpc.CallOption) (*ReadNamespaceResponse, error)
-	Update(ctx context.Context, in *UpdateNamespaceRequest, opts ...grpc.CallOption) (*UpdateNamespaceResponse, error)
-	Delete(ctx context.Context, in *DeleteNamespaceRequest, opts ...grpc.CallOption) (*DeleteNamespaceResponse, error)
-}
-
-type namespaceClient struct {
-	cc *grpc.ClientConn
-}
-
-func NewNamespaceClient(cc *grpc.ClientConn) NamespaceClient {
-	return &namespaceClient{cc}
-}
-
-func (c *namespaceClient) Create(ctx context.Context, in *CreateNamespaceRequest, opts ...grpc.CallOption) (*CreateNamespaceResponse, error) {
-	out := new(CreateNamespaceResponse)
-	err := c.cc.Invoke(ctx, "/grpc.Namespace/Create", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *namespaceClient) Read(ctx context.Context, in *ReadNamespaceRequest, opts ...grpc.CallOption) (*ReadNamespaceResponse, error) {
-	out := new(ReadNamespaceResponse)
-	err := c.cc.Invoke(ctx, "/grpc.Namespace/Read", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *namespaceClient) Update(ctx context.Context, in *UpdateNamespaceRequest, opts ...grpc.CallOption) (*UpdateNamespaceResponse, error) {
-	out := new(UpdateNamespaceResponse)
-	err := c.cc.Invoke(ctx, "/grpc.Namespace/Update", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *namespaceClient) Delete(ctx context.Context, in *DeleteNamespaceRequest, opts ...grpc.CallOption) (*DeleteNamespaceResponse, error) {
-	out := new(DeleteNamespaceResponse)
-	err := c.cc.Invoke(ctx, "/grpc.Namespace/Delete", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-// NamespaceServer is the server API for Namespace service.
-type NamespaceServer interface {
-	Create(context.Context, *CreateNamespaceRequest) (*CreateNamespaceResponse, error)
-	Read(context.Context, *ReadNamespaceRequest) (*ReadNamespaceResponse, error)
-	Update(context.Context, *UpdateNamespaceRequest) (*UpdateNamespaceResponse, error)
-	Delete(context.Context, *DeleteNamespaceRequest) (*DeleteNamespaceResponse, error)
-}
-
-func RegisterNamespaceServer(s *grpc.Server, srv NamespaceServer) {
-	s.RegisterService(&_Namespace_serviceDesc, srv)
-}
-
-func _Namespace_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateNamespaceRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(NamespaceServer).Create(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/grpc.Namespace/Create",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NamespaceServer).Create(ctx, req.(*CreateNamespaceRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Namespace_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ReadNamespaceRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(NamespaceServer).Read(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/grpc.Namespace/Read",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NamespaceServer).Read(ctx, req.(*ReadNamespaceRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Namespace_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdateNamespaceRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(NamespaceServer).Update(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/grpc.Namespace/Update",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NamespaceServer).Update(ctx, req.(*UpdateNamespaceRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Namespace_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(DeleteNamespaceRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(NamespaceServer).Delete(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/grpc.Namespace/Delete",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(NamespaceServer).Delete(ctx, req.(*DeleteNamespaceRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-var _Namespace_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "grpc.Namespace",
-	HandlerType: (*NamespaceServer)(nil),
-	Methods: []grpc.MethodDesc{
-		{
-			MethodName: "Create",
-			Handler:    _Namespace_Create_Handler,
-		},
-		{
-			MethodName: "Read",
-			Handler:    _Namespace_Read_Handler,
-		},
-		{
-			MethodName: "Update",
-			Handler:    _Namespace_Update_Handler,
-		},
-		{
-			MethodName: "Delete",
-			Handler:    _Namespace_Delete_Handler,
-		},
-	},
-	Streams:  []grpc.StreamDesc{},
-	Metadata: "storage.proto",
-}
 
 // LinkClient is the client API for Link service.
 //
@@ -2047,6 +1876,169 @@ var _Link_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Delete",
 			Handler:    _Link_Delete_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "storage.proto",
+}
+
+// NamespaceClient is the client API for Namespace service.
+//
+// For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
+type NamespaceClient interface {
+	Create(ctx context.Context, in *CreateNamespaceRequest, opts ...grpc.CallOption) (*CreateNamespaceResponse, error)
+	Read(ctx context.Context, in *ReadNamespaceRequest, opts ...grpc.CallOption) (*ReadNamespaceResponse, error)
+	Update(ctx context.Context, in *UpdateNamespaceRequest, opts ...grpc.CallOption) (*UpdateNamespaceResponse, error)
+	Delete(ctx context.Context, in *DeleteNamespaceRequest, opts ...grpc.CallOption) (*DeleteNamespaceResponse, error)
+}
+
+type namespaceClient struct {
+	cc *grpc.ClientConn
+}
+
+func NewNamespaceClient(cc *grpc.ClientConn) NamespaceClient {
+	return &namespaceClient{cc}
+}
+
+func (c *namespaceClient) Create(ctx context.Context, in *CreateNamespaceRequest, opts ...grpc.CallOption) (*CreateNamespaceResponse, error) {
+	out := new(CreateNamespaceResponse)
+	err := c.cc.Invoke(ctx, "/grpc.Namespace/Create", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *namespaceClient) Read(ctx context.Context, in *ReadNamespaceRequest, opts ...grpc.CallOption) (*ReadNamespaceResponse, error) {
+	out := new(ReadNamespaceResponse)
+	err := c.cc.Invoke(ctx, "/grpc.Namespace/Read", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *namespaceClient) Update(ctx context.Context, in *UpdateNamespaceRequest, opts ...grpc.CallOption) (*UpdateNamespaceResponse, error) {
+	out := new(UpdateNamespaceResponse)
+	err := c.cc.Invoke(ctx, "/grpc.Namespace/Update", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *namespaceClient) Delete(ctx context.Context, in *DeleteNamespaceRequest, opts ...grpc.CallOption) (*DeleteNamespaceResponse, error) {
+	out := new(DeleteNamespaceResponse)
+	err := c.cc.Invoke(ctx, "/grpc.Namespace/Delete", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// NamespaceServer is the server API for Namespace service.
+type NamespaceServer interface {
+	Create(context.Context, *CreateNamespaceRequest) (*CreateNamespaceResponse, error)
+	Read(context.Context, *ReadNamespaceRequest) (*ReadNamespaceResponse, error)
+	Update(context.Context, *UpdateNamespaceRequest) (*UpdateNamespaceResponse, error)
+	Delete(context.Context, *DeleteNamespaceRequest) (*DeleteNamespaceResponse, error)
+}
+
+func RegisterNamespaceServer(s *grpc.Server, srv NamespaceServer) {
+	s.RegisterService(&_Namespace_serviceDesc, srv)
+}
+
+func _Namespace_Create_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateNamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NamespaceServer).Create(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc.Namespace/Create",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NamespaceServer).Create(ctx, req.(*CreateNamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Namespace_Read_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ReadNamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NamespaceServer).Read(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc.Namespace/Read",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NamespaceServer).Read(ctx, req.(*ReadNamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Namespace_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateNamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NamespaceServer).Update(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc.Namespace/Update",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NamespaceServer).Update(ctx, req.(*UpdateNamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Namespace_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteNamespaceRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(NamespaceServer).Delete(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/grpc.Namespace/Delete",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(NamespaceServer).Delete(ctx, req.(*DeleteNamespaceRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+var _Namespace_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "grpc.Namespace",
+	HandlerType: (*NamespaceServer)(nil),
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "Create",
+			Handler:    _Namespace_Create_Handler,
+		},
+		{
+			MethodName: "Read",
+			Handler:    _Namespace_Read_Handler,
+		},
+		{
+			MethodName: "Update",
+			Handler:    _Namespace_Update_Handler,
+		},
+		{
+			MethodName: "Delete",
+			Handler:    _Namespace_Delete_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -2382,61 +2374,62 @@ var _Target_serviceDesc = grpc.ServiceDesc{
 func init() { proto.RegisterFile("storage.proto", fileDescriptor_0d2c4ccf1453ffdb) }
 
 var fileDescriptor_0d2c4ccf1453ffdb = []byte{
-	// 881 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe4, 0x57, 0x4d, 0x6f, 0xd3, 0x4a,
-	0x14, 0x4d, 0xdc, 0xc4, 0x79, 0xb9, 0xed, 0x7b, 0x6d, 0xa6, 0x69, 0x9c, 0xe7, 0xf7, 0x2a, 0x5a,
-	0x97, 0x8f, 0x2e, 0x50, 0x2a, 0x85, 0x45, 0x55, 0x41, 0x55, 0x45, 0x80, 0xaa, 0x4a, 0x08, 0x21,
-	0xab, 0xac, 0x2b, 0x27, 0x1e, 0xa2, 0xa8, 0x89, 0x6d, 0x6c, 0x67, 0x85, 0x04, 0x48, 0x08, 0x36,
-	0x48, 0xfc, 0x0f, 0x7e, 0x06, 0x5b, 0x7e, 0x13, 0x0b, 0xe4, 0x19, 0x8f, 0x3b, 0x13, 0x4f, 0xec,
-	0xd2, 0x38, 0x6c, 0xd8, 0xd9, 0x33, 0xf7, 0xce, 0x3d, 0xe7, 0xcc, 0x3d, 0xf6, 0x0c, 0xfc, 0x1d,
-	0x84, 0xae, 0x6f, 0x0d, 0x71, 0xc7, 0xf3, 0xdd, 0xd0, 0x45, 0x95, 0xa1, 0xef, 0x0d, 0xf4, 0xb5,
-	0x81, 0x3b, 0x99, 0xb8, 0x0e, 0x1d, 0xd3, 0x6f, 0x0d, 0x5d, 0x77, 0x38, 0xc6, 0x07, 0xe4, 0xad,
-	0x3f, 0x7d, 0x75, 0x10, 0x8e, 0x26, 0x38, 0x08, 0xad, 0x89, 0x47, 0x03, 0x8c, 0xfb, 0xd0, 0x7a,
-	0xec, 0x63, 0x2b, 0xc4, 0xcf, 0xad, 0x09, 0x0e, 0x3c, 0x6b, 0x80, 0x4d, 0xfc, 0x7a, 0x8a, 0x83,
-	0x10, 0x21, 0xa8, 0x38, 0xd6, 0x04, 0xb7, 0x57, 0x76, 0xca, 0xfb, 0x75, 0x93, 0x3c, 0x1b, 0x1f,
-	0xca, 0xa0, 0xa5, 0xc2, 0x03, 0xcf, 0x75, 0x02, 0x8c, 0xfe, 0x01, 0x65, 0x64, 0xb7, 0xcb, 0x24,
-	0x5a, 0x19, 0xd9, 0xe8, 0x08, 0x60, 0x40, 0x42, 0xed, 0x0b, 0x2b, 0x6c, 0x57, 0x76, 0xca, 0xfb,
-	0xab, 0x5d, 0xbd, 0x43, 0xf1, 0x74, 0x18, 0x9e, 0xce, 0x39, 0xc3, 0x63, 0xd6, 0xe3, 0xe8, 0x5e,
-	0x88, 0xb6, 0x61, 0x05, 0xfb, 0x7e, 0x7b, 0x9d, 0xe4, 0xac, 0x76, 0x22, 0x5e, 0x9d, 0xa7, 0xbe,
-	0xef, 0xfa, 0x66, 0x34, 0x6e, 0xdc, 0x85, 0xa6, 0x89, 0x2d, 0x3b, 0x85, 0x78, 0x06, 0x81, 0xf1,
-	0x59, 0x81, 0xad, 0x99, 0xc0, 0x39, 0x58, 0x25, 0x5c, 0x17, 0xc1, 0x7f, 0x04, 0x30, 0xf5, 0x6c,
-	0x96, 0x5a, 0xcd, 0x4f, 0x8d, 0xa3, 0x69, 0xaa, 0x8d, 0xc7, 0x38, 0x4e, 0x55, 0xf3, 0x53, 0xe3,
-	0xe8, 0x7c, 0xd5, 0x1e, 0x41, 0xeb, 0x25, 0x29, 0x93, 0xa7, 0x9b, 0x74, 0xe7, 0x03, 0xd0, 0x52,
-	0xd9, 0xb1, 0x98, 0x0b, 0xb0, 0xcd, 0x81, 0xbc, 0x0f, 0xad, 0x27, 0x84, 0x5e, 0xee, 0x56, 0x07,
-	0xa0, 0xa5, 0x22, 0xaf, 0xe0, 0x2d, 0x49, 0xd1, 0x7b, 0xd0, 0xa0, 0x66, 0x78, 0x36, 0x72, 0x2e,
-	0xb3, 0x6c, 0xf3, 0x16, 0x10, 0x1f, 0xf8, 0xdb, 0x0d, 0xb3, 0x0b, 0xeb, 0x91, 0x0f, 0x78, 0x98,
-	0xb3, 0x02, 0x7e, 0x52, 0x60, 0xe3, 0x2a, 0xe6, 0x0f, 0xb6, 0xc9, 0x21, 0x34, 0x68, 0xa3, 0x67,
-	0xa8, 0x25, 0xdd, 0x64, 0x07, 0x10, 0x9f, 0xb8, 0x74, 0x73, 0xec, 0x41, 0x83, 0xb6, 0x7c, 0xd6,
-	0xb6, 0x3a, 0x80, 0xf8, 0xa0, 0xa5, 0x5b, 0xa2, 0xcf, 0x3a, 0xbd, 0x37, 0x1e, 0x59, 0x01, 0x43,
-	0xa5, 0x41, 0x6d, 0x3c, 0x72, 0x2e, 0x2f, 0x46, 0x76, 0x5b, 0x21, 0xd0, 0xd4, 0xe8, 0xf5, 0xcc,
-	0x46, 0xbb, 0xb0, 0xe6, 0x30, 0xc3, 0x46, 0xb3, 0x54, 0xcf, 0xd5, 0x64, 0xec, 0xcc, 0x46, 0x1b,
-	0xb0, 0x32, 0xf5, 0x1d, 0xd2, 0x58, 0x75, 0x33, 0x7a, 0x34, 0xde, 0xc1, 0xa6, 0x50, 0xe3, 0x5a,
-	0x76, 0xaa, 0x16, 0x68, 0x27, 0x83, 0x5a, 0x45, 0xa0, 0x38, 0x2b, 0xfc, 0x37, 0x05, 0x1a, 0x5c,
-	0xd0, 0x1c, 0x8c, 0x85, 0x0a, 0xb3, 0x08, 0x63, 0xb1, 0x4d, 0xd5, 0x9b, 0x5b, 0xb1, 0x56, 0x60,
-	0x33, 0xf9, 0xcc, 0x51, 0x59, 0x4a, 0x17, 0xdc, 0x5c, 0x2e, 0x6c, 0x0a, 0x35, 0xa5, 0x36, 0x56,
-	0x0b, 0xb4, 0xf1, 0x6d, 0xe6, 0xd0, 0xcc, 0x76, 0x72, 0x61, 0x53, 0x88, 0x92, 0x1a, 0xb9, 0x48,
-	0xed, 0x2f, 0x99, 0xc9, 0xce, 0x2d, 0x7f, 0x88, 0xc3, 0x5c, 0x27, 0x13, 0x25, 0xc7, 0xb1, 0xc6,
-	0xd1, 0x63, 0xf4, 0x8d, 0xf4, 0xa7, 0x63, 0x4c, 0xc4, 0x5d, 0x33, 0xc9, 0x33, 0xda, 0x02, 0xb5,
-	0x7f, 0x41, 0x46, 0xab, 0x64, 0xb4, 0xda, 0x37, 0xa7, 0x63, 0x6c, 0xbc, 0x2f, 0x43, 0x53, 0xac,
-	0x76, 0x2d, 0x4f, 0xab, 0x05, 0x7a, 0x7a, 0x8f, 0xda, 0x55, 0x64, 0x3b, 0xbb, 0x0b, 0xdf, 0x15,
-	0x40, 0x7c, 0xd4, 0xaf, 0xba, 0x7a, 0x11, 0x91, 0x16, 0xe1, 0x2e, 0x76, 0x6f, 0xed, 0xe6, 0xee,
-	0xfe, 0xab, 0xc0, 0x0e, 0x7b, 0xc3, 0x9c, 0x96, 0xa9, 0xf9, 0x92, 0x3a, 0xce, 0x83, 0xa6, 0x58,
-	0x5c, 0xea, 0xf3, 0x5a, 0x81, 0x3e, 0xbf, 0xc3, 0x1c, 0x9c, 0xdd, 0x62, 0x1e, 0x34, 0xc5, 0x30,
-	0xa9, 0xd3, 0x0b, 0xdc, 0x87, 0xee, 0x57, 0x05, 0xea, 0xc9, 0xa9, 0x19, 0x9d, 0x82, 0x4a, 0x9d,
-	0x88, 0xfe, 0xa7, 0x91, 0xf2, 0xdb, 0xa1, 0xbe, 0x3d, 0x67, 0x96, 0xc2, 0x35, 0x4a, 0xa8, 0x07,
-	0x95, 0xc8, 0x2a, 0x48, 0xa7, 0x81, 0xb2, 0x0b, 0x9b, 0xfe, 0x9f, 0x74, 0x2e, 0x59, 0xe2, 0x14,
-	0x54, 0xba, 0x49, 0x0c, 0x8b, 0xfc, 0xfe, 0xc2, 0xb0, 0xcc, 0xb9, 0x9f, 0xd0, 0x85, 0xa8, 0xa8,
-	0x6c, 0x21, 0xf9, 0xad, 0x82, 0x2d, 0x34, 0xe7, 0x26, 0x61, 0x94, 0xba, 0x3f, 0xca, 0x50, 0x89,
-	0x4e, 0x52, 0xe8, 0x38, 0x91, 0x49, 0xe3, 0x85, 0xe0, 0x8e, 0x62, 0x7a, 0x3b, 0x3d, 0x91, 0x00,
-	0x3a, 0x8c, 0xc5, 0xd9, 0xba, 0x12, 0x80, 0x4f, 0x6d, 0xcd, 0x0e, 0x27, 0x89, 0xc7, 0x89, 0x24,
-	0x1a, 0x4f, 0x5a, 0x52, 0x37, 0x7d, 0x16, 0xa5, 0xe9, 0xb1, 0x10, 0x1a, 0x4f, 0x55, 0x92, 0x9e,
-	0x3e, 0x35, 0x1a, 0xa5, 0xee, 0x47, 0x05, 0xaa, 0xe4, 0x07, 0x84, 0x4e, 0x12, 0xfe, 0x02, 0x4d,
-	0xfe, 0x1f, 0xa6, 0xff, 0x2b, 0x99, 0x49, 0x90, 0x1c, 0xc5, 0x0a, 0x70, 0x54, 0x85, 0x64, 0x2d,
-	0x35, 0x9e, 0xa4, 0x9e, 0x24, 0x1a, 0x08, 0x54, 0x65, 0xb5, 0x25, 0xbf, 0x72, 0xba, 0x40, 0xac,
-	0x82, 0x40, 0x56, 0xb6, 0x80, 0xe4, 0xa7, 0x6b, 0x94, 0xba, 0x5f, 0x14, 0x50, 0xa9, 0x3f, 0x51,
-	0x2f, 0x11, 0x42, 0xa0, 0x2b, 0x98, 0x5c, 0xd7, 0x65, 0x53, 0x09, 0x9c, 0x87, 0xb1, 0x14, 0x1c,
-	0x65, 0x31, 0xbd, 0x9d, 0x9e, 0xe0, 0x6c, 0xc6, 0xc4, 0x10, 0x28, 0x4b, 0xeb, 0xcb, 0xbe, 0x78,
-	0x74, 0x89, 0x58, 0x0e, 0x81, 0xb4, 0x74, 0x09, 0xd9, 0xb7, 0xc9, 0x28, 0xbd, 0x28, 0xf5, 0x55,
-	0xf2, 0x0d, 0x7a, 0xf0, 0x33, 0x00, 0x00, 0xff, 0xff, 0xb8, 0x62, 0x9e, 0x31, 0x94, 0x12, 0x00,
-	0x00,
+	// 908 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xb4, 0x57, 0x4d, 0x6f, 0xd3, 0x30,
+	0x18, 0x6e, 0xd3, 0x36, 0xa5, 0xef, 0x06, 0xdb, 0xbc, 0xae, 0x2d, 0x61, 0x13, 0x2c, 0x03, 0xb4,
+	0x03, 0xea, 0xa4, 0x72, 0x98, 0x26, 0x98, 0xa6, 0x0a, 0xd0, 0x34, 0x09, 0x21, 0x14, 0x8d, 0x73,
+	0x95, 0x36, 0xa6, 0xaa, 0xd6, 0x36, 0x21, 0x49, 0x4f, 0x1c, 0x40, 0x42, 0x9c, 0x90, 0xf8, 0x1f,
+	0xfc, 0x0c, 0xae, 0xfc, 0x11, 0xfe, 0x04, 0x07, 0x14, 0x3b, 0xce, 0xec, 0xc4, 0x69, 0xd6, 0x36,
+	0xbb, 0x25, 0xf6, 0xfb, 0xda, 0xcf, 0xfb, 0xf8, 0x79, 0xfc, 0x01, 0x77, 0x3d, 0xdf, 0x76, 0xcd,
+	0x21, 0x6e, 0x3b, 0xae, 0xed, 0xdb, 0xa8, 0x3c, 0x74, 0x9d, 0x81, 0xb6, 0x3e, 0xb0, 0x27, 0x13,
+	0x7b, 0x4a, 0xdb, 0xb4, 0x87, 0x43, 0xdb, 0x1e, 0x8e, 0xf1, 0x11, 0xf9, 0xeb, 0xcf, 0x3e, 0x1e,
+	0xf9, 0xa3, 0x09, 0xf6, 0x7c, 0x73, 0xe2, 0xd0, 0x00, 0xfd, 0x18, 0xb6, 0x5e, 0xb9, 0xd8, 0xf4,
+	0xf1, 0xdb, 0xd1, 0xf4, 0xca, 0xc0, 0x9f, 0x66, 0xd8, 0xf3, 0xd1, 0x3d, 0x50, 0x46, 0x56, 0xab,
+	0xf8, 0xa8, 0x78, 0x58, 0x33, 0x94, 0x91, 0x85, 0x10, 0x94, 0xa7, 0xe6, 0x04, 0xb7, 0x14, 0xd2,
+	0x42, 0xbe, 0xf5, 0x1e, 0x20, 0x3e, 0xd1, 0x73, 0xec, 0xa9, 0x87, 0x13, 0x99, 0x27, 0x00, 0x03,
+	0x12, 0x65, 0xf5, 0x4c, 0x9f, 0xe4, 0xaf, 0x75, 0xb4, 0x36, 0x05, 0xd5, 0x66, 0xa0, 0xda, 0x97,
+	0x0c, 0x94, 0x51, 0x0b, 0xa3, 0xbb, 0xbe, 0xbe, 0x0f, 0x1b, 0x06, 0x36, 0xad, 0x39, 0xb8, 0xf4,
+	0xbf, 0x45, 0xd8, 0xbc, 0x8e, 0x49, 0x81, 0x20, 0x01, 0x1f, 0x83, 0x55, 0x5a, 0x00, 0x56, 0x90,
+	0x3a, 0x73, 0x2c, 0x96, 0x5a, 0xce, 0x4e, 0x0d, 0xa3, 0x69, 0xaa, 0x85, 0xc7, 0x38, 0x4c, 0xad,
+	0x64, 0xa7, 0x86, 0xd1, 0x5d, 0x3f, 0x58, 0xa6, 0x0f, 0x64, 0x9c, 0x25, 0x96, 0x89, 0x4f, 0x4c,
+	0x5f, 0x26, 0xae, 0x28, 0x65, 0x81, 0xa2, 0xf4, 0x03, 0xd8, 0x7a, 0x4d, 0x60, 0xce, 0x5b, 0xa8,
+	0x1e, 0x20, 0x3e, 0x28, 0x1d, 0x05, 0xc7, 0x8f, 0xb2, 0x08, 0x3f, 0xcf, 0xa0, 0x41, 0xd5, 0xf8,
+	0xce, 0x9c, 0x60, 0xcf, 0x31, 0x07, 0x98, 0x41, 0x61, 0xa4, 0x94, 0x38, 0x52, 0xbe, 0x15, 0xa1,
+	0x99, 0x08, 0xbf, 0x91, 0x82, 0xcb, 0x8b, 0x48, 0x65, 0x0f, 0x4a, 0xd8, 0x75, 0x5b, 0x1b, 0x24,
+	0x67, 0xad, 0x1d, 0xd8, 0xb3, 0xfd, 0xc6, 0x75, 0x6d, 0xd7, 0x08, 0xda, 0xf5, 0xa7, 0x50, 0x0f,
+	0xc4, 0x9b, 0x40, 0x1c, 0x27, 0xef, 0x87, 0x02, 0x3b, 0xb1, 0xc0, 0x0c, 0xa9, 0x97, 0x52, 0xa5,
+	0x5e, 0x5e, 0x5e, 0xea, 0x95, 0xe5, 0xa5, 0xae, 0x2e, 0xb0, 0x94, 0x59, 0xac, 0xbd, 0x84, 0x06,
+	0x15, 0x74, 0x16, 0x6f, 0xd2, 0x95, 0xf7, 0xa0, 0x99, 0xc8, 0x0e, 0xc9, 0x5c, 0xa1, 0xda, 0x0c,
+	0xc8, 0x87, 0xd0, 0xa0, 0xea, 0xcf, 0x5c, 0x6a, 0x0f, 0x9a, 0x89, 0xc8, 0x6b, 0x78, 0xb7, 0xc4,
+	0x68, 0x9f, 0xed, 0xe4, 0xdd, 0xf1, 0xc8, 0xf4, 0x18, 0xb4, 0x26, 0x54, 0xc7, 0xa3, 0xe9, 0x55,
+	0x6f, 0x64, 0x85, 0xfb, 0x89, 0x1a, 0xfc, 0x5e, 0x58, 0x68, 0x1f, 0xd6, 0xa7, 0x0c, 0x5d, 0xd0,
+	0x4b, 0xe9, 0x5d, 0x8b, 0xda, 0x2e, 0x2c, 0xb4, 0x09, 0xa5, 0x99, 0x3b, 0x25, 0x62, 0xab, 0x19,
+	0xc1, 0xa7, 0xfe, 0x05, 0xb6, 0x85, 0x39, 0x6e, 0x64, 0xb6, 0x4a, 0x8e, 0x66, 0xd3, 0xe9, 0x49,
+	0x21, 0x94, 0x18, 0x67, 0xff, 0xb7, 0x02, 0x5b, 0x5c, 0x50, 0x0a, 0xc6, 0x5c, 0x89, 0x59, 0xa5,
+	0x62, 0x51, 0xb0, 0xea, 0xf2, 0xf6, 0xac, 0xe6, 0x28, 0x26, 0x97, 0x9d, 0x37, 0xf3, 0x98, 0xce,
+	0x59, 0x5c, 0x36, 0x6c, 0x0b, 0x73, 0x4a, 0x0d, 0xad, 0xe6, 0x68, 0xe8, 0xc7, 0xec, 0x38, 0x9b,
+	0x2b, 0x27, 0x1b, 0xb6, 0x85, 0x28, 0xa9, 0x91, 0xf3, 0xe4, 0xfe, 0x8a, 0x99, 0xec, 0xd2, 0x74,
+	0x87, 0xd8, 0xcf, 0x74, 0x32, 0x61, 0x72, 0x1c, 0x72, 0x1c, 0x7c, 0x06, 0x5b, 0xa6, 0x3b, 0x1b,
+	0x63, 0x42, 0xee, 0xba, 0x41, 0xbe, 0xd1, 0x0e, 0xa8, 0xfd, 0x1e, 0x69, 0xad, 0x90, 0xd6, 0x4a,
+	0xdf, 0x98, 0x8d, 0xb1, 0xfe, 0xb5, 0x08, 0x75, 0x71, 0xb6, 0x1b, 0x79, 0x5a, 0xcd, 0xd1, 0xd3,
+	0x07, 0xd4, 0xae, 0x62, 0xb5, 0xf1, 0x55, 0xf8, 0xa3, 0x00, 0xe2, 0xa3, 0x16, 0x75, 0xf5, 0x2a,
+	0x24, 0xad, 0x52, 0xbb, 0xa8, 0xde, 0xea, 0xf2, 0xee, 0xbe, 0x93, 0xa3, 0xc2, 0x3e, 0x33, 0xa7,
+	0xcd, 0xe5, 0xfc, 0x96, 0x14, 0xe7, 0x40, 0x5d, 0x9c, 0x5c, 0xea, 0xf3, 0x6a, 0x8e, 0x3e, 0x7f,
+	0xc2, 0x1c, 0x3c, 0x5f, 0x62, 0x0e, 0xd4, 0xc5, 0x30, 0xa9, 0xd3, 0x73, 0x5c, 0x87, 0xce, 0xbf,
+	0x22, 0x94, 0x83, 0xab, 0x34, 0x3a, 0x05, 0x95, 0x9a, 0x10, 0x35, 0x69, 0x50, 0xe2, 0x31, 0xa7,
+	0xb5, 0x92, 0x1d, 0x14, 0x9f, 0x5e, 0x40, 0xc7, 0x50, 0x0e, 0xbc, 0x81, 0x76, 0x68, 0x4c, 0xec,
+	0xbd, 0xa5, 0x35, 0xe2, 0xcd, 0x51, 0xe2, 0x29, 0xa8, 0x74, 0x2d, 0xd8, 0xbc, 0x89, 0xd7, 0x09,
+	0x9b, 0x37, 0xf9, 0xfa, 0xa0, 0xe9, 0x94, 0x31, 0x96, 0x9e, 0x78, 0x42, 0xb0, 0xf4, 0xe4, 0xb3,
+	0x41, 0x2f, 0x74, 0x7e, 0x29, 0x50, 0x8b, 0x6e, 0x48, 0xe8, 0x3c, 0xe2, 0x60, 0x97, 0x2f, 0x35,
+	0x7e, 0xd9, 0xd2, 0xf6, 0x52, 0x7a, 0x23, 0x54, 0xdd, 0x90, 0x0d, 0xed, 0xba, 0xec, 0xc4, 0x20,
+	0x0f, 0xa4, 0x7d, 0xd1, 0x10, 0xe7, 0x11, 0x2f, 0xbb, 0x7c, 0xf9, 0x69, 0x58, 0x52, 0xee, 0xa2,
+	0x74, 0xa0, 0x90, 0xa1, 0x5d, 0x9e, 0x88, 0xb4, 0x81, 0x52, 0x6e, 0x8d, 0x7a, 0xa1, 0xf3, 0x5d,
+	0x81, 0x0a, 0x39, 0x80, 0xd0, 0x59, 0xc4, 0x93, 0x20, 0x09, 0xfe, 0x0c, 0xd3, 0xee, 0x4b, 0x7a,
+	0x22, 0x4c, 0x27, 0x21, 0x3f, 0x9c, 0x2c, 0x84, 0xe4, 0x66, 0xa2, 0x3d, 0x4a, 0x3d, 0x8b, 0x78,
+	0x11, 0x64, 0x21, 0x9b, 0x5b, 0x72, 0x94, 0xd3, 0x01, 0x42, 0x3e, 0x04, 0x61, 0xc8, 0x06, 0x90,
+	0x1c, 0xba, 0x7a, 0xa1, 0xf3, 0x53, 0x01, 0x95, 0xfa, 0x13, 0x75, 0x23, 0x22, 0x84, 0x72, 0x05,
+	0x93, 0x6b, 0x9a, 0xac, 0x2b, 0x82, 0xf3, 0x22, 0xa4, 0x82, 0x2b, 0x59, 0x4c, 0x6f, 0x25, 0x3b,
+	0x38, 0x9d, 0x31, 0x32, 0x84, 0x92, 0xa5, 0xf3, 0xcb, 0x76, 0x3c, 0x3a, 0x44, 0x48, 0x87, 0x50,
+	0xb4, 0x74, 0x08, 0xd9, 0xde, 0xa4, 0x17, 0xde, 0x17, 0xfa, 0x2a, 0xd9, 0x83, 0x9e, 0xff, 0x0f,
+	0x00, 0x00, 0xff, 0xff, 0x77, 0xd9, 0x95, 0xab, 0x48, 0x12, 0x00, 0x00,
 }
