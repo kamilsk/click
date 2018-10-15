@@ -5,23 +5,23 @@ import (
 	"log"
 )
 
-// NewEventServer returns new instance of server API for Log service.
+// NewEventServer returns new instance of server API for Tracker service.
 func NewEventServer(storage ProtectedStorage) EventServer {
-	return &logServer{storage}
+	return &eventServer{storage}
 }
 
-type logServer struct {
+type eventServer struct {
 	storage ProtectedStorage
 }
 
 // Read TODO issue#131
-func (*logServer) Read(context.Context, *ReadEventsRequest) (*ReadEventsResponse, error) {
+func (*eventServer) Read(context.Context, *ReadEventsRequest) (*ReadEventsResponse, error) {
 	log.Println("EventServer.Read was called")
 	return &ReadEventsResponse{}, nil
 }
 
 // Listen TODO issue#131
-func (*logServer) Listen(*ListenEventsRequest, Event_ListenServer) error {
+func (*eventServer) Listen(*ListenEventsRequest, Event_ListenServer) error {
 	log.Println("EventServer.Listen was called")
 	return nil
 }

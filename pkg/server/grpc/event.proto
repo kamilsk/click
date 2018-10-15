@@ -7,26 +7,27 @@ import "google/protobuf/timestamp.proto";
 
 message EventEntry {
     uint32 id = 1;
+    string namespace_id = 2;
     string link_id = 3;
     string alias_id = 4;
     string target_id = 5;
     string identifier = 6;
-    string url = 7;
+    bytes context = 7;
     int32 code = 8;
-    bytes context = 9;
+    string url = 9;
     google.protobuf.Timestamp created_at = 10;
 }
 
 message EventFilter {
-    string link_id = 3;
-    string alias_id = 4;
-    string target_id = 5;
-    string identifier = 6;
+    string namespace_id = 1;
+    string link_id = 2;
+    string alias_id = 3;
+    string target_id = 4;
+    string identifier = 5;
+    int32 code = 6;
     string url = 7;
-    int32 code = 8;
-    TimestampRange created_at = 10;
-
-    uint32 limit = 15;
+    TimestampRange created_at = 8;
+    uint32 limit = 9;
 }
 
 message ReadEventsRequest {
@@ -37,9 +38,7 @@ message ReadEventsRequest {
 }
 
 message ReadEventsResponse {
-    repeated EventEntry logs = 1;
-
-    Error err = 15;
+    repeated EventEntry events = 1;
 }
 
 message ListenEventsRequest {
