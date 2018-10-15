@@ -2,7 +2,9 @@ package service
 
 import (
 	"context"
+	"encoding/base64"
 	"net/http"
+	"strings"
 
 	"github.com/kamilsk/click/pkg/config"
 	"github.com/kamilsk/click/pkg/domain"
@@ -44,6 +46,14 @@ func (service *Click) HandlePass(ctx context.Context, req transfer.PassRequest) 
 		resp.Error = errors.NotFound(errors.LinkNotFoundMessage, errors.Simple("url is empty"),
 			"request %+v", req)
 		return
+	}
+
+	// issue#123, try to decode encoded url
+	if !strings.HasPrefix(resp.URL, "http") {
+		// url=aHR0cHM6Ly9naXRodWIuY29tL2thbWlsc2svY2xpY2sK -> url=https://github.com/kamilsk/click
+		if raw, decodeErr := base64.URLEncoding.DecodeString(resp.URL); decodeErr == nil {
+			resp.URL = string(raw)
+		}
 	}
 
 	option := req.Context.Option()
