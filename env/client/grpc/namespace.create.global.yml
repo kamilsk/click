@@ -1,2 +1,4 @@
 kind: Namespace
-payload: ~
+payload:
+  id:   10000000-2000-4000-8000-160000000001
+  name: Global Account Namespace
