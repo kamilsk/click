@@ -1,2 +1,12 @@
 kind: Target
-payload: ~
+payload:
+  id:     10000000-2000-4000-8000-160000000011
+  linkId: 10000000-2000-4000-8000-160000000005
+  url:    https://github.com/kamilsk/click
+  rule:   |
+    {
+      "description": "Project's source code",
+      "tags": ["src"]
+    }
+  bRule:  |
+    {tag} in ["src"]

@@ -27,8 +27,10 @@ func (server *targetServer) Create(ctx context.Context, req *CreateTargetRequest
 		return nil, authErr
 	}
 	var rule domain.Rule
-	if err := json.Unmarshal(req.Rule, &rule); err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, "invalid rule provided: %+v", err)
+	if len(req.Rule) > 0 {
+		if err := json.Unmarshal([]byte(req.Rule), &rule); err != nil {
+			return nil, status.Errorf(codes.InvalidArgument, "invalid rule provided: %+v", err)
+		}
 	}
 	target, createErr := server.storage.CreateTarget(ctx, token, query.CreateTarget{
 		ID:         ptrToID(req.Id),
@@ -61,8 +63,8 @@ func (server *targetServer) Read(ctx context.Context, req *ReadTargetRequest) (*
 		Id:        target.ID.String(),
 		LinkId:    target.LinkID.String(),
 		Url:       target.URL,
-		Rule:      rule,
-		BRule:     target.BinaryRule,
+		Rule:      string(rule),
+		BRule:     string(target.BinaryRule),
 		CreatedAt: Timestamp(&target.CreatedAt),
 		UpdatedAt: Timestamp(target.UpdatedAt),
 		DeletedAt: Timestamp(target.DeletedAt),
@@ -76,8 +78,10 @@ func (server *targetServer) Update(ctx context.Context, req *UpdateTargetRequest
 		return nil, authErr
 	}
 	var rule domain.Rule
-	if err := json.Unmarshal(req.Rule, &rule); err != nil {
-		return nil, status.Errorf(codes.InvalidArgument, "invalid rule provided: %+v", err)
+	if len(req.Rule) > 0 {
+		if err := json.Unmarshal([]byte(req.Rule), &rule); err != nil {
+			return nil, status.Errorf(codes.InvalidArgument, "invalid rule provided: %+v", err)
+		}
 	}
 	target, updateErr := server.storage.UpdateTarget(ctx, token, query.UpdateTarget{
 		ID:         domain.ID(req.Id),

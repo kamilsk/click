@@ -1,2 +1,12 @@
 kind: Target
-payload: ~
+payload:
+  id:     10000000-2000-4000-8000-160000000010
+  linkId: 10000000-2000-4000-8000-160000000005
+  url:    https://kamilsk.github.io/click/
+  rule:   |
+    {
+      "description": "Project's promo page",
+      "tags": ["promo"], "alias": "10000000-2000-4000-8000-160000000007", "match": 1
+    }
+  bRule:  |
+    {tag} in ["promo"] or {alias} is "10000000-2000-4000-8000-160000000007"

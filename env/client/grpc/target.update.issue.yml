@@ -1,2 +1,12 @@
 kind: Target
-payload: ~
+payload:
+  id:     10000000-2000-4000-8000-160000000009
+  linkId: 10000000-2000-4000-8000-160000000005
+  url:    https://github.com/kamilsk/click/issues/new
+  rule:   |
+    {
+      "description": "Project's bug tracker",
+      "alias": "10000000-2000-4000-8000-160000000006"
+    }
+  bRule:  |
+    {alias} is "10000000-2000-4000-8000-160000000006"

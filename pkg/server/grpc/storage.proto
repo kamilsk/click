@@ -159,8 +159,8 @@ message CreateTargetRequest {
     string id = 1;
     string link_id = 2;
     string url = 3;
-    bytes rule = 4;
-    bytes b_rule = 5;
+    string rule = 4;
+    string b_rule = 5;
 }
 
 message CreateTargetResponse {
@@ -176,8 +176,8 @@ message ReadTargetResponse {
     string id = 1;
     string link_id = 2;
     string url = 3;
-    bytes rule = 4;
-    bytes b_rule = 5;
+    string rule = 4;
+    string b_rule = 5;
     google.protobuf.Timestamp created_at = 6;
     google.protobuf.Timestamp updated_at = 7;
     google.protobuf.Timestamp deleted_at = 8;
@@ -187,8 +187,8 @@ message UpdateTargetRequest {
     string id = 1;
     string link_id = 2;
     string url = 3;
-    bytes rule = 4;
-    bytes b_rule = 5;
+    string rule = 4;
+    string b_rule = 5;
 }
 
 message UpdateTargetResponse {
