@@ -112,13 +112,10 @@ func (scope targetScope) Update(token *types.Token, data query.UpdateTarget) (ty
 	if readErr != nil {
 		return entity, readErr
 	}
-	if data.URL != "" {
+	{
+		entity.LinkID = data.LinkID
 		entity.URL = data.URL
-	}
-	if !data.Rule.IsEmpty() {
 		entity.Rule = data.Rule
-	}
-	if !data.BinaryRule.IsEmpty() {
 		entity.BinaryRule = data.BinaryRule
 	}
 	encodedRule, encodeErr := json.Marshal(entity.Rule)
@@ -133,8 +130,8 @@ func (scope targetScope) Update(token *types.Token, data query.UpdateTarget) (ty
 	       WHERE "id" = $5 AND "account_id" = $6
 	   RETURNING "updated_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q,
-		entity.LinkID,
-		entity.URL, encodedRule, encodedBinaryRule,
+		entity.LinkID, entity.URL,
+		encodedRule, encodedBinaryRule,
 		entity.ID, entity.AccountID)
 	if scanErr := row.Scan(&entity.UpdatedAt); scanErr != nil {
 		return entity, errors.Database(errors.ServerErrorMessage, scanErr,

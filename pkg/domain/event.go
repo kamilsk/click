@@ -40,11 +40,3 @@ type RedirectContext struct {
 	Headers map[string][]string `json:"headers,omitempty"`
 	Queries map[string][]string `json:"queries,omitempty"`
 }
-
-// Redirect TODO issue#131
-func (context RedirectContext) Redirect() string {
-	if len(context.Queries[passQueryParam]) > 0 {
-		return context.Queries[passQueryParam][0]
-	}
-	return ""
-}

@@ -2,6 +2,7 @@ package domain
 
 import (
 	"net/http"
+	"net/url"
 	"strings"
 )
 
@@ -66,4 +67,9 @@ func (context RedirectContext) Option() Option {
 		Debug:       is(options, "debug"),
 		NoLog:       is(options, "nolog"),
 	}
+}
+
+// Redirect TODO issue#131
+func (context RedirectContext) Redirect() string {
+	return url.Values(context.Queries).Get(passQueryParam)
 }
