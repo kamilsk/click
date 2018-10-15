@@ -87,7 +87,9 @@ func (scope aliasScope) Update(token *types.Token, data query.UpdateAlias) (type
 	if readErr != nil {
 		return entity, readErr
 	}
-	if data.URN != "" {
+	{
+		entity.LinkID = data.LinkID
+		entity.NamespaceID = data.NamespaceID
 		entity.URN = data.URN
 	}
 	q := `UPDATE "alias"

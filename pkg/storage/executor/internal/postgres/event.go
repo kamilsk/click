@@ -38,7 +38,8 @@ func (scope eventScope) Write(data query.WriteLog) (types.Event, error) {
 			"trying to marshal context `%#v` of the redirect %q into JSON",
 			entity.Context, entity.URL)
 	}
-	q := `INSERT INTO "event" ("account_id", "namespace_id", "link_id", "alias_id", "target_id", "identifier", "context", "code", "url")
+	q := `INSERT INTO "event"
+	      ("account_id", "namespace_id", "link_id", "alias_id", "target_id", "identifier", "context", "code", "url")
 	      VALUES ((SELECT "account_id" FROM "namespace" WHERE "id" = $1), $1, $2, $3, $4, $5, $6, $7, $8)
 	   RETURNING "id", "created_at"`
 	row := scope.conn.QueryRowContext(scope.ctx, q,

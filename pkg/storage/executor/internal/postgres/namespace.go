@@ -55,7 +55,7 @@ func (scope namespaceScope) Update(token *types.Token, data query.UpdateNamespac
 	if readErr != nil {
 		return entity, readErr
 	}
-	if data.Name != "" {
+	{
 		entity.Name = data.Name
 	}
 	q := `UPDATE "namespace"

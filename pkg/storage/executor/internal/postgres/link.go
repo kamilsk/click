@@ -54,11 +54,11 @@ func (scope linkScope) Read(token *types.Token, data query.ReadLink) (types.Link
 // Deprecated: TODO issue#version3.0 use LinkEditor and gRPC gateway instead
 func (scope linkScope) ReadByID(id domain.ID) (types.Link, error) {
 	entity := types.Link{ID: id}
-	q := `SELECT "name", "created_at", "updated_at"
+	q := `SELECT "name", "created_at", "updated_at", "deleted_at"
 	        FROM "link"
 	       WHERE "id" = $1`
 	row := scope.conn.QueryRowContext(scope.ctx, q, entity.ID)
-	if scanErr := row.Scan(&entity.Name, &entity.CreatedAt, &entity.UpdatedAt); scanErr != nil {
+	if scanErr := row.Scan(&entity.Name, &entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); scanErr != nil {
 		if scanErr == sql.ErrNoRows {
 			return entity, errors.NotFound(errors.LinkNotFoundMessage, scanErr, "the link %q not found", entity.ID)
 		}
@@ -71,7 +71,7 @@ func (scope linkScope) ReadByID(id domain.ID) (types.Link, error) {
 // Deprecated: TODO issue#logic is not transparent
 func (scope linkScope) ReadByAlias(ns domain.ID, urn string) (types.Link, error) {
 	var entity types.Link
-	q := `SELECT "id", "name", "created_at", "updated_at"
+	q := `SELECT "id", "name", "created_at", "updated_at", "deleted_at"
 	        FROM "link"
 	       WHERE "id" = (
 	             SELECT "link_id"
@@ -94,7 +94,8 @@ func (scope linkScope) ReadByAlias(ns domain.ID, urn string) (types.Link, error)
 	                ) "fallback" LIMIT 1
 	             )`
 	row := scope.conn.QueryRowContext(scope.ctx, q, ns, urn)
-	if scanErr := row.Scan(&entity.ID, &entity.Name, &entity.CreatedAt, &entity.UpdatedAt); scanErr != nil {
+	if scanErr := row.Scan(&entity.ID, &entity.Name,
+		&entity.CreatedAt, &entity.UpdatedAt, &entity.DeletedAt); scanErr != nil {
 		if scanErr == sql.ErrNoRows {
 			return entity, errors.NotFound(errors.LinkNotFoundMessage, scanErr, "the link %q not found", entity.ID)
 		}
@@ -109,7 +110,7 @@ func (scope linkScope) Update(token *types.Token, data query.UpdateLink) (types.
 	if readErr != nil {
 		return entity, readErr
 	}
-	if data.Name != "" {
+	{
 		entity.Name = data.Name
 	}
 	q := `UPDATE "link"
