@@ -56,8 +56,7 @@ func (service *Click) HandlePass(ctx context.Context, req transfer.PassRequest) 
 		}
 	}
 
-	option := req.Context.Option()
-	if !option.NoLog {
+	if !req.Context.Option().NoLog && !ignore(req.Context) {
 		// if option.Anonymously {}
 		event := domain.RedirectEvent{
 			NamespaceID: ns,
@@ -102,8 +101,7 @@ func (service *Click) HandleRedirect(ctx context.Context, req transfer.RedirectR
 	// if link.Deleted { http.StatusMovedPermanently ? }
 	resp.StatusCode, resp.URL = http.StatusFound, target.URL
 
-	option := req.Context.Option()
-	if !option.NoLog {
+	if !req.Context.Option().NoLog && !ignore(req.Context) {
 		// if option.Anonymously {}
 		event := domain.RedirectEvent{
 			NamespaceID: ns,
@@ -119,4 +117,11 @@ func (service *Click) HandleRedirect(ctx context.Context, req transfer.RedirectR
 	}
 
 	return
+}
+
+// TODO issue#refactoring check and log async, add blacklist
+// - https://github.com/monperrus/crawler-user-agents/blob/master/crawler-user-agents.json
+func ignore(req domain.RedirectContext) bool {
+	// issue#63 do not log curl request
+	return strings.HasPrefix(req.UserAgent(), "curl/")
 }

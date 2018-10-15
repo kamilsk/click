@@ -10,6 +10,9 @@ const (
 	cookieHeader    = "Cookie"
 	namespaceHeader = "X-Click-Namespace"
 	optionsHeader   = "X-Click-Options"
+	refererHeader   = "Referer"
+	userAgentHeader = "User-Agent"
+	passQueryParam  = "url"
 )
 
 // FromCookies returns converted value from request's cookies.
@@ -39,9 +42,14 @@ func FromRequest(req *http.Request) map[string][]string {
 	return req.URL.Query()
 }
 
+// Header TODO issue#131
+func (context RedirectContext) Header(key string) string {
+	return http.Header(context.Headers).Get(key)
+}
+
 // Namespace TODO issue#131
 func (context RedirectContext) Namespace() ID {
-	return ID(http.Header(context.Headers).Get(namespaceHeader))
+	return ID(context.Header(namespaceHeader))
 }
 
 // Option TODO issue#131
@@ -61,7 +69,7 @@ func (context RedirectContext) Option() Option {
 		}
 		return false
 	}
-	options := split(http.Header(context.Headers).Get(optionsHeader))
+	options := split(context.Header(optionsHeader))
 	return Option{
 		Anonymously: is(options, "anonym"),
 		Debug:       is(options, "debug"),
@@ -72,4 +80,14 @@ func (context RedirectContext) Option() Option {
 // Redirect TODO issue#131
 func (context RedirectContext) Redirect() string {
 	return url.Values(context.Queries).Get(passQueryParam)
+}
+
+// Referer TODO issue#131
+func (context RedirectContext) Referer() string {
+	return context.Header(refererHeader)
+}
+
+// UserAgent TODO issue#131
+func (context RedirectContext) UserAgent() string {
+	return context.Header(userAgentHeader)
 }

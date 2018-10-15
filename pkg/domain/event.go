@@ -1,7 +1,5 @@
 package domain
 
-const passQueryParam = "url"
-
 // Option contains rules for request processing.
 type Option struct {
 	// Anonymously: use zero-identifier instead of origin.
