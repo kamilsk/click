@@ -15,6 +15,17 @@ type Target struct {
 // Targets holds set of Target of the Link and provides useful methods for the set.
 type Targets []Target
 
+// Debug TODO issue#131
+func (set Targets) Debug(alias Alias, query map[string][]string) []Target {
+	sorted := make(targetsByWeight, 0, len(set))
+	for _, target := range set {
+		target.weight = target.Rule.Calculate(alias, query)
+		sorted = append(sorted, target)
+	}
+	sort.Sort(sort.Reverse(sorted))
+	return sorted
+}
+
 // Find tries to find a suitable target of the Link for the specific context
 // or returns an empty Target if nothing found.
 func (set Targets) Find(alias Alias, query map[string][]string) (Target, bool) {
@@ -30,10 +41,10 @@ func (set Targets) Find(alias Alias, query map[string][]string) (Target, bool) {
 	return Target{}, false
 }
 
-type targetsByID Targets
+type targetsByWeight Targets
 
-func (set targetsByID) Len() int { return len(set) }
+func (set targetsByWeight) Len() int { return len(set) }
 
-func (set targetsByID) Less(i, j int) bool { return set[i].ID < set[j].ID }
+func (set targetsByWeight) Less(i, j int) bool { return set[i].weight < set[j].weight }
 
-func (set targetsByID) Swap(i, j int) { set[i], set[j] = set[j], set[i] }
+func (set targetsByWeight) Swap(i, j int) { set[i], set[j] = set[j], set[i] }
