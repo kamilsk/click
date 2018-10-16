@@ -7,6 +7,7 @@ import (
 
 	"github.com/kamilsk/click/pkg/config"
 	"github.com/kamilsk/click/pkg/domain"
+	"github.com/kamilsk/click/pkg/errors"
 	"github.com/kamilsk/click/pkg/server/middleware"
 	"github.com/kamilsk/click/pkg/transfer"
 	"github.com/kamilsk/click/pkg/transfer/api/v1"
@@ -27,14 +28,20 @@ type Server struct {
 // Deprecated: TODO issue#version3.0 use LinkEditor and gRPC gateway instead
 func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
 	var id = req.Context().Value(middleware.LinkKey{}).(domain.ID)
-	response := s.service.HandleGetV1(req.Context(), v1.GetRequest{ID: id})
-	if response.Error != nil {
+	resp := s.service.HandleGetV1(req.Context(), v1.GetRequest{ID: id})
+	if resp.Error != nil {
+		if err, is := resp.Error.(errors.ApplicationError); is {
+			if _, is = err.IsClientError(); is {
+				rw.WriteHeader(http.StatusNotFound)
+				return
+			}
+		}
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	rw.Header().Set("Content-Type", "application/json")
 	rw.WriteHeader(http.StatusOK)
-	json.NewEncoder(rw).Encode(response.Link)
+	json.NewEncoder(rw).Encode(resp.Link)
 }
 
 // Pass is responsible for `GET /pass?url={URL}` request handling.
