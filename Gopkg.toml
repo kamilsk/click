@@ -1,6 +1,7 @@
 required = [
   "github.com/golang/mock/gomock",
   "github.com/golang/mock/mockgen/model",
+  "github.com/golang/protobuf/proto",
   "github.com/mailru/easyjson/gen",
   "github.com/mailru/easyjson/jlexer",
   "github.com/mailru/easyjson/jwriter",
@@ -61,6 +62,10 @@ required = [
 [[constraint]]
   name = "github.com/stretchr/testify"
   version = "^1.2.0"
+
+[[constraint]]
+  name = "golang.org/x/sync"
+  branch = "master"
 
 [[constraint]]
   name = "google.golang.org/grpc"

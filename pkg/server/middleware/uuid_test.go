@@ -6,8 +6,9 @@ import (
 	"testing"
 
 	"github.com/kamilsk/click/pkg/domain"
-	"github.com/kamilsk/click/pkg/server/middleware"
 	"github.com/stretchr/testify/assert"
+
+	. "github.com/kamilsk/click/pkg/server/middleware"
 )
 
 const UUID domain.ID = "41ca5e09-3ce2-4094-b108-3ecc257c6fa4"
@@ -28,7 +29,7 @@ func TestLink(t *testing.T) {
 			uuid := new(domain.ID)
 			return uuid, http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
 				rw.WriteHeader(http.StatusOK)
-				*uuid = req.Context().Value(middleware.LinkKey{}).(domain.ID)
+				*uuid = req.Context().Value(LinkKey{}).(domain.ID)
 			})
 		}, http.StatusOK},
 	}
@@ -38,7 +39,7 @@ func TestLink(t *testing.T) {
 		t.Run(test.name, func(t *testing.T) {
 			rw, req := httptest.NewRecorder(), &http.Request{}
 			uuid, next := tc.next(tc.uuid)
-			middleware.Link(tc.uuid.String(), rw, req, next)
+			Link(tc.uuid.String(), rw, req, next)
 
 			assert.Equal(t, tc.code, rw.Code)
 			assert.Equal(t, tc.uuid, *uuid)

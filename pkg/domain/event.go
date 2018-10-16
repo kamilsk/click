@@ -31,7 +31,7 @@ func (event RedirectEvent) Redirect() string {
 	return event.Context.Redirect()
 }
 
-// RedirectContext contains context information about a "redirect event".
+// RedirectContext contains context information about a redirect event.
 //go:generate easyjson -all
 type RedirectContext struct {
 	Cookies map[string]string   `json:"cookies,omitempty"`
