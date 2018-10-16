@@ -45,9 +45,8 @@ BEGIN
 
   INSERT INTO "target" ("id", "account_id", "link_id", "url", "rule", "b_rule")
   VALUES (targetSrc, demoAccount, click, 'https://github.com/kamilsk/click', '{
-      "description": "Project''s source code",
-      "tags": ["src"]
-    }' :: JSONB, convert_to('{tag} in ["src"]', 'UTF8')),
+      "description": "Project''s source code"
+    }' :: JSONB, NULL),
          (targetPromo, demoAccount, click, 'https://kamilsk.github.io/click/', ('{
       "description": "Project''s promo page",
       "tags": ["promo"], "alias": "' || aliasPromo || '", "match": 1

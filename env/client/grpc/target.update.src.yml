@@ -6,7 +6,5 @@ payload:
   rule:   |
     {
       "description": "Project's source code",
-      "tags": ["src"]
     }
-  bRule:  |
-    {tag} in ["src"]
+  bRule:  ~

@@ -8,6 +8,8 @@ type Target struct {
 	ID   ID     `json:"id"`
 	Rule Rule   `json:"rule"`
 	URL  string `json:"url"`
+
+	weight int
 }
 
 // Targets holds set of Target of the Link and provides useful methods for the set.
@@ -17,10 +19,9 @@ type Targets []Target
 // or returns an empty Target if nothing found.
 func (set Targets) Find(alias Alias, query map[string][]string) (Target, bool) {
 	var index, max = -1, 0
-	sort.Sort(sort.Reverse(targetsByID(set)))
 	for i, target := range set {
-		if weight := target.Rule.Calculate(alias, query); weight >= max {
-			index, max = i, weight
+		if target.weight = target.Rule.Calculate(alias, query); target.weight >= max {
+			index, max = i, target.weight
 		}
 	}
 	if index > -1 {
