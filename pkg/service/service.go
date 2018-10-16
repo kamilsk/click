@@ -65,7 +65,7 @@ func (service *Click) HandlePass(ctx context.Context, req transfer.PassRequest) 
 			Code:        http.StatusFound, // TODO issue#design
 			URL:         resp.URL,
 		}
-		_ = service.tracker.LogRedirect(ctx, event) // TODO issue#51
+		resp.Error = service.tracker.LogRedirect(ctx, event) // TODO issue#51
 	}
 
 	return
