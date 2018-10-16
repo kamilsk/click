@@ -6,7 +6,7 @@
 [![Build Status][icon_build]][page_build]
 [![Code Coverage][icon_coverage]][page_quality]
 [![Code Quality][icon_quality]][page_quality]
-[![Research][icon_research]](../../tree/research)
+[![Research][icon_research]][page_research]
 [![License][icon_license]](LICENSE)
 
 ## Roadmap
@@ -50,8 +50,8 @@ Requirements:
 ```bash
 $ make up demo status
 
-     Name                    Command               State                           Ports
-----------------------------------------------------------------------------------------------------------------
+     Name                    Command               State                          Ports
+---------------------------------------------------------------------------------------------------------------
 click_db_1        docker-entrypoint.sh postgres    Up      0.0.0.0:5432->5432/tcp
 click_server_1    /bin/sh -c echo $BASIC_USE ...   Up      0.0.0.0:443->443/tcp, 0.0.0.0:80->80/tcp
 click_service_1   service run --with-profili ...   Up      0.0.0.0:8080->80/tcp, 0.0.0.0:8090->8090/tcp,
@@ -66,7 +66,7 @@ $ make help
 <summary><strong>GET curl /api/v1/UUID</strong></summary>
 
 ```bash
-$ curl http://127.0.0.1.xip.io/api/v1/10000000-2000-4000-8000-160000000005
+$ curl http://127.0.0.1.xip.io/api/v1/10000000-2000-4000-8000-160000000005 | jq
 # {
 #   "id": "10000000-2000-4000-8000-160000000005",
 #   "name": "Click! - Link Manager as a Service",
@@ -155,7 +155,7 @@ You can use CLI not only to start the HTTP server but also to execute
 ```bash
 $ make install
 
-$ click --help
+$ click help
 Click!
 
 Usage:
@@ -163,7 +163,7 @@ Usage:
 
 Available Commands:
   completion  Print Bash or Zsh completion
-  ctl         Communicate with Click! server via gRPC
+  ctl         Click! Service Control
   help        Help about any command
   migrate     Apply database migration
   run         Start HTTP server
@@ -200,7 +200,7 @@ $ which click
 ### Binary
 
 ```bash
-$ export REQ_VER=1.0.0  # all available versions are on https://github.com/kamilsk/click/releases/
+$ export REQ_VER=2.0.0  # all available versions are on https://github.com/kamilsk/click/releases/
 $ export REQ_OS=Linux   # macOS and Windows are also available
 $ export REQ_ARCH=64bit # 32bit is also available
 # wget -q -O click.tar.gz
@@ -212,15 +212,15 @@ $ tar xf click.tar.gz -C "${GOPATH}"/bin/ && rm click.tar.gz
 ### Docker Hub
 
 ```bash
-$ docker pull kamilsk/click:1.x
+$ docker pull kamilsk/click:2.x
 ```
 
 ### From source code
 
 ```bash
-$ egg github.com/kamilsk/click@^1.0.0 -- make test install
+$ egg github.com/kamilsk/click@^2.0.0 -- make test install
 $ # or use mirror
-$ egg bitbucket.org/kamilsk/click@^1.0.0 -- make test install
+$ egg bitbucket.org/kamilsk/click@^2.0.0 -- make test install
 ```
 
 > [egg](https://github.com/kamilsk/egg)<sup id="anchor-egg">[1](#egg)</sup> is an `extended go get`.
@@ -256,6 +256,7 @@ made with ❤️ by [OctoLab](https://www.octolab.org/)
 
 [page_build]:      https://travis-ci.org/kamilsk/click
 [page_promo]:      https://kamilsk.github.io/click/
+[page_research]:   ../../tree/research
 [page_quality]:    https://scrutinizer-ci.com/g/kamilsk/click/?branch=master
 
 [project_v1]:      https://github.com/kamilsk/click/projects/1
