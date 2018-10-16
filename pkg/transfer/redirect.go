@@ -10,7 +10,6 @@ type RedirectRequest struct {
 
 // RedirectResponse represents `GET /{Alias.URN}` response.
 type RedirectResponse struct {
-	Error      error
-	StatusCode int
-	URL        string
+	Error error
+	URL   string
 }

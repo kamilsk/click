@@ -9,7 +9,6 @@ type PassRequest struct {
 
 // PassResponse represents `GET /pass?url={URL}` response.
 type PassResponse struct {
-	Error      error
-	StatusCode int
-	URL        string
+	Error error
+	URL   string
 }

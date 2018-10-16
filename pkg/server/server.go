@@ -54,11 +54,17 @@ func (s *Server) Pass(rw http.ResponseWriter, req *http.Request) {
 		},
 	})
 	if resp.Error != nil {
+		if err, is := resp.Error.(errors.ApplicationError); is {
+			if _, is = err.IsClientError(); is {
+				rw.WriteHeader(http.StatusNotFound)
+				return
+			}
+		}
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	rw.Header().Set("Location", resp.URL)
-	rw.WriteHeader(resp.StatusCode)
+	rw.WriteHeader(http.StatusFound)
 }
 
 // Redirect is responsible for `GET /{Alias.URN}` request handling.
@@ -72,9 +78,15 @@ func (s *Server) Redirect(rw http.ResponseWriter, req *http.Request) {
 		URN: strings.Trim(req.URL.Path, "/"),
 	})
 	if resp.Error != nil {
+		if err, is := resp.Error.(errors.ApplicationError); is {
+			if _, is = err.IsClientError(); is {
+				rw.WriteHeader(http.StatusNotFound)
+				return
+			}
+		}
 		rw.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 	rw.Header().Set("Location", resp.URL)
-	rw.WriteHeader(resp.StatusCode)
+	rw.WriteHeader(http.StatusFound)
 }

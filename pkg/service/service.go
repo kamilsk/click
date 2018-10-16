@@ -41,7 +41,7 @@ func (service *Click) HandlePass(ctx context.Context, req transfer.PassRequest) 
 		return
 	}
 
-	resp.StatusCode, resp.URL = http.StatusFound, req.Context.Redirect()
+	resp.URL = req.Context.Redirect()
 	if resp.URL == "" {
 		resp.Error = errors.NotFound(errors.LinkNotFoundMessage, errors.Simple("url is empty"),
 			"request %+v", req)
@@ -62,7 +62,7 @@ func (service *Click) HandlePass(ctx context.Context, req transfer.PassRequest) 
 			NamespaceID: ns,
 			Identifier:  nil, // TODO issue#134
 			Context:     req.Context,
-			Code:        resp.StatusCode,
+			Code:        http.StatusFound, // TODO issue#design
 			URL:         resp.URL,
 		}
 		_ = service.tracker.LogRedirect(ctx, event) // TODO issue#51
@@ -99,7 +99,7 @@ func (service *Click) HandleRedirect(ctx context.Context, req transfer.RedirectR
 	}
 
 	// if link.Deleted { http.StatusMovedPermanently ? }
-	resp.StatusCode, resp.URL = http.StatusFound, target.URL
+	resp.URL = target.URL
 
 	if !req.Context.Option().NoLog && !ignore(req.Context) {
 		// if option.Anonymously {}
@@ -110,7 +110,7 @@ func (service *Click) HandleRedirect(ctx context.Context, req transfer.RedirectR
 			TargetID:    &target.ID,
 			Identifier:  nil, // TODO issue#134
 			Context:     req.Context,
-			Code:        resp.StatusCode,
+			Code:        http.StatusFound, // TODO issue#design
 			URL:         resp.URL,
 		}
 		resp.Error = service.tracker.LogRedirect(ctx, event) // TODO issue#51
