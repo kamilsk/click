@@ -1,1 +1,587 @@
-{}
+{
+  "info": {
+    "_postman_id": "d6dbbe5d-e6df-4f19-b2cc-3d9d2bcc998e",
+    "name": "Click!",
+    "description": "🔗 Link Manager as a Service &mdash; your personal link storage and URL shortener.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "public",
+      "item": [
+        {
+          "name": "/api",
+          "item": [
+            {
+              "name": "/v1",
+              "item": [
+                {
+                  "name": "link:Click!",
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "10000000-2000-4000-8000-160000000003",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{schema}}://{{api}}/api/v1/10000000-2000-4000-8000-160000000005",
+                      "protocol": "{{schema}}",
+                      "host": [
+                        "{{api}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "10000000-2000-4000-8000-160000000005"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "/pass (simple)",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "X-Click-Namespace",
+                        "value": "10000000-2000-4000-8000-160000000001",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{schema}}://{{api}}/api/v1/pass?url=https://github.com/kamilsk/click",
+                      "protocol": "{{schema}}",
+                      "host": [
+                        "{{api}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "pass"
+                      ],
+                      "query": [
+                        {
+                          "key": "url",
+                          "value": "https://github.com/kamilsk/click"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "/pass (base64)",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "X-Click-Namespace",
+                        "value": "10000000-2000-4000-8000-160000000001",
+                        "type": "text"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": ""
+                    },
+                    "url": {
+                      "raw": "{{schema}}://{{api}}/api/v1/pass?url=aHR0cHM6Ly9naXRodWIuY29tL2thbWlsc2svY2xpY2sK",
+                      "protocol": "{{schema}}",
+                      "host": [
+                        "{{api}}"
+                      ],
+                      "path": [
+                        "api",
+                        "v1",
+                        "pass"
+                      ],
+                      "query": [
+                        {
+                          "key": "url",
+                          "value": "aHR0cHM6Ly9naXRodWIuY29tL2thbWlsc2svY2xpY2sK"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ],
+              "auth": {
+                "type": "bearer",
+                "bearer": [
+                  {
+                    "key": "token",
+                    "value": "10000000-2000-4000-8000-160000000003",
+                    "type": "string"
+                  }
+                ]
+              },
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "f4683b9c-c7ca-4526-b8a2-56117a1ef83f",
+                    "type": "text/javascript",
+                    "exec": [
+                      ""
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "5fb4e28b-abb2-442c-a370-ad91602d5b78",
+                    "type": "text/javascript",
+                    "exec": [
+                      ""
+                    ]
+                  }
+                }
+              ],
+              "_postman_isSubFolder": true
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "3ecc7bc4-0416-4ae3-977e-ae53d18f72b0",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "dbdba766-2bf3-45da-88ac-12163d0b5d3d",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "/github",
+          "item": [
+            {
+              "name": "click:source",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-Click-Namespace",
+                    "value": "10000000-2000-4000-8000-160000000001",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{schema}}://{{host}}/github/click",
+                  "protocol": "{{schema}}",
+                  "host": [
+                    "{{host}}"
+                  ],
+                  "path": [
+                    "github",
+                    "click"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "click:issue",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-Click-Namespace",
+                    "type": "text",
+                    "value": "10000000-2000-4000-8000-160000000004"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{schema}}://{{host}}/github/click",
+                  "protocol": "{{schema}}",
+                  "host": [
+                    "{{host}}"
+                  ],
+                  "path": [
+                    "github",
+                    "click"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "click:promo (tag)",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-Click-Namespace",
+                    "type": "text",
+                    "value": "10000000-2000-4000-8000-160000000001"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{schema}}://{{host}}/github/click?tag=promo",
+                  "protocol": "{{schema}}",
+                  "host": [
+                    "{{host}}"
+                  ],
+                  "path": [
+                    "github",
+                    "click"
+                  ],
+                  "query": [
+                    {
+                      "key": "tag",
+                      "value": "promo"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "click!:promo",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "X-Click-Namespace",
+                    "type": "text",
+                    "value": "10000000-2000-4000-8000-160000000001"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": ""
+                },
+                "url": {
+                  "raw": "{{schema}}://{{host}}/github/click!",
+                  "protocol": "{{schema}}",
+                  "host": [
+                    "{{host}}"
+                  ],
+                  "path": [
+                    "github",
+                    "click!"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "_postman_isSubFolder": true
+        }
+      ]
+    },
+    {
+      "name": "protected",
+      "item": [
+        {
+          "name": "monitoring",
+          "item": [
+            {
+              "name": "/monitoring",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{schema}}://{{monitoring}}/monitoring",
+                  "protocol": "{{schema}}",
+                  "host": [
+                    "{{monitoring}}"
+                  ],
+                  "path": [
+                    "monitoring"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/vars",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{schema}}://{{monitoring}}/vars",
+                  "protocol": "{{schema}}",
+                  "host": [
+                    "{{monitoring}}"
+                  ],
+                  "path": [
+                    "vars"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "765c1dea-021a-44b5-a711-84966924d926",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "6708f6fc-638c-4aa2-82d7-ff9e134b89fc",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "profiling",
+          "item": [
+            {
+              "name": "/pprof/cmdline",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{schema}}://{{profiling}}/pprof/cmdline",
+                  "protocol": "{{schema}}",
+                  "host": [
+                    "{{profiling}}"
+                  ],
+                  "path": [
+                    "pprof",
+                    "cmdline"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/pprof/profile",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{schema}}://{{profiling}}/pprof/profile",
+                  "protocol": "{{schema}}",
+                  "host": [
+                    "{{profiling}}"
+                  ],
+                  "path": [
+                    "pprof",
+                    "profile"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/pprof/symbol",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{schema}}://{{profiling}}/pprof/symbol",
+                  "protocol": "{{schema}}",
+                  "host": [
+                    "{{profiling}}"
+                  ],
+                  "path": [
+                    "pprof",
+                    "symbol"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/pprof/trace",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{schema}}://{{profiling}}/pprof/trace",
+                  "protocol": "{{schema}}",
+                  "host": [
+                    "{{profiling}}"
+                  ],
+                  "path": [
+                    "pprof",
+                    "trace"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "/debug/pprof/",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{schema}}://{{profiling}}/debug/pprof/",
+                  "protocol": "{{schema}}",
+                  "host": [
+                    "{{profiling}}"
+                  ],
+                  "path": [
+                    "debug",
+                    "pprof",
+                    ""
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "auth": {
+            "type": "basic",
+            "basic": [
+              {
+                "key": "password",
+                "value": "{{pass}}",
+                "type": "string"
+              },
+              {
+                "key": "username",
+                "value": "{{user}}",
+                "type": "string"
+              },
+              {
+                "key": "saveHelperData",
+                "value": true,
+                "type": "boolean"
+              },
+              {
+                "key": "showPassword",
+                "value": false,
+                "type": "boolean"
+              }
+            ]
+          },
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "id": "56cb5ac6-6437-48fc-9cea-9f1a413e0025",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "id": "33168210-ff6c-44dc-bd81-8253a34502d4",
+                "type": "text/javascript",
+                "exec": [
+                  ""
+                ]
+              }
+            }
+          ],
+          "_postman_isSubFolder": true
+        }
+      ],
+      "auth": {
+        "type": "basic",
+        "basic": [
+          {
+            "key": "password",
+            "value": "{{pass}}",
+            "type": "string"
+          },
+          {
+            "key": "username",
+            "value": "{{user}}",
+            "type": "string"
+          },
+          {
+            "key": "saveHelperData",
+            "value": true,
+            "type": "boolean"
+          },
+          {
+            "key": "showPassword",
+            "value": false,
+            "type": "boolean"
+          }
+        ]
+      }
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "4185510d-a6a0-43f2-8e13-881ff1ddd4be",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "63313fdb-8596-409f-98c6-e4976b8b9b8f",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}
