@@ -7,15 +7,15 @@ services:
     env_file: .env
 
   migration:
-    image: kamilsk/click:2.x # https://hub.docker.com/r/kamilsk/click/
-    command: [ "migrate", "up" ]
+    image: kamilsk/click:3.x # https://hub.docker.com/r/kamilsk/click/
+    command: [ "migrate" ]
     depends_on:
     - db
     env_file: .env
     restart: on-failure
 
   service:
-    image: kamilsk/click:2.x # https://hub.docker.com/r/kamilsk/click/
+    image: kamilsk/click:3.x # https://hub.docker.com/r/kamilsk/click/
     command: [ "run", "--with-profiling", "--with-monitoring" ]
     depends_on:
     - migration

@@ -1,4 +1,5 @@
-COMPOSE ?= docker-compose -f env/docker-compose.base.yml -f env/docker-compose.dev.yml -p click
+_base   = docker-compose -p click -f env/docker/compose/docker-compose.base.yml
+COMPOSE = $(_base) -f env/docker/compose/docker-compose.dev.yml
 
 
 .PHONY: __env__
