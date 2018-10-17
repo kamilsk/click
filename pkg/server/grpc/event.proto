@@ -5,7 +5,7 @@ package grpc;
 import public "common.proto";
 import "google/protobuf/timestamp.proto";
 
-message EventEntry {
+message Event {
     uint32 id = 1;
     string namespace_id = 2;
     string link_id = 3;
@@ -38,14 +38,14 @@ message ReadEventsRequest {
 }
 
 message ReadEventsResponse {
-    repeated EventEntry events = 1;
+    repeated Event events = 1;
 }
 
 message ListenEventsRequest {
     EventFilter filter = 1;
 }
 
-service Event {
+service Listener {
     rpc Read (ReadEventsRequest) returns (ReadEventsResponse) {}
-    rpc Listen (ListenEventsRequest) returns (stream EventEntry) {}
+    rpc Listen (ListenEventsRequest) returns (stream Event) {}
 }

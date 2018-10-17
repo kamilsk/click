@@ -6,7 +6,7 @@ import (
 )
 
 // NewEventServer returns new instance of server API for Tracker service.
-func NewEventServer(storage ProtectedStorage) EventServer {
+func NewEventServer(storage ProtectedStorage) ListenerServer {
 	return &eventServer{storage}
 }
 
@@ -16,12 +16,12 @@ type eventServer struct {
 
 // Read TODO issue#131
 func (*eventServer) Read(context.Context, *ReadEventsRequest) (*ReadEventsResponse, error) {
-	log.Println("EventServer.Read was called")
+	log.Println("ListenerServer.Read was called")
 	return &ReadEventsResponse{}, nil
 }
 
 // Listen TODO issue#131
-func (*eventServer) Listen(*ListenEventsRequest, Event_ListenServer) error {
-	log.Println("EventServer.Listen was called")
+func (*eventServer) Listen(*ListenEventsRequest, Listener_ListenServer) error {
+	log.Println("ListenerServer.Listen was called")
 	return nil
 }

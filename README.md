@@ -18,12 +18,12 @@
   - [**August 31, 2018**][project_v2_dl]
   - Command line interface for create, read, update and delete operations above gRPC.
 - [ ] v3: [URL shortener and RESTful API][project_v3]
-  - [**September 30, 2018**][project_v3_dl]
+  - [**October 20, 2018**][project_v3_dl]
   - URL shortener functionality.
   - Integrate gRPC gateway.
   - Improve gRPC layer.
 - [ ] v4: [DSL for rules, CSI, and GUI][project_v4]
-  - [**October 31, 2018**][project_v4_dl]
+  - [**November 20, 2018**][project_v4_dl]
   - Domain-specific language to define target rules.
   - Client-side integration.
   - Graphical user interface and admin panel to perform create, read, update and delete operations.
@@ -219,7 +219,7 @@ $ docker pull kamilsk/click:2.x
 
 ```bash
 $ egg github.com/kamilsk/click@^2.0.0 -- make test install
-$ # or use mirror
+# or use mirror
 $ egg bitbucket.org/kamilsk/click@^2.0.0 -- make test install
 ```
 
