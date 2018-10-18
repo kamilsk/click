@@ -7,12 +7,14 @@ import (
 )
 
 const (
-	cookieHeader    = "Cookie"
-	namespaceHeader = "X-Click-Namespace"
-	optionsHeader   = "X-Click-Options"
-	refererHeader   = "Referer"
-	userAgentHeader = "User-Agent"
-	passQueryParam  = "url"
+	cookieHeader     = "Cookie"
+	identifierHeader = "X-Passport-ID"
+	namespaceHeader  = "X-Click-Namespace"
+	optionsHeader    = "X-Click-Options"
+	refererHeader    = "Referer"
+	requestHeader    = "X-Request-ID"
+	userAgentHeader  = "User-Agent"
+	passQueryParam   = "url"
 )
 
 // FromCookies returns converted value from request's cookies.
@@ -45,6 +47,16 @@ func FromRequest(req *http.Request) map[string][]string {
 // Header TODO issue#131
 func (context RedirectContext) Header(key string) string {
 	return http.Header(context.Headers).Get(key)
+}
+
+// Identifier TODO issue#131
+func (context RedirectContext) Identifier() *ID {
+	header := context.Header(identifierHeader)
+	if header != "" {
+		id := ID(header)
+		return &id
+	}
+	return nil
 }
 
 // Namespace TODO issue#131
@@ -85,6 +97,16 @@ func (context RedirectContext) Redirect() string {
 // Referer TODO issue#131
 func (context RedirectContext) Referer() string {
 	return context.Header(refererHeader)
+}
+
+// Request TODO issue#131
+func (context RedirectContext) Request() *ID {
+	header := context.Header(requestHeader)
+	if header != "" {
+		id := ID(header)
+		return &id
+	}
+	return nil
 }
 
 // UserAgent TODO issue#131

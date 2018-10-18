@@ -60,7 +60,7 @@ func (service *Click) HandlePass(ctx context.Context, req transfer.PassRequest) 
 		// if option.Anonymously {}
 		event := domain.RedirectEvent{
 			NamespaceID: ns,
-			Identifier:  nil, // TODO issue#134
+			Identifier:  req.Context.Identifier(),
 			Context:     req.Context,
 			Code:        http.StatusFound, // TODO issue#design
 			URL:         resp.URL,
@@ -108,7 +108,7 @@ func (service *Click) HandleRedirect(ctx context.Context, req transfer.RedirectR
 			LinkID:      &link.ID,
 			AliasID:     &alias.ID,
 			TargetID:    &target.ID,
-			Identifier:  nil, // TODO issue#134
+			Identifier:  req.Context.Identifier(),
 			Context:     req.Context,
 			Code:        http.StatusFound, // TODO issue#design
 			URL:         resp.URL,
