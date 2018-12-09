@@ -65,9 +65,9 @@ func (scope aliasScope) ReadAllByLink(link domain.ID) ([]types.Alias, error) {
 	rows, queryErr := scope.conn.QueryContext(scope.ctx, q, link)
 	if queryErr != nil {
 		return nil, errors.Database(errors.ServerErrorMessage, queryErr,
-			"trying to read all aliases of the link %q", link)
+			"trying to read aliases of the link %q", link)
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	result := make([]types.Alias, 0, 4)
 	for rows.Next() {
 		entity := types.Alias{LinkID: link}
@@ -77,6 +77,10 @@ func (scope aliasScope) ReadAllByLink(link domain.ID) ([]types.Alias, error) {
 				"trying to read an alias of the link %q", link)
 		}
 		result = append(result, entity)
+	}
+	if loopErr := rows.Err(); loopErr != nil {
+		return nil, errors.Database(errors.ServerErrorMessage, loopErr,
+			"trying to read aliases of the link %q", link)
 	}
 	return result, nil
 }

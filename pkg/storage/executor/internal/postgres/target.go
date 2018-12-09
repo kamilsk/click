@@ -82,9 +82,9 @@ func (scope targetScope) ReadAllByLink(link domain.ID) ([]types.Target, error) {
 	rows, queryErr := scope.conn.QueryContext(scope.ctx, q, link)
 	if queryErr != nil {
 		return nil, errors.Database(errors.ServerErrorMessage, queryErr,
-			"trying to read all targets of the link %q", link)
+			"trying to read targets of the link %q", link)
 	}
-	defer rows.Close()
+	defer func() { _ = rows.Close() }()
 	result := make([]types.Target, 0, 4)
 	for rows.Next() {
 		var encodedRule, encodedBinaryRule []byte
@@ -102,6 +102,10 @@ func (scope targetScope) ReadAllByLink(link domain.ID) ([]types.Target, error) {
 		}
 		entity.BinaryRule = domain.BinaryRule(encodedBinaryRule)
 		result = append(result, entity)
+	}
+	if loopErr := rows.Err(); loopErr != nil {
+		return nil, errors.Database(errors.ServerErrorMessage, loopErr,
+			"trying to read targets of the link %q", link)
 	}
 	return result, nil
 }
