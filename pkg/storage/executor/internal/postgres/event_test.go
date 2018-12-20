@@ -11,7 +11,7 @@ import (
 	"github.com/kamilsk/click/pkg/storage/executor"
 	"github.com/kamilsk/click/pkg/storage/query"
 	"github.com/stretchr/testify/assert"
-	"gopkg.in/DATA-DOG/go-sqlmock.v1"
+	sqlmock "gopkg.in/DATA-DOG/go-sqlmock.v1"
 
 	. "github.com/kamilsk/click/pkg/storage/executor/internal/postgres"
 )

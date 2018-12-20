@@ -9,17 +9,16 @@ import (
 	"reflect"
 	"strings"
 
-	pb "github.com/kamilsk/click/pkg/server/grpc"
-	kit "github.com/kamilsk/go-kit/pkg/strings"
-
 	"github.com/kamilsk/click/pkg/config"
+	pb "github.com/kamilsk/click/pkg/server/grpc"
 	"github.com/kamilsk/click/pkg/server/grpc/middleware"
+	kit "github.com/kamilsk/go-kit/pkg/strings"
 	"github.com/mitchellh/mapstructure"
 	"github.com/pkg/errors"
 	"github.com/spf13/cobra"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
-	"gopkg.in/yaml.v2"
+	yaml "gopkg.in/yaml.v2"
 )
 
 const (

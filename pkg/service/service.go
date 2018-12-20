@@ -10,7 +10,7 @@ import (
 	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/errors"
 	"github.com/kamilsk/click/pkg/transfer"
-	"github.com/kamilsk/click/pkg/transfer/api/v1"
+	v1 "github.com/kamilsk/click/pkg/transfer/api/v1"
 )
 
 // New returns a new instance of Click! service.
