@@ -1,3 +1,14 @@
-//go:generate echo $PWD/$GOPACKAGE/$GOFILE
-//go:generate mockgen -package chi_test -destination $PWD/pkg/server/router/chi/mock_server_test.go github.com/kamilsk/click/pkg/server/router Server
 package chi_test
+
+import (
+	"testing"
+
+	"github.com/kamilsk/click/pkg/server/router"
+	"github.com/kamilsk/click/pkg/server/router/chi"
+	"github.com/stretchr/testify/assert"
+)
+
+func TestNewRouter(t *testing.T) {
+	type server struct{ router.Server }
+	assert.NotPanics(t, func() { _ = chi.NewRouter(server{}) })
+}

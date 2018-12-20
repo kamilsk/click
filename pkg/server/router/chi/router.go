@@ -3,11 +3,10 @@ package chi
 import (
 	"net/http"
 
-	common "github.com/kamilsk/click/pkg/server/middleware"
-
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/kamilsk/click/pkg/server/router"
+	internal "github.com/kamilsk/click/pkg/server/router/chi/middleware"
 )
 
 // NewRouter returns configured `github.com/go-chi/chi` router.
@@ -20,7 +19,7 @@ func NewRouter(api router.Server) http.Handler {
 
 	r.Route("/api/v1", func(r chi.Router) {
 		r.Route("/{ID}", func(r chi.Router) {
-			r.Use(ctxPacker(common.Link, "ID"))
+			r.Use(internal.Pack("ID", "id"))
 			r.Get("/", api.GetV1)
 		})
 		r.Get("/pass", api.Pass)

@@ -8,9 +8,8 @@ import (
 	"github.com/kamilsk/click/pkg/config"
 	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/errors"
-	"github.com/kamilsk/click/pkg/server/middleware"
 	"github.com/kamilsk/click/pkg/transfer"
-	"github.com/kamilsk/click/pkg/transfer/api/v1"
+	v1 "github.com/kamilsk/click/pkg/transfer/api/v1"
 )
 
 // New returns a new instance of Click! server.
@@ -27,7 +26,15 @@ type Server struct {
 // GetV1 is responsible for `GET /api/v1/{Link.ID}` request handling.
 // Deprecated: TODO issue#version3.0 use LinkEditor and gRPC gateway instead
 func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
-	var id = req.Context().Value(middleware.LinkKey{}).(domain.ID)
+	if err := req.ParseForm(); err != nil {
+		http.Error(rw, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		return
+	}
+	id := domain.ID(req.Form.Get("id"))
+	if !id.IsValid() {
+		http.Error(rw, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
+		return
+	}
 	resp := s.service.HandleGetV1(req.Context(), v1.GetRequest{ID: id})
 	if resp.Error != nil {
 		if err, is := resp.Error.(errors.ApplicationError); is {
@@ -41,7 +48,7 @@ func (s *Server) GetV1(rw http.ResponseWriter, req *http.Request) {
 	}
 	rw.Header().Set("Content-Type", "application/json")
 	rw.WriteHeader(http.StatusOK)
-	json.NewEncoder(rw).Encode(resp.Link)
+	_ = json.NewEncoder(rw).Encode(resp.Link)
 }
 
 // Pass is responsible for `GET /pass?url={URL}` request handling.

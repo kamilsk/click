@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/kamilsk/click/pkg/transfer"
-	"github.com/kamilsk/click/pkg/transfer/api/v1"
+	v1 "github.com/kamilsk/click/pkg/transfer/api/v1"
 )
 
 // Service defines the behavior of Click! service.
