@@ -1,15 +1,13 @@
 IMAGE_VERSION := 3.x
-PACKAGE       := github.com/kamilsk/click
 
 
 .PHONY: docker-build
 docker-build:
-	docker build -f env/Dockerfile \
+	docker build -f env/docker/service/Dockerfile \
 	             -t kamilsk/click:$(IMAGE_VERSION) \
 	             -t kamilsk/click:latest \
 	             -t quay.io/kamilsk/click:$(IMAGE_VERSION) \
 	             -t quay.io/kamilsk/click:latest \
-	             --build-arg PACKAGE=$(PACKAGE) \
 	             --force-rm --no-cache --pull --rm \
 	             .
 

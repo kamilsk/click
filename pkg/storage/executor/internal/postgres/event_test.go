@@ -9,11 +9,10 @@ import (
 	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/errors"
 	"github.com/kamilsk/click/pkg/storage/executor"
+	. "github.com/kamilsk/click/pkg/storage/executor/internal/postgres"
 	"github.com/kamilsk/click/pkg/storage/query"
 	"github.com/stretchr/testify/assert"
 	sqlmock "gopkg.in/DATA-DOG/go-sqlmock.v1"
-
-	. "github.com/kamilsk/click/pkg/storage/executor/internal/postgres"
 )
 
 func TestLogWriter(t *testing.T) {
@@ -26,7 +25,7 @@ func TestLogWriter(t *testing.T) {
 			assert.NoError(t, err)
 			conn, err := db.Conn(ctx)
 			assert.NoError(t, err)
-			defer conn.Close()
+			defer func() { _ = conn.Close() }()
 
 			e := domain.RedirectEvent{
 				NamespaceID: id, LinkID: &id, AliasID: &id, TargetID: &id, Identifier: &id,
@@ -62,7 +61,7 @@ func TestLogWriter(t *testing.T) {
 			assert.NoError(t, err)
 			conn, err := db.Conn(ctx)
 			assert.NoError(t, err)
-			defer conn.Close()
+			defer func() { _ = conn.Close() }()
 
 			e := domain.RedirectEvent{
 				NamespaceID: id, LinkID: &id, AliasID: &id, TargetID: &id, Identifier: &id,

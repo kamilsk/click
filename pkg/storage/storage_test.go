@@ -4,9 +4,8 @@ import (
 	"testing"
 
 	"github.com/kamilsk/click/pkg/errors"
-	"github.com/stretchr/testify/assert"
-
 	. "github.com/kamilsk/click/pkg/storage"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestMust(t *testing.T) {

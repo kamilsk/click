@@ -11,7 +11,7 @@ import (
 
 	"github.com/go-chi/chi/middleware"
 	"github.com/golang/mock/gomock"
-	"github.com/kamilsk/click/pkg/server/router"
+	. "github.com/kamilsk/click/pkg/server/router"
 	"github.com/kamilsk/click/pkg/server/router/chi"
 	"github.com/stretchr/testify/assert"
 )
@@ -31,10 +31,10 @@ func TestContract_chi(t *testing.T) {
 
 	tests := []struct {
 		name string
-		api  func() router.Server
+		api  func() Server
 		req  func() *http.Request
 	}{
-		{"check GetV1 method", func() router.Server {
+		{"check GetV1 method", func() Server {
 			mock := NewMockServer(ctrl)
 			mock.EXPECT().
 				GetV1(gomock.Any(), gomock.Any()).
@@ -46,7 +46,7 @@ func TestContract_chi(t *testing.T) {
 			req, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("/api/v1/%s", uuid), nil)
 			return req
 		}},
-		{"check Pass method", func() router.Server {
+		{"check Pass method", func() Server {
 			mock := NewMockServer(ctrl)
 			mock.EXPECT().
 				Pass(gomock.Any(), gomock.Any()).
@@ -58,7 +58,7 @@ func TestContract_chi(t *testing.T) {
 			req, _ := http.NewRequest(http.MethodGet, fmt.Sprintf("/api/v1/pass?url=%s", uuid), nil)
 			return req
 		}},
-		{"check Redirect method", func() router.Server {
+		{"check Redirect method", func() Server {
 			mock := NewMockServer(ctrl)
 			mock.EXPECT().
 				Redirect(gomock.Any(), gomock.Any()).

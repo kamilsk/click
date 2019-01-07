@@ -17,7 +17,7 @@ func (storage *Storage) Link(ctx context.Context, id domain.ID) (domain.Link, er
 	if connErr != nil {
 		return link, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	return storage.legacy(ctx, conn, id)
 }
@@ -30,7 +30,7 @@ func (storage *Storage) LinkByAlias(ctx context.Context, ns domain.ID, urn strin
 	if connErr != nil {
 		return link, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	entity, readErr := storage.exec.LinkReader(ctx, conn).ReadByAlias(ns, urn)
 	if readErr != nil {
@@ -46,7 +46,7 @@ func (storage *Storage) LogRedirect(ctx context.Context, event domain.RedirectEv
 	if connErr != nil {
 		return connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	// TODO issue#51
 	_, writeErr := storage.exec.LogWriter(ctx, conn).Write(query.WriteLog{RedirectEvent: event})

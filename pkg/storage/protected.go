@@ -23,7 +23,7 @@ func (storage *Storage) CreateLink(ctx context.Context, tokenID domain.ID, data 
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -40,7 +40,7 @@ func (storage *Storage) ReadLink(ctx context.Context, tokenID domain.ID, data qu
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -57,7 +57,7 @@ func (storage *Storage) UpdateLink(ctx context.Context, tokenID domain.ID, data 
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -74,7 +74,7 @@ func (storage *Storage) DeleteLink(ctx context.Context, tokenID domain.ID, data 
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -97,7 +97,7 @@ func (storage *Storage) CreateNamespace(ctx context.Context, tokenID domain.ID, 
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -114,7 +114,7 @@ func (storage *Storage) ReadNamespace(ctx context.Context, tokenID domain.ID, da
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -131,7 +131,7 @@ func (storage *Storage) UpdateNamespace(ctx context.Context, tokenID domain.ID, 
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -148,7 +148,7 @@ func (storage *Storage) DeleteNamespace(ctx context.Context, tokenID domain.ID, 
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -171,7 +171,7 @@ func (storage *Storage) CreateAlias(ctx context.Context, tokenID domain.ID, data
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -200,7 +200,7 @@ func (storage *Storage) ReadAlias(ctx context.Context, tokenID domain.ID, data q
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -217,7 +217,7 @@ func (storage *Storage) UpdateAlias(ctx context.Context, tokenID domain.ID, data
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -246,7 +246,7 @@ func (storage *Storage) DeleteAlias(ctx context.Context, tokenID domain.ID, data
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -269,7 +269,7 @@ func (storage *Storage) CreateTarget(ctx context.Context, tokenID domain.ID, dat
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -289,7 +289,7 @@ func (storage *Storage) ReadTarget(ctx context.Context, tokenID domain.ID, data 
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -306,7 +306,7 @@ func (storage *Storage) UpdateTarget(ctx context.Context, tokenID domain.ID, dat
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {
@@ -326,7 +326,7 @@ func (storage *Storage) DeleteTarget(ctx context.Context, tokenID domain.ID, dat
 	if connErr != nil {
 		return entity, connErr
 	}
-	defer closer()
+	defer func() { _ = closer() }()
 
 	token, authErr := storage.exec.UserManager(ctx, conn).Token(tokenID)
 	if authErr != nil {

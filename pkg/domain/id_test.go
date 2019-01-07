@@ -3,9 +3,8 @@ package domain_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
 	. "github.com/kamilsk/click/pkg/domain"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestID(t *testing.T) {

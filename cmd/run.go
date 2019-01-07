@@ -157,7 +157,7 @@ func startGRPCServer(cnf config.GRPCConfig, storage pb.ProtectedStorage) error {
 		pb.RegisterListenerServer(srv, pb.NewEventServer(storage))
 		log.Println("start gRPC server at", listener.Addr())
 		_ = srv.Serve(listener) // TODO issue#97
-		listener.Close()
+		_ = listener.Close()
 	}()
 	return nil
 }
@@ -173,7 +173,7 @@ func startMonitoring(cnf config.MonitoringConfig) error {
 		mux.Handle("/vars", expvar.Handler())
 		log.Println("start monitoring server at", listener.Addr())
 		_ = http.Serve(listener, mux) // TODO issue#97
-		listener.Close()
+		_ = listener.Close()
 	}()
 	return nil
 }
@@ -192,7 +192,7 @@ func startProfiler(cnf config.ProfilingConfig) error {
 		mux.HandleFunc("/debug/pprof/", pprof.Index)
 		log.Println("start profiling server at", listener.Addr())
 		_ = http.Serve(listener, mux) // TODO issue#97
-		listener.Close()
+		_ = listener.Close()
 	}()
 	return nil
 }

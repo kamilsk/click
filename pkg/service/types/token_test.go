@@ -3,9 +3,8 @@ package types_test
 import (
 	"testing"
 
-	"github.com/stretchr/testify/assert"
-
 	. "github.com/kamilsk/click/pkg/service/types"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestToken(t *testing.T) {

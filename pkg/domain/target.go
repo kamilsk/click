@@ -43,8 +43,11 @@ func (set Targets) Find(alias Alias, query map[string][]string) (Target, bool) {
 
 type targetsByWeight Targets
 
+// Len implements sort.Interface.
 func (set targetsByWeight) Len() int { return len(set) }
 
+// Less implements sort.Interface.
 func (set targetsByWeight) Less(i, j int) bool { return set[i].weight < set[j].weight }
 
+// Swap implements sort.Interface.
 func (set targetsByWeight) Swap(i, j int) { set[i], set[j] = set[j], set[i] }
