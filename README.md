@@ -1,5 +1,5 @@
 > # 🔗 Click! [![Tweet][icon_twitter]][twitter_publish] <img align="right" width="126" src=".github/character.png">
-> [![Analytics][analytics_pixel]][page_promo]
+>
 > Link Manager as a Service &mdash; your personal link storage and URL shortener.
 
 [![Patreon][icon_patreon]](https://www.patreon.com/octolab)
