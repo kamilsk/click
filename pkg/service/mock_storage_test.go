@@ -6,9 +6,11 @@ package service_test
 
 import (
 	context "context"
-	gomock "github.com/golang/mock/gomock"
-	domain "github.com/kamilsk/click/pkg/domain"
 	reflect "reflect"
+
+	gomock "github.com/golang/mock/gomock"
+
+	domain "github.com/kamilsk/click/pkg/domain"
 )
 
 // MockStorage is a mock of Storage interface
@@ -36,6 +38,7 @@ func (m *MockStorage) EXPECT() *MockStorageMockRecorder {
 
 // Link mocks base method
 func (m *MockStorage) Link(arg0 context.Context, arg1 domain.ID) (domain.Link, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Link", arg0, arg1)
 	ret0, _ := ret[0].(domain.Link)
 	ret1, _ := ret[1].(error)
@@ -44,11 +47,13 @@ func (m *MockStorage) Link(arg0 context.Context, arg1 domain.ID) (domain.Link, e
 
 // Link indicates an expected call of Link
 func (mr *MockStorageMockRecorder) Link(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Link", reflect.TypeOf((*MockStorage)(nil).Link), arg0, arg1)
 }
 
 // LinkByAlias mocks base method
 func (m *MockStorage) LinkByAlias(arg0 context.Context, arg1 domain.ID, arg2 string) (domain.Link, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LinkByAlias", arg0, arg1, arg2)
 	ret0, _ := ret[0].(domain.Link)
 	ret1, _ := ret[1].(error)
@@ -57,5 +62,6 @@ func (m *MockStorage) LinkByAlias(arg0 context.Context, arg1 domain.ID, arg2 str
 
 // LinkByAlias indicates an expected call of LinkByAlias
 func (mr *MockStorageMockRecorder) LinkByAlias(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LinkByAlias", reflect.TypeOf((*MockStorage)(nil).LinkByAlias), arg0, arg1, arg2)
 }

@@ -3,9 +3,10 @@ package storage_test
 import (
 	"testing"
 
+	"github.com/stretchr/testify/assert"
+
 	"github.com/kamilsk/click/pkg/errors"
 	. "github.com/kamilsk/click/pkg/storage"
-	"github.com/stretchr/testify/assert"
 )
 
 func TestMust(t *testing.T) {

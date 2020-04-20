@@ -6,11 +6,13 @@ package grpc_test
 
 import (
 	context "context"
+	reflect "reflect"
+
 	gomock "github.com/golang/mock/gomock"
+
 	domain "github.com/kamilsk/click/pkg/domain"
 	query "github.com/kamilsk/click/pkg/storage/query"
 	types "github.com/kamilsk/click/pkg/storage/types"
-	reflect "reflect"
 )
 
 // MockProtectedStorage is a mock of ProtectedStorage interface
@@ -38,6 +40,7 @@ func (m *MockProtectedStorage) EXPECT() *MockProtectedStorageMockRecorder {
 
 // CreateAlias mocks base method
 func (m *MockProtectedStorage) CreateAlias(arg0 context.Context, arg1 domain.ID, arg2 query.CreateAlias) (types.Alias, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateAlias", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Alias)
 	ret1, _ := ret[1].(error)
@@ -46,11 +49,13 @@ func (m *MockProtectedStorage) CreateAlias(arg0 context.Context, arg1 domain.ID,
 
 // CreateAlias indicates an expected call of CreateAlias
 func (mr *MockProtectedStorageMockRecorder) CreateAlias(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateAlias", reflect.TypeOf((*MockProtectedStorage)(nil).CreateAlias), arg0, arg1, arg2)
 }
 
 // CreateLink mocks base method
 func (m *MockProtectedStorage) CreateLink(arg0 context.Context, arg1 domain.ID, arg2 query.CreateLink) (types.Link, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateLink", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Link)
 	ret1, _ := ret[1].(error)
@@ -59,11 +64,13 @@ func (m *MockProtectedStorage) CreateLink(arg0 context.Context, arg1 domain.ID, 
 
 // CreateLink indicates an expected call of CreateLink
 func (mr *MockProtectedStorageMockRecorder) CreateLink(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateLink", reflect.TypeOf((*MockProtectedStorage)(nil).CreateLink), arg0, arg1, arg2)
 }
 
 // CreateNamespace mocks base method
 func (m *MockProtectedStorage) CreateNamespace(arg0 context.Context, arg1 domain.ID, arg2 query.CreateNamespace) (types.Namespace, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateNamespace", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Namespace)
 	ret1, _ := ret[1].(error)
@@ -72,11 +79,13 @@ func (m *MockProtectedStorage) CreateNamespace(arg0 context.Context, arg1 domain
 
 // CreateNamespace indicates an expected call of CreateNamespace
 func (mr *MockProtectedStorageMockRecorder) CreateNamespace(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateNamespace", reflect.TypeOf((*MockProtectedStorage)(nil).CreateNamespace), arg0, arg1, arg2)
 }
 
 // CreateTarget mocks base method
 func (m *MockProtectedStorage) CreateTarget(arg0 context.Context, arg1 domain.ID, arg2 query.CreateTarget) (types.Target, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "CreateTarget", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Target)
 	ret1, _ := ret[1].(error)
@@ -85,11 +94,13 @@ func (m *MockProtectedStorage) CreateTarget(arg0 context.Context, arg1 domain.ID
 
 // CreateTarget indicates an expected call of CreateTarget
 func (mr *MockProtectedStorageMockRecorder) CreateTarget(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "CreateTarget", reflect.TypeOf((*MockProtectedStorage)(nil).CreateTarget), arg0, arg1, arg2)
 }
 
 // DeleteAlias mocks base method
 func (m *MockProtectedStorage) DeleteAlias(arg0 context.Context, arg1 domain.ID, arg2 query.DeleteAlias) (types.Alias, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteAlias", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Alias)
 	ret1, _ := ret[1].(error)
@@ -98,11 +109,13 @@ func (m *MockProtectedStorage) DeleteAlias(arg0 context.Context, arg1 domain.ID,
 
 // DeleteAlias indicates an expected call of DeleteAlias
 func (mr *MockProtectedStorageMockRecorder) DeleteAlias(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteAlias", reflect.TypeOf((*MockProtectedStorage)(nil).DeleteAlias), arg0, arg1, arg2)
 }
 
 // DeleteLink mocks base method
 func (m *MockProtectedStorage) DeleteLink(arg0 context.Context, arg1 domain.ID, arg2 query.DeleteLink) (types.Link, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteLink", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Link)
 	ret1, _ := ret[1].(error)
@@ -111,11 +124,13 @@ func (m *MockProtectedStorage) DeleteLink(arg0 context.Context, arg1 domain.ID, 
 
 // DeleteLink indicates an expected call of DeleteLink
 func (mr *MockProtectedStorageMockRecorder) DeleteLink(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteLink", reflect.TypeOf((*MockProtectedStorage)(nil).DeleteLink), arg0, arg1, arg2)
 }
 
 // DeleteNamespace mocks base method
 func (m *MockProtectedStorage) DeleteNamespace(arg0 context.Context, arg1 domain.ID, arg2 query.DeleteNamespace) (types.Namespace, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteNamespace", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Namespace)
 	ret1, _ := ret[1].(error)
@@ -124,11 +139,13 @@ func (m *MockProtectedStorage) DeleteNamespace(arg0 context.Context, arg1 domain
 
 // DeleteNamespace indicates an expected call of DeleteNamespace
 func (mr *MockProtectedStorageMockRecorder) DeleteNamespace(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteNamespace", reflect.TypeOf((*MockProtectedStorage)(nil).DeleteNamespace), arg0, arg1, arg2)
 }
 
 // DeleteTarget mocks base method
 func (m *MockProtectedStorage) DeleteTarget(arg0 context.Context, arg1 domain.ID, arg2 query.DeleteTarget) (types.Target, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "DeleteTarget", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Target)
 	ret1, _ := ret[1].(error)
@@ -137,11 +154,13 @@ func (m *MockProtectedStorage) DeleteTarget(arg0 context.Context, arg1 domain.ID
 
 // DeleteTarget indicates an expected call of DeleteTarget
 func (mr *MockProtectedStorageMockRecorder) DeleteTarget(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteTarget", reflect.TypeOf((*MockProtectedStorage)(nil).DeleteTarget), arg0, arg1, arg2)
 }
 
 // ReadAlias mocks base method
 func (m *MockProtectedStorage) ReadAlias(arg0 context.Context, arg1 domain.ID, arg2 query.ReadAlias) (types.Alias, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ReadAlias", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Alias)
 	ret1, _ := ret[1].(error)
@@ -150,11 +169,13 @@ func (m *MockProtectedStorage) ReadAlias(arg0 context.Context, arg1 domain.ID, a
 
 // ReadAlias indicates an expected call of ReadAlias
 func (mr *MockProtectedStorageMockRecorder) ReadAlias(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReadAlias", reflect.TypeOf((*MockProtectedStorage)(nil).ReadAlias), arg0, arg1, arg2)
 }
 
 // ReadLink mocks base method
 func (m *MockProtectedStorage) ReadLink(arg0 context.Context, arg1 domain.ID, arg2 query.ReadLink) (types.Link, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ReadLink", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Link)
 	ret1, _ := ret[1].(error)
@@ -163,11 +184,13 @@ func (m *MockProtectedStorage) ReadLink(arg0 context.Context, arg1 domain.ID, ar
 
 // ReadLink indicates an expected call of ReadLink
 func (mr *MockProtectedStorageMockRecorder) ReadLink(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReadLink", reflect.TypeOf((*MockProtectedStorage)(nil).ReadLink), arg0, arg1, arg2)
 }
 
 // ReadNamespace mocks base method
 func (m *MockProtectedStorage) ReadNamespace(arg0 context.Context, arg1 domain.ID, arg2 query.ReadNamespace) (types.Namespace, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ReadNamespace", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Namespace)
 	ret1, _ := ret[1].(error)
@@ -176,11 +199,13 @@ func (m *MockProtectedStorage) ReadNamespace(arg0 context.Context, arg1 domain.I
 
 // ReadNamespace indicates an expected call of ReadNamespace
 func (mr *MockProtectedStorageMockRecorder) ReadNamespace(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReadNamespace", reflect.TypeOf((*MockProtectedStorage)(nil).ReadNamespace), arg0, arg1, arg2)
 }
 
 // ReadTarget mocks base method
 func (m *MockProtectedStorage) ReadTarget(arg0 context.Context, arg1 domain.ID, arg2 query.ReadTarget) (types.Target, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ReadTarget", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Target)
 	ret1, _ := ret[1].(error)
@@ -189,11 +214,13 @@ func (m *MockProtectedStorage) ReadTarget(arg0 context.Context, arg1 domain.ID, 
 
 // ReadTarget indicates an expected call of ReadTarget
 func (mr *MockProtectedStorageMockRecorder) ReadTarget(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ReadTarget", reflect.TypeOf((*MockProtectedStorage)(nil).ReadTarget), arg0, arg1, arg2)
 }
 
 // UpdateAlias mocks base method
 func (m *MockProtectedStorage) UpdateAlias(arg0 context.Context, arg1 domain.ID, arg2 query.UpdateAlias) (types.Alias, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateAlias", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Alias)
 	ret1, _ := ret[1].(error)
@@ -202,11 +229,13 @@ func (m *MockProtectedStorage) UpdateAlias(arg0 context.Context, arg1 domain.ID,
 
 // UpdateAlias indicates an expected call of UpdateAlias
 func (mr *MockProtectedStorageMockRecorder) UpdateAlias(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateAlias", reflect.TypeOf((*MockProtectedStorage)(nil).UpdateAlias), arg0, arg1, arg2)
 }
 
 // UpdateLink mocks base method
 func (m *MockProtectedStorage) UpdateLink(arg0 context.Context, arg1 domain.ID, arg2 query.UpdateLink) (types.Link, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateLink", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Link)
 	ret1, _ := ret[1].(error)
@@ -215,11 +244,13 @@ func (m *MockProtectedStorage) UpdateLink(arg0 context.Context, arg1 domain.ID, 
 
 // UpdateLink indicates an expected call of UpdateLink
 func (mr *MockProtectedStorageMockRecorder) UpdateLink(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateLink", reflect.TypeOf((*MockProtectedStorage)(nil).UpdateLink), arg0, arg1, arg2)
 }
 
 // UpdateNamespace mocks base method
 func (m *MockProtectedStorage) UpdateNamespace(arg0 context.Context, arg1 domain.ID, arg2 query.UpdateNamespace) (types.Namespace, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateNamespace", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Namespace)
 	ret1, _ := ret[1].(error)
@@ -228,11 +259,13 @@ func (m *MockProtectedStorage) UpdateNamespace(arg0 context.Context, arg1 domain
 
 // UpdateNamespace indicates an expected call of UpdateNamespace
 func (mr *MockProtectedStorageMockRecorder) UpdateNamespace(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateNamespace", reflect.TypeOf((*MockProtectedStorage)(nil).UpdateNamespace), arg0, arg1, arg2)
 }
 
 // UpdateTarget mocks base method
 func (m *MockProtectedStorage) UpdateTarget(arg0 context.Context, arg1 domain.ID, arg2 query.UpdateTarget) (types.Target, error) {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "UpdateTarget", arg0, arg1, arg2)
 	ret0, _ := ret[0].(types.Target)
 	ret1, _ := ret[1].(error)
@@ -241,5 +274,6 @@ func (m *MockProtectedStorage) UpdateTarget(arg0 context.Context, arg1 domain.ID
 
 // UpdateTarget indicates an expected call of UpdateTarget
 func (mr *MockProtectedStorageMockRecorder) UpdateTarget(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateTarget", reflect.TypeOf((*MockProtectedStorage)(nil).UpdateTarget), arg0, arg1, arg2)
 }

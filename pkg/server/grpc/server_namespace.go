@@ -3,11 +3,12 @@ package grpc
 import (
 	"context"
 
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+
 	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/server/grpc/middleware"
 	"github.com/kamilsk/click/pkg/storage/query"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 // NewNamespaceServer returns new instance of server API for Namespace service.

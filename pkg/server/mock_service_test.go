@@ -6,10 +6,12 @@ package server_test
 
 import (
 	context "context"
+	reflect "reflect"
+
 	gomock "github.com/golang/mock/gomock"
+
 	transfer "github.com/kamilsk/click/pkg/transfer"
 	v1 "github.com/kamilsk/click/pkg/transfer/api/v1"
-	reflect "reflect"
 )
 
 // MockService is a mock of Service interface
@@ -37,6 +39,7 @@ func (m *MockService) EXPECT() *MockServiceMockRecorder {
 
 // HandleGetV1 mocks base method
 func (m *MockService) HandleGetV1(arg0 context.Context, arg1 v1.GetRequest) v1.GetResponse {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "HandleGetV1", arg0, arg1)
 	ret0, _ := ret[0].(v1.GetResponse)
 	return ret0
@@ -44,11 +47,13 @@ func (m *MockService) HandleGetV1(arg0 context.Context, arg1 v1.GetRequest) v1.G
 
 // HandleGetV1 indicates an expected call of HandleGetV1
 func (mr *MockServiceMockRecorder) HandleGetV1(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HandleGetV1", reflect.TypeOf((*MockService)(nil).HandleGetV1), arg0, arg1)
 }
 
 // HandlePass mocks base method
 func (m *MockService) HandlePass(arg0 context.Context, arg1 transfer.PassRequest) transfer.PassResponse {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "HandlePass", arg0, arg1)
 	ret0, _ := ret[0].(transfer.PassResponse)
 	return ret0
@@ -56,11 +61,13 @@ func (m *MockService) HandlePass(arg0 context.Context, arg1 transfer.PassRequest
 
 // HandlePass indicates an expected call of HandlePass
 func (mr *MockServiceMockRecorder) HandlePass(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HandlePass", reflect.TypeOf((*MockService)(nil).HandlePass), arg0, arg1)
 }
 
 // HandleRedirect mocks base method
 func (m *MockService) HandleRedirect(arg0 context.Context, arg1 transfer.RedirectRequest) transfer.RedirectResponse {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "HandleRedirect", arg0, arg1)
 	ret0, _ := ret[0].(transfer.RedirectResponse)
 	return ret0
@@ -68,5 +75,6 @@ func (m *MockService) HandleRedirect(arg0 context.Context, arg1 transfer.Redirec
 
 // HandleRedirect indicates an expected call of HandleRedirect
 func (mr *MockServiceMockRecorder) HandleRedirect(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "HandleRedirect", reflect.TypeOf((*MockService)(nil).HandleRedirect), arg0, arg1)
 }

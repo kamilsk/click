@@ -5,9 +5,10 @@
 package router_test
 
 import (
-	gomock "github.com/golang/mock/gomock"
 	http "net/http"
 	reflect "reflect"
+
+	gomock "github.com/golang/mock/gomock"
 )
 
 // MockServer is a mock of Server interface
@@ -35,30 +36,36 @@ func (m *MockServer) EXPECT() *MockServerMockRecorder {
 
 // GetV1 mocks base method
 func (m *MockServer) GetV1(arg0 http.ResponseWriter, arg1 *http.Request) {
+	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "GetV1", arg0, arg1)
 }
 
 // GetV1 indicates an expected call of GetV1
 func (mr *MockServerMockRecorder) GetV1(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetV1", reflect.TypeOf((*MockServer)(nil).GetV1), arg0, arg1)
 }
 
 // Pass mocks base method
 func (m *MockServer) Pass(arg0 http.ResponseWriter, arg1 *http.Request) {
+	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Pass", arg0, arg1)
 }
 
 // Pass indicates an expected call of Pass
 func (mr *MockServerMockRecorder) Pass(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Pass", reflect.TypeOf((*MockServer)(nil).Pass), arg0, arg1)
 }
 
 // Redirect mocks base method
 func (m *MockServer) Redirect(arg0 http.ResponseWriter, arg1 *http.Request) {
+	m.ctrl.T.Helper()
 	m.ctrl.Call(m, "Redirect", arg0, arg1)
 }
 
 // Redirect indicates an expected call of Redirect
 func (mr *MockServerMockRecorder) Redirect(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Redirect", reflect.TypeOf((*MockServer)(nil).Redirect), arg0, arg1)
 }

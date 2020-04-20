@@ -3,10 +3,11 @@ package storage
 import (
 	"context"
 
+	"golang.org/x/sync/errgroup"
+
 	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/storage/query"
 	"github.com/kamilsk/click/pkg/storage/types"
-	"golang.org/x/sync/errgroup"
 )
 
 /*

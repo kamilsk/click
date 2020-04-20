@@ -4,6 +4,7 @@ package domain
 
 import (
 	json "encoding/json"
+
 	easyjson "github.com/mailru/easyjson"
 	jlexer "github.com/mailru/easyjson/jlexer"
 	jwriter "github.com/mailru/easyjson/jwriter"
@@ -101,12 +102,8 @@ func easyjsonF1a92ff2EncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 	_ = first
 	if in.Description != "" {
 		const prefix string = ",\"description\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		first = false
+		out.RawString(prefix[1:])
 		out.String(string(in.Description))
 	}
 	if in.AliasID != "" {

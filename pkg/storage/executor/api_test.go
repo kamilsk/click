@@ -5,8 +5,9 @@ import (
 	"database/sql"
 	"testing"
 
-	. "github.com/kamilsk/click/pkg/storage/executor"
 	"github.com/stretchr/testify/assert"
+
+	. "github.com/kamilsk/click/pkg/storage/executor"
 )
 
 func TestNew(t *testing.T) {

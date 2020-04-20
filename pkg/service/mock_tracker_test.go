@@ -6,9 +6,11 @@ package service_test
 
 import (
 	context "context"
-	gomock "github.com/golang/mock/gomock"
-	domain "github.com/kamilsk/click/pkg/domain"
 	reflect "reflect"
+
+	gomock "github.com/golang/mock/gomock"
+
+	domain "github.com/kamilsk/click/pkg/domain"
 )
 
 // MockTracker is a mock of Tracker interface
@@ -36,6 +38,7 @@ func (m *MockTracker) EXPECT() *MockTrackerMockRecorder {
 
 // LogRedirect mocks base method
 func (m *MockTracker) LogRedirect(arg0 context.Context, arg1 domain.RedirectEvent) error {
+	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "LogRedirect", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -43,5 +46,6 @@ func (m *MockTracker) LogRedirect(arg0 context.Context, arg1 domain.RedirectEven
 
 // LogRedirect indicates an expected call of LogRedirect
 func (mr *MockTrackerMockRecorder) LogRedirect(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "LogRedirect", reflect.TypeOf((*MockTracker)(nil).LogRedirect), arg0, arg1)
 }

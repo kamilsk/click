@@ -4,6 +4,7 @@ package domain
 
 import (
 	json "encoding/json"
+
 	easyjson "github.com/mailru/easyjson"
 	jlexer "github.com/mailru/easyjson/jlexer"
 	jwriter "github.com/mailru/easyjson/jwriter"
@@ -100,82 +101,42 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain(out *jwriter.Writer, i
 	_ = first
 	{
 		const prefix string = ",\"namespace_id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		out.RawString(prefix[1:])
 		out.String(string(in.NamespaceID))
 	}
 	if in.LinkID != nil {
 		const prefix string = ",\"link_id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		out.RawString(prefix)
 		out.String(string(*in.LinkID))
 	}
 	if in.AliasID != nil {
 		const prefix string = ",\"alias_id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		out.RawString(prefix)
 		out.String(string(*in.AliasID))
 	}
 	if in.TargetID != nil {
 		const prefix string = ",\"target_id\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		out.RawString(prefix)
 		out.String(string(*in.TargetID))
 	}
 	if in.Identifier != nil {
 		const prefix string = ",\"identifier\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		out.RawString(prefix)
 		out.String(string(*in.Identifier))
 	}
 	{
 		const prefix string = ",\"context\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		out.RawString(prefix)
 		(in.Context).MarshalEasyJSON(out)
 	}
 	{
 		const prefix string = ",\"code\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		out.RawString(prefix)
 		out.Int(int(in.Code))
 	}
 	{
 		const prefix string = ",\"url\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		out.RawString(prefix)
 		out.String(string(in.URL))
 	}
 	out.RawByte('}')
@@ -341,12 +302,8 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain1(out *jwriter.Writer, 
 	_ = first
 	if len(in.Cookies) != 0 {
 		const prefix string = ",\"cookies\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		first = false
+		out.RawString(prefix[1:])
 		{
 			out.RawByte('{')
 			v6First := true
@@ -500,32 +457,17 @@ func easyjsonF642ad3eEncodeGithubComKamilskClickPkgDomain2(out *jwriter.Writer, 
 	_ = first
 	{
 		const prefix string = ",\"Anonymously\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		out.RawString(prefix[1:])
 		out.Bool(bool(in.Anonymously))
 	}
 	{
 		const prefix string = ",\"Debug\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		out.RawString(prefix)
 		out.Bool(bool(in.Debug))
 	}
 	{
 		const prefix string = ",\"NoLog\":"
-		if first {
-			first = false
-			out.RawString(prefix[1:])
-		} else {
-			out.RawString(prefix)
-		}
+		out.RawString(prefix)
 		out.Bool(bool(in.NoLog))
 	}
 	out.RawByte('}')

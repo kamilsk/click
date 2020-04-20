@@ -4,9 +4,10 @@ import (
 	"context"
 	"database/sql"
 
+	"golang.org/x/sync/errgroup"
+
 	"github.com/kamilsk/click/pkg/domain"
 	"github.com/kamilsk/click/pkg/storage/query"
-	"golang.org/x/sync/errgroup"
 )
 
 // Link returns the Link with its Aliases and Targets by provided ID.
