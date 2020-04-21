@@ -1,4 +1,4 @@
-module github.com/kamilsk/click
+module go.octolab.org/ecosystem/click
 
 go 1.12
 

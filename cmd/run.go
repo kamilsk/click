@@ -17,13 +17,13 @@ import (
 	"go.octolab.org/strings"
 	"google.golang.org/grpc"
 
-	"github.com/kamilsk/click/pkg/config"
-	"github.com/kamilsk/click/pkg/server"
-	pb "github.com/kamilsk/click/pkg/server/grpc"
-	"github.com/kamilsk/click/pkg/server/grpc/middleware"
-	"github.com/kamilsk/click/pkg/server/router/chi"
-	"github.com/kamilsk/click/pkg/service"
-	"github.com/kamilsk/click/pkg/storage"
+	"go.octolab.org/ecosystem/click/internal/config"
+	"go.octolab.org/ecosystem/click/internal/server"
+	pb "go.octolab.org/ecosystem/click/internal/server/grpc"
+	"go.octolab.org/ecosystem/click/internal/server/grpc/middleware"
+	"go.octolab.org/ecosystem/click/internal/server/router/chi"
+	"go.octolab.org/ecosystem/click/internal/service"
+	"go.octolab.org/ecosystem/click/internal/storage"
 )
 
 var runCmd = &cobra.Command{

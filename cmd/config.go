@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/viper"
 	"go.octolab.org/fn"
 
-	"github.com/kamilsk/click/pkg/config"
+	"go.octolab.org/ecosystem/click/internal/config"
 )
 
 var (

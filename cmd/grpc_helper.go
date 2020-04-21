@@ -17,9 +17,9 @@ import (
 	"google.golang.org/grpc/metadata"
 	"gopkg.in/yaml.v2"
 
-	"github.com/kamilsk/click/pkg/config"
-	pb "github.com/kamilsk/click/pkg/server/grpc"
-	"github.com/kamilsk/click/pkg/server/grpc/middleware"
+	"go.octolab.org/ecosystem/click/internal/config"
+	pb "go.octolab.org/ecosystem/click/internal/server/grpc"
+	"go.octolab.org/ecosystem/click/internal/server/grpc/middleware"
 )
 
 const (

@@ -13,8 +13,8 @@ import (
 	"github.com/spf13/viper"
 	"go.octolab.org/fn"
 
-	"github.com/kamilsk/click/pkg/static"
-	"github.com/kamilsk/click/pkg/storage"
+	"go.octolab.org/ecosystem/click/internal/static"
+	"go.octolab.org/ecosystem/click/internal/storage"
 )
 
 var migrateCmd = &cobra.Command{

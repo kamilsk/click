@@ -5,15 +5,16 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/kamilsk/click/pkg/config"
-	"github.com/kamilsk/click/pkg/server"
-	"github.com/kamilsk/click/pkg/server/grpc"
-	"github.com/kamilsk/click/pkg/server/router"
-	"github.com/kamilsk/click/pkg/service"
-	"github.com/kamilsk/click/pkg/storage"
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
+
+	"go.octolab.org/ecosystem/click/internal/config"
+	"go.octolab.org/ecosystem/click/internal/server"
+	"go.octolab.org/ecosystem/click/internal/server/grpc"
+	"go.octolab.org/ecosystem/click/internal/server/router"
+	"go.octolab.org/ecosystem/click/internal/service"
+	"go.octolab.org/ecosystem/click/internal/storage"
 )
 
 // invariant
