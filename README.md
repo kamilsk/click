@@ -1,13 +1,9 @@
-> # 🔗 Click! [![Tweet][icon_twitter]][twitter_publish] <img align="right" width="126" src=".github/character.png">
+> # 🔗 Click!
 >
 > Link Manager as a Service &mdash; your personal link storage and URL shortener.
 
-[![Patreon][icon_patreon]](https://www.patreon.com/octolab)
-[![Build Status][icon_build]][page_build]
-[![Code Coverage][icon_coverage]][page_quality]
-[![Code Quality][icon_quality]][page_quality]
-[![Research][icon_research]][page_research]
-[![License][icon_license]](LICENSE)
+[![Build][build.icon]][build.page]
+[![Template][template.icon]][template.page]
 
 ## Roadmap
 
@@ -220,47 +216,26 @@ $ egg bitbucket.org/kamilsk/click@^2.0.0 -- make test install
 
 > [egg](https://github.com/kamilsk/egg)<sup id="anchor-egg">[1](#egg)</sup> is an `extended go get`.
 
-## Update
-
-This application is in a state of [MVP](https://en.wikipedia.org/wiki/Minimum_viable_product) and under active
-development. [SemVer](https://semver.org/) is used for releases, and you can easily be updated within minor versions,
-but major versions can be not [BC](https://en.wikipedia.org/wiki/Backward_compatibility)-safe.
-
-<sup id="egg">1</sup> The project is still in prototyping. [↩](#anchor-egg)
+<sup id="egg">1</sup> The project is still in prototyping.[↩](#anchor-egg)
 
 ---
 
-[![Gitter][icon_gitter]](https://gitter.im/kamilsk/click)
-[![@kamilsk][icon_tw_author]](https://twitter.com/ikamilsk)
-[![@octolab][icon_tw_sponsor]](https://twitter.com/octolab_inc)
+made with ❤️ for everyone
 
-made with ❤️ by [OctoLab](https://www.octolab.org/)
+[build.page]:       https://travis-ci.com/octopot/click
+[build.icon]:       https://travis-ci.com/octopot/click.svg?branch=master
+[design.page]:      https://www.notion.so/octolab/Click-e376b1f4efb34a188dfe210bffc1b112?r=0b753cbf767346f5a6fd51194829a2f3
+[promo.page]:       https://kamilsk.github.io/click/
+[template.page]:    https://github.com/octomation/go-service
+[template.icon]:    https://img.shields.io/badge/template-go--service-blue
 
-[analytics_pixel]: https://ga-beacon.appspot.com/UA-109817251-20/click/readme?pixel
+[egg]:              https://github.com/kamilsk/egg
 
-[icon_build]:      https://travis-ci.org/kamilsk/click.svg?branch=master
-[icon_coverage]:   https://scrutinizer-ci.com/g/kamilsk/click/badges/coverage.png?b=master
-[icon_gitter]:     https://badges.gitter.im/Join%20Chat.svg
-[icon_license]:    https://img.shields.io/badge/license-MIT-blue.svg
-[icon_patreon]:    https://img.shields.io/badge/patreon-donate-orange.svg
-[icon_quality]:    https://scrutinizer-ci.com/g/kamilsk/click/badges/quality-score.png?b=master
-[icon_research]:   https://img.shields.io/badge/research-in%20progress-yellow.svg
-[icon_tw_author]:  https://img.shields.io/badge/author-%40kamilsk-blue.svg
-[icon_tw_sponsor]: https://img.shields.io/badge/sponsor-%40octolab-blue.svg
-[icon_twitter]:    https://img.shields.io/twitter/url/http/shields.io.svg?style=social
-
-[page_build]:      https://travis-ci.org/kamilsk/click
-[page_promo]:      https://kamilsk.github.io/click/
-[page_research]:   ../../tree/research
-[page_quality]:    https://scrutinizer-ci.com/g/kamilsk/click/?branch=master
-
-[project_v1]:      https://github.com/kamilsk/click/projects/1
-[project_v1_dl]:   https://github.com/kamilsk/click/milestone/1
-[project_v2]:      https://github.com/kamilsk/click/projects/2
-[project_v2_dl]:   https://github.com/kamilsk/click/milestone/2
-[project_v3]:      https://github.com/kamilsk/click/projects/3
-[project_v3_dl]:   https://github.com/kamilsk/click/milestone/3
-[project_v4]:      https://github.com/kamilsk/click/projects/4
-[project_v4_dl]:   https://github.com/kamilsk/click/milestone/4
-
-[twitter_publish]: https://twitter.com/intent/tweet?text=Link%20Manager%20as%20a%20Service&url=https://kamilsk.github.io/click/&via=ikamilsk&hashtags=go,service,link-manager,link-storage,link-shortener,url-shortener
+[project_v1]:       https://github.com/kamilsk/click/projects/1
+[project_v1_dl]:    https://github.com/kamilsk/click/milestone/1
+[project_v2]:       https://github.com/kamilsk/click/projects/2
+[project_v2_dl]:    https://github.com/kamilsk/click/milestone/2
+[project_v3]:       https://github.com/kamilsk/click/projects/3
+[project_v3_dl]:    https://github.com/kamilsk/click/milestone/3
+[project_v4]:       https://github.com/kamilsk/click/projects/4
+[project_v4_dl]:    https://github.com/kamilsk/click/milestone/4
