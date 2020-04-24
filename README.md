@@ -225,17 +225,17 @@ made with ❤️ for everyone
 [build.page]:       https://travis-ci.com/octopot/click
 [build.icon]:       https://travis-ci.com/octopot/click.svg?branch=master
 [design.page]:      https://www.notion.so/octolab/Click-e376b1f4efb34a188dfe210bffc1b112?r=0b753cbf767346f5a6fd51194829a2f3
-[promo.page]:       https://kamilsk.github.io/click/
+[promo.page]:       https://octopot.github.io/click/
 [template.page]:    https://github.com/octomation/go-service
 [template.icon]:    https://img.shields.io/badge/template-go--service-blue
 
 [egg]:              https://github.com/kamilsk/egg
 
-[project_v1]:       https://github.com/kamilsk/click/projects/1
-[project_v1_dl]:    https://github.com/kamilsk/click/milestone/1
-[project_v2]:       https://github.com/kamilsk/click/projects/2
-[project_v2_dl]:    https://github.com/kamilsk/click/milestone/2
-[project_v3]:       https://github.com/kamilsk/click/projects/3
-[project_v3_dl]:    https://github.com/kamilsk/click/milestone/3
-[project_v4]:       https://github.com/kamilsk/click/projects/4
-[project_v4_dl]:    https://github.com/kamilsk/click/milestone/4
+[project_v1]:       https://github.com/octopot/click/projects/1
+[project_v1_dl]:    https://github.com/octopot/click/milestone/1
+[project_v2]:       https://github.com/octopot/click/projects/2
+[project_v2_dl]:    https://github.com/octopot/click/milestone/2
+[project_v3]:       https://github.com/octopot/click/projects/3
+[project_v3_dl]:    https://github.com/octopot/click/milestone/3
+[project_v4]:       https://github.com/octopot/click/projects/4
+[project_v4_dl]:    https://github.com/octopot/click/milestone/4
